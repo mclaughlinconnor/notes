@@ -1,0 +1,33 @@
+\section{Session Six}\label{sec:session_six}
+
+\subsection{Work-based Task}\label{sub:work_based_task}
+
+Ask someone how they go about learning a new programming language or learning something new about a language they already know.
+
+\subsection{Scope}\label{sub:scope}
+
+Creating new variables inside of functions creates ones that are only available inside of that function named \emph{local variables}.
+``Each function has its own workspace.''
+Local variables are not persisted across calls.
+
+\subsubsection{Global Scope}\label{ssub:global_scope}
+
+These are variables outside of a function which are visible to all code.
+Some languages don't really have global variables (C\# and Java just have \mintinline{java}{static}) and in Python, globals are read only by default to protect from accidental writes in local scopes (use \mintinline{python}{global} to write to them).
+
+\subsubsection{Shadowing}\label{ssub:shadowing}
+
+Local variables can shadow a global making it inaccessible.
+In Python \mintinline{python}{global} must be used to edit globals in local scopes.
+
+\subsubsection{Evils of Globalisation}\label{ssub:evils_of_glovalisation}
+
+\emph{Globalisation} is generally considered bad practice because it makes functions rely on each other and variables can be changed accidentally leading to unintended behaviour.
+
+\subsection{Recursion}\label{sub:recursion}
+
+\emph{Recursion} is when a function calls itself.
+This is an alternative to \mintinline{python}{while} and \mintinline{python}{for} loops.
+Some problems can be solved by calling the same function on the data returned from last time.
+eg. Fibonacci sequences, fractals, binary trees, sorts.
+
