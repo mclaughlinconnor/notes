@@ -1,0 +1,28 @@
+\section{Session Seven}\label{sec:session_seven}
+
+\subsection{Data Structures}\label{sub:data_structures}
+
+Organising data into structures is important.
+Most languages have many built in data structures.
+\emph{Data structures} are sometimes called \emph{composite data types} instead.
+eg. Lists (arrays), dictionaries (hash maps), tuple (records).
+
+\subsubsection{Lists (Python)}\label{ssub:lists_python_}
+
+Python lists are dynamically sized meaning elements can be added or removed without changing the size unlike in C, for example, where an array has a fixed size.
+Python lists are dynamically typed meaning that one list can have many different types of data.
+The literal syntax (\mintinline{python}{a = [1, 2, 3, 4, 5, 6]}) can be used to declare and initialise a list in one line.
+
+The \mintinline{python}{len()} function can be used to find the number of items in a list. eg. \mintinline{python}{len([1, 2, 3, 4, 5, 6]) == 6}.
+
+To access an individual element in the list, use the \mintinline{python}{items[index]} syntax.
+Lists can also be iterated over using a \mintinline{python}{for} loop: \mintinline{python}{for element in items}.
+
+The index counts from \(0\) and maximises at \mintinline{python}{len(items) - 1}.
+Python supports negative indexing (\mintinline{python}{items[-1]}) to access elements by their count from the end of the list.
+
+All list-like objects can be sliced to access a subsequence of the original using \mintinline{python}{items[start:end:step]} which works on lists, strings, tuples, etc.
+All list-like objects can also be added together to create a new list-like object that combines the two operands.
+
+For lists, \mintinline{python}{items.append(element)} can also be used to add items, with \mintinline{python}{items.remove(element)} removing the first instance of \mintinline{python}{element}.
+
