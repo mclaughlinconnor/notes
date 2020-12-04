@@ -1,0 +1,47 @@
+\section{Session Eleven}\label{sec:session_eleven}
+
+\subsection{Work-based Learning Tasks}\label{sub:work_based_learning_tasks}
+
+\begin{itemize}
+    \item What standards are adhered to?
+    \item What is clean code and how important is it?
+\end{itemize}
+
+\subsection{Dictionaries / JSON}\label{sub:dictionaries_json}
+
+APIs (\emph{Application Programming Interfaces}) allow service to talk to each other and is usually done though a JSON protocol.
+\emph{Endpoints} are the different URLs and their parameters that can be connected to to get data and often require and API key to uniquely identify each user.
+
+\subsection{Arrays (not lists)}\label{sub:arrays_not_lists_}
+
+An array stores a fixed number of a fixed type of data which are all decided when the array is first initialised.
+Each item is called an element and is indexed from \(0\).
+By declaring an array (\mintinline{java}{String[] items;}), no memory is allocated, only the pointer is created to where the data will be later.
+Initialising an array (\mintinline{java}{int[] values = new int[10]}) does reserve the space and fills with default values (usually \(0\) or \mintinline{java}{null}). Both declaring and initialising can be performed in the same step: \mintinline{java}{int[4] items = [1, 2, 3, 4]}
+
+\subsection{Java ArrayLists}\label{sub:java_arraylists}
+
+An \mintinline{java}{ArrayList} is effectively a variable sized array that works very similarly to a Python \mintinline{python}{list}.
+They are slower than a plain array because of the resizing overhead which is mitigated slightly by allocating an internal array that is much larger than is needed, then resizing to another size that's much larger when space runs out.
+
+\mintinline{java}{ArrayList}s have a \emph{capacity} and a \emph{size}.
+Capacity is the size of the internal array, while size is the number of elements in the array.
+
+The syntax to create an \mintinline{java}{ArrayList} is slightly different to how a standard Java array is created: \mintinline{java}{ArrayList<String> items = new ArrayList<>(100)} creates an \mintinline{java}{ArrayList} with \(100\) elements to begin (the default is \(10\) items).
+
+\subsubsection{Handling ArrayLists}\label{ssub:handling_arraylists}
+
+\begin{itemize}
+    \item \mintinline{java}{items.size()} gets the number of items in the \mintinline{java}{ArrayList}
+    \item \mintinline{java}{items.isEmpty()} returns \mintinline{java}{true} if there are no items in the internal array and \mintinline{java}{false} if there are some.
+    \item \mintinline{java}{items.trimToSize()} removed all extra capacity. (size \(=\) capacity).
+    \item \mintinline{java}{items.ensureCapacity(100)} preallocates space for \(100\) elements.
+    \item \mintinline{java}{items.add(index, element)} inserts \mintinline{java}{element} to the \mintinline{java}{index}\textsuperscript{th} if there has already been something in the \mintinline{java}{index}\textsuperscript{th} position. Skipping \mintinline{java}{index} defaults to \(0\).
+    \item \mintinline{java}{items.set(index, element)} can be used to set elements in the same way \mintinline{java}{items.add(index, element)} adds elements. Also only works if that position has had data in it before.
+    \item \mintinline{java}{items.get(index)} returns the value at the index. \mintinline{java}{items[2]} does not work.
+    \item \mintinline{java}{items.remove(index|element)} either removes the element at \mintinline{java}{index} or removes the first instance of \mintinline{java}{element}.
+    \item \mintinline{java}{itemsArrayList.toArray()} turns an \mintinline{java}{ArrayList} into a regular array.
+    \item \mintinline{java}{itemsArray.asList()} changes a regular array into an \mintinline{java}{ArrayList}.
+    \item \mintinline{java}{items.toString()} exists on \mintinline{java}{ArrayList}s (it doesn't on regular arrays) meaning they can be printed to the screen nicely.
+    \item Search functions - \mintinline{java}{items.contains(element)}, \mintinline{java}{items.indexOf(element)} and \mintinline{java}{items.lastIndexOf(element)} - can be used to search through an \mintinline{java}{ArrayList} to find \mintinline{java}{element}.
+\end{itemize}
