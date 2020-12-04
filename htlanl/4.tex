@@ -1,0 +1,70 @@
+\section{Session Four}\label{sec:session_four}
+
+\subsection{Control}\label{sub:control}
+
+Control allows you to chose which path to follow based on conditions.
+A branch is somewhere the code can follow \(>1\) path.
+
+\subsubsection{The \mintinline{python}{if} statement}\label{ssub:the-if-statement}
+
+\begin{itemize}
+    \item The very simplest type of branching.
+        \begin{minted}{python}
+            if x:
+                branch_one()
+            if y:
+                branch_two()
+        \end{minted}
+\end{itemize}
+
+\subsubsection{The \mintinline{typescript}{else if} statement}\label{ssub:the-else-if-statement}
+
+\begin{itemize}
+    \item One of the two paths are always followed.
+        \begin{minted}{python}
+            if x:
+                branch_one()
+            else:
+                branch_two()
+        \end{minted}
+\end{itemize}
+
+\subsubsection{The \mintinline{python}{elif} statement}\label{ssub:the-elif-statement}
+
+\begin{itemize}
+    \item Can handle more than just two outcomes.
+    \item Could also be done with just lots of \mintinline{python}{if} statements, this is nasty and hard to read.
+\end{itemize}
+
+\begin{note}
+    Switch and case statements can also handle more than one branch too.
+\end{note}
+
+\subsection{Iteration}\label{sub:iteration}
+
+Repeating code is what makes computers powerful.
+The key thing about looping is you do the same thing on different data.
+
+\subsubsection{Definite Iteration}\label{ssub:definite-iteration}
+
+\begin{itemize}
+    \item Loop a certain number of times.
+    \item Usually done with a \mintinline{python}{for} keyword.
+\end{itemize}
+
+\subsubsection{Nested Loops}\label{ssub:nested-loops}
+
+\begin{itemize}
+    \item One loop inside of another.
+    \item Too many levels of looping is hard to read and slow.
+\end{itemize}
+
+\subsubsection{Indefinite Iteration}\label{ssub:indefinite-iteration}
+
+\begin{itemize}
+    \item Continues until some condition is met.
+    \item Usually done with the \mintinline{python}{while} keyword.
+    \item If the condition is \mintinline{java}{true}, the loop continues, otherwise it stops.
+    \item Generally worse than definite loops.
+    \item Use indefinite loops only when you don't know how many iterations there will be.
+\end{itemize}
