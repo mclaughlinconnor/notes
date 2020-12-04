@@ -1,0 +1,93 @@
+\section{Session Four}\label{sec:fpse_session_four}
+
+\textbf{GDPR breaches can be very expensive}
+
+\subsection{Personal Data}\label{sub:personal_data}
+
+\emph{Personal data} is data that relates to an identifiable or identified \textbf{person} (not a company) or allows a person to be identified - even if all unique identifiers are removed, since other details can identify a person and even if some of the data is incorrect.
+\emph{Identifiable information} covers:
+
+\begin{itemize}
+    \item Names
+    \item Addresses
+    \item Unique IDs
+    \item IP addresses
+    \item Cookies
+    \item Postcode
+\end{itemize}
+
+\subsubsection{Sensitive Personal Data}\label{ssub:sensitive_personal_data}
+
+\emph{Sensitive personal data} is sensitive because of discrimination.
+
+\begin{itemize}
+    \item Trade unions can fire striking employees
+    \item Health can be used to give worse services (health insurance)
+    \item Address/neighbourhood can give worse services too (car insurance)
+    \item People with bad genetics can have worse health, so cost more for insurers
+\end{itemize}
+
+\noindent
+Covers: Race, genetics, religion, politics, trade union membership, biometrics
+
+\subsubsection{Personal Data Value}\label{ssub:personal_data_value}
+
+Generally, things that are free need to harvest you data to sell to make money.
+This data is used to target advertisements at you specifically and often more specifically the elderly to take advantage of them.
+Also sometimes, people with certain political views may be targeted with the opposing political party.
+Developers sometimes use harvested data for production like test data.
+
+\subsubsection{Lawfulness}\label{ssub:lawfulness}
+
+\textbf{You must have valid grounds for collecting and using personal data} and you must not breach any other data protection laws.
+The data harvested must not be detrimental or misleading to individuals and the individuals must be informed and consent to the collection.
+
+In collecting data, there must be a clear purpose for collection from the very beginning and data must be sufficient, relevant and adequate for your purpose.
+
+\medskip
+\noindent
+In summary:
+
+\begin{itemize}
+    \item You must have a contract with the harvestees
+    \item You must use the data legally
+    \item You must only store and use the necessary data
+    \item You must only give access to those who need it
+    \item Individuals have the right to be informed, access, rectify, erase, restrict the processing of and restrict any automated decision making (including profiling) pertaining to their data
+    \item You must have data protection officers and adhere to data protection laws by design and by default
+\end{itemize}
+
+\subsubsection{Accuracy}\label{ssub:acuracy}
+
+\begin{itemize}
+    \item You must take reasonable steps to ensure the data collected is correct.
+    \item You must take reasonable steps to ensure data is kept up to date.
+    \item You must take reasonable steps to correct data if it becomes wrong.
+    \item You must carefully consider any challenges to the accuracy of your data.
+\end{itemize}
+
+\subsubsection{Storage Limitations}\label{ssub:storage_limitations}
+
+\begin{itemize}
+    \item \textbf{Store data only as long as is needed.}
+    \item Have a policy outlining the standard retention periods.
+    \item Periodically review, erase and anonymise data when not needed.
+    \item Carefully consider any challenges to the accuracy of your data.
+    \item Personal data can be stored for longer if it is stored for the public interest (scientific, statistical or archival purposes)
+\end{itemize}
+
+\subsubsection{Accountability Principle}\label{ssub:accountability_principle}
+
+\textbf{Be responsible for your data}
+
+\subsubsection{Engineering Concerns}\label{ssub:engineering_concerns}
+\begin{itemize}
+    \item Only use the needed data (for example, use \mintinline{sql}{SELECT name FROM ...} instead of \mintinline{sql}{SELECT * FROM ...}).
+    \item Where is data stored? (AWS, other hosting? Is this allowed?)
+    \item Can data be deleted in a timely manner?
+    \item Can a person be easily identified from their data?
+    \item Is live data being used for test systems?
+    \item Is there a roles/privileges system to restrict data access?
+    \item Is any of the data protected? (sexual orientation, religion, etc.)
+\end{itemize}
+
