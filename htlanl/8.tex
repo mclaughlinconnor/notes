@@ -1,0 +1,53 @@
+\section{Section Eight}\label{sec:section_eight}
+
+\subsection{Lists (Python) cont.}\label{sub:lists_python_cont_}
+
+\begin{note}
+    \begin{itemize}
+        \item[Note:] Never alter an array or list while iterating over it.
+    \end{itemize}
+\end{note}
+
+\paragraph{Lists as stacks}\label{par:lists_as_stacks}
+
+Use \mintinline{python}{items.pop()} to remove and return the last item from the list.
+
+\paragraph{Lists as queue}\label{par:lists_as_queue}
+
+Use \mintinline{python}{items.pop(0)} to remove and return the first item in the list.
+
+\paragraph{Membership testing}\label{par:membership_testing}
+
+This is checking whether a data structure contains a value.
+Use the Python \mintinline{python}{in} operator.
+eg. \mintinline{python}{element in items}
+
+\paragraph{Finding elements}\label{par:finding_elements}
+
+Use \mintinline{python}{items.index(element)} to find the index of the \textbf{first} occurrence of \mintinline{python}{element}.
+
+\paragraph{Counting elements}\label{par:counting_elements}
+
+Use \mintinline{python}{items.count(element)} to return the number of occurrences of \mintinline{python}{element} there are in \mintinline{python}{items}.
+
+\paragraph{Sorting elements}\label{par:sorting_elements}
+
+Many different types can be sorted (\mintinline{python}{str}, \mintinline{python}{int}, etc) using the object's \mintinline{python}{__gt__()} and \mintinline{python}{__lt__()} methods.
+Use \mintinline{python}{items.sort()} to sort the list in place and \mintinline{python}{sorted} to return a new sorted list.
+
+\begin{note}
+    \begin{itemize}
+        \item[Note:] Lists of lists are sorted by the first element in each nested list.
+    \end{itemize}
+\end{note}
+
+\paragraph{Reversing elements}\label{par:reversing_elements}
+
+The items in a list can be reversed in several different ways:
+
+\begin{itemize}
+    \item Without sorting, returning a new list: \mintinline{python}{items[::1]}
+    \item In place, with sorting: \mintinline{python}{items.sort(reverse=True)}
+    \item With sorting, returning a new list: \mintinline{python}{sorted(items, reverse=True)}
+\end{itemize}
+
