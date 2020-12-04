@@ -1,0 +1,58 @@
+\section{Session Five}\label{sec:session_five}
+
+\subsection{Subprograms}\label{sub:subprograms}
+
+A \emph{subprogram} is a sequence of statements that can be called more than once (they are named blocks of code).
+Subprograms often return a value which allows the subprogram to give feedback.
+Sometimes these are called \emph{subroutines}, \emph{procedures}, \emph{functions} or \emph{methods}.
+Subprograms temporarily reroute the flow of execution with isolated local variables and control the flow of data with arguments and returns.
+
+\subsubsection{Return}\label{ssub:return}
+
+Gives control back to the calling code from any point inside a function (even half way through).
+If return is skipped, execution will end at the end of the code block.
+
+\subsubsection{Call Stack}\label{ssub:call_stack}
+
+Most languages have a stack of calls so that it always knows where code should return to.
+When a function is called, it puts the point to return to onto the stack.
+When a function returns again, it pops off the function and returns back to the point.
+
+\subsubsection{Parametrisation}\label{ssub:parameterisation}
+
+Functions are only really useful if they can be called with different data.
+This is why we parametrise the functions to send data from the calling code.
+\emph{Parameters} are the received data.
+\emph{Arguments} are passed in.
+Parameters are always required, but may be given a default value so they aren't need to be passed in every time.
+
+\subsubsection{Why do we use functions?}\label{ssub:why_do_we_use_functions_}
+
+\paragraph{Decomposition}\label{par:decomposition}
+
+Makes code more readable and manageable.
+
+\paragraph{Isolation}\label{par:isolation}
+
+Isolate variables used in one chunk from those in another.
+
+\paragraph{Abstraction}\label{par:abstraction}
+
+Create a general function that can be used in many places for different problems.
+
+\paragraph{Laziness}\label{par:laziness}
+
+They can eliminate boring, repetitive tasks.
+This is sometimes called \emph{generalisation} and is often done through abstraction. % link here
+
+\paragraph{Remove repetition}\label{par:remove_repetition}
+
+Repetition makes it very easy to make copy-paste mistakes and makes code harder to read.
+
+\paragraph{Code sharing}\label{par:code_sharing}
+
+Code in functions is far easier to share with other people if it is in chunks already.
+
+\paragraph{Control the Effects}\label{par:control_the_effects}
+
+Code in functions only affects local variables so there is a smaller risk of it breaking something outside.
