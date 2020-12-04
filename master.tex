@@ -1,0 +1,23 @@
+\documentclass{article}
+
+\usepackage{minted}
+\usepackage{tcolorbox}
+
+\newenvironment{note} {
+    \begin{tcolorbox}[
+        enlarge right by=-10pt,
+        width=\linewidth+20pt,
+        enlarge left by=-10pt,
+        colframe=black,
+        colback=white,
+        arc=0pt,
+        boxrule=0.45pt
+    ]
+} {
+    \end{tcolorbox}
+}
+
+\begin{document}
+    \include{htlanl/htlanl}
+    \include{fpse/fpse}
+\end{document}
