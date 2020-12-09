@@ -3,9 +3,9 @@
 \subsection{Code Base Navigation}\label{sub:code_base_navigation}
 
 \begin{itemize}
-    \item Helps us to understand the code base
-    \item Helps to find/reproduce issues and find a solution
-    \item Helps to avoid code reuse
+	\item Helps us to understand the code base
+	\item Helps to find/reproduce issues and find a solution
+	\item Helps to avoid code reuse
 \end{itemize}
 
 \subsection{Changes}\label{sub:changes}
@@ -13,29 +13,29 @@
 \subsubsection{What starts a code change?}\label{ssub:what_starts_a_code_change_}
 
 \begin{itemize}
-    \item A bug
-    \item ``Change control''/``User story'': someone higher up wants a feature.
-    \item JIRA, Gitlab, work item tracking
+	\item A bug
+	\item ``Change control''/``User story'': someone higher up wants a feature.
+	\item JIRA, Gitlab, work item tracking
 \end{itemize}
 
 \subsubsection{Process}\label{ssub:process}
 
 \begin{enumerate}
-    \item Change issue raise
-    \item Change is prioritised
-    \item Change is assigned (either by a manager or by yourself)
-    \item Change is made:
-        \begin{enumerate}
-            \item Developed locally and tested locally
-            \item Committed and pushed to a branch
-            \item Deployed to a test environment and tested
-            \item Deployed to live/production:
-                \begin{enumerate}
-                    \item Hand over to support team (write FAQs, etc.) to avoid overwhelming the development team
-                    \item Handle any post release problems
-                    \item Roll back if needed
-                \end{enumerate}
-        \end{enumerate}
+	\item Change issue raise
+	\item Change is prioritised
+	\item Change is assigned (either by a manager or by yourself)
+	\item Change is made:
+	      \begin{enumerate}
+		      \item Developed locally and tested locally
+		      \item Committed and pushed to a branch
+		      \item Deployed to a test environment and tested
+		      \item Deployed to live/production:
+		            \begin{enumerate}
+			            \item Hand over to support team (write FAQs, etc.) to avoid overwhelming the development team
+			            \item Handle any post release problems
+			            \item Roll back if needed
+		            \end{enumerate}
+	      \end{enumerate}
 \end{enumerate}
 
 \subsection{Deployment}\label{sub:deployment}
@@ -52,21 +52,21 @@ Commits should be self-container (\emph{atomic}) to allow easy rollbacks (commit
 \subsubsection{What makes a good commit?}\label{ssub:what_makes_a_good_commit_}
 
 \begin{itemize}
-    \item Links back to original work item on GitLab or Jira
-    \item Is a singular standalone change
-    \item Is simple, small and easy to review (but not too small)
-    \item Can span several files
-    \item Has limited impact on other parts of the code base
-    \item Should consider other people still using old versions (REST services can return different data depending on version)
+	\item Links back to original work item on GitLab or Jira
+	\item Is a singular standalone change
+	\item Is simple, small and easy to review (but not too small)
+	\item Can span several files
+	\item Has limited impact on other parts of the code base
+	\item Should consider other people still using old versions (REST services can return different data depending on version)
 \end{itemize}
 
 \subsection{Branching}\label{sub:branching}
 
 \begin{itemize}
-    \item Master, Trunk, Mainline, Default
-    \item Release branches (v1, v2, v3)
-    \item Feature branches (blogs, emails, forums)
-    \item Personal branches (Connor, Kyle, Callum)
+	\item Master, Trunk, Mainline, Default
+	\item Release branches (v1, v2, v3)
+	\item Feature branches (blogs, emails, forums)
+	\item Personal branches (Connor, Kyle, Callum)
 \end{itemize}
 
 Branches should always aim to merge back into the main branch.

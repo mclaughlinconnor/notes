@@ -19,7 +19,7 @@ In Python, core types (like \mintinline{python}{int}s and \mintinline{python}{st
 \subsubsection{Copying Lists}\label{ssub:copying_lists}
 
 \begin{center}
-    \begin{minted}{python}
+	\begin{minted}{python}
         items = [1, 2, 3]
         b = a[:]
         b.append(4)
@@ -33,7 +33,7 @@ In Python, core types (like \mintinline{python}{int}s and \mintinline{python}{st
 Assigning means both variables are equal:
 
 \begin{center}
-    \begin{minted}{python}
+	\begin{minted}{python}
         a = [1]
         b = [1]
         a == b -> True
@@ -44,7 +44,7 @@ Assigning means both variables are equal:
 Copying creates an identical list:
 
 \begin{center}
-    \begin{minted}{python}
+	\begin{minted}{python}
         a = [1]
         b = a[:]
         a == b -> True
@@ -55,7 +55,7 @@ Copying creates an identical list:
 Assigning just assigns a reference to the new variable, instead of making a new list:
 
 \begin{center}
-    \begin{minted}{python}
+	\begin{minted}{python}
         a = [1]
         b = a
         a is b -> True
@@ -66,7 +66,7 @@ Assigning just assigns a reference to the new variable, instead of making a new 
 Copying a list creates a brand new list so they don't have the same \mintinline{python}{id()}:
 
 \begin{center}
-    \begin{minted}{python}
+	\begin{minted}{python}
         a = [1]
         b = a[:]
         a is b -> False
@@ -77,7 +77,7 @@ Copying a list creates a brand new list so they don't have the same \mintinline{
 Since assigning just assigns the reference, the original can be altered by changing the second one:
 
 \begin{center}
-    \begin{minted}{python}
+	\begin{minted}{python}
         a = [1]
         b = a
         b.append(2)
@@ -114,9 +114,9 @@ A bad use for dictionaries is to reduce the number of parameters on a function.
 In this case it is better to simplify the function.
 
 \begin{note}
-    \begin{itemize}
-        \item[Note:] Dictionaries cannot be searched and cannot have duplicate identifiers.
-    \end{itemize}
+	\begin{itemize}
+		\item[Note:] Dictionaries cannot be searched and cannot have duplicate identifiers.
+	\end{itemize}
 \end{note}
 
 \subsubsection{Hashing}\label{ssub:hashing}
@@ -128,7 +128,7 @@ If you were to try and assign to the same key twice, the first gets overwritten 
 \subsubsection{Deletion}\label{ssub:deletion}
 
 \begin{itemize}
-    \item Use \mintinline{python}{del items["one"]} to delete the item with key ``one''.
-    \item \mintinline{python}{item.pop()} will remove and return a random value from the dictionary.
-    \item \mintinline{python}{item.popitem()} removes a random item and return a key, value pair.
+	\item Use \mintinline{python}{del items["one"]} to delete the item with key ``one''.
+	\item \mintinline{python}{item.pop()} will remove and return a random value from the dictionary.
+	\item \mintinline{python}{item.popitem()} removes a random item and return a key, value pair.
 \end{itemize}

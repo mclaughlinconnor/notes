@@ -9,9 +9,9 @@ All expressions (\mintinline{python}{1+1}) are valid statements.
 Assignment statements are a special type of statement:
 
 \begin{itemize}
-    \item They bind a value to a name.
-    \item They bind the right hand side value to the left hand side value.
-    \item Usually \mintinline{python}{=} symbol is used, but some languages use \mintinline{pascal}{:=} (Pascal) and \mintinline{r}{<-} (R).
+	\item They bind a value to a name.
+	\item They bind the right hand side value to the left hand side value.
+	\item Usually \mintinline{python}{=} symbol is used, but some languages use \mintinline{pascal}{:=} (Pascal) and \mintinline{r}{<-} (R).
 \end{itemize}
 
 \subsubsection{Expressions}\label{ssub:expressions}
@@ -19,8 +19,8 @@ Assignment statements are a special type of statement:
 Expressions don't necessarily have to have any effect.
 
 \begin{itemize}
-    \item \mintinline{python}{x + 5}
-    \item \mintinline{python}{fn(32 * age) > 0}
+	\item \mintinline{python}{x + 5}
+	\item \mintinline{python}{fn(32 * age) > 0}
 \end{itemize}
 
 \subsubsection{Operators}\label{ssub:operators}
@@ -31,35 +31,35 @@ They are used in format: operand, operator, operand and they can often do differ
 \subsubsection{Mathematical operators}\label{ssub:mathematical-operators}
 
 \begin{itemize}
-    \item \mintinline{python}{+}, \mintinline{python}{-}, \mintinline{python}{*}, \mintinline{python}{/}
-    \item \mintinline{python}{**} and \mintinline{haskell}{exp} are for powers
-    \item \mintinline{c}{%}, \mintinline{haskell}{rem} and \mintinline{haskell}{mod} are for modulus (remainder)
+	\item \mintinline{python}{+}, \mintinline{python}{-}, \mintinline{python}{*}, \mintinline{python}{/}
+	\item \mintinline{python}{**} and \mintinline{haskell}{exp} are for powers
+	\item \mintinline{c}{%}, \mintinline{haskell}{rem} and \mintinline{haskell}{mod} are for modulus (remainder)
 \end{itemize}
 
 \subsubsection{Boolean Operators:}\label{ssub:boolean-operators}
 
 \begin{itemize}
-    \item \mintinline{python}{not} flips the expression
-    \item \mintinline{python}{or} evaluates \mintinline{java}{true} if either operand is \mintinline{java}{true}.
-    \item \mintinline{python}{and} evaluates \mintinline{java}{true} if both operands are \mintinline{java}{true}.
+	\item \mintinline{python}{not} flips the expression
+	\item \mintinline{python}{or} evaluates \mintinline{java}{true} if either operand is \mintinline{java}{true}.
+	\item \mintinline{python}{and} evaluates \mintinline{java}{true} if both operands are \mintinline{java}{true}.
 \end{itemize}
 
 \subsubsection{Operator Overloading}\label{ssub:operator-overloading}
 
 \begin{itemize}
-    \item One operator can have different meanings depending on context:
-        \begin{itemize}
-            \item \mintinline{python}{"5" + "6" = "56"}
-            \item \mintinline{python}{5 + 6 = 11}
-        \end{itemize}
-    \item Most languages don't allow the creation of custom overloaded operators (C is a notable exception)
+	\item One operator can have different meanings depending on context:
+	      \begin{itemize}
+		      \item \mintinline{python}{"5" + "6" = "56"}
+		      \item \mintinline{python}{5 + 6 = 11}
+	      \end{itemize}
+	\item Most languages don't allow the creation of custom overloaded operators (C is a notable exception)
 \end{itemize}
 
 \subsubsection{Precedence}\label{ssub:precedence}
 
 \begin{itemize}
-    \item Largely follows BODMAS
-        \begin{minted}{python}
+	\item Largely follows BODMAS
+	      \begin{minted}{python}
             x = 2 + 3 * 4
             x = 2 + 12
             x = 14
@@ -74,42 +74,42 @@ Some type checkers happen at runtime, others at compile time depending on langua
 \subsubsection{Static Typing}\label{ssub:static-typing}
 
 \begin{itemize}
-    \item A variable only ever has one type (a \mintinline{c}{long} will always be a \mintinline{c}{long}).
-    \item Types can be set or inferred by the compiler.
-    \item All operands and types are checked at compile time
+	\item A variable only ever has one type (a \mintinline{c}{long} will always be a \mintinline{c}{long}).
+	\item Types can be set or inferred by the compiler.
+	\item All operands and types are checked at compile time
 \end{itemize}
 
 \subsubsection{Dynamic Typing}\label{ssub:dynamic-typing}
 
 \begin{itemize}
-    \item Variables have no type, so values (which do have types) can be assigned to any variables.
-    \item Operands and types are checked at runtime.
+	\item Variables have no type, so values (which do have types) can be assigned to any variables.
+	\item Operands and types are checked at runtime.
 \end{itemize}
 
 \subsubsection{Duck Typing}\label{ssub:duck-typing}
 
 \begin{itemize}
-    \item ``If a value looks like a certain type, acts like a certain type and talks like a certain type, then it is that type.''
-    \item The language tries to do exactly what the programmer asks with the data given.
+	\item ``If a value looks like a certain type, acts like a certain type and talks like a certain type, then it is that type.''
+	\item The language tries to do exactly what the programmer asks with the data given.
 \end{itemize}
 
 \subsubsection{Errors}\label{sub:errors}
 
 \begin{itemize}
-    \item You can only ever compare two comparable types. For example, in Python: \mintinline{python}{1 < True == False}.
+	\item You can only ever compare two comparable types. For example, in Python: \mintinline{python}{1 < True == False}.
 \end{itemize}
 
 \subsubsection{Type Conversions}\label{ssub:type-conversions}
 
 \begin{itemize}
-    \item Implicit:
-        \begin{itemize}
-            \item Happens automagically depending on context.
-            \item For example: \mintinline{c}{int num = 123456789; long big = num}
-        \end{itemize}
-    \item Explicit (\emph{casting}):
-        \begin{itemize}
-            \item The programmer manually changes the types.
-            \item For example: \mintinline{python}{int(n)}, \mintinline{typescript}{n as int}, \mintinline{c}{(int)n}
-        \end{itemize}
+	\item Implicit:
+	      \begin{itemize}
+		      \item Happens automagically depending on context.
+		      \item For example: \mintinline{c}{int num = 123456789; long big = num}
+	      \end{itemize}
+	\item Explicit (\emph{casting}):
+	      \begin{itemize}
+		      \item The programmer manually changes the types.
+		      \item For example: \mintinline{python}{int(n)}, \mintinline{typescript}{n as int}, \mintinline{c}{(int)n}
+	      \end{itemize}
 \end{itemize}
