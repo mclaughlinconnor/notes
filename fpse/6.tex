@@ -1,0 +1,144 @@
+\section{Session Six}\label{sec:fpse_session_six}
+
+\subsection{Coupling and Cohesion}\label{sub:coupling_and_cohesion}
+
+\paragraph{Coupling}\label{par:coupling}
+
+How interdependent applications, modules or services are on each other.
+
+\paragraph{Cohesion}\label{par:cohesion}
+
+How well units belong together and perform similar business functions.
+
+\subsubsection{Why avoid coupling and cohesion?}\label{ssub:why_avoid_coupling_and_cohesion_}
+
+\begin{itemize}
+
+    \item A database structure change means I have to update my application.
+    \item Server configurations could change.
+    \item Requires high degree of coordination between teams which can cause delays.
+    \item Additional testing needed because of interdependencies.
+    \item Additional impact risk.
+\end{itemize}
+
+\subsubsection{Why want coupling and cohesion?}\label{ssub:why_want_coupling_and_cohesion_}
+
+\begin{itemize}
+    \item The same procedures can be used to get the same data.
+    \item Avoids having multiple REST services to let different applications get different data.
+    \item To get data from one service, it needs to get data from another first
+        \begin{itemize}
+            \item More network traffic
+            \item More coordination again
+            \item Teams may be too busy to make the changes you need
+        \end{itemize}
+\end{itemize}
+
+\subsubsection{Types of Coupling}\label{ssub:types_of_coupling}
+
+\begin{itemize}
+    \item \textbf{Data Coupling:} Modules depend on data passed between them.
+    \item \textbf{Common Coupling:} Two modules have access to the same data so bad side effects can happen if one changes it without the other knowing.
+    \item \textbf{External Coupling:} Modules depend on external software (protocols, external files, hardware devices, etc.).
+    \item \textbf{Stamp Coupling:} Modules use the same data structures.
+    \item \textbf{Control Coupling:} One modules controls the flow of another by passing data or instructions to it.
+    \item \textbf{Subclass Coupling:} A child class is connected to its parent, but the child is not attached to the child.
+    \item \textbf{Temporal Coupling:} When two actions are bundled together simply because they happen at the same time.
+\end{itemize}
+
+\begin{note}
+    \begin{itemize}
+        \item[Note:] Seems like absolutely nobody gets this.
+    \end{itemize}
+\end{note}
+
+\subsubsection{Examples of Cohesion}\label{ssub:examples_of_cohesion}
+
+\paragraph{Monolith}\label{par:monolith}
+
+One application or system doing lots of things with low coupling.
+The application could have support for exam papers and research papers.
+To add a new committee paper to the system could cause potentially breaking changes.
+
+\paragraph{Separate Systems}\label{par:separate_systems}
+
+Separate systems with low coupling.
+You would need different applications for exam papers, research papers and an overall document management system.
+Adding a new committee paper here would be simple and just involve the document management system.
+
+\begin{note}
+    \begin{itemize}
+        \item[Note:] Separate applications with high coupling can become a monolithic application.
+    \end{itemize}
+\end{note}
+
+\subsubsection{Benefits of Monolithic and Separate Applications}\label{ssub:benefits_of_monolithic_and_separate_applications}
+
+\paragraph{Monolithic (low cohesion)}\label{par:monolithic_low_cohesion_}
+
+\begin{itemize}
+    \item Easier to develop on (one big program)
+    \item Not networking or other communication needed
+    \item Far fewer different technologies can be used
+    \item Support is easier to monitor (data is in the same format already and a monolith application can show logging making it easier for users)
+    \item Easier to create aggregate reports on all students, trades, sales, etc.
+\end{itemize}
+
+\paragraph{Separate Applications (high cohesion)}\label{par:separate_applications_high_cohesion_}
+
+\begin{itemize}
+    \item Independent development
+        \begin{itemize}
+            \item This is good since you will have specialists on each program and there will be no inter-team communication.
+            \item This is bad since certain features will need several teams causing delays.
+        \end{itemize}
+    \item All applications can be scaled individually (scale some more than others)
+    \item Applications can be reused easily (a PDF generator will be used lots of places)
+\end{itemize}
+
+\subsubsection{Solutions to Coupling and Cohesion}\label{ssub:solutions_to_coupling_and_cohesion}
+
+\begin{itemize}
+    \item \textbf{REST Web Services:} Web requests used to communicate between apps.
+    \item \textbf{Messaging:} A queue for tasks, works to limit volume (REST services have to do work \emph{now}).
+    \item \textbf{Microservices:} Independent programs to be deployed/scaled separately (communication is still needed here).
+    \item \textbf{Feature Switches:} Do work ahead of time for features to be turned on when other teams need it. 
+\end{itemize}
+
+\paragraph{REST Services}\label{par:rest_services}
+
+\begin{itemize}
+    \item Refined in and out parameters
+    \item Automated testing
+    \item Version numbers for different features
+    \item Easy to see who's calling what functions when
+    \item Restrict access to certain users
+\end{itemize}
+
+\paragraph{Messaging}\label{par:messaging}
+
+\begin{itemize}
+    \item Needs a messaging bus set-up
+    \item Will need a different separate configuration
+    \item Needs to handle sending and receiving data
+    \item Needs to parse data (JSON, XML, YAML)
+\end{itemize}
+
+\paragraph{Microservices}\label{par:microservices}
+
+\begin{itemize}
+    \item High cohesion and low coupling
+    \item ``Micro'' doesn't have to mean small
+    \item Simpler to understand
+    \item Harder to develop on since they are lower level and need to implement communication
+\end{itemize}
+
+\paragraph{Feature Switches}\label{par:feature_switches}
+
+\begin{itemize}
+    \item Just change a configuration option to enable
+    \item Just switch on once other systems need the feature
+    \item Lets you enable several features across systems all at once
+    \item Still has risks of regular deployment, but is safer
+    \item Can introduce technical debt because of extra unneeded configurations (unless removed later)
+\end{itemize}
