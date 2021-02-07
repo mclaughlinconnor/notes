@@ -1,0 +1,125 @@
+\section{Session 11}\label{sec:session_11}
+
+\subsection{Security}\label{sub:security}
+
+\subsubsection{Phishing}\label{ssub:phishing}
+
+The more people know about you, the higher the target.
+If people know what your company and role are, competitors could target you.
+
+\noindent
+To protect yourself:
+\begin{itemize}
+	\item Always verify an email's sender.
+	\item Check for typos etc.
+	\item Follow any security training.
+	\item Don't give out any personal details.
+	\item Be very careful with downloading and executing things.
+	      You should have a separate root or administrator user.
+\end{itemize}
+
+\subsubsection{Firewalls}\label{ssub:firewalls}
+
+A firewall either restricts access to an internal network from an external one or restricts access to certain external sites from internally.
+A second feature is usually to restrict malicious code being executed through emails.
+Proxies allow access to specific internal devices without physical access.
+
+\subsubsection{Passwords}\label{ssub:passwords}
+
+Use a separate key or password for each environment or host.
+A host specific control vault can also be used to get passwords.
+
+You can used a token based password (like the Kerberos system) to be more secure.
+Systems like these should be configured on each host and version controlled.
+
+Every different server and application must have a different password which all must be unique.
+Passwords should only allow access to specific systems.
+
+\paragraph{Vaults}\label{par:vaults}
+
+On a vault, each host has an environment username and password and firewalls should restrict the access to the vault.
+
+\paragraph{Tokens}\label{par:tokens}
+
+Tokens are a network authentication system where no passwords have to be exchanged because a token is used instead meaning there is not possibility of accidentally unencrypting a password and making for an easier deployment.
+
+\subsubsection{Single Sign On}\label{ssub:single_sign_on}
+
+One single password is used for all systems with LDAP (Lightweight Directory Access Protocol).
+
+\subsubsection{HTTP}\label{ssub:http}
+
+Stands for Hyper Text Transfer Protocol and sends messages between computers in plain text.
+Being in plain text means that messages can be caught mid-air and altered.
+
+Symmetric encryption is where there is a single code to encode and decode a message meaning if someone has the key, they can alter a message.
+
+Asymmetric encryption means that the receiving party must send a special encoding only code to the sending party.
+The sending party will then encode the message and send it back to the receiving party who will decode it with their decoding code.
+
+A certification authority is an external trusted organisation that can hold the encoding keys instead of both parties having to exchange them.
+
+HTTPS is the same as HTTP, except messages are asymmetrically encrypted after the initial code exchange.
+
+\subsubsection{Roles}\label{ssub:roles}
+
+Organisational roles should be used to ensure only certain people have access to data; these should be updated regularly to keep up to date with staff changes.
+
+\subsubsection{SFTP}\label{ssub:sftp}
+
+SMTP is used to transfer large files.
+The data is asymmetrically encrypted.
+Always avoid caching decrypted data.
+
+\subsubsection{Application Libraries}\label{ssub:application_libraries}
+
+Hackers may try to change libraries to introduce vulnerabilities, however software engineers may also change libraries to fix security vulnerabilities.
+Libraries are very useful to save time, but can mean that changing from one library to another is difficult.
+
+\subsection{Computer Misuse}\label{sub:computer_misuse}
+
+Using a computer account without authorisation is ``unauthorised access''.
+Altering a file on a computer without permission is ``unauthorised modification of a computer's content''.
+
+\paragraph{Unauthorised access}\label{par:unauthorised_access}
+
+This is either physical or through a network an covers any purpose at all (curiosity, modifying programs or distrubing normal operations).
+
+\subsubsection{Computer Misuse Act 1991}\label{ssub:computer_misuse_act_1991}
+
+Covers unauthorised access to any program or data held on any computer.
+Also covers unauthorised access to any program or data held on any computer wit intent to commit a serious offence.
+Here, unauthorised modification of the contents of any computer is covered too.
+The law applies to anyone anywhere who accessed a UK computer or anyone in the UK trying to access a computer anywhere else.
+
+\paragraph{Examples}\label{par:examples}
+
+\begin{itemize}
+	\item Intentionally spreading a virus (viruses spread through a computer network, then work on spreading themselves to everywhere else).
+	\item Modifying a person's or organisation's web page.
+	\item Stealing personal data.
+	\item Stealing commercial data.
+	\item Disrupting commercial data.
+	\item Disrupting the operations of a health or safety agency (including the emergency services and air traffic control).
+\end{itemize}
+
+\paragraph{Police and Justice Act 2006}\label{par:police_and_justice_act_2006}
+
+The Police and Justice Act 2006 increases the maximum sentences for the Computer Misuse Act's offences and covers the intent to impair operations of any computer and also the intent to facilitate computer misuse.
+In addition to these amendments, building or selling hacking tool kits and performing denial-of-service attacks are now covered too.
+
+\noindent
+Convictions are usually rare with very lenient penalties (usually less than \(3\) years out of a maximum of \(10\)) since these types of case usually require an expensive security expert.
+A company usually prefers to keep any attacks against them quiet to hide the fact that their security got beaten.
+
+\noindent
+The US Computer Fraud and Abuse Act prohibits unauthorised access to any ``protected computer'' (military, etc.), distributing malicious code, denial-of-service attacks and trafficking passwords.
+For a first offence you can be sentenced up to \(10\) years, for a second offence you can get up to \(20\) years.
+Some offences are even considered terrorism.
+
+\subsubsection{Computer Fraud}\label{ssub:computer_fraud}
+
+Computer fraud is covered by existing anti-fraud laws.
+The internet makes computer fraud far easier because of on-line banking and e-commerce.
+The detection and conviction is very difficult since the collection of evidence requires special expertise and trials need specialist experts as witnesses.
+
