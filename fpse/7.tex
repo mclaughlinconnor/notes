@@ -1,0 +1,63 @@
+\section{Session 7}\label{sec:session_7}
+
+\subsection{Coupling and Cohesion Recap}\label{sub:coupling_and_cohesion_recap}
+
+Coupling is a measure of how dependant modules are on each other; does the code require something outside of the application (final executable), module (a file or class) or service (a process available to make API calls, etc.).
+
+\subsubsection{Coupling Types}\label{ssub:coupling_types}
+
+\paragraph{Content Coupling}\label{par:content_coupling}
+
+A modules, file or class uses code from another file module or class. Must be at least on method or variable.
+
+\paragraph{Common Coupling}\label{par:common_coupling}
+
+Several files , classes or modules have access to the same global data (eg.\ more than one class accessing the same database).
+
+\paragraph{External Coupling}\label{par:external_coupling}
+
+Several modules have access to an externally exposed data format, communication protocol or device interface. eg.\ A certain JSON structure.
+
+\paragraph{Control Coupling}\label{par:control_coupling}
+
+A module controls the flow of another module. eg.\ Another module calculates  if someone is bankrupt.
+
+\paragraph{Stamp Coupling}\label{par:stamp_coupling}
+
+Several modules use the same composite data structure.
+
+\paragraph{Data Coupling}\label{par:data_coupling}
+
+Several modules share data through parameters.
+
+\noindent
+In order from tightest to loosest coupling:
+
+\begin{enumerate}
+	\item Content Coupling
+	\item Common Coupling
+	\item External Coupling
+	\item Control Coupling
+	\item Stamp Coupling
+	\item Data Coupling
+\end{enumerate}
+
+\subsubsection{Cohesion}\label{ssub:cohesion}
+
+Cohesion is how specialised a modules is.
+
+\paragraph{Business Functions}\label{par:business_functions}
+
+A business function is something the end user would expect. eg.\ Creating a deck of cards or dealing a deck of cards.
+
+\paragraph{Technical Functions}\label{par:technical_fucntions}
+
+A technical function is something the program has to do to achieve the business functions. eg.\ A database query or message sending.
+
+\paragraph{High Cohesion}\label{par:high_cohesion}
+
+A very specialised program which likely has high coupling too.
+
+\paragraph{Low Cohesion}\label{par:low_cohesion}
+
+A program that does many, many things which likely has low coupling.
