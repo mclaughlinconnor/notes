@@ -1,0 +1,112 @@
+\section{Session 13}\label{sec:session_13}
+
+\subsection{Testing}\label{sub:testing}
+
+There are, on average \(10\) to \(50\) bugs per \(1000\) lines of code.
+Some bugs are known and have workarounds so aren't high priority; others do not so are.
+
+\subsection{Reliability}\label{ssub:reliability}
+
+\emph{Reliability} is a measure of the probability a system sill fail.
+Sometimes called the \emph{Mean Time 'Till Failure} or MTTF where a failure is a critical bug in the system.
+
+In the case of a catastrophic system failure, some teams store a last known good configuration to roll back to.
+
+\subsection{Testing}\label{ssub:testing}
+
+Testing reveals bugs or errors in code.
+Sometimes bugs are only revealed in a live environment; to test for this, deploy to just one server first.
+
+\begin{note}
+	Note: Testing doesn't prove something works, it just helps to find bugs and keep track of past issues.
+\end{note}
+
+\subsubsection{Levels of Testing}\label{ssub:levels_of_testing}
+
+There are \(7\) different levels of testing possible.
+
+\begin{enumerate}
+	\item \textbf{Code Reviews}
+	\item \textbf{Unit Tests:} Test one function outside of the rest of the code.
+	\item \textbf{Integration Testing:} Does everything work together?
+	\item \textbf{API Testing:} Do different API endpoints work correctly?
+	\item \textbf{GUI Testing:} Do buttons, screens, etc.\ work correctly?
+	\item \textbf{System Testing:} Does the system work as a whole?
+	\item \textbf{Acceptance Testing} Do users like the change?
+\end{enumerate}
+
+\begin{note}
+	Note: Numbers \(4\) to \(7\) are largely performed by customers while \(5\) to \(7\) are largely manual.
+\end{note}
+
+\subsubsection{Testing Characteristics}\label{ssub:testing_characteristics}
+
+\begin{itemize}
+	\item \textbf{Functionality:} Can I submit? Can I upload?
+	\item \textbf{Usability:} Can disabled people use it? Can non-disabled people use it?
+	\item \textbf{Security:} How does it respond to attacks? Do roles exists/work? Is it secure? Is there 2FA?
+	\item \textbf{Performance/Efficiency:} Can it handle peaks in volume? How is memory management?
+	\item \textbf{Portability:} Can the code work on MacOS and Windows? Does it work on all browsers?
+	\item \textbf{Reliability:} Does it work the same on all platforms? What happens when something breaks or there's a service down?
+\end{itemize}
+
+\subsubsection{Testing Options}\label{ssub:testing_options}
+
+\begin{itemize}
+	\item \textbf{Ad-Hoc:} Users just testing it to see if it works.
+	\item \textbf{Test Suite:} A set list of test/code to test.
+	\item \textbf{Code Coverage:} How much of the code is covered by tests.
+\end{itemize}
+
+\subsubsection{What makes a good test?}\label{ssub:what_makes_a_good_test_}
+
+\begin{itemize}
+	\item \textbf{Happy Test:} A normal, positive scenario. No errors.
+	\item \textbf{Unhappy Test:} What happens if the internet breaks? Or the user closes a window early?
+	\item \textbf{Edge Cases:} Does it handle \(1\), \(2\), \(3\)? What about \(50,000\)
+	\item \textbf{Multiple Calls:} What happens if two things call it at the same time?
+	\item \textbf{Empty/Negative:} Does it handle empty and negative values?
+	\item \textbf{Combinations:} Swap the orders? Use other calls?
+	\item \textbf{What Am I Relying On:} What happens on time-outs, a broken connection, down time? How will I recover from this?
+\end{itemize}
+
+\paragraph{Unit Case}\label{par:unit_case}
+
+A unit case should test one method or function with different inputs or outputs.
+
+\subsubsection{Unit Testing Framework}\label{ssub:unit_testing_framework}
+
+A unit testing framework is a piece of code that lets you write and run your test cases easily.
+They usually handle the set-up and tear-down to ensure the proper environment each time.
+
+\subsection{Continuous Integration}\label{sub:continuous_integration}
+
+\paragraph{Why?}\label{par:why_}
+
+\begin{itemize}
+	\item Allows for faster detection of bugs.
+	\item Makes bugs quicker to find an fix if less code changes.
+	\item Being faster means the developer might still be in the office to fix any issues.
+	\item Avoids ``integration hell'' where it is hard to make sure all functionality works correctly.
+\end{itemize}
+
+\subsection{Change Management}\label{sub:change_management}
+
+Change management is where you maintain an single source repository and make frequent mainline commits (frequent commits means you won't forget anything if it turns out to be broken).
+It has the benefits of building commits on as close to a production environment as possible and lets everyone see all changes.
+
+\subsection{Quality Assurance}\label{sub:quality_assurance}
+
+Automation limits the manual mistakes associated with testing quality (the build should be self testing or be tested automatically in as close to a production environment as possible).
+\textbf{Builds should be kept fast.}
+
+Having faster builds gives the developer early feedback and gets fixes in sooner.
+Sometimes partial rebuilds can help with this.
+
+\subsection{Deployment}\label{sub:deployment}
+
+Automated deployment means it is easy to get the latest working executable.
+This should \emph{always} be automated to ensure the same environment is always used.
+You should always alert broken builds to get them fixed quickly.
+
+Static analysis tests and automated regression tests can help avoid broken builds.
