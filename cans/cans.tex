@@ -1,0 +1,65 @@
+\usetikzlibrary{positioning,intersections,through,backgrounds}
+
+\newcommand{\rowstyle}[1]{\gdef\currentrowstyle{#1}%
+	#1\ignorespaces
+}
+\newcolumntype{$}{>{\global\let\currentrowstyle\relax}}
+\newcolumntype{^}{>{\currentrowstyle}}
+
+\newenvironment{addtable}
+{%
+	\newcommand{\binone}{Number 1}
+	\newcommand{\bintwo}{Number 2}
+	\newcommand{\bincar}{Carry}
+	\newcommand{\binsum}{\rowstyle{\bfseries} Sum}
+	\newcommand{\divrule}{\midrule}
+	\begin{tabular}
+		{$r|^c^c^c^c^c^c^c^c}%
+		}
+		{%
+	\end{tabular}%
+}
+
+\newcommand{\tikzfulladder}{
+	\begin{circuitikz}
+		\draw node (origin) {}
+
+		node[xor port,right=of origin] (xorone){}
+		node[xor port,right=of xorone, anchor=in 1] (xortwo){}
+		coordinate (xorxormidway) at ($(xorone)!.5!(xortwo)$)
+		node[and port,below=of xorxormidway] (andone) {}
+		node[and port,below=of andone] (andtwo) {}
+		coordinate (andandmidway) at ($(andone)!.5!(andtwo)$)
+		node[or port,right=of andandmidway] (or) {}
+
+
+		node (A) at ([xshift=-15mm]xorone.in 1) {}
+		node (B) at ([xshift=-15mm]xorone.in 2) {}
+
+		([xshift=10mm]A.east) node[circ] {} |-(andtwo.in 1)
+		([xshift=5mm]B.east) node[circ] {} |-(andtwo.in 2)
+
+		coordinate (andoneintop) at ($(andone.in 1)!.5!(xortwo.in 2)$);
+
+		\draw node (C) at (B |- andoneintop) {C}
+
+		(A) node {A}
+		(B) node {B}
+
+		(A.east) |-(xorone.in 1)
+		(B.east) |-(xorone.in 2)
+
+		(C.east) -|(andone.in 1)
+		(C.east) -| (andone.in 1)  node[circ,pos=0.5] {} |-(xortwo.in 2)
+
+		(xorone.out) node[circ] {} -- (xortwo.in 1)
+		(xorone.out) |- (andone.in 2)
+
+		(andone.out) -- ++(right: 3mm) |- (or.in 1)
+		(andtwo.out) -- ++(right: 3mm) |- (or.in 2)
+
+		(or.out) -- ++(right:15mm) node[right] {Carry}
+		(xortwo.out) -- ++(right:15mm) node[right] {Sum}
+		;
+	\end{circuitikz}
+}
