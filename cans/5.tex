@@ -1,0 +1,92 @@
+\section{Combinational Circuits}\label{sec:combinational_circuits}
+
+A ``combinational circuit'' is one that works immediately and without any clock input and are created by combining AND, OR and NOT gates.
+
+\subsection{Deriving Boolean Expressions}\label{sub:deriving_boolean_expressions}
+
+\begin{figure}[H]
+	\centering
+	\begin{tabular}{ccc|c|c}
+		\toprule
+		\(A\) & \(B\) & \(C\) & \(F\) & Product term                                         \\
+		\midrule
+		\(0\) & \(0\) & \(1\) & \(1\) & \(\overline{A}\cdot \overline{B}\cdot C\)            \\
+		\(0\) & \(1\) & \(0\) & \(1\) & \(\overline{A}\cdot B\cdot \overline{C}\)            \\
+		\(1\) & \(1\) & \(1\) & \(1\) & \(A\cdot B\cdot C\)                                  \\
+		\(0\) & \(0\) & \(0\) & \(0\) & \(\overline{A}\cdot \overline{B}\cdot \overline{C}\) \\
+	\end{tabular}
+	\caption{An example truth table}
+	\label{fig:example_truth_table}
+\end{figure}
+
+\noindent
+Collect the product terms where \(F=1\) and AND them together for \(\overline{A}\cdot \overline{B}\cdot C + \overline{A}\cdot B\cdot \overline{C} +A\cdot B\cdot C\), then simplify.
+
+\subsection{Addition and Subtraction}\label{sub:addition_and_subtraction}
+
+Addition, subtraction and negation can all be performed by a ``ripple add'' circuit.
+To add just \(2\) bits together, use a ``half adder''.
+To add \(3\) bits (two numbers and a carry), use a ''full adder`` -- this is what we generally use.
+In order to add \(2\) full words together, use a ``ripple add'' circuit
+
+\subsubsection{Half Adder}\label{ssub:half_adder}
+
+Adds \(2\) bits together.
+Since the resultant output could be \(0\), \(1\) or \(2\), we need to use \(2\) bits for the output which are named ``carry'' and ``sum''.
+
+\begin{minipage}{0.42\linewidth}
+	\begin{figure}[H]
+		\centering
+		\begin{tabular}{ccccc}
+			\toprule
+			\(x\) & \(y\) & Result & Carry & Sum   \\
+			\midrule
+			\(0\) & \(0\) & \(0\)  & \(0\) & \(0\) \\
+			\(0\) & \(1\) & \(1\)  & \(0\) & \(1\) \\
+			\(1\) & \(0\) & \(1\)  & \(0\) & \(1\) \\
+			\(1\) & \(1\) & \(2\)  & \(1\) & \(0\) \\
+			\bottomrule
+		\end{tabular}
+		\caption{The truth table of a half adder}
+		\label{fig:half_adder}
+	\end{figure}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\linewidth}
+	\begin{figure}[H]
+		\centering
+		\begin{circuitikz}
+			\draw
+			node[and port] (and) {}
+			node[xor port, below=of and] (xor) {}
+
+			node[left=of and.in 1] (x) {\(x\)}
+			node[left=of xor.in 2] (y) {\(y\)}
+
+			(x.east) -- (and.in 1)
+			(y.east) -- (xor.in 2)
+
+			([xshift=4mm]x.east) node[circ] {} |- (xor.in 1)
+			([xshift=8mm]y.east) node[circ] {} |- (and.in 2)
+
+			(and.out) node[right] {Carry \(x \cdot y\)}
+			(xor.out) node[right] {Sum \(\overline{x}\cdot y + x \cdot \overline{y}\)}
+			;
+		\end{circuitikz}
+		\caption{A half adder circuit diagram}
+		\label{fig:half_adder_circuit}
+	\end{figure}
+\end{minipage}
+
+\subsubsection{Full Adder}\label{ssub:full_adder}
+
+A ``full adder'' is used to add two binary numbers together with a carry from the addition to the left and outputs the sum and the carry where \(c = x\cdot y + y \cdot z + x\cdot z\) and \(s = x \oplus y \oplus z\)
+
+\subsubsection{Word Addition}\label{ssub:word_addition}
+
+To add two words together (of any size), you must use a full adder for each bit of the word with the carry output being input to the next adder's carry input.
+
+\subsubsection{Subtraction}\label{ssub:subtraction}
+
+To subtract, simply negate and add \(1\) to the subtracting number, then add the two numbers together.
+
