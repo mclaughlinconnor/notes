@@ -1,0 +1,123 @@
+\section{Synchronous Circuits}\label{sec:synchronous_circuits}
+
+A \emph{synchronous circuit} uses synchronous logic (sometimes called sequential logic -- which is usually synchronous anyway -- or synchronous sequential logic -- which is the fancy correct way of saying it).
+Synchronous circuits have the benefit of being able to store memory/state.
+
+
+\subsection{Why use sequential logic?}\label{sub:why_use_sequential_logic_}
+
+Consider the process:
+
+\begin{enumerate}
+	\item Multiply one bit by another
+	\item Shift the bit over by one
+	\item Add the bit to another bit
+	\item Repeat three times
+\end{enumerate}
+%
+A combinational circuit cannot be used to do these \(4\) steps in a sequence, since we must store the output bit after each step, so we must use sequential logic.
+
+\subsection{Timing and Gate Delay}\label{sub:timing_and_gate_delay}
+
+All gates and wires have a slight delay (which is caused by the finite speed of light and the reaction time of transistors) that can add up over the course of an entire circuit.
+Different paths can take different amounts of time, so a \emph{clock signal} is used to synchronise all of the logic gates together.
+
+\subsection{The Flip Flop}\label{sub:the_flip_flop}
+
+A \emph{flip flop} is a bi-stable component which is stable in either the on or off state and provides a way to store memory to let us sequence operations together.
+The flip flop introduces a whole new design paradigm.
+
+\subsubsection{Understanding Feedback}\label{ssub:understanding_feedback}
+
+\begin{minipage}{0.50\linewidth}
+	\begin{circuitikz}
+		\draw
+		node[not port] (notone) {}
+		node[not port, right=of notone] (nottwo) {}
+		node[right=of nottwo] (q) {\(Q\)}
+
+		(notone.in) -- ([xshift=-5mm]notone.in) |- ([yshift=15mm]$(nottwo.out)!.5!(q)$) -- ($(nottwo.out)!.5!(q)$)
+		(nottwo.out) -- (q)
+		(notone.out) -- (nottwo.in);
+	\end{circuitikz}
+\end{minipage}
+\hfill
+\begin{minipage}{0.40\linewidth}
+	If \(Q\) is \(1\), it will always be \(1\) and if \(Q\) is ever \(0\), it will always be \(0\).
+\end{minipage}
+
+There is one problem with this circuit though: it cannot be set or reset.
+We can switch it out with some NOR and AND gates to allow for these missing features.
+
+\begin{figure}[H]
+	\centering
+	\begin{circuitikz}
+		\draw
+		node[nor port] (norone) {}
+		node[nor port, below=of norone] (nortwo) {}
+
+		node[left=of norone.in 1] (r) {Reset (\(R\))}
+		node[left=of nortwo.in 2] (s) {Set \(1\) (\(S\))}
+
+		node[right=of norone.out] (q) {Output \(Q\)}
+		node[right=of nortwo.out] (qbar) {Inverted output \(\overline{Q}\)}
+
+		(r) -- (norone.in 1)
+		(s) -- (nortwo.in 2)
+
+		(norone.out) -- (q)
+		(nortwo.out) -- (qbar)
+
+		(norone.out) node[circ] {} -- ([yshift=2mm]$(norone.out)!.5!(nortwo.out)$) -- ++(-2,0) |- (nortwo.in 1)
+		(nortwo.out) node[circ] {} -- ([yshift=-2mm]$(norone.out)!.5!(nortwo.out)$) -- ++(-1.8,0) |- (norone.in 2)
+		;
+	\end{circuitikz}
+	\caption{A resettable flip flop}
+	\label{fig:resettable_flip_flop}
+\end{figure}
+
+\subsubsection{Synchronicity with flip flops}\label{ssub:synchronicity_with_flip_flops}
+
+Flip flops are synchronous bi-stable components.
+\emph{Synchronous} means that the output changes only when a clock signal is supplied.
+
+\subsubsection{The delay flip flop}\label{ssub:the_delay_flip_flop}
+
+The \emph{delay flip flop} is a brand new primitive component that stores a single bit.
+A DFF has a single input, a single output and a clock signal input.
+
+Every flip flop must be connected to the same clock in order to be synchronous and the clock signal must arrive at all components at the same time.
+\textbf{No logic is ever performed on the clock signal} -- it is strictly a control signal.
+
+\subsection{Clock ticks and cycles}\label{sub:clock_ticks_and_cycles}
+
+\emph{Ticks} are individual events in time (tick, tock, tick, \ldots).
+\emph{Cycles} are the intervals between the ticks.
+
+A flip flop will stay stable for the entire duration of a cycle.
+During a cycle, all logic circuits are updated and their outputs propagate through the circuit until all of the outputs are stable at a valid value.
+Only once all outputs are stable and valid can a new tick occur.
+
+\subsubsection{Clock speed}\label{ssub:clock_speed}
+
+\emph{Clock speed} is the rate at which the internal clock signal ticks and is measured in Hertz (Hz).
+A typical processor has a clock speed on the order of magnitude \(1\)GHz which is \(1\times 10^{9}\)Hz or \(1\times 10^{-9}\) seconds per tick.
+At these very fast speeds, the speed of light becomes important.
+
+\section{The applications of flip flops}\label{sec:the_applications_of_flip_flops}
+
+\subsection{Registers}\label{sub:registers}
+
+A register generally words on \(8\) bit words.
+In order to create an \(8\) bit register, we must use \(8\) individual flip flops together.
+Registers have a CLR (clear) signal to empty all flip flops.
+
+A \emph{bus} is a collection of signals all coming from or going to the same place.
+
+\subsection{Finite state machines}\label{sub:finite_state_machines}
+
+In combinational circuits, \(1\) input means \(1\) output.
+In a finite state machine, the output depends on the current state as well as the current input.
+After each operation, the state is updated with the current output.
+
+An ATM is an example of a finite state machine where the machine will do different things when you put your card in depending on what screen you are on.
