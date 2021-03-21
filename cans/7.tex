@@ -1,0 +1,187 @@
+\section{Logic devices for a CPU}\label{sec:logic_devices_for_a_cpu}
+
+CPUs are complex, but they are made of only a few basic components:
+\begin{itemize}
+	\item Registers
+	\item (De)muxers
+	\item ALU
+	\item Others\ldots
+\end{itemize}
+
+\subsection{Register Recap}\label{sub:register_recap}
+
+Resisters are the most common building block in a CPU and so far we have only seen the parallel types where there are \(8\) inputs and outputs.
+There are also serial registers where each value is input one bit at a time, then output again one bit at a time.
+We even get shift left serials; shift right serials; parallel in, serial out; serial in parallel out; and rotate left \& right registers.
+
+\subsection{Multiplexers and Demultiplexers}\label{sub:multiplexers_and_demultiplexers}
+
+Sometimes also called a ``data selector''.
+Allows you to chose between \(2^{n}\) inputs to be output.
+It is important to note that in a multiplexer there is a distinct difference between the data inputs and the control input.
+
+\subsubsection{Input Multiplexer}\label{ssub:input_multiplexer}
+
+The \emph{\(2\)-to-\(1\)} multiplexer has \(2\) inputs (named \(I_0\) \(I_1\)), a selector (\(S\)) and an output \(O\).
+The input depends on all three inputs (\(I_0\), \(I_1\) and \(S\)).
+\(O = (I_0\cdot\overline{s}) + (I_1\cdot\overline{s})\)
+
+\begin{center}
+	\begin{circuitikz}
+		\draw
+		node[and port] (andone) {}
+		node[and port, below=of andone] (andtwo) {}
+		node[not port, left=of andone.in 2, scale=0.6] (not) {}
+		([xshift=20mm]$(andone.out)!.5!(andtwo.out)$) node[or port] (or) {}
+
+		(not.out) -- (andone.in 2)
+
+		([xshift=-5mm]andone.in 1) node (io) {\(I_0\)}
+		([xshift=-5mm]andtwo.in 2) node (it) {\(I_1\)}
+
+		(io.east) -- (andone.in 1)
+		(it.east) -- (andtwo.in 2)
+
+		([xshift=-30mm]andtwo.in 1) node (s) {\(S\)}
+		(not.in) -- ([xshift=-5mm]not.in) coordinate (leftofnot) |- (s)
+		(andtwo.in 1) -- (leftofnot |- andtwo.in 1) node[circ] {}
+
+		(or.out) -- ++(5mm,0) node[right] {\(O\)}
+		(andone.out) |- (or.in 1)
+		(andtwo.out) |- (or.in 2)
+		;
+	\end{circuitikz}
+\end{center}
+
+
+\subsubsection{Demultiplexer}\label{ssub:demultiplexer}
+
+A \emph{demultiplexer} basically reverses the multiplexer by letting one output get sent to one of \(2^{n}\) outputs.
+
+\subsection{ALU}\label{sub:alu}
+
+The arithmetic and logic unit is a combinational circuit (ie.\ it has no clock) that performs basic arithmetic (addition, subtraction, multiplication, division) and basic boolean logic (AND, OR, NOT) operations.
+The results of all operations are calculated and a selection line feeding into a multiplexer lets you chose which of the many operations you want the output from.
+
+\section{Register Transfer Unit}\label{sec:register_transfer_unit}
+
+A register transfer unit can respond to instructions almost like a CPU does.
+
+\subsection{Simple instructions}\label{sub:simple_instructions}
+
+A simple instruction (sometimes named ``assembly instructions'') must:
+\begin{itemize}
+	\item Perform exactly \(1\) operation
+	\item Be of a fixed form (size)
+	\item Be limited in variety (there should only be a small number of types of statement)
+\end{itemize}
+%
+Our RTM will have:
+\begin{itemize}
+	\item Assignment: \(R_2 := 6\)
+	\item Add and assign: \(R_3:=R_1+R_0\)
+\end{itemize}
+
+\subsection{Register File}\label{sub:register_file}
+
+A \emph{register file} is an array of registers which are named \(R_0\) to \(R_n\) and are addressed by the binary value of \(n\).
+
+\begin{center}
+	\begin{tikzpicture}
+		\draw
+		node (zero) {\(R_0\)}
+		node[below=0mm of zero] (one) {\(R_1\)}
+		node[below=0mm of one] (two) {\(R_2\)}
+		node[below=0mm of two] (three) {\(R_3\)}
+
+		node[draw,fit=(zero) (one) (two) (three)] (box) {};
+
+		\draw[->] ([xshift=-5mm,yshift=5mm]box.west) node[left] {Data In} -- ([yshift=5mm]box.west);
+		\draw[->] ([xshift=-5mm,yshift=-5mm]box.west) node[left] {Load (when to write)} -- ([yshift=-5mm]box.west);
+		\draw[->] ([xshift=3.5mm,yshift=-5mm]box.south) node[below,align=center] {Source\\(output)} -- ([xshift=3.5mm]box.south);
+		\draw[->] ([xshift=-3.5mm,yshift=-15mm]box.south) node[below,align=center] {Destination\\(input)} -- ([xshift=-3.5mm]box.south);
+		\draw[<-] ([xshift=5mm]box.east) node[right] {Data Out} -- (box.east);
+	\end{tikzpicture}
+\end{center}
+
+\subsubsection{Two Readouts}\label{ssub:two_readouts}
+
+To perform an ADD or SUB operation we need an extra output because we need two operands.
+Currently our input is connected to just \(1\) register but load (\(ld\)) is connected to all of the registers, so any time we trigger \(ld\), all of the registers are emptied.
+We use a demuxer to chose between the registers so we only write to \(1\).
+
+\subsubsection{ALU}\label{ssub:alu}
+
+We add an ALU to give our RTM the ability to actually perform actions.
+
+\subsection{Architecture}\label{sub:architecture}
+
+The register file has two outputs and the ALU has two inputs.
+For now the ALU will only ADD or SUB.
+If we connect the inputs to the outputs, we will create a feedback loop such that when the clock ticks: \(reg[d] := reg[S_a] + reg[S_b]\).
+
+We can now: load external data and load from an ALU result using a multiplexer to switch between the choices.
+
+\begin{tikzpicture}
+	\draw
+	node [draw, thick, shape=rectangle, minimum width=2cm, minimum height=3cm, anchor=center] (reg) {Register file}
+	node [yshift=10mm, draw, thick, shape=rectangle, minimum width=3cm, minimum height=1cm, anchor=center,left=of reg] (mux) {Multiplexer}
+	node [draw, thick, shape=rectangle, minimum width=3cm, minimum height=1cm, anchor=center,right=of reg] (alu) {ALU}
+	node [draw, thick, shape=rectangle, minimum width=2cm, minimum height=1cm, anchor=center,below=of alu] (aluctl) {ALU Control}
+	;
+
+	\draw[<-] ([yshift=3mm]mux.west) -- ++ (-0.5, 0) |- ([yshift=5mm]reg.north) -| (alu.north) node[midway, above] {ALU result};
+	\draw[->] ([xshift=-5mm,yshift=-3mm]mux.west) node[left] {\(x\)} -- ([yshift=-3mm]mux.west);
+	\draw[->] (mux.east) -- node[above] {\(x\)} ([yshift=10mm]reg.west);
+	\draw[->] ([xshift=-5mm,yshift=-10mm]reg.west) node[left] {load} -- ([yshift=-10mm]reg.west);
+	\draw[->] ([yshift=2.5mm]reg.east) -- ([yshift=2.5mm]alu.west) coordinate[midway, name=midalutop];
+	\draw[->] ([yshift=-2.5mm]reg.east) -- ([yshift=-2.5mm]alu.west) coordinate[midway, name=midalubottom];
+	\draw[->] (aluctl.north) -- (alu.south);
+	\draw[<-] (mux.south) -- ++(0,-10mm) node[below] {arith};
+
+	\draw
+	node [shape=rectangle, draw, below=of reg, minimum height=0.75cm] (sa) {\(S_a\)}
+	node [shape=rectangle, draw, left=0mm of sa, minimum height=0.75cm] (d) {\(d\)}
+	node [shape=rectangle, draw, right=0mm of sa, minimum height=0.75cm] (sb) {\(S_b\)}
+	node [shape=rectangle, draw, left=0mm of d, minimum height=0.75cm] (op) {\(op\)}
+	node [below=0mm of sa] {Instruction register}
+	;
+
+	\draw[->] (sa) -- (reg.south);
+	\draw[->] (d) -- (reg.south-|d);
+	\draw[->] (sb) -- (reg.south-|sb);
+	\draw[->] (op) -- ++(-7mm, 0) |- ++(6,-1) node[below] (cu) {Control unit};
+	\draw[->] (cu.north-|aluctl.south) node[circ] {} -- (aluctl.south);
+
+	\draw
+	(midalubottom) to[short, *-] ++(0,-0.75) -- ++(3.25,0) node[right] {\(r_a\)}
+	(midalutop) to[short, *-] ++(0,0.75) -- ++(3.25,0) node[right] {\(r_b\)}
+	;
+\end{tikzpicture}
+%
+\begin{itemize}
+	\item \(x\) is the data input line
+	\item \(arith\) and \(ld\) are the data inputs
+	\item \(d\), \(S_a\), \(S_b\) are the address inputs to specify the target registers
+\end{itemize}
+
+\noindent
+When a tick occurs:
+\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{python}
+if ld:
+    if arith:
+        reg[d] := reg[sa] + reg[sb]
+    else:
+        reg[d] := x
+\end{minted}
+%
+All other registers (varibles) stay unchanged.
+
+\subsubsection{Controlling a Circuite}\label{ssub:controlling_a_circuite}
+
+The ``core'' of any RTM circuit is a register and an adder.
+To make it useful, we must use the \(arith\), \(load\) and \(op\) signals to control it.
+
+\subsubsection{Simple RTM Programs}\label{ssub:simple_rtm_programs}
+
+Each variable must be a register so we can assign a value to a register, or assign the result of an addition or subtraction to a register.
