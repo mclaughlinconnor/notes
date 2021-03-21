@@ -1,0 +1,141 @@
+\section{Planning Poker}\label{sec:planning_poker}
+
+\emph{Planning poker} is where experts provide estimates in a structured groups to get a consensus.
+Unlike other estimation methods, planning poker relies on historical data and is based on ``wideband Delphi'' estimation.
+
+The principles of Agile estimation:
+\begin{enumerate}
+	\item Don not estimate waste or look too far into the future
+	\item Include the customer and the developer in the estimation process
+	\item Estimate your own work
+	\item Estimate based on facts
+	\item Estimate early on in the development process
+	\item Estimate often and learn from experience
+	\item Estimate small features
+	\item Keep it simple. Use simple rules
+	\item Communicate the restraints or assumptions of the estimations
+	\item Estimate total effort (development, deployment, etc.)
+	\item Don't use your initial estimate for more detailed estimation
+	\item Only count features as being complete when everything is done
+\end{enumerate}
+%
+\emph{Triangulation} is the act of basing estimate off of other previous estimates, be.\ this task is double the size of another, so will take double the time.
+
+There are six steps that need to be taken to come to an accurate estimate:
+\begin{enumerate}
+	\item Plan: create a project definition with constraints and assumptions
+	\item Preparation: give each expert valid estimate where the unit of time is a ``story'' point which can be assigned in values matching the Fibonacci sequence (the different between \(1\) and \(2\) days is very large, but there probably be a large uncertainty with estimates like \(3\) weeks).
+	\item Question: people can ask questions
+	\item Personal estimation: experts estimate individually
+	\item Discussion: experts must justify their estimates if they vary too far from the average.
+	\item Revision: revise any answers that changed after the discussion
+\end{enumerate}
+
+For each individual release, the customers and the developers should decide which features to include following these steps:
+\begin{enumerate}
+	\item Exploration: the customer sets requirements and estimates are made
+	\item Commitment: business team members and developers commit to what will be in a release and all priorities are decided
+	\item Steering: plan, requirements can be changed
+\end{enumerate}
+
+Because of the iterative style of the agile development process, you should plan to have several iterations:
+\begin{enumerate}
+	\item Discuss stories: each developer asks questions about story difficulty, priorities may change (high risk and high priority storeies should be completed first)
+	\item Disaggregating stories: separate stories into tasks for easier estimation
+	\item Identify technical tasks: do you need more training, software or hardware?
+	\item Accept responsibility: assign tasks/stories to developers to estimate
+	\item Estimate: a developer will be able to complete the same number of story points as they completed during the last iteration
+	\item Confirm estimates: after each iteration, check how accurate your estimates were to learn and improve for next time
+\end{enumerate}
+
+\subsection{The strengths and weaknesses of planning poker}\label{sub:the_strengths_and_weaknesses_of_planning_poker}
+
+\subsubsection{Strengths}\label{ssub:strengths}
+
+\begin{itemize}
+	\item Does not require historical project data, but does need development team velocities
+	\item Does not require any particular input information
+	\item Does not require adjustment for different situations
+	\item Is intuitive and easy to apply
+	\item Well documented and doesn't need any complex software (just a Microsoft office works well)
+	\item Developer velocities can be reused across projects and iterations
+	\item Human experts can factor in edge cases
+	\item Group discussions can lead to the sharing of knowledge
+	\item Uncertainty can be handled with agile iterations
+	\item Planning poker is always applicable to any project
+\end{itemize}
+
+\subsubsection{Weaknesses}\label{ssub:weaknesses}
+
+\begin{itemize}
+	\item Requires many expensive experts
+	\item An expert's judgement may be biased
+	\item Estimation models cannot be reused across projects
+	\item Human experts may have very different estimates
+	\item Planning poker itself cannot handle any uncertainty
+	\item Only activities where you have an expert can be estimated
+	\item There is little proper evidence for it working, most publications are opinion pieces
+\end{itemize}
+
+\section{Planning and Estimation}\label{sec:planning_and_estimation}
+
+\subsection{Why?}\label{sub:why_}
+
+\begin{itemize}
+	\item Being too high on an estimation can mean losing a customer
+	\item Being too high on an estimate could mean that an internal project just never gets finished
+	\item Being too low on an estimate could mean you lose money
+	\item Being too low on a estimate could cause client disappointment if the project overruns
+\end{itemize}
+
+\subsection{Different types of planning and estimation}\label{sub:different_types_of_planning_and_estimation}
+
+\paragraph{Rewriting an application}\label{par:rewriting_an_application}
+
+If you are rewriting an existing application, all of the requirements, tests, functionality and constraints are already known.
+
+\paragraph{Enhancing an application}\label{par:enhancing_an_application}
+
+When you are enhancing an application, some of the requirements will be known and much of the background work will already be complete (database connections, etc.) so less time will be taken.
+
+\paragraph{New business aspect}\label{par:new_business_aspect}
+
+Most business users will not know what functionality they are wanting so requirements will change \emph{often}.
+
+\paragraph{Trying a new technology}\label{par:trying_a_new_technology}
+
+When you are trying out a new technology the requirements will likely be very loose since the project is very experimental and could very well fail.
+
+\medskip
+\noindent
+Prototyping can be used to showcase new technology as well as for showing off features to business users.
+
+\subsection{Estimation}\label{sub:estimation}
+
+You can use the ``t-shirt'' method where each task is given a size small, medium, large or extra large.
+This method favours speed over accuracy and requires a team consensus (complete team participation).
+The relative units should represent a certain time range but it can be difficult to estimate/scope extra large tasks, so these should be broken down/researched.
+
+\subsection{Dependencies}\label{sub:dependencies}
+
+You should calculate dependencies to see which tasks are needed before another task can be performed, can start at any time, or can be done in parallel.
+You should find any unknowns and calculate the impact of risks and the likelihood of them going wrong.
+
+Don't leave hard tasks until the end in case they take a long time or end up being impossible.
+To make hard tasks easier, find team members who have the relevant expertise for a project.
+Plan to maximize the team to limit key man dependencies (what if there's an illness? What if someone leaves or is fired?).
+Reduce bottlenecks like approvals, other teams and make sure to fail early.
+
+Gantt charts can be used to plan times and show task dependencies.
+
+\section{Development}\label{sec:development}
+
+\subsection{Group estimations}\label{sub:group_estimations}
+
+When planning a group estimation, it can be hard to align all of the people's calendars.
+They are also quite expensive since they need so many people who are not doing any development work.
+
+\subsection{Individual estimations}\label{sub:individual_estimations}
+
+Estimates by just one person are cheaper and faster since there is only one person who can do the work whenever they are free.
+They are also more consistent because just one person is performing the estimates.
