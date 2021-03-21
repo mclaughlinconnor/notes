@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass{report}
 
 \usepackage{minted}
 \usepackage{tcolorbox}
@@ -6,6 +6,15 @@
 \usepackage{tabularx}
 \usepackage{amsmath}
 \usepackage[RPvoltages]{circuitikz}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
 
 \newenvironment{note} {
     \begin{tcolorbox}[
@@ -22,6 +31,7 @@
 }
 
 \begin{document}
+\tableofcontents
 \include{htlanl/htlanl}
 \include{fpse/fpse}
 \include{cans/cans}
