@@ -1,0 +1,135 @@
+\section{Why do software projects fail}\label{sec:why_do_software_projects_fail}
+
+Software projects fail because developing software is very hard to do well.
+Insufficient political support, requirement changes, being over budget, or having bad management are all reasons that can cause a project to fail.
+Software is complex, intangible, malleable, large and evolutionary
+
+\subsection{Waterfall}\label{sub:waterfall}
+
+Very large projects are hard to do because of the sheer number of requirements.
+It is very hard to learn from previous projects since large projects are all so different.
+For a large project, it may depend on may other projects so there may be many constraints from them.
+
+Software development is mostly maintenance, but the waterfall methodology focuses on planning, estimation, etc.
+
+\section{Development Methodologies}\label{sec:development_methodologies}
+
+Lots of projects fail.
+Sometimes having more people can be better, other times it can make it worse.
+Requirements can change lots.
+New business requirements, new technologies, or new team members all require training.
+Having too many stakeholders can also be difficult as they all have different priorities and may conflict each other.
+Conveying requirements into words is difficult to do accurately.
+
+\subsection{Waterfall}\label{sub:waterfalla}
+
+There are seven distinct steps that must be performed in order:
+\begin{enumerate}
+	\item Definition
+	\item Analysis
+	\item Design
+	\item Implementation
+	\item Validation
+	\item Delivery
+	\item Maintenance
+\end{enumerate}
+It is very easy to go down a waterfall (like in a boat), but it is \emph{very} difficult to go back up again.
+
+One problem with the waterfall methodology is: why get requirements when there is a very substantial chance that they'll change later on?
+
+Having to go all the way back up to the top of the waterfall reduces the time uncertainty in estimates \emph{way} slower than using the Agile methodology.
+
+\subsection{Agile}\label{sub:agile}
+
+The Agile methodology state that you must create user stories with relative time estimates so you can see what a user might want to do with your software.
+The accuracy of time estimates increases quickly on each iteration.
+The tasks defined in the user stories must be ranked in priority so that a minimum viable product can be created with some of the features that the customer cares most about.
+The user stories let the developer understand the customer's end goals even if they never contact the customer directly.
+
+You should follow a very incremental style where funding is gotten incrementally and development is very iterative.
+
+Agile also places a very large focus on team work.
+
+\subsection{Waterfall Vs. Agile}\label{sub:waterfall_vs_agile}
+
+Waterfall is good when there are very definite requirements.
+Waterfall is good where only the final product is important (ie.\ a semi-finished program is completely worthless -- almost like buidling a damm).
+
+Agile is good for changing requirements and creating prototypes.
+Agile lets mistakes be corrected early instead of only after the customer has seen the final result.
+Agile is good for seeing progressive updates which is more engaging to a customer who can see where their money is going.
+Agile lets stakeholders come and go.
+Agile lets you ``borrow'' people from other teams temporarily.
+
+\subsection{Project Initiation}\label{sub:project_initiation}
+
+Decide on the scope of the project -- what will the final product do? -- and show any benefits that the final product will have -- like earning money, giving the company a competitive advantage, gaining customers or bumping/killing the company's reputation.
+A list of high level basic requirements should also be created.
+
+Find any people who are considered stakeholders -- people involved, customers, managers, people with funding -- and decide upon a governance structure of who should report to who, any scheduled meetings, and important documents.
+
+An \emph{very} important step is checking you have the resources -- like the correct developers, appropriate security measures, and marketing department support.
+
+\textbf{Always test (QA)} -- especially make sure to test edge/extreme circumstances
+
+\subsubsection{Scope}\label{ssub:scope}
+
+\begin{itemize}
+	\item What to achieve
+	\item Identify any risks of scope creep
+	\item Costs, requirements
+	\item Prevent unnecessary work
+	\item Create a list of high level requirements and identify any costs and scope creep
+	\item Ensure any benefits are actually realised
+\end{itemize}
+
+\subsubsection{Project Manager}\label{ssub:project_manager}
+
+A project manager is in charge of the planning, releases, monitoring, motivation, making sure all objectives are achieved with the correct performance and to overall control all aspects of a project.
+
+\subsection{Project Plan}\label{sub:project_plan}
+
+A project plan should contain: a list of milestones, tasks, dependencies and resource allocations for a given project.
+
+There should be two separate sets which the project manager is in charge of: scope, benefits, stakeholders and initiation, high level requirements and infrastructure.
+
+\subsection{Programme}\label{sub:programme}
+
+A program is a number of projects such that all of the individual project managers report up to the programme manager.
+
+\subsection{Project Board}\label{sub:project_board}
+
+A project board should have very good governance.
+It lets project stakeholders be kept up to date without attending all of the meetings and lets other people on the project know of any risks.
+The general overview provided can also help get funding for the next stages and keep the benefits in the minds of all team members.
+
+\subsection{Start}\label{sub:start}
+
+\begin{enumerate}
+	\item Scope document
+	\item Basic prototype
+	\item An existing similar application (why does it not fit our needs?)
+	\item Full requirements
+	\item Full tests
+	\item A list of business benefits
+	\item A list of stakeholders
+	\item A list of team experts
+\end{enumerate}
+
+\section{Branching}\label{sec:branching}
+
+Branching is useful to allow you to keep on developing while someone else is testing a deployment.
+Branching lets you only deploy one branch to production so you can always tell what is or isn't deployed to production.
+Instead of just deploying one branch to production, you could deploy several different branches to different testing environments (like SIT or UAT).
+
+An extra bonus is that you can easily deploy ``hotfixes'' directly to production without having to halt development elsewhere, you can also roll-back changes instead of doing hotfixes easily.
+
+\subsection{Merging}\label{sub:merging}
+
+Merging is where to combine two branches together, which lets you backport hotfixes to previous versions.
+Where two developers are working on the same files on different branches, you will need to merge their changes together somehow.
+And finally, it lets you compare two sets of changes.
+
+\section{Development Process Solution}\label{sec:development_process_solution}
+
+Always communicate, fail early, have good regression tests, have a detailed list of requirements, and a good test suite.
