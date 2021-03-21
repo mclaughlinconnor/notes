@@ -1,0 +1,66 @@
+\section{Computer Organisation Introduction}\label{sec:computer_organisation_introduction}
+
+\emph{Organisation} is the term used to refer to the physical circuits.
+\emph{Architecture} is the term used to refer to the interface programmers can use (like instructions).
+
+All programs have memory and data, each with their own addresses.
+
+IO devices must use an IO module to speak to IO devices since the CPU is a very general device and is kept as simple as possible.
+IO devices are \emph{memory mapped} meaning that the CPU can access certain memory addresses to tell the IO module to perform a task.
+
+\section{Von-Neuman Machines (IAS)}\label{sec:von_neuman_machines_ias_}
+
+Hardwired systems are inflexible (an ADDer will always ADD).
+If we were to create a general system that uses control signals to do many different things we could extend a system with a new set of control signals to provide new functionality.
+
+\subsection{IAS Machine}\label{sub:ias_machine}
+
+There were four components that separated the IAS from computers before it:
+\begin{enumerate}
+	\item Memory stored both programs and data
+	\item An ALU operated using binary data
+	\item A control unit interprets and executes instructions from memory
+	\item IO is controlled by a control unit
+\end{enumerate}
+%
+Most computers have this architecture.
+
+The von Neuman machine is a model saying:
+\begin{itemize}
+	\item There should be four main subsystems (above)
+	\item Stored program concept: store programs in memory
+	\item Sequential execution of instructions (fetch, decode, execute)
+\end{itemize}
+%
+The von Neuman machines have a selection of special registers to use also:
+\begin{itemize}
+	\item \(PC\): Program Counter - stores the index of the current instruction
+	\item \(IR\): Instruction Register - stores the current instruction
+	\item \(MAR\): Memory Address Register - what memory is currently being read from
+	\item \(MBR\): Memory Buffer Register - what data was just read.
+	\item \(IO AR\): Input/Output Address Register - what IO memory register is currently being read from
+	\item \(IO BR\): Input/Output Buffer Register - what data was just read from an IO register
+\end{itemize}
+
+\subsection{Instruction Cycle}\label{sub:instruction_cycle}
+
+\begin{center}
+	\begin{tikzpicture}
+		\draw
+		node (s) {Start}
+		node[right=of s] (f) {Fetch}
+		node[right=of f] (e) {Execute}
+		node[right=of e] (h) {Halt};
+		\draw[->] (s) -- (f);
+		\draw[->] (f) -- (e);
+		\draw[->] (e) -- (h);
+		\draw[->] (e) -- ++(0,-5mm) -| (f);
+	\end{tikzpicture}
+\end{center}
+\begin{enumerate}
+	\item The program fetches the instruction at the program counter
+	\item We increment the program counter (unless explicitly told not to when doing branches)
+	\item Load the instruction to the instruction register
+\end{enumerate}
+%
+There are four types of instruction: processor, memory; processor, IO; data processing; and control which may be combined together.
