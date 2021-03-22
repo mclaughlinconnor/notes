@@ -1,0 +1,79 @@
+\section{Clean code and refactoring}\label{sec:clean_code_and_refactoring}
+
+\subsection{Why have clean code?}\label{sub:why_have_clean_code_}
+
+\begin{itemize}
+	\item It is easier to start and finish working on something.
+	\item The code is easier to follow.
+	\item Team members are on boarded faster.
+	\item Most of you time is spent updating old code so having clean code will make this easier.
+	\item You can avoid code duplication since if you understand the code you will be more likely to use it somewhere else.
+	\item If only you understand code you will be stuck with it forever and won't ever be promoted.
+\end{itemize}
+
+\subsection{Clean Code Rules}\label{sub:clean_code_rules}
+
+\begin{itemize}
+	\item A method should only do one thing.
+	\item Have a maximum of four or five variables or method calls total (most people can only keep track of this many things at once).
+	\item Have good identifier names
+	\item Must be quick to read (not too long)
+	\item Try to avoid using identifiers with a similar word shape (length, start/end characters) since these are easily confused.
+\end{itemize}
+
+\subsection{Why refactor code?}\label{sub:why_refactor_code_}
+
+\begin{itemize}
+	\item Clean code is better
+	\item Avoids duplication
+	\item If only you understand code you will be stuck with it forever and won't ever be promoted.
+\end{itemize}
+
+\subsection{Refactoring Rules}\label{sub:refactoring_rules}
+
+\begin{itemize}
+	\item A method should do one thing.
+	\item There should be no duplication (problems have to be fixed in many places)
+	\item Style consistency
+	\item ``Later'' tends to be never (do refactoring now since it is familiar now).
+	\item Comment rarely (comment and code can end up different).
+	\item Remove commented out code (this is what a version control system is for).
+	\item Is the code readable and clean?
+\end{itemize}
+
+\subsection{How to improve?}\label{sub:how_to_improve_}
+
+\begin{itemize}
+	\item Read and write code
+	\item Always get your code reviewed
+	\item Look at examples of well written code
+\end{itemize}
+
+\section{Testing}\label{sec:testing}
+
+\subsection{Why test?}\label{sub:why_test_}
+
+\begin{itemize}
+	\item Lets you catch errors early.
+	\item Prevent production failures (so the customer doesn't experience the breakages).
+	\item Makes code more maintainable (there is regression testing).
+	\item To make sure hotfixes don't break what's already working.
+\end{itemize}
+
+\subsection{What is testing?}\label{sub:what_is_testing_}
+
+Creating, executing and maintaining tests.
+The purpose of testing is:
+\begin{itemize}
+	\item Prevent the introduction of defects
+	\item Demonstrate that an implementation meets the required requirements.
+	\item Document typical usecases of the code
+\end{itemize}
+
+\subsection{AAA/Triple A/Amahl Ali Akbar}\label{sub:aaa_triple_a_amahl_ali_akbar}
+
+\begin{itemize}
+	\item \textbf{A}rrange variables.
+	\item \textbf{A}ct: do a thing.
+	\item \textbf{A}ssert: check if the thing you did worked (matches an expected value).
+\end{itemize}
