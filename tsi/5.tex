@@ -1,0 +1,40 @@
+\section{Mocking - Testing}\label{sec:mocking_testing}
+
+\subsection{Why?}\label{sub:why_}
+
+\begin{itemize}
+	\item Faster continuous integration because there are no IO operations, database queries or VPNs needed, which means there is less time between finishing code and getting feedback.
+	\item There is no adapter design pattern needed making it a bit simpler to implement.
+	\item Removes dependencies on external services
+	\item Reading from a file will be harder to test
+	\item Will still work when a database or REST service is down.
+	\item Querying a webpage on a slow internet connection will slow down tests.
+	\item Using a 3\textsuperscript{rd} party service might be expensive.
+\end{itemize}
+
+\subsection{Mocks in Python}\label{sub:mocks_in_python}
+
+Mocks can be used to specify a return value for all subsequent calls for a function.
+
+\subsubsection{Magic Mock}\label{ssub:magic_mock}
+
+Lets you set a return value, return several values or throw exceptions (we should ideally do all three in our group project).
+
+\subsection{Mocking in Java}\label{sub:mocking_in_java}
+
+In Java you can specify one return value, but inside a class you must use a Spy (which copies a class and alters one method) which requires the use of an adapter design pattern.
+
+\subsection{Challenges}\label{sub:challenges}
+
+You need to make sure you don't get lost in mocking (make sure you aren't only testing mocked functions, don't over do it) -- you should limit your use to only within parameter passing.
+``Only test real code''.
+
+Mocking can be a sign of high coupling and in some cases you may not need to test something (like a database connection).
+
+\emph{Blackbox testing} is where only the API endpoints are tested so mocking is probably not needed.
+\emph{Whitebox testing} is where the internals of a method are tested so mocking probably will be needed.
+
+Code coverage is how much of your code is tested -- it is good to keep this number high, but beware that there are diminishing returns as you approach \(100\%\).
+Case coverage is a count of how many of your user use cases have been covered by the code.
+
+You should try to test for \mintinline{python}{null}s wherever possible, though this might be difficult and any \mintinline{python}{null}s may be caught by a validation layer.
