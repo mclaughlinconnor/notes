@@ -1,0 +1,89 @@
+\section{The CPU}\label{sec:the_cpu}
+
+A CPU has a set of requirements that it must meet in order to function correctly:
+\begin{itemize}
+	\item Fetch instructions from memory
+	\item Interpret those instructions
+	\item Fetch data from memory
+	\item Process data
+	\item Write data back to memory again
+\end{itemize}
+
+\subsection{The CPU and the System Bus}\label{sub:the_cpu_and_the_system_bus}
+
+The system bus is made up of several smaller buses:
+\begin{itemize}
+	\item \textbf{Control bus}: transfers control signals
+	\item \textbf{Address bus}: transfers memory addresses about
+	\item \textbf{Data bus}: transfers data to and from memory
+\end{itemize}
+
+\subsection{Internal structure of a CPU}\label{sub:internal_structure_of_a_cpu}
+
+\begin{tikzpicture}
+	\draw node{please complete me};
+\end{tikzpicture}
+
+\subsection{What does an n-bit architecture mean?}\label{sub:what_does_an_n_bit_architecture_mean_}
+
+It means that the word size of a processor is size \(n\).
+Generally this means that instructions; internal registers; internal interconnects (register bus, data bus, control bus); and the ALU can handle numbers of that size.
+
+\section{Registers}\label{sec:registers}
+
+\subsection{New top down perspective}\label{sub:new_top_down_perspective}
+
+CPU must have working space -- named registers
+The number and functions of registers varies between processor designs -- this is a major design decision
+Registers are at the very top of the memory hierarchy (and are the fastest)
+
+\subsection{Register Organisation}\label{sub:register_organisation}
+
+Registers can be ``user visible'' (general purpose or specialized) and store data the user knows about.
+Registers can also be for control or status which only the CPU knows about.
+
+\subsection{User Visible}\label{sub:user_visible}
+
+Accessible through machine language and can be general purpose or more specialised:
+\begin{itemize}
+	\item data(accumulator stores output of accumulated output of alu)
+	\item Address (segment pointer, index regigser, stack pointer)
+	\item Condition codes(flags) which are user visible, but not writeable.
+\end{itemize}
+There is a trade-off between general purpose and specialised because a general purpose one cannot be optimized like a specialised one can be.
+
+\subsection{How wide?}\label{sub:how_wide_}
+
+Large enough to hold full memory addresses and full data words.
+Often is its possible to combine two registers and store one piece of large data
+
+\subsection{Control and status registers}\label{sub:control_and_status_registers}
+
+Generally not user visible
+\begin{itemize}
+	\item program counter
+	\item instruction register
+	\item  memory address register
+	\item memory bugger register
+	\item program status word
+\end{itemize}
+
+\subsubsection{Program status word}\label{ssub:program_status_word}
+
+Stores many separate bits together which are flags (like the result of the last program)
+Can be read implicitly by programs (eg. jump if \(0\))
+Cannot (usually be set by programs)
+Can be considered both control/status and user visible.
+
+\section{Fetch execute cycle}\label{sec:fetch_execute_cycle}
+
+\emph{Functional view of processor} -- what sequence of processes need to be done to do something.
+
+\subsection{Fetch cycle}\label{sub:fetch_cycle}
+
+\begin{itemize}
+	\item Program counter stores address of next instruction to fetch
+	\item Processor fetches from memory at program counter
+	\item Increment program counter(unless told not to)
+	\item Memory loaded into instruction register
+\end{itemize}
