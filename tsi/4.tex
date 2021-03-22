@@ -1,0 +1,37 @@
+\section{Test Doubling}\label{sec:test_doubling}
+
+\subsection{Why?}\label{sub:why_}
+
+We double our tests so that we can avoid the IO operations that slow down our code (which gives us early feedback) and also limits the expensive connection to the database.
+
+\subsection{How?}\label{sub:how_}
+
+When doubling, it is easier to work with individual functions where we can just test the return values.
+We should only ever test with raw data (ie.\ don't pre-manipulate anything), then test the manipulation separately.
+
+It is easier to do this if the data parsing is done separately to any of the processing so do it separately.
+
+\subsection{Single Responsibility}\label{sub:single_responsibility}
+
+A class should do exactly one thing.
+A function should do exactly one thing.
+This makes code easier to read.
+
+\subsection{Adapters}\label{sub:adapters}
+
+\begin{enumerate}
+	\item Create an interface with a common public function to get data.
+	\item Create one class that implements the interface and function to get data from a file.
+	\item Create another class that implements the function stub with function stubs.
+\end{enumerate}
+%
+You should create a different class for each adapter and each adaptee must implement all of the methods on the interface (because it is an interface).
+
+The client should have a variable for the adapter and should have a getter and a setter to allow the interface methods to be changed.
+
+\subsection{Command Query Separation}\label{sub:command_query_separation}
+
+A command performs an action.
+A query only returns data.
+Never do both at the same (don't query and change state in the same function).
+An interface function will just return hard coded data.
