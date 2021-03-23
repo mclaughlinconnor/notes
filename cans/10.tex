@@ -1,0 +1,107 @@
+\section{Interrupts}\label{sec:interrupts}
+
+Is a mechanism by whoch other modules can interrupt the normal sequence of processing.
+
+\begin{itemize}
+	\item Program: an overflow or division by zero
+	\item Timer (do something for a certain time): pre-emptive multitasking
+	\item Input/output: an IO controller operates on a different time scale -- it could either wait ages for something to happen, or just get interrupted later on.
+	\item Hardware failure: memory parity error
+\end{itemize}
+
+\subsection{Transfer of Control via Interrupts}\label{sub:transfer_of_control_via_interrupts}
+
+When a user program is interrupted, the sequence of operations jumps to an interrupt handler:
+
+\begin{center}
+	\begin{tikzpicture}
+		\draw
+		node (s) {Start}
+		node[right=of s] (f) {Fetch}
+		node[right=of f] (e) {Execute}
+		node[above=of e] (h) {Halt}
+		node[right=of e] (i) {Check for interrupt; process};
+		\draw[->] (s) -- (f);
+		\draw[->] (f) -- (e);
+		\draw[->] (e) -- (h);
+		\draw[->] (e) -- (i) node[above,midway] {enabled};
+		\draw[->] (e) -- ++(0,-5mm) node[right] {disabled}-| (f);
+		\draw[->] (i) -- ++(0,-9mm) -| (f);
+	\end{tikzpicture}
+\end{center}
+
+\section{Memory}\label{sec:memory}
+
+\begin{itemize}
+	\item In board memory (on the CPU): registers, cache, main memory
+	\item Outboard storage: magnetic disk, solid state disk, flash devices, optical storage
+	\item Off-line storage: Magnetic tape, DNA(?)
+\end{itemize}
+%
+For each of these there are trade-offs to be made: capacity, performance and cost.
+As capacity increase, the performance and the cost per bit comes down and as performance increases, the cost per bit does too.
+
+As you go down the hierarchy, the cost decreases, the capacity increases and the access time increase, however the frequent of access by the CPU decreases too.
+
+\subsection{Cache}\label{sub:cache}
+
+A cache is a small about of very fast memory that sits on the processor itself (usually) and in between the main memory and CPU which contains a \emph{copy} of the main memory.
+
+Multiple levels are common where there is less of the more expensive, faster memory and more of the cheaper slower memory.
+
+Reading from cache is handled by the processor so that you only have to put a main memory address on the address bus and you will get the data from the cache if it is there.
+Writing from the cache will mean that the main memory and the cache are out of sync -- to solve this you can either ``write-back'' (data is written in bulk) or ``write-through'' (data is written in real time).
+This can be very tricky when you have more than one processor core accessing main memory.
+
+\subsection{Cache overview}\label{sub:cache_overview}
+
+\begin{enumerate}
+	\item CPU requests contents from memory location
+	\item Check cache for data
+	      \begin{itemize}
+		      \item If present: get from cache (``cache HIT'')
+		      \item If not, read required block to cache in a full block (not just a single address, but a few around it because you'll likely need the addresses around it too -- ``locality of reference''), named a ``cache MISS''
+	      \end{itemize}
+	\item Deliver from cache to CPU
+\end{enumerate}
+Cache includes tags to identify which block of main memory is in each cache slot since cache is smaller than main memory and cannot store all of it.
+
+\subsection{Cache Size}\label{sub:cache_size}
+
+Why not have more cache to improve the chance of a cache HIT?
+It costs co much more than DRAM, so cannot be too big.
+Also, if cache is bigger, more gates will be involved which will make it slower.
+There is no single ``optimal'' cache design.
+
+\section{Main memory}\label{sec:main_memory}
+
+Main memory (prefered), RAM, DRAM and internal memory all refer to the same thing.
+
+Main memory, stores instructions and data and is made form semiconductors etched on to a silicon chip.
+The name ``RAM'' comes from memory being random access, this isn't useful as many of the other memories are also random access.
+
+\subsection{DRAM}\label{sub:dram}
+
+Stands for dynamic RAM.
+Bits are stored as a charge in a capacitor.
+Charges leak so they need to be recharged even when powered.
+
+The construction of a it is very simple, so is less expensive and simpler per bit. However, it is slower than cache and needs refresh circuits to store any data.
+
+Used for main memory.
+
+\subsection{Static RAM}\label{sub:static_ram}
+
+Bits are stored as on/off switches.
+There is no charge leak or refreshing needed so no refreshing circuits are needed.
+
+This means that they also need to be more complex (using flip flops), larger and more expensive.
+Cache memory generally uses SRAM so it is faster.
+
+\subsection{Read Only Memory}\label{sub:read_only_memory}
+
+Permanent storage (non volatile).
+Stores frequently uses library subroutines.
+System programs (BIOS) are stored here and loads programs into the (currently empty) system memory.
+
+Is also random access.
