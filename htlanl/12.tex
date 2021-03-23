@@ -1,0 +1,66 @@
+\section{Session 11}\label{sec:session_11}
+
+\subsection{Programming paradigms}\label{sub:programming_paradigms}
+
+We have procedural programming which focuses on what is happening (the code).
+We also have object oriented programming which focuses on what is being affected (the data).
+
+\subsection{Abstraction}\label{sub:abstraction}
+
+\emph{Abstraction} is where you break down big problems into smaller general ones.
+\emph{Parametrisation} and \emph{isolation} can help us achieve this.
+
+\paragraph{Parametrisation}\label{par:parametrisation}
+
+This is where we have several parts that can all be varied controllably using parameters.
+
+\paragraph{Isolation}\label{par:isolation}
+
+This is where we separate (isolate) variables from each other.
+
+\medskip
+\noindent
+A car has many parts (steering, heating, brakes), but is considered only one object.
+As a user of a car, I don't need to know how the brakes work, only how to use them.
+
+\subsection{Encapsulation}\label{sub:encapsulation}
+
+\emph{Encapsulation} keeps code and data sage from outside interference or misuse (you cannot change gear manually, you must use a gear shifter).
+Encapsulation lets us provide a well defined interface for the object that other pieces of code can use.
+
+\subsection{Classes}\label{sub:classes}
+
+The basis of encapsulation is classes.
+A class defines the structure and the behaviour defined by an object.
+Objects are sometimes called instances of classes.
+
+The code and data of a class are called members.
+The data are member variables or instance variables.
+The behaviour and interface of the class are defined by methods that operate on its instance data.
+
+Encapsulation is where we hide the complexity of a class.
+\mintinline{python}{public} methods can be accessed from outside of the class and form the public interface of a class.
+\mintinline{python}{private} methods can only be accessed from inside of the class and are usually altered with getters and setters.
+Encapsulation is used to prevent improper use of you code (a car cannot just go to \(100\)mph, it must accelerate first).
+
+\subsection{Inheritance}\label{sub:inheritance}
+
+``One object acquires properties from its parent'': A Labrador is a dog, mammal, and an animal.
+
+Inheritance means that an object only has to define what makes it unique which means that there is only ever one implementation for each method.
+
+\subsection{Polymorphism}\label{sub:polymorphism}
+
+Polymorphism allows a single interface to be used as a single class of actions: ``one class, multiple methods''.
+It means you can design a generic interface to several related activities to reduce complexity and let the computer decide which action to perform.
+%
+\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{python}
+class Dog:
+    def look(h: Human):
+        love(h)
+
+    def look(s: Squirell):
+        hate(s)
+\end{minted}
+%
+Both functions have the same name, but perform different actions based on the parameter passed in.
