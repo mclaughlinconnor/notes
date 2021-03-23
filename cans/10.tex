@@ -30,6 +30,53 @@ When a user program is interrupted, the sequence of operations jumps to an inter
 	\end{tikzpicture}
 \end{center}
 
+\section{Pipe lining}\label{sec:pipe_lining}
+
+The execution of instructions can be sped up be pipe lining.
+Operations of an instruction (fetch, decode, execute, store) occur in sequence.
+Each operation can be performed independently of others so all of the processing units can work simultaneously.
+
+Pipe lining introduces parallelism into the fetch execute cycle.
+
+\begin{note}
+	Note: In this section four operations per instruction are used (fetch, decode, execute, store). This can be different.
+\end{note}
+
+You could naively run fetch, decode, execute and store each instruction one after the other; or you could instead overlap the instructions such that after one instruction is finished fetching, another one is fetched immediately after.
+This decreases the total time significantly.
+
+\subsection{The impact on performance}\label{sub:the_impact_on_performance}
+
+Pipe lining does \emph{not} reduce the latency of a single instruction (each individual instruction still takes the same amount of time at \(4\) cycles).
+
+The overall throughput is increased since an instruction is finishing every cycle, instead of one only every fourth cycle, which makes throughput \(1\) cycles per instruction (CPI) instead of the \(6\) CPI.
+
+From when the pipeline becomes full (at cycle \(4\)) there are \(4\) tasks (fetch, decode, etc.) running per cycle -- this is when there are the most performance gains.
+
+\medskip
+\noindent
+In general, an \(n\) stage pipeline will improve instruction execution throughput \(n\) fold, but have no impact on the instruction latency.
+
+We are making some assumptions here though:
+\begin{itemize}
+	\item There is no initial delay of filling the pipeline.
+	\item All pipeline stages take exactly one unit time to complete.
+	\item There are no ``hazards'' (comes up later on).
+\end{itemize}
+
+\subsection{Hazards}\label{sub:hazards}
+
+A hazard is a conflict between different pipeline stages which stands in the way of achieving the theoretical maximum performance.
+
+Branching means that the flow of instructions may change while the next instructions are already in the pipe line (some instructions are skipped).
+We have to \emph{flush} the pipeline (remove all currently incomplete instructions), which causes \emph{branch penalties} and requires another ``initial start-up time'' to get back up to full speed.
+
+There are three types:
+\begin{enumerate}
+	\item Resource hazard: two different stages need to access the same resource (memory) at the same time.
+	\item Data hazard: write after read (WAR) -- not really need just something to keep in mind.
+	\item Control hazard: branches, interrupts
+\end{enumerate}
 \section{Memory}\label{sec:memory}
 
 \begin{itemize}
