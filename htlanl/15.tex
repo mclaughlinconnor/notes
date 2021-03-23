@@ -1,0 +1,35 @@
+\section{Session 15}\label{sec:session_15}
+
+\subsection{Interfaces}\label{sub:interfaces}
+
+An \emph{interface} specifies all of the inputs and outputs, and lets someone else figure out the implementation.
+An interface is a ``reference type'' -- similar to a class -- that can contain only constants, method signatures, default methods, and static methods.
+Java uses \mintinline{python}{interface} while Python still uses \mintinline{python}{class}.
+Interfaces cannot contain method implementations, except where you don't want these to be overwritten.
+
+\textbf{An interface cannot be instantiated.}
+
+A class implements an interface which is useful if you want to be able to easily switch between implementations of a interface (\mintinline{python}{ArrayList} and \mintinline{python}{LinkedList}).
+
+\subsubsection{Adding methods}\label{ssub:adding_methods}
+
+\begin{itemize}
+	\item You cannot just add a new method since you will break all of the implementations of that interface.
+	\item You can create a new interface that \mintinline{python}{extends} the original interface with new methods.
+	\item You could also add a default implementation to the original, but this means that it cannot be overwritten which may be problematic.
+\end{itemize}
+
+\subsection{The comparable interface}\label{sub:the_comparable_interface}
+
+If a class implements \mintinline{python}{comparable}, it can be sorted or compared with another \mintinline{python}{comparable} object.
+This ordering is \mintinline{python}{natural ordering}.
+
+Simply implement a \mintinline{python}{compareTo()} method that returns \(0\) where the two objects are equal, \(<0\) for where the other object is less, and \(>0\) for where it is greater.
+A class can only have one \mintinline{python}{compareTo()} method.
+\mintinline{python}{.sort()} will sort comparable classes.
+
+\subsection{The comparator interface}\label{sub:the_comparator_interface}
+
+This allows us to sort on several different member variants.
+The \mintinline{python}{comparator} requires us to implement compare on a new class for each comparison.
+\mintinline{python}{CollectionSort} can also take a \mintinline{python}{comparitor} as a second parameter.
