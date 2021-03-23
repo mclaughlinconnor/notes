@@ -1,0 +1,28 @@
+\section{Session 14}\label{sec:session_14}
+
+\subsection{Method overriding}\label{sub:method_overriding}
+
+\emph{Overriding} is used to change the behaviour of a parent class in the child class.
+Any overridden method must have the same method signature (name, types, parameters) as the parent.
+An overridden method can still call \mintinline{python}{super.method()}.
+
+\subsubsection{Why override?}\label{ssub:why_override_}
+
+\begin{itemize}
+	\item Allows for runtime polymorphism where the compiler runs at runtime and decides what code to run.
+	\item Allows for a general class that specifies methods that will be common to all subclasses while allowing subclasses to define the implementation.
+	\item ``One interface, multiple methods''.
+	\item Gives a consistent interface with a flexible implementation.
+\end{itemize}
+
+
+\subsection{Method Overloading}\label{sub:method_overloading}
+
+Two functions have the same name, but accept different parameters/types (this is also polymorphism).
+When called the compiler uses the types of the parameters provided to figure out which implementation to call.
+The return types of methods can be different, but this doesn't change how the method is resolved.
+
+The main benefit of method overloading is avoiding having lots of similar methods with slightly different names.
+
+\mintinline{python}{final} prevents a method from being overridden.
+
