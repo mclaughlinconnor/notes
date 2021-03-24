@@ -110,3 +110,27 @@ This should \emph{always} be automated to ensure the same environment is always 
 You should always alert broken builds to get them fixed quickly.
 
 Static analysis tests and automated regression tests can help avoid broken builds.
+
+\subsubsection{Detecting broken builds}\label{ssub:detecting_broken_builds}
+
+\begin{itemize}
+	\item Code should be compiled in an environment as close to production
+	\item Should be automated regression tests
+	\item Static analysis tests (style guide checks, etc).
+\end{itemize}
+
+\subsubsection{Environments}\label{ssub:environments}
+
+\begin{itemize}
+	\item Jenkins
+	\item Gitlab
+	\item Bitbucket
+\end{itemize}
+
+\subsubsection{Fast builds}\label{ssub:fast_builds}
+
+\begin{itemize}
+	\item Give early feedback
+	\item Lets you fix things faster
+	\item Possibly use partial rebuilds
+\end{itemize}
