@@ -1,0 +1,136 @@
+\section{Session 14}\label{sec:session_14}
+
+\subsection{Mid-semester Exam}\label{sub:mid_semester_exam}
+
+You should aim to describe using words, and not just bullet points from the sample exam or slides.
+The sample exam has pointers to lectures.
+It lasts \(1\) hour which is twice as long as a \(20\) mark paper should last.
+
+\subsection{Scoping}\label{sub:scoping}
+
+\begin{itemize}
+	\item Should identify stakeholders
+	\item Should have a definition of what the project will achieve
+	\item Is used to get finding (finding providers might request features to be included).
+	\item Avoids scope creep where new features keep getting added and running over time and money budgets.
+	\item Defines benefits and helps identify if they've been realised.
+	\item Prevents unnecessary low priority work
+\end{itemize}
+
+\subsection{Development Methodologies}\label{sub:development_methodologies}
+
+\subsubsection{Team Structure}\label{ssub:team_structure}
+
+Some teams have dedicated testers, others don't.
+A product manager will oversee / manage many projects.
+
+\subsubsection{Requirements}\label{ssub:requirements}
+
+Business people gather requirements, then speak to developers who will raise a feature request.
+Even on an agile team, a minimum viable project might have all of the needed functionality.
+
+\subsubsection{Coding}\label{ssub:coding}
+
+Business people will review changes with some users before roll-out.
+
+Having two development weeks, one test week and a further one user test week would be a good idea.
+Some companies require a certain code coverage (eg.\ \(75\%\)).
+
+On some teams, pair programming will be done on nearly all issues.
+
+There's behaviour driven development: ``As an \(x\), when \(y\) I want \(z\)
+
+\subsubsection{Testing}\label{ssub:testing}
+
+User testing for behaviour driven development.
+Testing can be done by other, un-related teams.
+A long time ago, teams often had several dedicated, full-time testers or even an entire large team for testing.
+
+\subsubsection{Deployment}\label{ssub:deployment}
+
+Sometimes code must be manually deployed.
+Sometimes you will need business approval to deploy.
+
+\subsubsection{Maintenance}\label{ssub:maintenance}
+
+There's sometimes a dedicated team, other times it is just the developers.
+
+\subsubsection{Security}\label{ssub:security}
+
+\begin{itemize}
+	\item Create technical design documents before even getting started.
+	\item Sometimes security is built in to frameworks.
+	\item Use general best practices (SSL, HTTPS, etc.)
+	\item AWS secret manager can store API keys, etc.
+	\item Whitelist for servers -- only certain servers should be able to access services.
+	\item Static analysis watches for security issues (Veridoe, Sonar, BlackDuck) which should be run well before releases avoid mad rushes at deployment.
+\end{itemize}
+
+\subsection{Feedback}\label{sub:feedback}
+
+\begin{itemize}
+	\item Be positive
+	\item Explain how to fix the horrible things
+\end{itemize}
+
+\subsection{Reviewing}\label{sub:reviewing}
+
+\begin{itemize}
+	\item Make sure code is easy to read and maintain
+	\item Avoid code duplication (someone else will know how to do it better)
+	\item Allows you to share knowledge (several people will understand your code)
+	\item Ownership (people will take pride and responsibility for bits of code).
+	\item Encourages smaller functional units (nobody will review \(10,000\) lines).
+	\item Reviewer can learn new coding styles or techniques.
+	\item Unfortunately, it costs time.
+	\item Can also cause animosity if done poorly.
+\end{itemize}
+
+\subsection{Coding Styles}\label{sub:coding_styles}
+
+\subsubsection{Single person development}\label{ssub:single_person_development}
+
+One person codes, tests, deploys and releases.
+What happens if they are sick or leave the company.
+
+\subsubsection{Pair Programming}\label{ssub:pair_programming}
+
+One driver, one observer, one screen.
+The driver and observer should change frequently.
+
+Pair programming allows for shared knowledge and eliminates having a single point of failure which will improve quality overall since the observer can highlight errors earlier and a discussion can be had to reach the optimal solution jointly (which is good for team building).
+
+However, it can take longer to develop, but the overall quality will be better which might make the extra time taken shorter over the long-term.
+It also uses more resources and can result in lots of wasted time if the driver ignores the observer.
+There could be disagreements on solutions.
+
+\subsubsection{Mob Programming}\label{ssub:mob_programming}
+
+There is one driver, but many observers which can be used for critical production issues.
+
+\subsection{Unit Tests}\label{sub:unit_tests}
+
+Should test individual methods and should focus on inputs and outputs.
+Will only test very specific cases.
+
+\subsection{Refactor}\label{sub:refactor}
+
+\begin{itemize}
+	\item Identify and remove code reuse.
+	\item Simplify
+	\item Decouple things
+	\item Improve overall cohesion.
+\end{itemize}
+
+\subsection{Test Driven Development}\label{sub:test_driven_development}
+
+Write the tests first, then write the code to fix the now broken tests.
+Repeat until all tests and code have been written.
+Now refactor and make sure the tests still pass.
+
+\subsection{Database Testing}\label{sub:database_testing}
+
+There should be a full integration test (``smoke test'') with data as close to customer data.
+Consider using setup and tear down methods to keep the database clean.
+
+In the case where a database is down or slow, you could use a stub or interface to just get data from a file while testing (a mock database or in memory database).
