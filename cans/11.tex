@@ -1,0 +1,67 @@
+\section{Computer Performance}\label{sec:computer_performance}
+
+The amount of memory and clock speed has been increasing exponentially.
+Clock speed has been increasing at a faster rate than memory capacity leading to the \emph{logic memory gap} which is one of the main processor bottlenecks.
+
+\begin{itemize}
+	\item You should increase the number of bits received at one time (make DRAM wider, not deeper because deeper is slower)
+	\item Reduce frequency or memory access (have a more compelx cache and have cache on the chip).
+	\item Increase interconnection bandwidth (use hierarchy of buses or increase bus speed, etc.).
+\end{itemize}
+
+\subsection{IO performance}\label{sub:io_performance}
+
+Input and output devices are \emph{very} slow (keyboards only have \(10\)s of bits per second).
+Use interrupts, multi-level bus structures and allow direct memory access.
+
+\subsection{How to increase processor speed}\label{sub:how_to_increase_processor_speed}
+
+\begin{itemize}
+	\item Increase clock frequency by shrinking logic gates.
+	\item Increase size and speed of caches
+	\item Change processor organisation and architecture (parallelism)
+\end{itemize}
+%
+Ideally all components should be able to work at their maximum performance.
+Try not to let one component stall others.
+
+\subsection{Performance Assessment}\label{sub:performance_asssessment}
+
+\subsubsection{Clock speed}\label{ssub:clock_speed}
+
+Clock speed cannot be arbitrary (ie. data should be reliably availbale at all inputs on a clock edge) so clock speed is not the whole story.
+
+\subsubsection{Instruction execution rate}\label{ssub:instruction_execution_rate}
+
+Average clock cycles per instruction of programs.
+CPI alone won't tell us the execution time for a certain program.
+We can find out number of clock ticks needed for \(n\) number of instructions, but we don't know what the duration of each clock cycle is.
+\begin{align*}
+	T = I_c \times CPI \times \tau
+\end{align*}
+
+\subsection{MIPS and MFLOPS}\label{sub:mips_and_mflops}
+
+Millions of instructions per second (MIPS).
+\begin{align*}
+	\textrm{MIPS rate} = \frac{I_c}{T \times 10^6} = \frac{f}{CPI \times 10^6}
+\end{align*}
+Millions of floating point instructions per second (MFLOPS).
+Heavily dependent on instruction set, compiler design, processor implantation, cache and memory hierarchy.
+MIPS and MFLOPS are bad for measuring performance.
+
+\subsubsection{Why are the not good enough?}\label{ssub:why_are_the_not_good_enough_}
+
+Modern processors are CISC (complex instruction set) which means one instruction can do complex tasks.
+Some processors are RISC (reduced insturction set) and require several instructions per task which takes longer.
+
+\subsection{Benchmarks}\label{sub:benchmarks}
+
+\begin{itemize}
+	\item Programs designed to test performance
+	\item Written in high level languages (compile for different architectures)
+	\item Represents style of task (systems, numerical, commercial)
+	\item Is easily measured (probably by time)
+	\item Is widely distributed and probably open source
+	\item Egg. System Performance Evaluation Corporation (SPEC)
+\end{itemize}
