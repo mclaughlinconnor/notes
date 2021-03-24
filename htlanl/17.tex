@@ -1,0 +1,44 @@
+\section{Session 15}\label{sec:session_15}
+
+\subsection{Enumerations}\label{sub:enumerations}
+
+An enumeration allows a variable to be one of a set on constants.
+Java has a special \mintinline{python}{enum} class which is allowed to have methods.
+The names of values are generally all upper case (just like regular constants).
+
+\begin{itemize}
+	\item \mintinline{python}{.values} gives an array of values
+	\item \mintinline{python}{.valueOf(str)} gives the enum constant of the string
+	\item \mintinline{python}{.equals()}, \mintinline{python}{.compareTo()}, \mintinline{python}{toString()} work too.
+\end{itemize}
+
+\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{java}
+public enum Planet {
+    MERCURY (...),
+    MARS (...);
+
+    private final double mass;
+    private final double radius;
+
+    Planet(double m, double r) {
+        this.mass = m;
+        this.radius = r;
+    }
+}
+\end{minted}
+
+\subsection{Paths/Files}\label{sub:paths_files}
+
+A path identifies the path to a file.
+A \emph{delimiter} separates the directory names (is ``\\'' on windows and ``/'' everywhere else).
+
+Java uses \mintinline{python}{java.nio.file.Path} which must be imported to represent a path.
+This class lets you examine, locate, etc., paths.
+\mintinline{python}{java.nio.file.Files} has methods for copying, moving, etc., files.
+
+\subsection{Exceptions}\label{sub:exceptions}
+
+Exceptions are thrown when an error occurs, unless caught using a \mintinline{java}{try} \mintinline{java}{catch} block, the program will crash.
+
+You should keep error handling code separate from all other code preferably.
+Error handling can avoid having lots of conditional statements if you assume everything just works and worry about exceptions later on.
