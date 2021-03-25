@@ -1,0 +1,143 @@
+\section{Session 17}\label{sec:session_17}
+
+\subsection{Models}\label{sub:models}
+
+\begin{itemize}
+	\item Class diagram: high level overview of code
+	\item Interaction diagrams: how other classes interact with each other
+	\item Domain model: ?
+\end{itemize}
+
+\subsection{Object}\label{sub:object}
+
+\begin{itemize}
+	\item Data and properties
+	\item Operations
+	\item Discrete entities with well defined boundaries
+\end{itemize}
+
+\subsection{Lifecycle}\label{sub:lifecycle}
+
+\begin{itemize}
+	\item Construction: when created
+	\item Running: calling functions, etc. (State is the name given to all of the variables).
+	\item Deconstruct: for memory management when the object is killed.
+\end{itemize}
+
+\subsection{Universal Modelling Language (UML)}\label{sub:universal_modelling_language_uml_}
+
+\subsubsection{Syntax}\label{ssub:syntax}
+
+\paragraph{Class}\label{par:class}
+
+\begin{itemize}
+	\item Name: capitalised single noun (Book, Library).
+	\item Attribute: show visibility (public (+) or private (-)), show typing, named with camelCase, include getters and setters.
+	\item Operator: Public or private, camelCase, have names and types.
+\end{itemize}
+
+\begin{center}
+	\begin{tikzpicture}
+		\begin{class}[text  width=8cm]{Book}{0,0}
+			\attribute{name : string}
+			\attribute{author : string}
+			\operation{buy(quantity : integer) : boolean}
+		\end{class}
+	\end{tikzpicture}
+\end{center}
+
+\subsubsection{Relationships}\label{ssub:relationships}
+
+\paragraph{Generalisations}\label{par:generalisations}
+
+``\(a\) is a \(b\)'', basically a subclass instance of a superclass (inheritance).
+
+\begin{center}
+	\begin{tikzpicture}
+		\begin{class}[text width=6cm]{Book}{0,0}
+			\attribute{name : string}
+			\attribute{author : string}
+			\operation{buy(quantity : integer) : boolean}
+		\end{class}
+		\begin{class}[text width=6cm]{ComicBook}{0,-3}
+			\inherit{Book}
+			\attribute{name : string}
+			\attribute{author : string}
+			\operation{buy(quantity : integer) : boolean}
+		\end{class}
+	\end{tikzpicture}
+\end{center}
+
+\paragraph{Aggregate}\label{par:aggregate}
+
+``\(a\) has a \(b\)''. Compound class is made of components. There is no inheritance. Each class is independent of each other.
+
+\begin{center}
+	\begin{tikzpicture}
+		\begin{class}[text width=6cm]{Library}{0,0}
+			\attribute{name : string}
+			\attribute{author : string}
+			\operation{buy(quantity : integer) : boolean}
+		\end{class}
+		\begin{class}[text width=6cm]{Book}{0,-3}
+			\aggregation{Book}{}{}{ComicBook}
+			\attribute{name : string}
+			\attribute{author : string}
+			\operation{buy(quantity : integer) : boolean}
+		\end{class}
+	\end{tikzpicture}
+\end{center}
+
+\paragraph{Composition}\label{par:composition}
+
+The same as aggregation, but with a dependency.
+
+\begin{center}
+	\begin{tikzpicture}
+		\begin{class}[text width=6cm]{Library}{0,0}
+			\attribute{name : string}
+			\attribute{author : string}
+			\operation{buy(quantity : integer) : boolean}
+		\end{class}
+		\begin{class}[text width=6cm]{Book}{0,-3}
+			\composition{Library}{}{}{Book}
+			\attribute{name : string}
+			\attribute{author : string}
+			\operation{buy(quantity : integer) : boolean}
+		\end{class}
+	\end{tikzpicture}
+\end{center}
+
+\paragraph{Association}\label{par:association}
+
+Role name and multiplicity.
+\(1\) to \(M\), \(1\) to \(1\), \(0\) to \(M\).
+
+\begin{center}
+	\begin{tikzpicture}
+		\begin{class}[text width=6cm]{Library}{0,0}
+			\attribute{name : string}
+			\attribute{author : string}
+			\operation{buy(quantity : integer) : boolean}
+		\end{class}
+		\begin{class}[text width=6cm]{Book}{0,-5}
+			\association{Library}{Owns}{\(1\)}{Book}{\(M\)}{Belongs to}
+			\attribute{name : string}
+			\attribute{author : string}
+			\operation{buy(quantity : integer) : boolean}
+		\end{class}
+	\end{tikzpicture}
+\end{center}
+
+\paragraph{Class}\label{par:class}
+
+Name, attribute, operations (just a recipe for an object).
+
+\paragraph{Relationships}\label{par:relationships}
+
+Generalisation, aggregation, composition, association.
+
+\bigskip
+\noindent
+\textbf{You will likely have to draw one of these in the exam.}
+
