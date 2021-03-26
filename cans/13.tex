@@ -1,0 +1,217 @@
+\section{Sigma16}\label{sec:sigma16}
+
+Designed to support several research projects for research and not for commercial purposes.
+There is a complete design, but it has never been manufactured.
+We can either use an emulator, or a complete circuit diagram -- we will use the emulator.
+
+\subsection{Why use Sigma16}\label{sub:why_use_sigma16}
+
+Our focus is on ideas and principles.
+Sigma16 illustrates all of the main ideas, but avoids extra complexity.
+Examples:
+\begin{itemize}
+	\item Sigma16 has a single word size (\(16\) bits) while commercial machines have many.
+	\item Most commercial computers have backward compatibility with previous versions which is more complex.
+\end{itemize}
+Legacy architectures use an aproach called \emph{complex instruction set} (CISC), but Sigma16 uses a simpler \emph{reduced instruction set} which gives better performance.
+
+\subsection{Sigma16's Register File}\label{sub:sigma16_s_register_file}
+
+There are \(16\) registers.
+\textbf{All ALU operations are performed only on registers.}
+Each register holds a \(16\) bit word that are written using hexadecimal numbers.
+
+We must use registers instead of variables since we are talking directly to the hardware in the computer.
+
+\subsection{Hello World}\label{sub:hello_world}
+
+Our RTM circuit could do:
+\begin{align*}
+	R_3 & := R_2+R_1 ; \text{add two registers and load the result}     \\
+	R_3 & :=R_2-R_1 ; \text{subtract two registers and load the result} \\
+	R1  & := 8 ; \text{load a constant (immediate operand)}
+\end{align*}
+Now in Sigma16's assembly:
+
+\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{asm}
+add R3,R2,R1 ; means R3 := R2 + R1
+sub R3,R2,R1 ; means R3 := R2 - R1
+lea R1,8[R0] ; means R1 := 8
+\end{minted}
+
+\subsection{The add instruction}\label{sub:the_add_instruction}
+
+General form:
+\begin{itemize}
+	\item \mintinline{python}{add dest,op1,op2} where \mintinline{python}{dest}, \mintinline{python}{op1} and \mintinline{python}{op2} are registers.
+	\item The two operands are added and placed in the destination
+	\item Meaning \(dest:=op_1+op_2\).
+\end{itemize}
+
+Everything after a semicolon is a comment.
+
+\subsection{Registers can hold variables}\label{sub:registers_can_hold_variables}
+
+A variable can hold a value, so can registers.
+Instructions like \mintinline{python}{sub} , \mintinline{python}{mul} and \mintinline{python}{div} are assignment operations.
+Note: they are not a mathematical equation, it is a command to do an operation, then put the result into a register.
+
+\subsection{Notation and terminology}\label{sub:notation_and_terminology}
+
+Why use the instruction notation instead of the maths notation? Because with the instruction notation, the opcode is at the very start, whereas with the mathematical notation, the operator is somewhere in the middle.
+
+\subsection{Simple program}\label{sub:simple_program}
+
+\begin{itemize}
+	\item \textbf{Problem} given three integers in \(R_1\), \(R_2\) and \(R_3\), calculate  \(R_1+R_2+R_3\) and put it into \(R_4\).
+	\item \textbf{Solution}
+	      \begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{asm}
+add R4,R1,R2 ; R4 := R1+R2
+add R4,R4,R3 ; R4 := (R1_R2)+R3
+            \end{minted}
+\end{itemize}
+
+\subsection{Another example}\label{sub:another_example}
+
+We can use variables by pretending \(R_1\) is  \mintinline{python}{a}, \(R_2\) is \mintinline{python}{b}, etc.
+Good comments make code easy to read.
+
+\subsection{Constants}\label{sub:constants}
+
+The ATM has an instruction that loads a constant into a register.
+
+How to use \mintinline{python}{lea}:
+\begin{itemize}
+	\item \mintinline{python}{lea R2,57[R0]} leads \mintinline{python}{57} into \(R_2\).
+	\item Actually \mintinline{python}{lea} does more which we'll see later.
+	\item We use \mintinline{python}{[R0]} for some reason, we'll see why later.
+\end{itemize}
+
+\subsection{Stopping the program}\label{sub:stopping_the_program}
+
+The last instruction of every program should be: \mintinline{python}{trap R0,R0,R0 ; halt}
+This tells the computer to halt, it stops the execution of the program.
+
+\subsection{Defining variables (data) in memory}\label{sub:defining_variables_data_in_memory}
+
+Do:
+\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{asm}
+x data 34 ; x is a variable with initial value 34
+y data 9 ; y is initially 9
+abc data $02c6 ; specify initial value as hex
+\end{minted}
+Data statements should come after all the instructions in the programs.
+The ``booter'' code starts execution at location \(0\).
+
+\subsection{Special registers}\label{sub:special_registers}
+
+You should not use \(R_0\) or \(R_{15}\) to store variables.
+
+Register zero:
+\begin{itemize}
+	\item Any time you need the number \(0\), it is in \(R_0\).
+	\item You cannot change the value of \(R_0\) -- it will always  be \(0\), even if you try to change it.
+	\item It is legal to try and overwrite it, but nothing will happen.
+\end{itemize}
+%
+Register fifteen:
+\begin{itemize}
+	\item Some instructions place additional information in \(R_{15}\) (is the result negative? Was there an overflow?)
+	\item \(R_{15}\) is temporary information and is not a safe place to store data.
+\end{itemize}
+
+\section{Memory and Registers in Sigma16}\label{sec:memory_and_registers_in_sigma16}
+
+\subsection{Register file}\label{sub:register_file}
+
+\begin{itemize}
+	\item \(16\) registers
+	\item Can do arithmeic, but too small to hold all your variables.
+	\item Each register hold a \(16\) bit word.
+	\item Names are \(R_0\) ...  \(R_{15}\)
+	\item You can do arithmetic on data in registers.
+	\item Use register to hold data temporarily
+\end{itemize}
+
+\subsection{Memory}\label{sub:memory}
+
+\begin{itemize}
+	\item \(65,536 = 2^{16}\) memory locations (requesrs \(16\) bit address)
+	\item Each location holds a \(16\) bit word.
+	\item Each memory location has a memory address \(0\)...\(65,536\).
+	\item Machine cannot do arithmetic directly on memory location.
+\end{itemize}
+
+
+\subsection{Copying between memory and register}\label{sub:copying_between_memory_and_register}
+
+Use \mintinline{python}{load R2,x[R0]}  to load data from \(x\) into \(R_2\).
+Use \mintinline{python}{store} to go back again.
+
+
+\subsection{Why have registers and memory}\label{sub:why_have_registers_and_memory}
+
+The programmer has to keep track of which variables are currently in registers.
+You have to load and store instructions to copy data between registers and memory.
+It is possible, but much slower and has many more instructions.
+
+\section{The Sigma16 stored program computer}\label{sec:the_sigma16_stored_program_computer}
+
+\subsection{What's in memory}\label{sub:what_s_in_memory}
+
+All data (variables, data structures, lists) and the program itself.
+The separation between data and the program must be maintained by the programmer themselves.
+
+\subsection{Instruction format types}\label{sub:instruction_format_types}
+
+There are three types of instructions:
+\begin{itemize}
+	\item RRR instructions use registers
+	\item RX instructions use the memory
+	\item EXP instructions use registers and constant.
+\end{itemize}
+
+%
+Each kind of instruction is called an instruction format.
+Each instruction format has a standard representation in the memory using one or more words.
+\begin{itemize}
+	\item An RRR instruction is represented in one word
+	\item An RX or EXP instruction needs two words.
+\end{itemize}
+%
+We just need to learn three ways to represent an instruction.
+
+\subsection{Fields of an instruction word}\label{sub:fields_of_an_instruction_word}
+
+An instruction word has \(16\) bits.
+There are \(4\) fields, each with \(4\) bits which is good for hexadecimal representation.
+
+The fields are called \mintinline{python}{op} (holds operation code), \mintinline{python}{d} (holds destination register), \mintinline{python}{a} (holds first source operand register), \mintinline{python}{b} holds the second source operand register).
+
+\subsection{RRR instructions}\label{sub:rrr_instructions}
+
+Every RRR consists of:
+\begin{itemize}
+	\item An operation
+	\item Three register operands (two sources and a destination)
+	\item The instruction performs the operation of the upends and puts the result in the destination.
+\end{itemize}
+
+\mintinline{python}{add}, \mintinline{python}{sub}, \mintinline{python}{mult} are RRR operations.
+
+\subsection{RX instructions}\label{sub:rx_instructions}
+
+Has two operands (register and memory location).
+Here are some examples of two of the possible RX instructions:
+\mintinline{python}{lea R5,19[R0]} and \mintinline{python}{load R1,x[R0]}.
+
+The first operand is called the destination register.
+The second operand specifies a memory address.
+
+Each variable is kept in memory at a specific location.
+The memory operand has two parts (\mintinline{python}{x[R0]}).
+\mintinline{python}{x} is the initial location, then we add the value at \(R_0 = 0\) (called the index register) and get the data at that address (almost like an array).
+
+The instruction take \(2\) wordss.
+The first word contains \mintinline{python}{op} (opcode), \mintinline{python}{d} (register operand or destination), \mintinline{python}{a} (index register like \(R_0\)), \mintinline{python}{b} (a code indicating which RX instruction it is -- \(1\) means load, for example).
+The second word contains the displacement address (the address of \(x\)) for \(16\) bits.
