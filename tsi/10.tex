@@ -1,0 +1,68 @@
+\section{Advanced Testing}\label{sec:advanced_testing}
+
+\subsection{Graphical User Interface Testing and User Experience Testing}\label{sub:graphical_user_interface_testing_and_user_experience_testing}
+
+Testing the user interface,keyboard input, mouse input and touch screen.
+This process is done manually and is very time consuming (the same effort has to be repeated every time).
+The quality of the test can be dependent on the tester, but a human tester can find edge cases that would be missed in automated testing.
+
+To reduce the time taken, you could capture and replay actions performed to compare to the next time to improve reproducibility.
+
+We can use \emph{model view controller} to separate the fronted automatically because it is completely separate from the other code (inputs and outputs).
+
+Automated testing is a thing, but there is a lot of effort for initial set up and maintain.
+You need to find a balance between the effort and the return (you don't always get edge cases too).
+
+\subsection{Manual Testing}\label{sub:manual_testing}
+
+We can have test packs which is just a big document of test cases.
+There are tools that can be used to record the results (what has and should happen)
+
+\subsection{Integration Testing}\label{sub:integration_testing}
+
+Integration testing is testing everything works well together.
+We used mocks and fakes before to eliminate the need of integration testing, but running an overnight test with a real database (possibly just a copy of a live database or created synthetic data) could raise some issues.
+
+\emph{Chaos engineering} is only usable with load balancing.
+What you do is turn off some servers and make sure things still work or fail like they are supposed to.
+You should do these during quiet times (ie.\ not at peak times).
+Does disaster recovery kick in and work correctly.
+
+\subsection{User Acceptance Testing}\label{sub:user_acceptance_testing}
+
+The end users test their requirements.
+This is often the very last test before the release to production.
+Each user acceptance test should be mapped back to the original requirements (so you can see which requirements have or have not been met. Is the requirement ambiguous?).
+
+Using a stable environment (that has already passed a number of test stages) is important because some applications could have a knock-on effect if they fail.
+
+The hardware should be the same as production, sometimes the clone is used for disaster recovery.
+
+\subsection{Behaviour Driven Development}\label{sub:behaviour_driven_development}
+
+Rather than capturing requirements, capture behaviours, so tests are created from the behaviours.
+
+\emph{Cucumber} is a tool that can be used to automatically create tests from the behaviours after the developer has written ``glue'' between the behaviours and the code.
+
+\begin{quotation}
+	As a \dots, I want \dots, so that \dots
+\end{quotation}
+
+\subsection{Non functional testing}\label{sub:non_functional_testing}
+
+\begin{itemize}
+	\item \textbf{Penetration testing}: What happens when someone tries to bring down a site?
+	\item \textbf{Capacity testing}: Can you handle all of the requests being made?
+	\item \textbf{Usability testing}: How is the screen working? Do people have to test too many buttons?
+	\item \textbf{Portability Testing}: does it work on many different operating systems?
+\end{itemize}
+
+\subsection{A/B testing}\label{sub:a_b_testing}
+
+\begin{enumerate}
+	\item Create a hypothesis or idea
+	\item Create an experiment environment to test out changes
+	\item Create a base default cell to compare against (control case)
+	\item Create two variations of the default to assign to certain users.
+	\item Compare the two variations with the control to see if there was any improvements and which one was best.
+\end{enumerate}
