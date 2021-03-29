@@ -1,0 +1,171 @@
+\section{Assembler}\label{sec:assembler}
+
+Humans write machine level program in assembly language, which the assembler reads in and translates it to machine language.
+The assembler replaces an instruction mnemonic with the op code.
+For variables, the assembler replaces the variable with the memory address.
+
+A compiler works similar, but it translates a high level language into assembly language which is a very big change.
+An assembler translates between two very similar languages.
+
+\subsection{Variables Names and Addresses}\label{sub:variables_names_and_addresses}
+
+Each variables needs to be declared with a \mintinline{python}{x data 23} statement that comes after the \mintinline{python}{trap} statement (that terminates the program).
+
+\subsection{How the assembler allocates memory}\label{sub:how_the_assembler_allocates_memory}
+
+The assembler maintains a variable called the location counter.
+This is the address where it will place the next piece of code (initially \(0\)).
+
+The assembler reads through each line of code (first pass) and decides how many words of memory each line of code will require (RRR instructions and RX instruction) and adds this to the location counter.
+If there is a label, it remembers that the address of the label is the current value of the location counter (this goes into the symbol table).
+
+The assembler reads the program again (second pass) and generates the words of machine code for each statement.
+If there is a reference to a label that appears farther on (eg.\ load \(x\)), it looks up the value from the symbol table.
+
+\subsection{Program Structure}\label{sub:program_structure}
+
+A complete program needs:
+\begin{itemize}
+	\item Good comments (absolute must)
+	\item The actual program
+	\item An instruction to stop the program (\mintinline{python}{trap R0,R0,R0})
+	\item Declarations of variable: data statements
+\end{itemize}
+
+\paragraph{Why do we put instructions first?}
+Because the processor is hard-wired to go to location \(0000\) and start executing.
+
+\subsection{Control Registers}\label{sub:control_registers}
+
+There are some registers that are used to keep track of the processor's current state.
+
+\section{Syntax}\label{sec:syntax}
+
+Assembly is simple and rigid.
+
+\subsection{Spaces}\label{sub:spaces}
+
+There are four files separated by spaces:
+\begin{itemize}
+	\item Label (optional): begins at left most character.
+	\item Operation (like \mintinline{python}{add})
+	\item Operands (like \mintinline{python}{R1,R2})
+	\item Comments (like \mintinline{python}{; x=2*a+b})
+\end{itemize}
+
+\begin{note}
+	Note: There cannot be spaces anywhere else.
+\end{note}
+
+\subsection{The Operand Field}\label{sub:the_operand_field}
+
+\subsubsection{RXX}\label{ssub:rxx}
+
+Like \mintinline{python}{R8,R13,R0}.
+
+\subsubsection{RX}\label{ssub:rx}
+
+The first is a register, the second is an address.
+Address is a name or constant followed by a register.
+Like \mintinline{python}{R12,array[R6]}.
+
+\subsection{Writing Constants}\label{sub:writing_constants}
+
+\begin{itemize}
+	\item decimal: \(50\)
+	\item hexadecimal \(\$0032\)
+\end{itemize}
+
+\subsubsection{Examples}\label{ssub:examples}
+
+\begin{itemize}
+	\item \mintinline{asm}{lea R1,40[R0]}
+	\item \mintinline{asm}{lea R2,\$ffff[R0] ; -1 two's complement}.
+	\item \mintinline{asm}{x data 25}
+	\item \mintinline{asm}{y data \$2c9e}
+\end{itemize}
+
+\section{Control Structures}\label{sec:control_structures}
+
+\subsection{High level lanuages}\label{sub:high_level_lanuages}
+
+A high level language has statements that perform actions and statements that control the order of calculates (like loops, comditionals, functions).
+
+We separate code into blocks for high level languages (like in \mintinline{python}{if} or \mintinline{python}{while}) constructs.
+
+\subsection{Expressing high level control statements in low level constructs}\label{sub:expressing_high_level_control_statenmens_in_low_level_contrsucts}
+
+\begin{itemize}
+	\item Assignment statements \mintinline{python}{x=a*2}
+	\item Goto \mintinline{python}{goto LABEL}
+	\item Conditional goto \mintinline{python}{if BEXP then goto LABEL}
+\end{itemize}
+%
+High level languages provide many different types of control statements for the programmers convenience, but these all map to these three statements.
+
+\subsubsection{Using GOTO}\label{ssub:using_goto}
+
+The first  programming language (Fortran, 1955) didn't have control structures so everything had to be done with \mintinline{python}{goto}.
+
+\mintinline{python}{goto} leads to unreadable programs and unreliable software.
+You should not use \mintinline{python}{goto} -- it is for implementing low level control statements.
+We should use loops, conditional blocks, loops.
+
+\subsubsection{Jump}\label{ssub:jump}
+
+The instruction itself is usually called\mintinline{python}{jump} and it requires the target instruction th have a label (a name starting with a letter on the first character).
+
+\subsection{Sigma16 conditional jumps}\label{sub:sigma16_conditional_jumps}
+
+\begin{itemize}
+	\item \mintinline{python}{jumpf} jumps if \mintinline{python}{False}
+	\item \mintinline{python}{jumpt} jumps is \mintinline{python}{True} or \mintinline{python}{!= 0}
+\end{itemize}
+
+\subsection{Comparing instructions}\label{sub:comparing_instructions}
+
+\begin{itemize}
+	\item \mintinline{python}{cmplt} means ``compare less than''.
+	      The operands are compared and returns either \(0\) or \(1\) to the result.
+	\item \mintinline{python}{cmplt}: compare less than
+	\item \mintinline{python}{cmpeq}: compare equal
+	\item \mintinline{python}{cmpgt}: compare greater than
+\end{itemize}
+
+\section{Compilation patterns}\label{sec:compilation_patterns}
+
+Each programming construct is translated according to a standard pattern.
+
+\begin{itemize}
+	\item Assignment statements: load, arithmetic, store
+	\item Branching and looping: goto label unconditionally, goto label if true, goto label if false.
+\end{itemize}
+On pen and paper, it is easier to first translate to simplified high level (or similar statements)
+
+\subsection{Branching and looping}\label{sub:branching_and_looping}
+
+\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{c}
+if x<y
+    then {statement}
+statement;
+\end{minted}
+
+\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{text}
+    R:=(x<y)
+    jumpf R7,skip[R0] ; jump to skip if false
+    instructions for statement 1
+skip ; a label
+    instrucitons for statement 2
+\end{minted}
+
+\subsubsection{If-else pattern}\label{ssub:if_else_pattern}
+
+When the truthy branch, we jump to a label that comes after the else statement in order to skip it.
+In the else block, we jump to a label that comes after as well.
+
+\subsubsection{While loop}\label{ssub:while_loop}
+
+We make an comparison each loop which jumps outside of the loop, otherwise we keep jumping back to the start of the loop.
+For a do while loop the comparison and jump is made at the very end, regular while loops are made at the start.
+
+
