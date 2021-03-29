@@ -37,11 +37,11 @@ The syntax to create an \mintinline{java}{ArrayList} is slightly different to ho
 	\item \mintinline{java}{items.trimToSize()} removed all extra capacity. (size \(=\) capacity).
 	\item \mintinline{java}{items.ensureCapacity(100)} preallocates space for \(100\) elements.
 	\item \mintinline{java}{items.add(index, element)} inserts \mintinline{java}{element} to the \mintinline{java}{index}\textsuperscript{th} if there has already been something in the \mintinline{java}{index}\textsuperscript{th} position. Skipping \mintinline{java}{index} defaults to \(0\).
-	\item \mintinline{java}{items.set(index, element)} can be used to set elements in the same way \mintinline{java}{items.add(index, element)} adds elements. Also only works if that position has had data in it before.
+	\item \mintinline{java}{items.set(index, element)} can be used to set elements too \mintinline{java}{items.add(index, element)} adds elements. Also only works if that position has had data in it before.
 	\item \mintinline{java}{items.get(index)} returns the value at the index. \mintinline{java}{items[2]} does not work.
 	\item \mintinline{java}{items.remove(index|element)} either removes the element at \mintinline{java}{index} or removes the first instance of \mintinline{java}{element}.
 	\item \mintinline{java}{itemsArrayList.toArray()} turns an \mintinline{java}{ArrayList} into a regular array.
 	\item \mintinline{java}{itemsArray.asList()} changes a regular array into an \mintinline{java}{ArrayList}.
 	\item \mintinline{java}{items.toString()} exists on \mintinline{java}{ArrayList}s (it doesn't on regular arrays) meaning they can be printed to the screen nicely.
-	\item Search functions - \mintinline{java}{items.contains(element)}, \mintinline{java}{items.indexOf(element)} and \mintinline{java}{items.lastIndexOf(element)} - can be used to search through an \mintinline{java}{ArrayList} to find \mintinline{java}{element}.
+	\item The search functions - \mintinline{java}{items.contains(element)} in addition to \mintinline{java}{items.indexOf(element)} and \mintinline{java}{items.lastIndexOf(element)} - can be used to search through an \mintinline{java}{ArrayList} to find \mintinline{java}{element}.
 \end{itemize}

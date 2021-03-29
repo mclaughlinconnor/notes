@@ -10,9 +10,9 @@
 	      Time to calculate this does not vary with the length of the dictionary.
 	\item \mintinline{python}{items.update()} will merge two dictionaries overwriting the values in the first from the second.
 	\item \mintinline{python}{items.copy()} works the same as with lists where just assigning creates a reference only.
-	      \mintinline{python}{items.copy()} only creates a new instance of the dictionary itself, but the values themselves are still references.
+	      \mintinline{python}{.copy()} only creates a new instance of the dictionary itself, but the values themselves are still references.
 	      \mintinline{python}{copy.deepcopy()} should be used to create new instances of the values too.
-	\item Dictionaries can be iterated over just like lists.
+	\item Dictionaries can be iterated over just like lists by performing a \mintinline{python}{for} loop:
 	      \mintinline{python}{for key in items} loops over the keys.
 	      \mintinline{python}{for value in items.values()} loops over the values of the dictionary.
 	      \mintinline{python}{for key, value in items.items()} loops over the keys and values at the same time.
