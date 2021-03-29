@@ -1,12 +1,36 @@
-\documentclass{report}
+\documentclass[a4paper]{report}
 
-\usepackage{minted}
-\usepackage{tcolorbox}
-\usepackage{booktabs}
-\usepackage{tabularx}
-\usepackage{amsmath}
-\usepackage[RPvoltages]{circuitikz}
-\usepackage[simplified]{pgf-umlcd}
+\usepackage{geometry}
+\geometry{textwidth=15.75cm, textheight=23.4cm, marginratio={5:5,5:7}}
+
+\usepackage[page]{totalcount}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\rfoot{\fancyplain{}{CONNOR M\textsuperscript{c}LAUGHLIN}}
+\rhead{\fancyplain{}{\thepage\ of \totalpages}}
+\lhead{\fancyplain{}{\leftmark}}
+\lfoot{\fancyplain{}{GRADUATE APPRENTICESHIP SOFTWARE ENGINEERING}}
+
+\fancyhf[FC]{} % Disable page numbers in footer center.
+
+\usepackage{amsmath} % Math equations
+\usepackage{booktabs} % Better looking tables
+\usepackage[RPvoltages]{circuitikz} % The circuit diagrams in CANS
+\usepackage{float} % Used to force listings to have H placement
+\usepackage{microtype} % Slightly better text layouts
+\usepackage{minted} % Code
+\usepackage[simplified]{pgf-umlcd} % Used to have UML diagrams in TSI
+\usepackage[binary-units=true]{siunitx} % Units
+\usepackage{tabularx} % Column types
+\usepackage{tcolorbox} % The note box
+
+\usepackage{enumitem}
+\setlist{itemsep=0.5\itemsep}
+
+\floatplacement{listing}{H}
+\AfterEndEnvironment{listing}{\noindent\ignorespaces}
 
 \usepackage{hyperref}
 \hypersetup{
@@ -17,19 +41,15 @@
     urlcolor=black
 }
 
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
 \newenvironment{note} {
-    \begin{tcolorbox}[
-        enlarge right by=-10pt,
-        width=\linewidth+20pt,
-        enlarge left by=-10pt,
-        colframe=black,
-        colback=white,
-        arc=0pt,
-        boxrule=0.45pt
-    ]
-} {
-    \end{tcolorbox}
-}
+     \begin{tcolorbox}
+ } {
+     \end{tcolorbox}
+ }
 
 \begin{document}
 \tableofcontents
