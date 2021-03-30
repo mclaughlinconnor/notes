@@ -1,0 +1,152 @@
+\section{Improving Software Quality}\label{sec:improving_software_quality}
+
+\subsection{Why is source code quality important?}\label{sub:why_is_source_code_quality_important_}
+
+\begin{itemize}
+	\item Code is easier to read and maintain if it is in a consistent style.
+	\item Avoids redundant code
+	\item Can help to identify issues (even more in interpretted languages because the compiler won't complain here)
+\end{itemize}
+
+\subsubsection{Linting}\label{ssub:linting}
+
+Linters are pieces of code that statically analyse your codebase to identify issues and can be run in the IDE or before committing.
+
+\begin{itemize}
+	\item Spell checking
+	\item Grammar checking (syntax)
+	\item Detects undeclared variables
+	\item Unused variables
+	\item Deprecated functions
+	\item Spacing and formatting conventions
+	\item Misuse of scope
+	\item Implicit fall though (on case and switch statements)
+	\item Dangerous language features
+\end{itemize}
+
+\subsection{Why is codebase security important?}\label{sub:why_is_codebase_security_important_}
+
+\begin{itemize}
+	\item Hackers are always looking for vulnerabilities
+	\item Libraries are always improving so updating can improve security (or also new versions can have vulnerabilities)
+	      \begin{itemize}
+		      \item Older versions will not always be supported so any new bugs detected might allow attackers in.
+		      \item Security scanning of library versions
+		      \item Highlight level of warning.
+		      \item Suggest resolutions and maybe automatic fixing (make sure you test).
+	      \end{itemize}
+	\item
+\end{itemize}
+
+\subsubsection{Composition Analysis}\label{ssub:composition_analysis}
+
+\begin{itemize}
+	\item Dependency analysis
+	\item Library and component analysis
+	\item Snippet analysis (does any of your code itself have any vulnerabilities?).
+	\item Vulnerability analysis
+	\item Remediation guidance
+	\item Automation on fix
+\end{itemize}
+
+\subsection{Why are metrics important?}\label{sub:why_are_metrics_important_}
+
+\begin{itemize}
+	\item Helps to evaluate cost and schedule of future projects
+	\item Evaluate the productivity impacts of new tools and techniques
+	\item Establish productivity over time (to improve).
+	\item Improve software quality
+	\item Forecast future staffing needs
+	\item Anticipate and reduce future maintenance needs
+\end{itemize}
+
+\subsubsection{Types of metrics}\label{ssub:types_of_metrics}
+
+\begin{itemize}
+	\item Test coverage
+	\item Minimum, maximum and average time to deployment
+	\item Minimum, maximum and average number of fixes to a requirement
+	\item Correction rate from code review
+	\item Code quality
+\end{itemize}
+
+\begin{note}
+	Your metric should add value. ie.\ requiring a high test coverage may result in having lots of useless tests.
+\end{note}
+
+\subsubsection{Metrics for code quality}\label{ssub:metrics_for_code_quality}
+
+\begin{itemize}
+	\item Complexity of methods
+	\item Depth of inheritance
+	\item Number of child classes
+	\item Coupling between object classes
+	\item Number of responsibilities for a class
+	\item Lack of cohesion
+\end{itemize}
+
+\paragraph{Complexity of a method}\label{par:complexity_of_a_method}
+
+The complexity of a method is the sum of the complexities of methods in a class.
+Complexity is measured using the McCabe complexity.
+Less complex code is better.
+
+We can use the Weight Method Per Class (WMC) to predict how much time and effort is required to develop and maintain the class (lowe is better).
+CK Metrics Implementation assigns a complexity score of \(1\) to each method
+
+\paragraph{Depth of Inheritance (DIT)}\label{par:depth_of_inheritance_dit_}
+
+The length of the path from the node to the root of the tree.
+For greater DITs:
+\begin{itemize}
+	\item The greater the number of methods it is likely to inherit making more complex to predict its behaviour
+	\item The greater potential reuse of methods
+	\item The objective is to achieve a trade-off in DIT
+	\item Small values of DIT in more of the system's classes may be an indicator that designers are forsaking re-usability for simplicity of understanding.
+\end{itemize}
+
+\paragraph{Number of children}\label{par:number_of_children}
+
+For any class in the inheritance tree, the number of children is the number of immediate children of the class (the number of direct subclasses).
+For greater values of NOC:
+\begin{itemize}
+	\item The greater the reuse
+	\item The greater the probability of improper abstraction of the parent class
+	\item The greater the requirement of method's testing in that class
+	\item Small numbers of NOC may indicate lack of communication between class designers.
+	\item Aim for a trade-off
+\end{itemize}
+
+\paragraph{Coupling between classes}\label{par:coupling_between_classes}
+
+\begin{itemize}
+	\item CBO is the number of other classes the class is coupled to.
+	\item A class is coupled if it operates on or affects another class or is required by another class.
+	\item Improve modularity and promote encapsulation
+	\item Indicates independence in the class, making its reuse easier
+	\item Makes easier to maintain and to test a class
+	\item Try to get low coupling
+\end{itemize}
+
+\paragraph{Responses for Class}\label{par:responses_for_class}
+
+This is the number of methods of the class plus the number of methods called by any of those methods.
+Normally ROC is calculated to only one level.
+Smaller numbers are better and larger numbers indicate increased complexity and debugging complexity making testing and maintenance harder.
+Aim for low.
+
+\paragraph{Lack of Cohesion}\label{par:lack_of_cohesion}
+
+Counts the sets of methods in a class that are not related through the sharing of some of the class's fields
+\begin{enumerate}
+	\item Consider all Paris of a class's methods
+	\item Check if the pair share common fields
+	\item The lack of cohesion in methods is then calculated by subtracting the number of methods pairs that don't share afield access and the number of pairs that do.
+\end{enumerate}
+
+\begin{itemize}
+	\item A measure of the tightness of the code
+	\item Lower values of cohesion increase complexity and do not promote encapsulation (suggests classes should be split into more than one)
+	\item Helps to identify low quality designs
+	\item Aim for high cohesion
+\end{itemize}
