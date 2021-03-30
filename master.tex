@@ -29,6 +29,12 @@
 \usepackage{enumitem}
 \setlist{itemsep=0.5\itemsep}
 
+\usepackage{minitoc} 
+\setcounter{tocdepth}{1}
+\setcounter{minitocdepth}{3}
+
+\setcounter{secnumdepth}{3}
+
 \usepackage{hyperref}
 \hypersetup{
     colorlinks,
@@ -49,7 +55,19 @@
  }
 
 \begin{document}
+
+\title{Glasgow University Software Engineering Graduate Apprenticeship}
+\date{\today}
+\author{Connor M\textsuperscript{c}Laughlin\\
+{\begin{tabularx}{0.85\textwidth}{*{3}{>{\medskip\small\centering\arraybackslash}X}}
+	Derek Sommerville & Matthew Barr & Waqar Nabi
+\end{tabularx}}
+}
+\maketitle
+
+\dominitoc
 \tableofcontents
+
 \part{Semester One (2020-11-02)}
 \include{htlanl/htlanl}
 \include{fpse/fpse}
