@@ -39,7 +39,7 @@ Each operation can be performed independently of others so all of the processing
 Pipe lining introduces parallelism into the fetch execute cycle.
 
 \begin{note}
-	Note: In this section four operations per instruction are used (fetch, decode, execute, store). This can be different.
+	In this section four operations per instruction are used (fetch, decode, execute, store). This can be different.
 \end{note}
 
 You could naively run fetch, decode, execute and store each instruction one after the other; or you could instead overlap the instructions such that after one instruction is finished fetching, another one is fetched immediately after.
