@@ -1,0 +1,157 @@
+\section{More on compilation patterns}\label{sec:more_on_compilation_patterns}
+
+\subsection{Why follow the patterns?}\label{sub:why_follow_the_patterns_}
+
+\begin{itemize}
+	\item Helps you understand what the high level language constructs mean.
+	\item It is essentially how compilers work
+	\item Saves time because it is quicker to catch errors at the highest level and it makes the code more readable (and therefore easier to debug).
+	\item Leads to good comments to make more readable it.
+	      The approach scales up to large programs
+	\item Experienced programmers will recognize the patterns so the code will be easier to read and maintain.
+\end{itemize}
+
+\subsection{How do you know if you are using the patterns?}\label{sub:how_do_you_know_if_you_are_using_the_patterns_}
+
+Each pattern contains:
+\begin{description}
+	\item[Changeable parts] Boolean and integer expressions and statements
+	\item[Fixed parts] GOTO and if-then-GOTO
+	\item[Labels] have to be different every time, but the structure of the fixed parts never changes.
+\end{description}
+
+\section{Records and Pointers}\label{sec:records_and_pointers}
+
+\subsection{Records}\label{sub:records}
+
+A record contains several fields that can be accessed with a dot operator.
+Some languages call it a struct or dictionary.
+
+\subsubsection{How do you do records in Sigma16}\label{ssub:how_do_you_do_records_in_sigma16}
+
+To store data in a record do this:
+\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{asm}
+x ; just a label to mark the starting address of x
+x_fieldA data 3 ; offset 0 from x
+x_fieldB data 1 ; offset 1 from x
+\end{minted}
+To retrieve data from a record in a bad way:
+\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{asm}
+load R1,x_fieldB[R0]
+load R2,x_fieldC[R0]
+add R1,R1,R2
+store R1,x_fieldA[R0]
+\end{minted}
+To do it better, we will use pointers.
+
+\subsection{Pointers}\label{sub:pointers}
+
+An alternative way to find data in memory is to make a pointer to it.
+A pointer is an address which is available to us as a variable (an label like we used before is static -- we can't do operations on it).
+We have a few new fancy symbols that we have to use now:
+\begin{description}
+	\item[The ampersand: \mintinline{c}{&x}] is used symbolically for the address of \mintinline{c}{x}
+	      \begin{itemize}
+		      \item You can apply to \mintinline{c}{&} operator to any variable (but not a complex expression).
+		      \item \mintinline{c}{&x} is okay.
+		            \mintinline{c}{&(3*x)} is not okay.
+	      \end{itemize}
+	\item[The asterisk: \mintinline{c}{*p}] means the value that \mintinline{c}{p} points to.
+	      The \mintinline{c}{*} operator can be used on any pointer.
+\end{description}
+
+\subsubsection{Expressions using pointers}\label{ssub:expressions_using_pointers}
+
+\paragraph[The & operator]{The \mintinline{c}{&} operator}\label{par:the_ampersand_operator}
+
+The \mintinline{c}{&} operator give the address of its operand:
+\mintinline{c}{p=x} puts the value of  \mintinline{c}{x} into \mintinline{c}{p}.
+\mintinline{c}{p=&x} puts the address of \mintinline{c}{x} into \mintinline{c}{p} (the address of \mintinline{c}{x} is a pointer to \mintinline{c}{x} and we say ``\mintinline{c}{p} points at \mintinline{c}{x}'')
+
+\paragraph[The * operator]{The \mintinline{c}{*} operator}\label{par:the_asterisk_operator}
+
+The \mintinline{c}{*} operator follow a pointer and give what ever it points to.
+\mintinline{c}{*p}  is an expressions whose value if what \mintinline{c}{p} points to.
+\mintinline{c}{y=p} stores \mintinline{c}{p} into \mintinline{c}{y} so if \mintinline{c}{p} pointed to \mintinline{c}{x}, then now \mintinline{c}{y} will too.
+\mintinline{c}{y=*p} follow the pointer to get the value into \mintinline{c}{y}.
+
+\subsubsection{Pointers in Sigma16}\label{ssub:pointers_in_sigma16}
+
+\paragraph{Getting the address pointers}\label{par:getting_the_address_pointers}
+
+\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{asm}
+lea R5,x[R0] ; load effective address of &x, R5=&x
+...
+load R6,y[R0] ; R6=&y
+store R6,p[R0] ; p = &y, p now contains a pointer to the variable for use later
+\end{minted}
+
+\paragraph{Getting data from pointers}\label{par:getting_data_from_pointers}
+
+\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{asm}
+load R7,p[R0] ; R7=p (load the pointer to a register)
+load R8,0[R7] ; R8=*p
+; start at displacement 0
+; offset by the amount at R7
+; ie. get the data pointed to by the address at R7
+\end{minted}
+
+\subsection[The flexibility of LOAD and LEA]{The flexibility of \mintinline{asm}{load} and \mintinline{asm}{lea}}\label{sub:the_flexibility_of_load_and_lea}
+
+\subsubsection[LEA]{\mintinline{asm}{lea}}\label{ssub:lea}
+
+\begin{itemize}
+	\item Can load a constant into a register: \mintinline{asm}{lea R1,42[R0]}
+	\item Can create a pointer: \mintinline{asm}{lea R2,x[R0]}
+	\item \mintinline{asm}{lea} can do even more
+\end{itemize}
+
+\subsubsection[LOAD]{\mintinline{asm}{load}}\label{ssub:load}
+
+\begin{itemize}
+	\item To load a variable into a register: \mintinline{asm}{load R3,x[R0]}
+	\item To access and array element: \mintinline{asm}{load R4,a[R5]}
+	\item To follow a pointer: \mintinline{asm}{load R6,0[R7]}
+\end{itemize}
+
+\subsection{Examples of pointers}\label{sub:examples_of_pointers}
+
+\paragraph{A simple addition in a high-level language}\label{par:a_simple_addition_in_a_high_level_language}
+
+\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{c}
+x = x + 5
+\end{minted}
+
+\paragraph{The Sigma16 equivalent code}\label{par:the_sigma16_equivalent_code}
+
+\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{asm}
+; Put a pointer to x into R3 which contains the address of x
+; R3 = &x
+lea R3,x[R0]
+
+; Add 5 to whatever word R3 points to
+lea R1,5[R0] ; R1 = 5 (constant)
+load R4,0[R3] ; R4 = *R3
+add R4,R4,R1 ; R4 = *R3 + 5
+store R4,0[R3] ; *R3 = *R3 + 5
+\end{minted}
+\begin{note}
+	This is equivalent to \mintinline{c}{*(&x)=*(&x) + 5}.
+\end{note}
+The benefits of this is that there is no direct references to a label, only to a memory address that contains a pointer to a label.
+This means that we can reuse this block many times.
+
+\subsection{Why are pointers useful}\label{sub:why_are_pointers_useful}
+
+\begin{itemize}
+	\item We can write a block of code that accesses variables thorough pointers
+	\item We can reuse code by executing it with a pointer that points to different data
+\end{itemize}
+
+\subsection{Accessing a record using a pointer}\label{sub:accessing_a_record_using_a_pointer}
+
+\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{asm}
+load R1,1[R3] ; We move 1 address forward, then increase by R3
+; This is the same as increasing the offset from R3 by one.
+\end{minted}
+
