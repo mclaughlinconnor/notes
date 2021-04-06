@@ -1,0 +1,169 @@
+\section{Requests to the Operating System}\label{sec:requests_to_the_operating_system}
+
+Many operations cannot be performed directly by a user program because it could violate the system security and cause a critical crash.
+It is generally best practice to reuse someone else's code instead of creating your own because it saves time and lets these procedures be updated along with the operating system (you may have to update your program for the new API though).
+
+The program requests the operating system to perform an action: \mintinline{asm}{trap R1,R2,R3}.
+A trap is a jump to the operating system and you don't have to give the specific address to jump to.
+We can, however, use pointers to tell the operating system what to do.
+
+\subsection{Typical OS Requests}\label{sub:typical_os_requests}
+
+The type of request is a number that must be in the first operand (\mintinline{asm}{R1}).
+The specific request codes allowed are defined but the operating system and not the hardware which is why compiled programs only run on one operating system.
+
+There are a few typical requests that will be used often in any program:
+\begin{itemize}
+	\item Terminate program
+	\item Read from file
+	\item Write to file
+	\item Allocate a block of memory
+\end{itemize}
+
+\subsubsection{Termination}\label{ssub:termination}
+
+A program cannot stop the machine -- it must request that the operating system terminate it.
+The operating system then removes the program from its tables of running programs and reclaims any resources dedicated to the program.
+Use \mintinline{asm}{trap R0,R0,R0} in Sigma16.
+
+\subsubsection{Character Strings}\label{ssub:character_strings}
+
+A string is represented as an array of characters.
+Each element contains one character.
+If you are writing a string to output, the last character should be a new line.
+In Sigma16 we can use \mintinline{asm}{trap}.
+
+\begin{itemize}
+	\item \mintinline{asm}{R1} should have \(2\) to indicate a write request.
+	\item \mintinline{asm}{R2} has the address of the first character of the string
+	\item \mintinline{asm}{R3} contains the length of string.
+\end{itemize}
+
+\section{Procedures and the Call Stack}\label{sec:procedures_and_the_call_stack}
+
+\subsection{Procedures}\label{sub:procedures}
+
+A procedure is a sequence of instructions that can be reused in order to save writing it many times because that wastes time and space.
+
+\subsubsection{Sigma16 Procedures}\label{ssub:sigma16_procedures}
+
+Write the code one time.
+We need to put the code ``somewhere'' (ie.\ not in the main flow of the program).
+We need to give the block of code a label that describes what it does and every time you want to call it, just use \mintinline{asm}{goto func}.
+When it finishes, the procedure needs to return to where it started.
+
+\subsubsection{Call and Return}\label{ssub:call_and_return}
+
+We use \mintinline{asm}{jump} instructions for both, but that isn't enough because a procedure can be called from many different places.
+
+We must use the \emph{jump and link} instruction which calls the subroutine and stores where it jumped from.
+\mintinline{asm}{jal R13,func[R0]} jumps to \mintinline{asm}{func} and stores the address after the jump instruction into \mintinline{asm}{R13}.
+At the end of the procedure, we can then just jump back to the address in \mintinline{asm}{R13}.
+
+\section{Procedures and Passing Parameters}\label{sec:procedures_and_passing_parameters}
+
+There are many conventions for passing arguments back and forward.
+It is crucial for both the caller and callee agreeing on how the information is passed.
+
+If there are a small number of arguments, the caller may put them into registers before a procedure.
+Where there are many arguments, the caller builds an array or vector (sequence of adjacent memory locations), puts the registers in and passes the address via a register.
+
+\subsection{What happens for functions calling functions?}\label{sub:what_happens_for_functions_calling_functions_}
+
+If a procedure calls another procedure, it cannot use the same link back address for all levels.
+Each procedure would need a register for its return address, inputs and outputs which is impossible with only \(16\) registers.
+You could also accidentally overwrite one of the registers used to jump somewhere else in code.
+
+A procedure cannot call itself because each version of the recursive procedure will overwrite the same registers over and over again.
+
+\subsection{Saving State}\label{sub:saving_state}
+
+Calling a procedure creates new information for that procedure (the return address and any values the procedure loads into the reigsters).
+But this new information could overwrite essential information belonging to the caller.
+So we need to save the caller's state so the procedure doesn't overwrite it.
+
+\subsubsection{The Wrong Way To Save State}\label{ssub:the_wrong_way_to_save_state}
+
+Just save the return address into memory, then load it back again when the procedure finishes.
+
+This is bad because for each new procedure you call, you will need a new memory variable for each procedure call.
+
+\subsubsection{The Good Way To Save State}\label{ssub:the_good_way_to_save_state}
+
+We use a stack that we push and pop to.
+The state is not just the return address: we need to save all of the registers that a procedure uses.
+
+The first thing we need to do is save the registers it will use (overwrite) by copying them into memory.
+
+The last thing it should do before returning is to restore those registers back again for the caller by copying their values back from memory.
+
+We can either allocate fixed variables in memory to save registers into, or we can use a stack and push data to it.
+
+\subsubsection{Who Saves The State?}\label{ssub:who_saves_the_state_}
+
+\paragraph{Caller}\label{par:caller}
+
+Before the caller calls a procedure, it saves all of its essential data into memory.
+After the procedure returns, it loads all of that data back again.
+
+\paragraph{Callee}\label{par:callee}
+
+The caller keeps data in register, and assumes that the procedure won't disturb it.
+The first thing to procedure does is to save the registers it needs to use into memory.
+Just right before returning, the procedure restores data by loading it from memory.
+
+This is better since when dealing with interrupts, there will not be a chance to save the data.
+We also avoid doing as many memory writes since only data that will be overwritten is saved to memory.
+
+\section{The Stack}\label{sec:the_stack}
+
+To allow for a large number of procedures, we can't dedicate a specific register to each on for its return address.
+Therefore we:
+\begin{itemize}
+	\item Always use the same register for the return address in a \mintinline{asm}{jal} instruction.
+	\item The first thing a procedure does is to store its return address into memory such that now \mintinline{asm}{R13} can be overwritten if another nested procedure is called.
+	\item The last thing a procedure does is to load its return address and jump to it.
+	\item the return addresses are pushed onto a stack instead of being stored at a fixed address.
+	\item Other state information for each procedure can also be stored on the stack along with the return address.
+\end{itemize}
+
+\subsection{Stacks}\label{sub:stacks}
+
+A stack is an initially empty container that can be pushed to to get data to the top of a stack or popped from the get the most recent data from the stack (last in first out).
+We can save procedure return addresses on a stack because return always needs the most recently saved return address.
+
+\subsection{The Call Stack}\label{sub:the_call_stack}
+
+The calls stack is a central technique for preserving data during a function call and holds most of your variables.
+
+It can go by several names like ``call stack'', ``execution stack'' or ``the stack''
+
+It is very important because most programming languages use it and computers are actually designed to support it with special stack pointer registers.
+
+\subsection{The Call Stack In Sigma16}\label{sub:the_call_stack_in_sigma16}
+
+\textbf{Dedicate register \(14\) to the \emph{stack pointer}}.
+This is a programming convention, not a hardware feature.
+
+When the program is started, \mintinline{asm}{R14} will be set to point to an empty stack data structure in memory.
+When a procedure is called, the saved state will be pushed onto the stack (store a word at \mintinline{text}{0[R14]} and then increment the stack pointer).
+When a function returns, we do the opposite (decrement the stack pointer, load from \mintinline{text}{0[R14]}).
+
+The program should never modify \mintinline{asm}{R14} except from the push and pop.
+
+\subsection{Just The Return Address}\label{sub:just_the_return_address}
+
+There is a call stack that handles all information about procedures and calls.
+
+Every activation of a procedure pushes a \emph{stack frame}.
+When a procedure returns, its stack frame is stacked.
+\mintinline{asm}{R14} stores the address of the current (top) stack frame.
+
+A stack frame contains many different things:
+\begin{itemize}
+	\item The return address
+	\item The saved registers (so a procedure can use the data without destroying information)
+	\item Local variables (the procedure can have some memory of its own to use)
+	\item A pointer to the previous stack frame (required to make the pop work).
+	      A stack frame can vary in size so we need to know the size to remove it from the stack and get back to the top of the previous frame.
+\end{itemize}
