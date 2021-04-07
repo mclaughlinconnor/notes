@@ -1,0 +1,72 @@
+\section{Variables And Their Types}\label{sec:variables_and_their_types}
+
+\subsection{What is a variable?}\label{sub:what_is_a_variable_}
+
+\begin{note}
+	We are talking about memory variables here.
+\end{note}
+A variable can be considered to be a box with a name and data.
+A variable has a scope where it is accessible.
+Within that scope, an expression can use the value and an assignment can alter the value.
+In assembly, one way to define a variable is by using the \mintinline{asm}{data} statement, however variables don't always correspond to data statements: they can be created at run time too.
+
+\subsection{Allocation for and Access to variables}\label{sub:allocation_for_and_access_to_variables}
+
+Depending on the language, there are different ways to allocate variables and each one has a corresponding wat to access the varaible in memory.
+There are three key characteristics:
+\begin{description}
+	\item[Lifetime] When it is created and destroyed.
+	\item[Scope] Which parts of the program are able to access it.
+	\item[Location] Where in memory a variable is stored.
+\end{description}
+
+\subsection{Classes of Variables}\label{sub:classes_of_variables}
+
+\begin{description}
+	\item[Static] Sometimes called \emph{globals} which last the entire time of the program and the scope can vary.
+	\item[Locals] Sometimes called \emph{automatic} variables and the scope is local to one procedure and it only lasts inside the scope.
+	\item[Dynamic] Sometimes called heap variables. Their lifetime is dynamic (allocated and de-allocated at runtime) and the scope varies too.
+\end{description}
+
+\subsubsection{Static Variables}\label{ssub:static_variables}
+
+These last the entire length of the program and this is what we've used so far (using \mintinline{asm}{data}).
+
+\subsubsection{Local Variables}\label{ssub:local_variables}
+
+The scope of these only lasts and is visible for a local procedure.
+A local variable has one name, but there may be many instances of it if the function is recursive, therefore these variables cannot be stored in the static data segment and must be stored in stack frames instead.
+
+\subsubsection{Dynamic Variables}\label{ssub:dynamic_variables}
+
+A dynamic variable is allocated space explicitly through a special call to a language's runtime (\mintinline{java}{new()} in Java or \mintinline{c}{malloc()} in C).
+These variables are not limited to just one function so data cannot be kept in the static data segment.
+The lifetime of a dynamic variable does not follow the order stack frames are pushed or popped, so they cannot be kept on the stack either.
+
+\subsection{The Heap}\label{sub:the_heap}
+
+Languages that support dynamic variables have a section of memory called the \emph{heap}.
+
+The head contains a free space list, a data structure that points to all the free words of memory.
+The heap is maintained in the languages runtime system.
+
+When you do a \mintinline{c}{malloc()} or \mintinline{java}{new()} memory is allocated from the head and a pointer to the object is returned.
+When the object is not longer needed, the memory is linked back to the free space list.
+
+\section{Recursion}\label{sec:recursion}
+
+We sill be using the factorial problem for this lecture.
+
+\subsubsection{What is recursion?}\label{ssub:what_is_recursion_}
+
+It is when a function makes calls to itself.
+We keep defining a problem as simpler versions of itself until we get to the base case.
+It works only if there is a base case defined and the parameters of the function on successive calls change.
+
+\subsection{Dynamic Links}\label{sub:dynamic_links}
+
+Since each activation record can have a different size, we must have a pointer on each record (called a dynamic link) to the one below.
+
+\begin{note}
+	Each frame should have the address of the previous frame as its first entry.
+\end{note}
