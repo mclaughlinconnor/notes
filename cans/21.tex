@@ -25,3 +25,20 @@ The other main goal of Virtualisation is to manage shared resources.
 
 We share CPU time between many programs and also sharing memory (and external storage, IO, networking, etc.) since there is only one main memory, but many different programs.
 
+By sharing the CPU time of the computer, we can give the illusion that more than one process (a running program) is running at the same time by scheduling code from one process to run interleaved with code from another process.
+
+When we virtualise memory, we give each individual program the illusion that it is working with the entire of the system memory meaning that two programs can think they are accessing the same memory, but are, in fact, not.
+
+\begin{note}
+	Here we are talking about a single core processor for simplicity here.
+\end{note}
+
+\subsection{Concurrency}\label{sub:concurrency}
+
+We can have a single process that has all of it's own data, etc.
+We can give each process more than one thread where each thread can have the same data as the process, but has its own stack and registers.
+
+\subsection{Persistence}\label{sub:persistence}
+
+Main memory is volatile, we must store data on hard disks (persistent storage).
+The main memory will take care of this so that we don't have to worry about it.
