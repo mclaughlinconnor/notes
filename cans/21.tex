@@ -1,0 +1,27 @@
+\section{Operating Systems Introduction}\label{sec:operating_systems_introduction}
+\begin{note}
+	We should get a few definitions out of the way to begin.
+	\begin{description}
+		\item[System Software] The interface between hardware and a user application.
+		\item[Operating System] The most important piece of system software on a computer.
+	\end{description}
+\end{note}
+\noindent
+There are three key roles of a computer:
+\begin{itemize}
+	\item Virtualisation (of processor and memory)
+	\item Concurrency
+	\item Persistence (storage and IO)
+\end{itemize}
+
+\subsection{Virtualisation}\label{sub:virtualisation}
+
+When we drive car, we don't have to worry about how the engine in the car actually works.
+
+Virtualisation is similar in that we interact with a simple abstraction of the hardware and not get bogged down with all of the details.
+The other main goal of Virtualisation is to manage shared resources.
+
+\subsubsection{Resource Sharing}\label{ssub:resource_sharing}
+
+We share CPU time between many programs and also sharing memory (and external storage, IO, networking, etc.) since there is only one main memory, but many different programs.
+
