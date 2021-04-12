@@ -1,0 +1,137 @@
+\section{Web Development Technologies}\label{sec:web_development_technologies}
+
+There are a minimum of five sets of technologies required to develop a web application:
+
+\begin{description}
+	\item[Server-side]: PHP, Ruby, Python, Java
+	\item[Data Language]: SQL
+	\item[Client-side]: JavaScript
+	\item[Content Markup]: XHTML, HTML
+	\item[Style Markup]: CSS
+\end{description}
+This can be very problematic when developing since all of these layers depend on each other so maintaining code in some layers may need changes in other layers.
+
+This is, once again, the separation of concerns.
+
+\subsection{Styles on the Web}\label{sub:styles_on_the_web}
+
+Most aspects of most elements can be controlled with CSS (like position, colour, size, font, etc)
+This can be achieved in many ways:
+\begin{itemize}
+	\item Describe page in XML, then use XSL styles to generate formatted XHTML.
+	\item By using CSS with XML
+	\item By using CSS with (X)HTML
+\end{itemize}
+
+\subsection{Cascading Style Sheets}\label{sub:cascading_style_sheets}
+
+Style sheets describe the rendering of HTML elements.
+They specify aspects of a component with a set of rules.
+
+\medskip
+\begin{minipage}{0.45\linewidth}
+	\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{css}
+h1 {
+    color: blue;
+    font-size: 18px;
+    font-face: Verdana;
+}
+\end{minted}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+	\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{css}
+#page {
+    color: green;
+    float: left;
+    padding: 10px, 10px, 2px, 2px;
+}
+\end{minted}
+\end{minipage}
+
+\subsubsection{Values and Units}\label{ssub:values_and_units}
+
+Units affect the colours, distances and sizes of elements.
+\begin{description}
+	\item[Numbers] Can be real or integers
+	\item[Percentages] Use a ``\%'' mark afterward where sizes are percentages of the inherited value.
+	\item[Colours] Colours can be done with hex colours, named colours or a functional RGB function.
+	\item[Absolute Lengths] We can use absolute values like centimetres (CM), inches (in) or points (pt) among others
+	\item[Relative Lengths] We can use \mintinline{css}{em}, \mintinline{css}{pt} or \mintinline{css}{px} sizes to better scale sizes to different screens.
+	      You could generally use \mintinline{css}{px}.
+\end{description}
+
+\section{Using CSS with HTML}\label{sec:using_css_with_html}
+
+We can apply CSS in three different ways: inline, embedded, and external styles.
+
+\subsection{Inline Styles}\label{sub:inline_styles}
+
+Style information is added directly on the HTML element with the \mintinline{html}{style} attribute
+\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{html}
+<h3 style="color: yellow; font-size: 18pt">
+\end{minted}
+This only affects this element which is useful to override a particular style.
+
+\subsection{Embedded Styles}\label{sub:embedded_styles}
+
+\emph{Sometimes called internal CSS}.
+Styles rules are specified in the \mintinline{html}{<head>} section of the document.
+These styles will be applied to the whole document so this is slightly better than using inline styles.
+\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{html}
+<head>
+    <style>
+        h1 {
+            color: blue;
+        }
+    </style>
+</head>
+\end{minted}
+
+\subsection{External Styles}\label{sub:external_styles}
+
+Styles are in a separate document and can be shared between many pages.
+This is good since styles only have to be changed in just one place.
+We can attach a CSS document to many pages using a \mintinline{html}{link} tag in the \mintinline{html}{head} section.
+\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{html}
+<head>
+    <link rel="stylesheet" href="styles.css" type="text/css">
+</head>
+\end{minted}
+This is generally best practice because it improves performance, the separation of concerns and eases maintenance.
+
+\subsection{Specialisation of Presentation}\label{sub:specialisation_of_presentation}
+
+Class and ID selectors can be used for finer control.
+This requires more planning/effort with writing markup.
+But is can result in better user experience, allows the use of JavaScript and jQuery.
+
+\subsubsection{Class}\label{ssub:class}
+
+Works on a collection of elements with a \mintinline{html}{class} attribute.
+In CSS we use a dot (.) prefix to the class in our selectors eg. \mintinline{css}{.class {color: red}}.
+
+\subsubsection{IDs}\label{ssub:ids}
+
+Provides a way to style unique elements with a \mintinline{html}{id} attribute.
+Although IDs are supposed to be unique, browsers don't care.
+We prefix IDs with a hash symbol (\#).
+
+\subsubsection{Descendant Selectors}\label{ssub:descendant_selectors}
+
+Elements that are descended from an element are styled according to the rule of the descendant selector.
+This allows us to apply styles in some contexts, but not others.
+\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{html}
+p em {color: red; font-weight: bold; }
+\end{minted}
+
+\subsubsection{Restricted Class and ID Selectors}\label{ssub:restricted_class_and_id_selectors}
+
+We can specify that all \mintinline{html}{h2} elements within the class \mintinline{html}{red} using:
+\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{html}
+.red h2 {color: red;}
+\end{minted}
+All \mintinline{html}{h2} elements with the class \mintinline{html}{red} will be selected like:
+\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{html}
+h2.red {color: red;}
+\end{minted}
