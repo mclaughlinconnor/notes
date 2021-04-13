@@ -1,0 +1,148 @@
+\section{CSS Box Model}\label{sec:css_box_model}
+
+\begin{description}
+	\item[Padding] adds space around an element's content inside any borders
+	\item[Margins] add space around elements outside of borders
+	\item[Borders] sit between padding an margins (these are only visible if a \mintinline{css}{border-style} has been set).
+\end{description}
+
+\section{Entities, Relationships and Django Models}\label{sec:entities_relationships_and_django_models}
+
+\subsection{Entity Relationship Model}\label{sub:entity_relationship_model}
+
+An \emph{entity} is a thing and is similar to a class in OOP.
+Provides an abstract representation of the data and how they are related to each other.
+We have relationships between the entities like ``belongs'', ``owns'', etc.
+\emph{Attributes} is the information about an entity.
+
+\subsubsection{Notations}\label{ssub:notations}
+
+There are many different notations.
+We will be using the \emph{Compressed Chen Notation} which uses rectangles to represent entities, diamonds to represent relationships and \(1\), \(N\) and \(M\) to notate cardinality.
+
+\begin{center}
+	\begin{tikzpicture}[auto,node distance=1.5cm]
+		\node[entity] (person) {Person};
+		\node[relationship] (has) [below right = of person] {Has} edge node {\(M\)} (person);
+		\node[entity] (house) [above right = of has] {House} edge node[midway] {\(1\)} (has);
+	\end{tikzpicture}
+\end{center}
+
+\subsubsection{Many to Many}\label{ssub:many_to_many}
+
+For many to many, we use \(M\) to \(N\) so that it is clear that the two numbers can be different.
+\begin{center}
+	\begin{tikzpicture}[auto,node distance=1.5cm]
+		\node[entity] (student) {Student};
+		\node[relationship] (enrolls) [right = of student] {Has} edge node {\(N\)} (student);
+		\node[entity] (course) [right = of enrolls] {Course} edge node {\(M\)} (enrolls);
+	\end{tikzpicture}
+\end{center}
+Because it can be hard to represent a many to many relationship in a database we can also do something like:
+
+\begin{center}
+	\begin{tikzpicture}[auto,node distance=1.5cm]
+		\node[entity] (student) {Student};
+		\node[relationship] (has) [below = of person] {Has} edge node {\(1\)} (student);
+		\node[entity] (enrollment) [right = of has] {Enrollment} edge node {\(N\)} (has);
+		\node[relationship] (in) [right = of enrollment] {In} edge node {\(N\)} (enrollment);
+		\node[entity] (course) [above = of in] {Course} edge node {\(1\)} (in);
+	\end{tikzpicture}
+\end{center}
+
+\subsubsection{Keys}\label{ssub:keys}
+
+The \emph{primary key} is a field (or fields) that uniquely identify each record.
+Primary keys must contain unique values and cannot contain null values.
+A table can only have one primary key.
+
+A \emph{foreign key} is used to link two tables together.
+A foreign key should point to a primary key on another table.
+
+\subsubsection{Compressed Chen Notation}\label{ssub:compressed_chen_notation}
+
+The difference between Chen and Compressed Chen notation is that with regular Chen, the attributes are all around the entities and with Compressed Chen, we just use a table.
+
+\paragraph{Chen}\label{par:chen}
+
+Chen with the combined entities and attributes:
+
+\begin{center}
+	\begin{tikzpicture}[auto,node distance=1.5cm]
+		\node[entity] (student) {Student}
+		[grow=up,sibling distance=3cm]
+		child {node[attribute] {Age}}
+		child {node[attribute] {Name}}
+		child {node[attribute] {Student ID}};
+		\node[relationship] (enrolls) [right = of student] {Has} edge node {\(N\)} (student);
+		\node[entity] (course) [right = of enrolls] {Course} edge node {\(M\)} (enrolls);
+	\end{tikzpicture}
+\end{center}
+
+\paragraph{Compressed Chen}\label{par:compressed_chen}
+
+Compressed Chen with the separate table:
+
+\medskip
+\begin{minipage}{0.50\linewidth}
+	\centering
+	\begin{tikzpicture}[auto,node distance=1.5cm]
+		\node[entity] (student) {Student};
+		\node[relationship] (enrolls) [right = of student] {Has} edge node {\(N\)} (student);
+		\node[entity] (course) [right = of enrolls] {Course} edge node {\(M\)} (enrolls);
+	\end{tikzpicture}
+\end{minipage}
+\hfill
+\begin{minipage}{0.40\linewidth}
+	\centering
+	\begin{tabular}{cc}
+		\toprule
+		Field      & Type    \\
+		\midrule
+		Age        & Integer \\
+		Name       & String  \\
+		Student ID & String  \\
+		\bottomrule
+	\end{tabular}
+\end{minipage}
+
+
+
+\subsection{Creating Tables}\label{sub:creating_tables}
+
+To create tables we can use:
+\begin{itemize}
+	\item SQL \mintinline{sql}{CREATE} statements
+	\item phpMyAdmin
+\end{itemize}
+
+\subsubsection{Converting to Django Models}\label{ssub:converting_to_django_models}
+
+In Django, instead of creating tables manually, we can just create a few classes.
+In Django, every model is automatically assigned an id.
+To create relationships, we can just refer to the model instead of the id itself.
+
+\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{python}
+class House(models.Model):
+    ...
+
+class Person(models.Model):
+    # Every person must live in a house
+    house = models.ForeignKey(House)
+\end{minted}
+
+\section{Presentations}\label{sec:presentations}
+
+A presentation should be given in class on 2021-04-23 for a total of \(5\%\) of your total grade.
+
+Each group will be asked to present the design specification for a web application which you won't have to actually implement.
+The presentation should include:
+\begin{itemize}
+	\item Overview
+	\item Personas
+	\item A specification
+	\item System architecture design
+	\item ER diagram
+	\item User interface wireframes
+	\item A list of technologies to use
+\end{itemize}
