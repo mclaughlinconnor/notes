@@ -77,8 +77,8 @@ We will generally be working on the middleware or logic tier.
 		\draw
 		node (u) {User}
 		node[right=of u] (c) {Client}
-		node[right=of f] (m) {Middleware}
-		node[right=of e] (p) {Database};
+		node[right=of c] (m) {Middleware}
+		node[right=of m] (p) {Database};
 		\draw[<->] (u) -- (c);
 		\draw[<->] (c) -- (m);
 		\draw[<->] (m) -- (p);
