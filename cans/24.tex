@@ -1,0 +1,184 @@
+\section{Introduction to Networks}\label{sec:introduction_to_networks}
+
+\subsection{Why learn about computer networks?}\label{sub:why_learn_about_computer_networks_}
+
+\begin{itemize}
+	\item   How are systems connected together to form a network?
+	\item How are networks connected?
+	\item How does data go through the network to its destinations?
+	\item How can we have reliable communications through unreliable links?
+	\item What are the repercussions for programs that communicate over this infrastructure?
+\end{itemize}
+
+\subsection{Roles with Respect to Network Systems}\label{sub:roles_with_respect_to_network_systems}
+
+\begin{description}
+	\item[Users] The people that use a network don't have to worry about intricacies.
+	\item[Manager] Manage a network
+	\item[Application Designers] This is probably us. We have to worry about some details.
+	\item[Designers of Systems] Have to have a deep knowledge of networks.
+\end{description}
+
+\section{Networked Systems}\label{sec:networked_systems}
+
+Autonomous computing devices that exchange data to perform a goal.The exchange of data is visible to the application.
+However, a computer system is only aware of the network (this is similar to how a computer writes to an IO device).
+
+There is no single computer (or set of computers) that needs to organise data over a network (\emph{autonomous}).
+Traffic on roads manages itself, but follows set rules.
+
+\subsection{Key Aspects}\label{sub:key_aspects}
+
+\begin{description}
+	\item[Communication] How is information exchanged across a single link?
+	\item[Networking] How are links interconnected to build a network?
+	\item[Networked Systems] How do systems communicate across the network?
+\end{description}
+
+\subsection{Applications Using Networks}\label{sub:applications_using_networks}
+
+Some applications use The Internet World Wide Web:
+\begin{itemize}
+	\item Email
+	\item Social Networks
+	\item Streaming audio and video
+	\item File sharing
+	\item Instant messaging
+\end{itemize}
+Others don't:
+\begin{itemize}
+	\item Digital TV
+	\item Mobile voice telephony
+	\item Sensor networks
+	\item Controller area networks connecting sensor and other components inside vehicles or aircraft (eg. on board computers in car)
+\end{itemize}
+
+\subsection{Communication}\label{sub:communication}
+
+Messages are transferred from source to destination via a communication channel.
+The size of messages might be bounded.
+
+\paragraph{Information Required For Communications}\label{par:information_required_for_communications}
+
+\begin{itemize}
+	\item Communication might be \emph{simplex} (one way), \emph{half-duplex} (both ways, one at a time), \emph{full-duplex} (both ways all of the time).
+	\item We want to communicate data; messages convey information.
+	\item How much information is in a message? We can calculate this mathematically (not covered here).
+	\item What is the information carrying capacity of a channel?
+	\item Capacity of channels to convey information can be modelled using how much power they use, how much they can transfer and how quickly they can do it.
+	\item Physical limits exist on the capacity of a channel.
+\end{itemize}
+
+\subsubsection{Physical Forms of Messages}\label{ssub:physical_forms_of_messages}
+
+A physical form of a message can be a material object (carrier pigeon, CD, etc.), but is usually a wave (sound, electrical, etc.) and may be analogue or digital.
+
+\paragraph{Analogue Signals}\label{par:analogue_signals}
+
+The simplest analogue signal means that amplitude directly codes the value of interest: louder voice means louder signal, AM radio, analogue telephones.
+
+These can be arbitrarily accurate, but are susceptible to noise and interference and are difficult to process with digital electronics.
+
+\paragraph{Digital Signals}\label{par:digital_signals}
+
+These comprise a sequence of symbols and not arbitrary values (the underlying channel can still be analogue though and modulation will be used to convert the signal).
+
+Computer systems use binary encoding much like networked systems too.
+
+\begin{description}
+	\item[Bit Rate] The bits per second
+	\item[Baud Rate] The symbols per second (one symbol is not one bit).
+\end{description}
+
+\paragraph{Analogue to Digital Conversion}\label{par:analogue_to_digital_conversion}
+
+\begin{enumerate}
+	\item Sample the signal at a suitable rate (higher is better).
+	\item Quantise each value to the nearest allowable discrete value.
+	\item Convert to a digital representation.
+\end{enumerate}
+The \emph{sampling theorem} determines that rate at which the signal must be sampled for accurate reconstruction.
+
+\section{Channels, Links, Networks and Switching}\label{sec:channels_links_networks_and_switching}
+
+\begin{description}
+	\item[Hosts] The source and destination for messages
+	\item[Signal] A signal is conveyed via a channel and may be directly conveyed on a cable, or it may be modulated onto an underlying carrier.
+	      There will probably be many links that the channel has to go through.
+	\item[Link] A link directly connects one or more nodes together.
+	\item[Network] A network comprises several links connected together.
+	      The devices connecting the links are called their switches or routers.
+\end{description}
+
+\subsection{Network Switching}\label{sub:network_switching}
+
+Network switching describes how devices can share a single wire to communicate.
+
+\subsubsection{Circuit Switched Networks}\label{ssub:circuit_switched_networks}
+
+A dedicated circuit can be set-up between two points.
+There the two devices can exchange arbitrary length messages.
+There is a guaranteed capacity once the network is created, but the dedicated circuit can block other communications from other devices.
+
+\subsubsection{Packet Switched Networks}\label{ssub:packet_switched_networks}
+
+Messages are split into small packets (small, size constrained chunks) before transmission.
+Allows more than one pair of devices to communicate.
+Connectivity is guaranteed, but the average capacity varies depending on how many people are using the network.
+
+\section{Protocols and Layers}\label{sec:protocols_and_layers}
+
+\subsection{Network Architecture}\label{sub:network_architecture}
+
+A network architecture is organised into layers in order to manage the complexity of network communications (encoding conversion, route to take, fiber network conversions, \dots).
+
+\subsection{Layers}\label{sub:layers}
+
+\begin{enumerate}
+	\item Application programs
+	\item Process-to-process channels (IRC to IRC)
+	\item Host-to-host connectivity
+	\item Hardware (what happens in the wires?)
+\end{enumerate}
+
+\subsection{Network Protocols}\label{sub:network_protocols}
+
+Each layer in the network architecture will have its own protocol.
+To be useful, the messages need to follow a set syntax and have agreed semantics.
+Protocols have an agreed language for encoding message and rules for what messages mean and when they can be sent.
+Protocols define the behaviour of the network too through the interactions of devices.
+
+\subsubsection{Interfaces}\label{ssub:interfaces}
+
+Each protocol object (an implemented protocol) has two interfaces:
+\begin{description}
+	\item[Service Interface] Performs the actual operations on this protocol.
+	\item[Peer-to-peer Interface] Messages that are exchanged with the peer.
+	      This is how services are requested.
+	      The service interface sends messages through this.
+\end{description}
+
+\subsubsection{Protocol Data Units}\label{ssub:protocol_data_units}
+
+A PDU defines what messages are legal to send.
+
+\paragraph{Syntax}\label{par:syntax}
+
+A protocol will have different types of message called Protocol Data Units (PDUs).
+Each type of PDU will have a syntax, etc., that describes what information is included and whether it is textual data or binary data.
+
+\begin{description}
+	\item[Textual PDUs] These have a syntax and grammar that describes their format (similar to how programming languages have a grammar).
+	\item[Numeric PDUs] These have rules too like is the data big or little endian? \(32\) or \(64\) bit? Fixed or variable length?
+\end{description}
+
+\paragraph{Semantics}\label{par:semantics}
+
+Protocol semantics defined when PDUs can be sent and what response is needed.
+\begin{itemize}
+	\item Who can send PDUs
+	\item Roles for hosts (client and server, peer-to-peer)
+	\item What are entities and how are they named?
+	\item How are errors handled?
+\end{itemize}
+A state transition diagram can be used to indicate the stages of a protocol operation and the transitions that occur in response from PDUs with what can be sent back.
