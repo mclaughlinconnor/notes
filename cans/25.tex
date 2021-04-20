@@ -1,0 +1,207 @@
+\section{Protocol Layering}\label{sec:protocol_layering}
+
+Communication systems are a series of layers to manage complexity, modularity, separation of concerns.
+Each layer offers services to the higher layers using services from lower  layers.
+The highest layer is the applications that we use, the lowest layer is the physical connections.
+
+Peers at some layer \(i\) communication via the layer \(i\) protocol using lower layer services.
+
+\subsection{OSI Reference Model}\label{sub:osi_reference_model}
+
+The OSI Reference Model is a way of thinking about layered protocol design.
+It is a design tool, since realistic implementations will be far more complex and more closely related to the \emph{TCP/IP (or the Internet)} model.
+
+\begin{note}
+	All nodes implement the bottom three layers (network, data link, physical) because they all need this information.
+\end{note}
+\subsection{Physical Layer}\label{sub:physical_layer}
+
+Handles the transmission of raw bits over a communication link.
+Defines attributes of the physical medium of communication:
+\begin{itemize}
+	\item Size and shape of plug
+	\item Type of wire
+	\item Radio frequency
+	\item Modulation scheme
+	\item Transmission power
+	\item Electrical voltage
+\end{itemize}
+
+\subsection{Data Link Layer}\label{sub:data_link_layer}
+
+The structure and frame of the physical layer bit stream.
+This layer splits the bits in to individual \emph{frames}.
+\begin{itemize}
+	\item Detect and correct errors in messages using parity and ECC or acknowledgements.
+	\item Access Control
+	      \begin{itemize}
+		      \item Assign addresses to each host on the link (MAC or IP address)
+		      \item Allow access to link and allow hosts to send messages
+		      \item Rate limit to ensure all hosts get fair access and avoid overwhelming hosts.
+	      \end{itemize}
+\end{itemize}
+
+\subsection{Network Layer}\label{sub:network_layer}
+
+Connects several links to form a connection between a source and a destination.
+\textbf{Handles routing among nodes within a packet switched network.}
+
+\begin{note}
+	The unit of data exchanged between nodes in this layer is called a \emph{packet}.
+\end{note}
+\begin{note}
+	Because these networks can be worldwide, the layer must be standardised (even more so than at any of the other layers).
+\end{note}
+
+\subsection{Transport Layer}\label{sub:transport_layer}
+
+This layer handles the end-to-end transfer of data from the source process to the destination process (a \emph{process-to-process channel}).
+The unit of data here is called a \emph{message}.
+A transport layer provides:
+\begin{itemize}
+	\item Reliability
+	\item Ordering
+	\item Framing
+	\item Congestion control
+\end{itemize}
+But the availability of each of these depends on the guarantees made in the network layer.
+
+\subsection{Session and Presentation Layers}\label{sub:session_and_presentation_layers}
+
+\subsubsection{Session Layer}\label{ssub:session_layer}
+
+The session layer provides a place (namespace) to bunch several different transport streams together in one application.
+eg., audio and video streams happening at the same time.
+
+\subsubsection{Presentation Layer}\label{ssub:presentation_layer}
+
+Manages the presentation, representation and conversion of data (character set, markup languages, data format conversion).
+
+\subsection{Application Layer}\label{sub:application_layer}
+
+Here we are talking about user application protocols (HTTP) and not the application themselves (Firefox):
+\begin{itemize}
+	\item HTTP
+	\item FTP
+	\item SSH
+	\item \dots
+\end{itemize}
+
+\subsection{Protocol Standards}\label{sub:protocol_standards}
+
+A standard is a formal definition of a network protocol to ensure interoperability.
+Standards can be openly defined or closed source, restricted or free, collaborative or combative, etc.
+
+Not all players in the standard process have the same goals:
+\begin{itemize}
+	\item Delaying a standard to allow a different solution to get market share
+	\item Including intellectual property, patented technologies to get royalties, etc.
+	\item Enhancing (or subverting) the security of a protocol.
+\end{itemize}
+Standards are required, but they may not always be the best solution.
+
+\section{Physical and Data Link Layers}\label{sec:physical_and_data_link_layers}
+
+These are the layers that interact with the physical hardware.
+The physical layer defined what will happen in the hardware.
+The data link layer still has to worry about the physical connections so that it can handle the data connection properly.
+
+\begin{note}
+	These layers usually differ from device to device.
+\end{note}
+
+\subsection{Physical Layer (or \(L1\))}\label{sub:physical_layer_or_mkl1_}
+
+The physical layer is the only layer that when it speaks to its peer is actually physically connected to it.
+
+The main focuses are to transmit a sequence of bits over an analogue channel subject to noise/hardware limitations/clock skew (time sensitive events are late), and interface to \(L2\).
+
+\subsubsection{Examples}\label{ssub:examples}
+
+\paragraph{Unshielded Twisted Pair}\label{par:unshielded_twisted_pair}
+
+An electrical cable with two wires twisted together.
+Each pair is one direction of signal and ground.
+\begin{itemize}
+	\item Twists reduce interference and noise pickup
+	\item Can be hundreds of metres long and still work well
+	\item Longer cables are more noisy
+	\item Used in Ethernet and telephones.
+\end{itemize}
+
+\paragraph{Optical Fibre}\label{par:optical_fibre}
+
+Glass core with shielding.
+Fragile and can only transmit in one direction.
+Low noise, high capacity, low cost, but requires expensive lasers to operate.
+
+\subsubsection{Encoding Data For Wired Data Transmission}\label{ssub:encoding_data_for_wired_data_transmission}
+
+Signal will be transported as binary.
+The signal is usually put straight onto the channel without any conversion at all (unlike for a wireless data connection).
+Encoding is done by changing the brightness or voltage.
+
+\paragraph{Baseband Data Encoding}\label{par:baseband_data_encoding}
+
+The signal is in its original frequency range (it has not been modulated to a higher frequency).
+We encode the signal as a change in voltage or brightness.
+
+If there are too many \(1\)s or \(0\)s in a row, it can be hard to tell exactly how many signals arrived.
+To solve this, we can encode a \(1\) as a change in signal and a \(0\) as no change (NRZ inverted) instead of having the data encoded directly (NRZ).
+This still has a problem for long lengths of \(0\)s though since the signal doesn't change.
+
+\emph{Manchester encoding} solves this completely where a low-high transmission is encoded as \(0\) and a high-low transmission is encoded as \(1\).
+Manchester increases the bandwidth requirement because the frequency is now double.
+
+\subsubsection{Carrier Modulation}\label{ssub:carrier_modulation}
+
+The baseband is the range of frequencies I want to transmit (the original data before modulation).
+When we modulate, we convert the baseband data to become a higher frequency based on the data itself.
+
+This allow you to have several signals on the same channel by having data on the same baseband frequency modulated to a free frequency for each signal.
+Generally this is used for wireless links, but can be used for wired links too (ADSL and voice telephones use same wires).
+
+\section{Bandwidth}\label{sec:bandwidth}
+
+The bandwidth of a channel defines the frequency range it can transport (based on the physical limitations of the hardware itself).
+The maximum transmission rate of a digital signal depends on the channel bandwidth:
+
+\smallskip
+\begin{minipage}{0.4\linewidth}
+	\centering
+	\scalebox{2}{
+		\begin{math}
+			R_{max} = 2H\log_2 V
+		\end{math}
+	}
+\end{minipage}
+\hfill
+\begin{minipage}{0.55\linewidth}
+	Where:
+	\begin{itemize}
+		\item \( R_{max} \) = maximum transmission rate of channel (bits per second)
+		\item \(H\) = Bandwidth \(Hz\)
+		\item \(V\) = number of possible discrete values per symbol (the size of the alphabet used).
+	\end{itemize}
+\end{minipage}
+\begin{note}
+	We assume a noise free channel here.
+\end{note}
+
+\subsubsection{What is \(V\)}\label{ssub:what_is_mk}
+
+\(V\) is the possible discrete values per symbol (size of the alphabit).
+Inside a computer system, we use binary (or \(V=2\)).
+In a physical communication channel, we can have a larger alphabet so that each symbol has more data.
+
+\subsection{Channel Capacity and Noise}\label{sub:channel_capacity_and_noise}
+
+Real world channels have noise that alters the signal.
+We can measure a channel's signal power, \(S\), and noise floor, \(N\), and compute the signal to noise ration (\(SN\) or \(SNR\)).
+
+Bandwidth and \(SNR\) are fundamental limits on the throughput (bit rate) which might be able to be reached using careful engineering, but can never be surpassed (Shannon's Theorem).
+
+
+
+
+
