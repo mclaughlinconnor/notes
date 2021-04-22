@@ -1,0 +1,208 @@
+\section{Introduction to the Network Layer (L3)}\label{sec:introduction_to_the_network_layer}
+
+The network layer addresses the problem of building networks of networks.
+Previously, we have had point-to-point and multiple-access networks with hubs and switches to create a local network.
+
+The Network Layer is the first end to end layer in the OSI layer meaning it is responsible for the end to end delivery of data across many link-layer hops and autonomous systems.
+We can create an inter-network network (or internet).
+
+\subsection{Components}\label{sub:components_}
+
+\subsubsection{Common end-to-end network protocol}\label{ssub:common_end_to_end_network_protocol}
+
+A common end-to-end protocol provides a single seamless service to interface with the transport layer above it by delivering data packets (or by provisioning circuits in a circuit switched network) and addressing each end system.
+
+\subsubsection{Routing Devices}\label{ssub:routing_devices}
+
+A routing device will connect one network to another by implementing the common network protocol.
+A gateway or router will hide differences in the link layers between the networks:
+\begin{itemize}
+	\item Framing
+	\item Addressing
+	\item Flow control
+	\item Error detection and correction
+\end{itemize}
+with the least amount of effort possible.
+
+\subsection{The Internet}\label{sub:the_internet}
+
+\begin{description}
+	\item[1965] Concept of packet switching
+	\item[1969] Wide-area packet networks
+	\item[1973] First non-US ARPANET sites
+	\item[1974] Initial version of the internet protocol
+	\item[1981] Access to ARPANET broadened to non-DARPA funded sites.
+	\item[1983] Switched to IPv4
+	\item[1992] Development of IPv6 starts
+\end{description}
+
+\section{The Internet Protocol}\label{sec:the_internet_protocol}
+
+The internet protocol is a common abstraction layer to interface with the transport protocols above it and the data link (and physical) layers below it.
+\begin{itemize}
+	\item Simple
+	\item Best effort
+	\item Connectionless
+	\item Packet delivery
+\end{itemize}
+Providing:
+\begin{itemize}
+	\item End-to-end global addressing
+	\item Routing
+	\item Fragmentation and reassembly (breaking up packets)
+\end{itemize}
+Key concepts:
+% TODO: make subsections
+\begin{itemize}
+	\item Global inter-network protocol
+	\item Hour glass protocol stack:
+	      \begin{itemize}
+		      \item Many transport and application layers
+		      \item A single network layer protocol:
+		            \begin{itemize}
+			            \item Packet switched, best effort service
+			            \item Uniform network and host addressing
+			            \item Uniform end-to-end connectivity
+			            \item Range of link-layer technologies
+		            \end{itemize}
+	      \end{itemize}
+\end{itemize}
+
+\subsubsection{Basic Routing and Delivery}\label{ssub:basic_routing_and_delivery}
+
+The packets are just sent, there is no permanent connection.
+There are no guarantees made so packets could be delayed, dropped, corrupted or duplicated.
+Any packets that cannot be delivered are just discarded.
+
+\subsection{The Internet Protocol Packet}\label{sub:the_internet_protocol_packet}
+
+Every network interface on every host is intended to have unique address (these are internet protocol addresses or ``logical addresses'').
+
+\begin{description}
+	\item[IPv4] These are \(32\) bit addresses (\(130.209.241.197\)) which is made up of \(4\) sets of \(8\) bit decimal numbers.
+	      There are not very many addresses.
+	\item[IPv6] These are \(128\) bit addresses which are \(4\) sets of \(4\) hexadecimal digits.
+\end{description}
+
+\subsection{Fragmentation}\label{sub:fragmentation}
+
+The maximum frame size of the link layer is \(1500\) bytes so IPv4 routers will split up (fragment) packets which are larger than this (MTU size).
+A special bit is set (MF) is set if more fragments are still to follow.
+
+In IPv6 there is no support for fragmentation in transit so packets must be split up on the hosts themselves.
+
+\subsection{Loop Protection}\label{sub:loop_protection}
+
+Some packets could loop forever and just take up processing power so packets include a forwarding limit which is a value (usually \(64\) or \(128\)) that each router reduces by \(1\) until it is discarded at \(0\).
+
+\subsection{Header Checksum}\label{sub:header_checksum}
+
+IPv4 header contains a checksum to detect and corruption introduced during transmission.
+This is quite similar to the link-layer checksum, but uses a different algorithm.
+\begin{note}
+	This exclusively protects the header -- the data should be protected in an upper layer protocol.
+\end{note}
+\noindent
+IPv6 does not contain a checksum and assumes the header and data will be protected on the link later.
+
+\subsection{Transport Layer Protocol Identifier}\label{sub:transport_layer_protocol_identifier}
+
+Network layer packets include the transport layer data as a payload:
+\begin{itemize}
+	\item TCP (\(6\))
+	\item UDP (\(17\))
+	\item DCCP (\(13\))
+	\item ICMP (\(1\))
+\end{itemize}
+These are managed by the IANA.
+
+\subsection{Differentiated Services}\label{sub:differentiated_services}
+
+End systems can request special services from the network.
+\begin{itemize}
+	\item Emergency traffic should have priority
+	\item Gaming or telephony prefer low latency, but don't need high bandwidth
+	\item Background software might ask for low priori
+\end{itemize}
+You can signal your preference using a \emph{differentiated service code point (DSCP)} field in the header.
+These are only a hint and can often be stripped away at network boundaries.
+There can be difficult issues like ``who is allowed to set the DSCP?'' and ``what are people charged for setting the DSCP''?
+
+\subsection{IPv4 or IPv6}\label{sub:ipv4_or_ipv6}
+
+IPv4 has reached its end of life since there are no addresses left.
+
+IPv6 is supposed to be a long-term replacement for IPv4.
+The primary goal is to increase the address size to allow more hosts on the network.
+An additional benefit is that the protocol is simple which makes high speed implementations easier.
+
+It is not yet clear if IPv6 will be widely deployed, but it is very easy to build applications that use both.
+A DNS query will return a IPv6 address if possible.
+
+\section{IP Addressing}\label{sec:ip_addressing}
+
+There are a few challenges:
+\begin{enumerate}
+	\item Is the address an identify or a location? Does it name the host or the location where it is?
+	\item How should addresses be allocated? Do we use a hierarchical system or just allocated them flat?
+	\item What is the address format? A number or text? Human readable? Fixed or variable length?
+\end{enumerate}
+
+\subsection{Identity and Location}\label{sub:identity_and_locaiton}
+
+An address can denote the identity of a host.
+A host should have a consistent address, irrespective of where or when they attach to the network to simplify upper-layer protocols (transport layer and applications don't care if you move about since the IP address doesn't change).
+Complexity is moved to the network layer.
+
+The network layer must know the location of the destination host so it can send data to it.
+Sometimes a database is used to attach an identity to its address.
+
+Alternatively, an address can indicate the location which a host attaches to the network.
+This simplifies the network layer since it can send data directly to a host, but makes the higher layers more complex since they have to handle the changing IP addresses.
+
+\subsection{Address Allocation}\label{sub:address_allocation}
+
+We can have a hierarchical system where there is a common prefix or suffix for a set of machines.
+This requires a rigid control of allocations.
+
+If we just use a flat allocation, we cannot filter by an are like we can with a hierarchical system, but allocations can happen much more flexibly.
+
+\subsection{Address Format}\label{sub:address_format}
+
+Fixed length binary is easier for machines to read, but variable length text is better for humans.
+
+\subsection{IP Addresses}\label{sub:ip_addresses}
+
+IP addresses:
+\begin{itemize}
+	\item Specify the location of a network interface
+	\item Are allocated hierarchically
+	\item Are of a fixed size (either \(32\) bits or \(128\) bits).
+\end{itemize}
+
+A host with several network interfaces will have an IP address for each interface (like for Wi-Fi and Ethernet).
+
+Both IPv4 and IPv6 addresses are hierarchical, and encode location by splitting addresses into a host and a network.
+\begin{description}
+	\item[Netmast] Describes the number of bits in the network part as a mask (\(1\) is a network,  \(0\) is a host).
+	\item[Network] The network itself has the address wit the host part equal to \(0\).
+	\item[Broadcast] The broadcast address has the address with the host section all \(1\)s.
+\end{description}
+
+\subsubsection{IP Address Management}\label{ssub:ip_address_management}
+
+\paragraph{IPv4}\label{par:ipv4}
+
+IPv4 only has \(2^{32}=4,294,967,296\) addresses.
+The IANA administers the pool of unallocated addresses.
+Addresses assigned to Regional Internet Registries (RIRs) can then assign to ISPs and large enterprises within their region (ISPs can then allocate to their customers)
+
+\paragraph{IPv6}\label{par:ipv6}
+
+IPv6, if deployed, will solve our address shortage issue for a \emph{long} time.
+There are \(2^{128}=340,282,366,920,9938,463,463,374,607,431,768,211,456\) total addresses.
+
+\subsection{IPv6 Deployment Issues}\label{sub:ipv6_deployment_issues}
+
+IPv6 requires changes to be made to every host, router, firewall and application.
+So far, most backbone routers support IPv6 and well as most operating systems, but there is still lots to go.
