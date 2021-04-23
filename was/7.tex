@@ -1,0 +1,76 @@
+\section{Client Side Scripting - JavaScript}\label{sec:client_side_scripting}
+
+\textbf{JavaScript is not Java}.
+The name is probably a marketing idea and was originally called \emph{LiveScript} which was created by the folks at \emph{Netscape} for \emph{Navigator}.
+
+JavaScript looks like a procedural language, but it is probably closer to being a functional language since functions are first class objects.
+The support of anonymous functions is heavily used by jQuery.
+
+Earlier versions of JavaScript lacked object oriented programming support and excepting handling.
+Newer versions (those after Netcape) are handled by ECMA.
+ECMA are not very good at writing standards so JavaScript has lots of issues (it's a bit better now).
+
+\subsubsection{Design Errors}\label{ssub:design_errors}
+
+\begin{itemize}
+	\item There are very few useful error messages (also helped by there being no compiler since it is interpretted).
+	\item Semi-colons are required, but the programmer is not required to put them in since the interpreter just guesses where to put them.
+	\item Type coercion is super funky with numbers and strings being coerced to each other with the \mintinline{javascript}{+} operator, for example.
+\end{itemize}
+
+\subsubsection{Object Oriented Programming}\label{ssub:object_oriented_programming}
+
+JavaScript has objects with encapsulate data and methods, but all properties are public.
+Inheritance is super broken.
+
+\subsubsection{Broken Implementations}\label{ssub:broken_implementations}
+
+Each browser can implement its own engine.
+These engines could be extra buggy.
+The JavaScript performance was helped make this better though.
+
+\subsubsection{Accessibility}\label{ssub:accessibility}
+
+JavaScript is very easy to write, so lots of amateur programmers can write terrible code.
+
+\subsection{Core Features}\label{sub:core_features}
+
+\begin{itemize}
+	\item Interpreted so no compiler is needed.
+	\item Some typing (of the dynamic nature) with some basic primitive types.
+	\item Syntactically similar to Java or C.
+	\item Kind of object oriented.
+	\item Has first class anonymous functions.
+	\item Scripts can be used inside of HTML which is good for experimentation, but bad for separation of concerns.
+\end{itemize}
+
+\subsection{Ways of Including JavaScript}\label{sub:ways_of_including_javascript}
+
+\subsubsection{Embedded}\label{ssub:embedded}
+
+Having all of the code in the \mintinline{html}{<head>} section of the code.
+This is bad for the separation of concerns.
+
+\subsubsection{External JavaScript}\label{ssub:external_javascript}
+
+We have an external JavaScript file that is then included like a style sheet in the \mintinline{html}{<head>} section.
+
+\subsection{DOM Integration}\label{sub:dom_integration}
+
+The intent behind JavaScript is to dynamically manipulate documents.
+HTML documents are modelled using the DOM.
+DOM methods and properties can be modified using JavaScript.
+
+\subsection{Regular Expressions}\label{sub:regular_expressions}
+
+A regular expression is an object that describes a pattern of text that can be matched against and replaced (if needed).
+RegExps can be considered a program within a program which is probably why they are quite tricky.
+
+\subsubsection{RegEx in JavaScript}\label{ssub:regex_in_javascript}
+
+In JavaScript, regular expressions are represented as RegExp objects.
+\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{javascript}
+let pattern = /colou?r/i; // Matches "colour" and "color" case-insensitivly
+\end{minted}
+The JavaScript \mintinline{javascript}{search} function can be called on a string with a RegExp as the parameter to search (returns the character index of the match).
+The JavaScript \mintinline{javascript}{exec} function can be called on a RegExp object with a string as the parameter returns the matching text, use \mintinline{javascript}{test} to return a boolean.
