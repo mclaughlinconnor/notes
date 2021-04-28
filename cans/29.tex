@@ -1,0 +1,186 @@
+\section{The Transport Layer (L4)}\label{sec:the_transport_layer_l4_}
+
+The transport layer aims to hide network complexities and unreliableness, and enhance the overall quality of service (QoS) of the network layer to higher layers.
+The transport layer provides:
+\begin{itemize}
+	\item An easy to understand service model
+	\item An easy to use programming API
+\end{itemize}
+And offers these functions:
+\begin{itemize}
+	\item Addressing and multiplexing
+	\item Reliability
+	\item Framing
+	\item Congestion control
+\end{itemize}
+
+\begin{note}
+	Previously, layers have been communicating between hosts, here we are communicating between processes.
+\end{note}
+
+\subsection{Addressing and Multiplexing}\label{sub:addressing_and_multiplexing}
+
+The network layer address identifies a host.
+The transport layer address identifies a user process running on a host, so multiple services operating at the transport layer level are multiplexed in to a single IP-based layer.
+
+\subsection{Reliability}\label{sub:reliability}
+
+The network layer is unreliable (``best effort'') and even reliable network circuits may fail.
+The transport layer makes the quality of service better to match application needs (``appropriate end to end reliability'' -- executable downloads need \(100\)\% accuracy, video playback doesn't).
+
+\subsection{Framing}\label{sub:framing}
+
+If an application wants to send structured data over a network, the transport layer will maintain the boundaries.
+
+\subsection{Congestion and Flow Control}\label{sub:congestion_and_flow_control}
+
+The transport layer controls the application sending rate to avoid overwhelming the network layer (``congestion control'') or overwhelming the receiver on the other end (``flow control'').
+The congestion and flow control must be performed over the whole network link (``end to end'') since only the end points know the characteristics of the entire network link.
+
+\begin{description}
+	\item[Elastic applications] For these, faster is better, but they don't care about the actual sending rate.
+	      eg.\ emails and file transfer.
+	\item[Inelastic applications] These have maximum and minimum sending rates and do care about the actual sending rate.
+	      eg.\ video streaming.
+\end{description}
+
+\section{The End to End Principle}\label{sec:the_end_to_end_principle}
+
+Only put functions that are necessary within the network, leave everything else to the end systems.
+eg.\ reliability is handled in the transport layer, not the network.
+
+\begin{quote}
+	``The principle, called the end-to-end argument, suggests that functions placed at low levels of a system may be redundant or of little value when compared with the cost of providing that at that low level.''
+\end{quote}
+
+\section{Internet Transport Protocols}\label{sec:internet_transport_protocols}
+
+There are several different internet transport protocols which all have different design goals.
+Most notable of which, we have UDP and TCP.
+
+\subsection{UDP}\label{sub:udp}
+
+This is the simplest transport protocol since it just exposes the raw IP service to applications, and is, therefore, connectionless, best effort and unreliable.
+It does, however, offer framing too.
+UDP adds a \(16\) bit port number as a service identifier.
+
+\subsection{TCP}\label{sub:tcp}
+
+TCP provides a reliable, congestion controlled byte stream over an interface, but doesn't provide framing meaning applications must give a structure.
+TCP also adds a \(16\) bit port number as a service identifier.
+
+\section{The Berkeley Sockets API}\label{sec:the_berkeley_sockets_api}
+
+This is a cross platform low-level C networking API.
+There are two types of sockets:
+\begin{itemize}
+	\item Stream, which provides a virtual circuit service for TCP.
+	\item Datagram, which delivers individual packets and is used for UDP.
+\end{itemize}
+
+\section{TCP Protocol}\label{sec:tcp}
+
+\subsection{How do we add reliability}\label{sub:how_do_we_add_reliability}
+
+\begin{itemize}
+	\item Sequence numbers
+	\item Acknowledgements
+	\item Multi-round processes
+\end{itemize}
+
+\subsection{Three way handshake}\label{sub:three_way_handshake}
+
+\begin{enumerate}
+	\item Send a random ID, send it back to me if you hear me (SYN bit is set)
+	\item Here's your ID back, here's another random ID for you to send back (ACK and SYN are set)
+	\item I can hear you, here's your number back (ACK and SYN)
+	\item Messages can now be exchanged.
+\end{enumerate}
+Having random numbers ensures that several connections between the same hosts are robust.
+Also has the side effect of being secure.
+
+\begin{note}
+	FIN bits indicate an ending connection
+\end{note}
+
+\subsection{TCP Reliability}\label{sub:tcp_reliability}
+
+TCP is reliable since each packet has a sequence number and an acknowledgement number were the sequence number is the number of bytes that have been sent.
+Several packets can be in the air at the same time, but acknowledgements must be received for all.
+
+The acknowledgement number specifies the next byte expected to be received.
+Hosts only acknowledge sequential data packets (but still store others in the case of delays).
+If a packet is lost, packets coming afterwards will trigger ``duplicate acknowledgements'' where the receiver will insist it is still waiting for a packet (which the TCP layer retransmits).
+
+\subsubsection{How is loss detected}\label{ssub:how_is_loss_detected}
+
+If the same ACK is transmitted three times in a row, we know that some packets were lost, but some are still arriving.
+Time-outs can also happened where data is sent, but acknowledgements are not received meaning either the receiver or network path has failed.
+
+\subsubsection{Packet Reordering}\label{ssub:packet_reordering}
+
+Duplicate ACKs can be caused by some packets being delayed and getting reordered which gives the appearance of loss.
+TCP uses triple duplicate ACK as an indication of packet loss to prevent reordered packets causing retransmissions by assuming packets will only be delayed enough to trigger a double ACK.
+
+\subsection{Congestion Control}\label{sub:congestion_control}
+
+\emph{Congestion control} is adapting the speed of transmission to match the available end to end network capacity to prevent the collapse of a network.
+We can implement congestion control at either the network or the transport layer.
+
+\paragraph{Network Layer}\label{par:network_layer}
+
+Implementing congestion control at the network layer is safer since no individual link can be overloaded and ensures all transport protocols are congestion controlled.
+However, it requires all applications to use the same congestion control system (network protocol has one protocol only)
+
+\paragraph{Transport Layer}\label{par:transport_layer}
+
+Implementing congestion control at the transport layer is more flexible since different applications can be throttled differently to improve overall experience.
+However, a misbehaving transport layer can cause network congestion instead of fixing it.
+
+\begin{note}
+	We should always remember the \emph{end to end} principle.
+\end{note}
+
+\subsubsection{Conservation of Packets}\label{ssub:conservation_of_packets}
+
+A network only has a certain capacity (bits currently in the air, this number is constant) which is \(\frac{\mathrm{bits}}{second} \times \mathrm{seconds} = \mathrm{bits}\).
+Using congestion control, we reduce the sending rate when the capacity has been reached and deliver packets slower.
+
+\subsubsection{AIMD}\label{ssub:aimd}
+
+AIMD stands for \emph{Additive Increase Multiplicative Decrease} algorithm.
+\begin{itemize}
+	\item What this means is that we start very slowly, then increase gradually to reach an equilibrium
+	\item What this means is we add extra data per second slowly (additive), but remove data far faster (muliplicative).
+	\item This allows us to respond to congestion very quickly.
+\end{itemize}
+
+\section{TCP Communications Using Sockets}\label{sec:tcp_communications_using_sockets}
+
+A socket is initially unbound, the procedure to create a connection is:
+\begin{enumerate}
+	\item A client creates a socket
+	\item The client socket makes a connect request to a server socket
+	\item The server creates a new socket specifically for the new client
+	\item The server tells the client to connect to the new socket
+	\item The client connects to the new socket
+\end{enumerate}
+
+\subsection{Coding for communication of TCP}\label{sub:coding_for_communication_of_tcp}
+
+\begin{enumerate}
+	\item Create a three way handshake
+	\item Call \mintinline{c}{send()} to transmit data
+	      \begin{itemize}
+		      \item Data is enqueued for transmission and split into segments (or combined into one segment).
+		      \item The function will block until data can be written based on the congestion control algorithm, and returns the amount of data sent.
+		      \item If the network is congested, not all data might be sent.
+		            Only the amount of data sent is returned.
+	      \end{itemize}
+	\item Call \mintinline{c}{recv(x)} to read up to \(x\) bytes of data from a connection.
+	      \begin{itemize}
+		      \item The function will block until there is data available or the connection is closed.
+		      \item The function will return an object with the data received from the socket, but because segments could be combined the data received might not be in the same sequence or size as was sent.
+		            We need to write applications to handle this.
+	      \end{itemize}
+\end{enumerate}
