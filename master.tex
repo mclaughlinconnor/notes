@@ -1,47 +1,57 @@
-\documentclass[a4paper]{report}
+\documentclass[a4paper, oneside]{memoir}
 
+\setlength{\overfullrule}{5pt} % Make overfull hboxes more visible
+
+\let\emph\relax % there's no \RedeclareTextFontCommand
+\DeclareTextFontCommand{\emph}{\scshape\em}
+
+% Headers and footers
+\makepagestyle{uogruled}
+\makeheadrule{uogruled}{\textwidth}{\normalrulethickness}
+\makefootrule{uogruled}{\textwidth}{\normalrulethickness}{\footruleskip}
+\makeevenhead{uogruled}{}{\small\itshape\leftmark}{}
+\makeoddhead{uogruled}{\small\itshape\rightmark}{}{\thepage\ of \totalpages}
+\makeoddfoot{uogruled}{\scshape Graduate Apprenticeship Software Engineering}{}{\scshape Connor M\textsuperscript{c}Laughlin}
+\makepsmarks{uogruled}{
+    \nouppercaseheads{}
+    \createmark{chapter}{both}{shownumber}{Chapter\ }{. \ }
+    \createmark{section}{both}{shownumber}{Section\ }{. \ }
+    \createplainmark{toc}{both}{\contentsname}
+    \createplainmark{lof}{both}{\listfigurename}
+    \createplainmark{lot}{both}{\listtablename}
+    \createplainmark{bib}{both}{\bibname}
+    \createplainmark{index}{both}{\indexname}
+    \createplainmark{glossary}{both}{\glossaryname}
+}
+\pagestyle{uogruled}
+
+\usepackage{amsmath} % Math equations
+\usepackage{bookmark} % PDF bookmarks for hyperref link
+\usepackage{booktabs} % Better looking tables
+\usepackage[RPvoltages]{circuitikz} % Circuit diagrams
+
+% Make bullet points smaller and reduce the spacing between items
+\usepackage{enumitem}
+\setlist{itemsep=0.2\itemsep}
+\renewcommand\labelitemi{\(\vcenter{\hbox{\tiny\(\bullet\)}}\)}
+
+% Add "Contents" chapter-style title to toc, set depth of primary to section level only
+\usepackage{etoc}
+\etocmulticolstyle[1]{\chapter*{\contentsname}}
+\etocsettocdepth{section}
+\cftpagenumbersoff{chapter} % Turn off page numbers for chapter
+
+% \usepackage{etoolbox}
+
+\usepackage{float} % Used to force listings to have H placement
+
+% \usepackage[T1]{fontenc}
+
+% Reduce margins
 \usepackage{geometry}
 \geometry{textwidth=15.75cm, textheight=23.4cm, marginratio={5:5,5:7}}
 
-\usepackage[page]{totalcount}
-
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-
-\rfoot{\fancyplain{}{CONNOR M\textsuperscript{c}LAUGHLIN}}
-\rhead{\fancyplain{}{\thepage\ of \totalpages}}
-\lhead{\fancyplain{}{\leftmark}}
-\lfoot{\fancyplain{}{GRADUATE APPRENTICESHIP SOFTWARE ENGINEERING}}
-
-\fancyhf[FC]{} % Disable page numbers in footer center.
-
-\usepackage{amsmath} % Math equations
-\usepackage{booktabs} % Better looking tables
-\usepackage[RPvoltages]{circuitikz} % The circuit diagrams in CANS
-\usepackage{float} % Used to force listings to have H placement
-\usepackage{microtype} % Slightly better text layouts
-\usepackage{minted} % Code
-\usepackage[simplified]{pgf-umlcd} % Used to have UML diagrams in TSI
-\usepackage[binary-units=true]{siunitx} % Units
-\usepackage{tabularx} % Column types
-\usepackage{tcolorbox} % The note box
-
-\usepackage{enumitem}
-\setlist{itemsep=0.5\itemsep}
-
-\usepackage{minitoc} 
-\setcounter{tocdepth}{1}
-\setcounter{minitocdepth}{3}
-
-\usepackage{silence}
-
-\WarningFilter{minitoc(hints)}{W0023}
-\WarningFilter{minitoc(hints)}{W0024}
-\WarningFilter{minitoc(hints)}{W0028}
-\WarningFilter{minitoc(hints)}{W0030}
-
-\setcounter{secnumdepth}{3}
-
+% Make all links blend in to regular text colour
 \usepackage{hyperref}
 \hypersetup{
     colorlinks,
@@ -51,9 +61,50 @@
     urlcolor=black
 }
 
+\usepackage{mdframed} % Create framed boxes
+\usepackage{microtype} % Slightly better text layouts
+\usepackage{minted} % Code
+
+% Palatino fonts
+\usepackage{newpxtext}
+\usepackage{newpxmath}
+
+\let\attribute\relax % something else conflicts, this is a hack
+\usepackage[simplified]{pgf-umlcd} % Used to have UML diagrams
+
 \usepackage{pifont}
 \newcommand{\cmark}{\ding{51}}%
 \newcommand{\xmark}{\ding{55}}%
+
+\usepackage[binary-units=true]{siunitx} % Units
+\usepackage{tabularx} % Column types
+
+\usepackage{tcolorbox} % The note box
+\tcbuselibrary{minted,breakable,skins}
+
+\usepackage{tikz}
+\usetikzlibrary{backgrounds, er, fit, intersections, positioning, through}
+
+\usepackage[page]{totalcount}
+
+% Off white and off black are nicer on the eyes
+\usepackage{xcolor}
+\pagecolor{gray!10}
+\color{black!90}
+
+\setminted{bgcolor=white, framesep=2mm}
+\renewcommand{\theFancyVerbLine}{\large \oldstylenums{\arabic{FancyVerbLine}}}
+
+% Number all the way to subsections
+\setsecnumdepth{subsubsection}
+
+% % Chapter Headers
+\chapterstyle{verville}
+\setsecheadstyle{\LARGE\boldmath\scshape\bfseries} % large bold small caps
+\setsubsecheadstyle{\large\scshape\boldmath\bfseries\raggedright} % large bold small caps
+\setsubsubsecheadstyle{\itshape\bfseries} % bold italic
+
+\renewcommand{\thefigure}{\arabic{section}.\arabic{subsection}.\arabic{figure}}
 
 \newtcolorbox[blend into=figures]{highlight}[1]{
    float=htb,
@@ -98,6 +149,8 @@
 
 \begin{document}
 
+\frontmatter
+
 \title{Glasgow University Software Engineering Graduate Apprenticeship}
 \date{\today}
 \author{Connor M\textsuperscript{c}Laughlin\\
@@ -106,9 +159,20 @@
 \end{tabularx}}
 }
 \maketitle
+\newpage
 
-\dominitoc
+\renewcommand{\cftsectionfont}{\small}
+
 \tableofcontents
+
+\renewcommand{\cftchapterfont}{\bfseries}
+\renewcommand{\cftsectionfont}{\large\bfseries}
+\renewcommand{\cftsubsubsectionfont}{\small\itshape}
+
+\newpage
+\listoffigures
+
+\mainmatter{}
 
 \part{Semester One (2020-11-02)}
 \include{htlanl/htlanl}
@@ -117,4 +181,5 @@
 \include{cans/cans}
 \include{tsi/tsi}
 \include{was/was}
+
 \end{document}

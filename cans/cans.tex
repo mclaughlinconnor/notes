@@ -1,5 +1,3 @@
-\usetikzlibrary{positioning,intersections,through,backgrounds,fit}
-
 \newcommand{\rowstyle}[1]{\gdef\currentrowstyle{#1}%
 	#1\ignorespaces
 }
@@ -65,7 +63,11 @@
 }
 
 \chapter{Computer Architecture and Network Systems}
-\minitoc
+
+\etocsettocstyle{\section*{\contentsname}\par}{}
+\etocsetnexttocdepth{subsubsection}
+\localtableofcontents
+
 \input{cans/1}
 \input{cans/2}
 \input{cans/3}
@@ -96,4 +98,3 @@
 \input{cans/28}
 \input{cans/29}
 \input{cans/30}
-
