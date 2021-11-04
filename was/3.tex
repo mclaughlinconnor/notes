@@ -24,26 +24,26 @@ Overall though, neither are really used by themselves; they are most often combi
 \subsubsection{Summary}\label{ssub:summary_design_styles}
 
 \begin{minipage}[t]{0.45\linewidth}
-	Top Down:
-	\begin{itemize}
-		\item Separates low-level work from high-level abstractions.
-		\item Leads to a modular design.
-		\item Development can be completely independent (tiered).
-		\item Emphasizes planning and system understanding.
-		\item Coding is done late on and testing is even after that.
-		\item Skeleton code can show how everything integrates.
-	\end{itemize}
+    Top Down:
+    \begin{itemize}
+        \item Separates low-level work from high-level abstractions.
+        \item Leads to a modular design.
+        \item Development can be completely independent (tiered).
+        \item Emphasizes planning and system understanding.
+        \item Coding is done late on and testing is even after that.
+        \item Skeleton code can show how everything integrates.
+    \end{itemize}
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.45\linewidth}
-	Bottom Up:
-	\begin{itemize}
-		\item Coding begins early so testing can be done early.
-		\item Requires good intuitions to determine functionality of modules.
-		\item Low level decisions can have a major impact on solutions
-		\item Risks integration problems. How do components link?
-		\item Often used to add on to existing modules.
-	\end{itemize}
+    Bottom Up:
+    \begin{itemize}
+        \item Coding begins early so testing can be done early.
+        \item Requires good intuitions to determine functionality of modules.
+        \item Low level decisions can have a major impact on solutions
+        \item Risks integration problems. How do components link?
+        \item Often used to add on to existing modules.
+    \end{itemize}
 \end{minipage}
 
 \subsection{Diagram and Design}\label{sub:diagram_and_design}
@@ -55,32 +55,32 @@ We can use the Modified Dataflow Languages containing: users, clients, middlewar
 The users or customer instigates and interacts with the services or applications provided.
 There are various types of users including:
 \begin{itemize}
-	\item End users (of varying abilities)
-	\item Admins
-	\item Developers
-	\item Other systems
-	\item \dots
+    \item End users (of varying abilities)
+    \item Admins
+    \item Developers
+    \item Other systems
+    \item \dots
 \end{itemize}
 
 \subsubsection{Client}\label{ssub:clinet_was}
 
 The client and the interface presented takes on many forms and can vary greatly (drawn as a person).
 \begin{itemize}
-	\item Web browser on a device
-	\item An API for other systems
-	\item Devices and robots
-	\item Sensors
+    \item Web browser on a device
+    \item An API for other systems
+    \item Devices and robots
+    \item Sensors
 \end{itemize}
 
 \subsubsection{Greatly}\label{ssub:greatly}
 
 The middleware houses an array of possible components from:
 \begin{itemize}
-	\item Domain name servers
-	\item Load balancing
-	\item Web servers
-	\item Application servers
-	\item Caching servers
+    \item Domain name servers
+    \item Load balancing
+    \item Web servers
+    \item Application servers
+    \item Caching servers
 \end{itemize}
 
 \subsubsection{Databases}\label{ssub:databases_was}
@@ -119,12 +119,12 @@ We have a problem: users have needs goals and aims, but the organisation may not
 \subsection{Why is Information Architecture Important?}\label{sub:why_is_information_architecture_important_}
 
 \begin{description}
-	\item[Cost of finding] Time and frustration
-	\item[Cost of not finding] Bad decisions, alternate channels
-	\item[Cost of construction] Staff technology, planning, bugs
-	\item[Cost of maintenance] Content management, redesigns
-	\item[Cost of training] Employees, turnover
-	\item[Value of brand] Identity, reputation, trust
+    \item[Cost of finding] Time and frustration
+    \item[Cost of not finding] Bad decisions, alternate channels
+    \item[Cost of construction] Staff technology, planning, bugs
+    \item[Cost of maintenance] Content management, redesigns
+    \item[Cost of training] Employees, turnover
+    \item[Value of brand] Identity, reputation, trust
 \end{description}
 
 \subsection{Top Down Design}\label{sub:top_down_design}
@@ -132,12 +132,12 @@ We have a problem: users have needs goals and aims, but the organisation may not
 Top down design is designing for a when a user arrives at the main page of an application.
 Some typical questions to ask are:
 \begin{itemize}
-	\item Where am I?
-	\item How do I find what I want?
-	\item How do I get around?
-	\item What is useful, important, or unique about the site?
-	\item What's available? What's happening?
-	\item How can I get help, contact a human, etc.?
+    \item Where am I?
+    \item How do I find what I want?
+    \item How do I get around?
+    \item What is useful, important, or unique about the site?
+    \item What's available? What's happening?
+    \item How can I get help, contact a human, etc.?
 \end{itemize}
 
 \subsection{Bottom Up Design}\label{sub:bottom_up_design}
@@ -146,19 +146,19 @@ You cater to when a user lands directly on your page from a search engine for ex
 We would usually have some breadcrumbs or highlighted navigation items to show where you are and how to get to any parent pages.
 Some typical question to ask are:
 \begin{itemize}
-	\item Where am I?
-	\item What's here?
-	\item What else is here?
-	\item Where can I go from here?
+    \item Where am I?
+    \item What's here?
+    \item What else is here?
+    \item Where can I go from here?
 \end{itemize}
 
 \subsection{Information Systems}\label{sub:information_systems}
 
 \begin{description}
-	\item[Retrieval Systems] We have information retrieval systems where users perform a query and results are ranked.
-	\item[Navigation Systems] We also have navigation systems (local navigation, like sub sections; global navigation, the whole page's navigation; contextual navigation, like ``read more'' or ``related links'' inside the text) where users can jump straight to other pages.
-	\item[Semantic Word Networks] We can have semantic word networks that contain relationships between words.
-	      You should probably use a navigation bar.
+    \item[Retrieval Systems] We have information retrieval systems where users perform a query and results are ranked.
+    \item[Navigation Systems] We also have navigation systems (local navigation, like sub sections; global navigation, the whole page's navigation; contextual navigation, like ``read more'' or ``related links'' inside the text) where users can jump straight to other pages.
+    \item[Semantic Word Networks] We can have semantic word networks that contain relationships between words.
+        You should probably use a navigation bar.
 \end{description}
 
 
@@ -167,18 +167,18 @@ Some typical question to ask are:
 \subsection{System Architect}\label{sub:system_architect}
 
 \begin{itemize}
-	\item Establishes structure of the system.
-	\item Specifics essential core design features and elements that provides the framework for all that follows.
-	\item Proves the architect view of users vision for what the system needs to be and do.
-	\item They strive to maintain the integrity of the vision as it evolves during the detailed design and implementation.
+    \item Establishes structure of the system.
+    \item Specifics essential core design features and elements that provides the framework for all that follows.
+    \item Proves the architect view of users vision for what the system needs to be and do.
+    \item They strive to maintain the integrity of the vision as it evolves during the detailed design and implementation.
 \end{itemize}
 
 \subsection{Information Architect}\label{sub:information_architect}
 
 \begin{itemize}
-	\item An information architect assists business analysts to identify user-based requirements (what do users want? What other products exist? Who is the user? What are their needs?).
-	\item They have to think about how users interact with information (what information is there, not how it is displayed).
-	\item They investigate customers and their needs, factor business strategy, technology resources.
+    \item An information architect assists business analysts to identify user-based requirements (what do users want? What other products exist? Who is the user? What are their needs?).
+    \item They have to think about how users interact with information (what information is there, not how it is displayed).
+    \item They investigate customers and their needs, factor business strategy, technology resources.
 \end{itemize}
 
 \section{Deliverables}\label{sec:deliverables}
@@ -190,9 +190,9 @@ These should not be any one person and should, instead, represent a large group 
 We should look at demographics, psychographics and environmental things.
 
 \begin{description}
-	\item[Purpose] To create reliable and realistic representation of your key audience based on real data (possibly using surveys).
-	      Words like ``power users
-	\item[Effective Personas] Show a persons main needs and give a real clear picture of a user's expectations
+    \item[Purpose] To create reliable and realistic representation of your key audience based on real data (possibly using surveys).
+        Words like ``power users''
+    \item[Effective Personas] Show a persons main needs and give a real clear picture of a user's expectations
 \end{description}
 
 \paragraph{Benefits of Personal}\label{par:benefits_of_personal}
@@ -200,11 +200,11 @@ We should look at demographics, psychographics and environmental things.
 They help to focus decisions on real-world considerations (how will this change affect Roy or Jen?)
 
 \begin{itemize}
-	\item Stakeholders and leader evaluate new features and ideas.
-	\item Information architects create informed designs
-	\item Designers can make better looks and feels of a site.
-	\item System engineers can decide which approach to take for development based on the user's needs.
-	\item Copywriters ensure content is suitable for the target audience.
+    \item Stakeholders and leader evaluate new features and ideas.
+    \item Information architects create informed designs
+    \item Designers can make better looks and feels of a site.
+    \item System engineers can decide which approach to take for development based on the user's needs.
+    \item Copywriters ensure content is suitable for the target audience.
 \end{itemize}
 
 \subsubsection{Developing Personas}\label{ssub:developing_personas}
@@ -212,30 +212,30 @@ They help to focus decisions on real-world considerations (how will this change 
 \paragraph{Do:}\label{par:do_}
 
 \begin{itemize}
-	\item Conduct user research
-	\item Condense research (what do all users need? What do only some types of users need?)
-	\item Brainstorm and organise (which systems will be used by which users? Helps to prevent requirements creep to make sure only features needed for personas are included)
-	\item Make them realistic: don't include personal information or jokes; only have basic information on their needs.
+    \item Conduct user research
+    \item Condense research (what do all users need? What do only some types of users need?)
+    \item Brainstorm and organise (which systems will be used by which users? Helps to prevent requirements creep to make sure only features needed for personas are included)
+    \item Make them realistic: don't include personal information or jokes; only have basic information on their needs.
 \end{itemize}
 
 \paragraph{Don't:}\label{par:don_t}
 
 \begin{itemize}
-	\item Include lots of personal information
-	\item Try to be funny
+    \item Include lots of personal information
+    \item Try to be funny
 \end{itemize}
 
 \subsubsection{Elements of a Persona}\label{ssub:elements_of_a_persona}
 
 \begin{itemize}
-	\item Persona group (power users, etc.)
-	\item Fictional name
-	\item Job titles and major responsibilities
-	\item Demographics like age, education, ethnicity, and family status
-	\item The goals and tasks they are trying to complete on the site.
-	\item Their physical, social, and technological environment (are they good with technology, etc.?)
-	\item A quote that sums up what matters most top the person -- give a basic idea of their personality.
-	\item Casual pictures
+    \item Persona group (power users, etc.)
+    \item Fictional name
+    \item Job titles and major responsibilities
+    \item Demographics like age, education, ethnicity, and family status
+    \item The goals and tasks they are trying to complete on the site.
+    \item Their physical, social, and technological environment (are they good with technology, etc.?)
+    \item A quote that sums up what matters most top the person -- give a basic idea of their personality.
+    \item Casual pictures
 \end{itemize}
 
 \subsection{User needs matrix}\label{sub:user_needs_matrix}
@@ -247,38 +247,38 @@ We effectively create a snapshot view of the user eco-system.
 \subsection{Wireframes}\label{sub:wireframes_was}
 
 \begin{itemize}
-	\item Depict how an individual page or template will look from an architectural perspective.
-	\item They combine layout and the data to be displayed.
-	\item Can save lots of time (make sure what you think you want actually works).
-	\item Ideas can be represented without coding.
-	\item Helps to validate page design with a user.
+    \item Depict how an individual page or template will look from an architectural perspective.
+    \item They combine layout and the data to be displayed.
+    \item Can save lots of time (make sure what you think you want actually works).
+    \item Ideas can be represented without coding.
+    \item Helps to validate page design with a user.
 \end{itemize}
 
 \subsubsection{How to draw wireframes}\label{ssub:how_to_draw_wireframes}
 
 \begin{itemize}
-	\item Start by sketching
-	\item Focus on communication
-	\item Keep them simple and only represent key components (use boxes)
-	\item Label components (so everyone knows what one thing is).
-	\item Explain functionality of each component
-	\item Map features to requirement and specifications.
-	\item Document and record designs to show evolutions
-	\item Use common elements throughout your designs
-	\item Get feedback on designs
-	\item Iterate and improve
-	\item Use real content so clients can see how it will actually look
-	\item Develop a site map to show the context of a page and design navigation.
-	\item Add in information using fonts to differentiate between importance
-	\item Make sure the wireframe can actually be made
+    \item Start by sketching
+    \item Focus on communication
+    \item Keep them simple and only represent key components (use boxes)
+    \item Label components (so everyone knows what one thing is).
+    \item Explain functionality of each component
+    \item Map features to requirement and specifications.
+    \item Document and record designs to show evolutions
+    \item Use common elements throughout your designs
+    \item Get feedback on designs
+    \item Iterate and improve
+    \item Use real content so clients can see how it will actually look
+    \item Develop a site map to show the context of a page and design navigation.
+    \item Add in information using fonts to differentiate between importance
+    \item Make sure the wireframe can actually be made
 \end{itemize}
 
 \subsection{Site Maps}\label{sub:site_maps_was}
 
 \begin{itemize}
-	\item Blueprints to show how the site is going to be organised
-	\item Provides high-level view of relationship of pages
-	\item Structures pages
+    \item Blueprints to show how the site is going to be organised
+    \item Provides high-level view of relationship of pages
+    \item Structures pages
 \end{itemize}
 
 \subsection{URL Design}\label{sub:url_design_was}
@@ -286,10 +286,10 @@ We effectively create a snapshot view of the user eco-system.
 We need to translate the site map into a logical URL design so that users can navigate between pages using the URLs.
 Search engines can use URLs to rank websites.
 \begin{itemize}
-	\item URLs should be obvious and relevant to the content
-	\item Shorter URLs are better
-	\item Avoid too much depth
-	\item Use lower-case characters and avoid special characters
-	\item Use static URLs (don't change the URL) when you can to allow users to revisit information and pages.
-	      These can also help web crawlers can index the content.
+    \item URLs should be obvious and relevant to the content
+    \item Shorter URLs are better
+    \item Avoid too much depth
+    \item Use lower-case characters and avoid special characters
+    \item Use static URLs (don't change the URL) when you can to allow users to revisit information and pages.
+          These can also help web crawlers can index the content.
 \end{itemize}

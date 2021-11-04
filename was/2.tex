@@ -4,22 +4,22 @@
 
 The hypertext structure means there is a need to:
 \begin{itemize}
-	\item Avoid user disorientation and cognitive overload
-	\item Provide multiple paths to the same information to support users with different requirements
-	\item Provide a good superstructure including site map, search facilities and guided tours.
-	      \emph{You should always try to stick with general conventions} because users are familiar with this and they are known to work.
+    \item Avoid user disorientation and cognitive overload
+    \item Provide multiple paths to the same information to support users with different requirements
+    \item Provide a good superstructure including site map, search facilities and guided tours.
+          \emph{You should always try to stick with general conventions} because users are familiar with this and they are known to work.
 \end{itemize}
 The presentation or user interface must be:
 \begin{itemize}
-	\item Self explanatory with no need for user manuals.
-	\item Aesthetically pleasing and adaptable to different context using CSS responsive design.
-	\item Ideally self-adapting, but somehow there must be a version of the user interface which works in each context.
+    \item Self explanatory with no need for user manuals.
+    \item Aesthetically pleasing and adaptable to different context using CSS responsive design.
+    \item Ideally self-adapting, but somehow there must be a version of the user interface which works in each context.
 \end{itemize}
 The delivery of content must be:
 \begin{itemize}
-	\item Fast, up-to-date, consistent and reliable
-	\item Secure --- particularly for financial transactions.
-	\item Adaptable to different contexts in terms of how much can be delivered (like for load balancing and recovery plans).
+    \item Fast, up-to-date, consistent and reliable
+    \item Secure --- particularly for financial transactions.
+    \item Adaptable to different contexts in terms of how much can be delivered (like for load balancing and recovery plans).
 \end{itemize}
 
 \subsection{Users and usage}\label{sub:users_and_usage}
@@ -31,38 +31,38 @@ All users have a diverse background culturally and linguistically and they have 
 
 The nature of developers is slightly different:
 \begin{itemize}
-	\item Professional development is by a multidisciplinary team (programmers,  graphic designers, domain expoers)
-	\item Much development is by amateurs or inexperienced programmers
-	\item Development can be communal by a geographically distributed group
+    \item Professional development is by a multidisciplinary team (programmers,  graphic designers, domain expoers)
+    \item Much development is by amateurs or inexperienced programmers
+    \item Development can be communal by a geographically distributed group
 \end{itemize}
 The development environment consists of:
 \begin{itemize}
-	\item A wide variety of technologies, each of which is programmed differently.
-	\item Many of the technologies are immature but some are legacy technologies.
-	\item Each technology has competing products meaning upgrades can change the site.
+    \item A wide variety of technologies, each of which is programmed differently.
+    \item Many of the technologies are immature but some are legacy technologies.
+    \item Each technology has competing products meaning upgrades can change the site.
 \end{itemize}
 The development process:
 \begin{itemize}
-	\item Follows no accepted web application development methodology
-	\item Must be flexible and not rigid.
-	\item You will need to develop several components at the same time (maybe even versions).
-	\item Using the Agile development process is a \emph{good} idea here.
+    \item Follows no accepted web application development methodology
+    \item Must be flexible and not rigid.
+    \item You will need to develop several components at the same time (maybe even versions).
+    \item Using the Agile development process is a \emph{good} idea here.
 \end{itemize}
 
 \subsection{Web Application Development}\label{sub:web_application_development}
 
 Types of web application:
 \begin{description}
-	\item[Static] Originally these were just hand-built HTML pages.
-	      If you wanted to update some pages, you would need to manually change many pages which would lead to inconsistencies.
-	\item[Interactive] There are forms on pages which can send data to a server to show different pages.
-	      CGI was the first technology for this, but has now been superseded by others (ASP, JASP, PHP, etc.).
-	\item[Transactional] Forms also offer the capture of data and database storage at the server although data management may be separate from the web server.
-	\item[Workflow] Support for functionality expressed as a sequence of pages reflecting a business process.
-	\item[Portal oriented] One site that points to many other sites.
-	\item[Collaborative] Websites which permit multiple users to share information management
-	\item[Social Web] Many sites provide a focal point for communities
-	\item[Mobile and Ubiquitous] ``Web'' applications provide access by small, mobile and non-visual devices as well as data capture by sensors.
+    \item[Static] Originally these were just hand-built HTML pages.
+        If you wanted to update some pages, you would need to manually change many pages which would lead to inconsistencies.
+    \item[Interactive] There are forms on pages which can send data to a server to show different pages.
+        CGI was the first technology for this, but has now been superseded by others (ASP, JASP, PHP, etc.).
+    \item[Transactional] Forms also offer the capture of data and database storage at the server although data management may be separate from the web server.
+    \item[Workflow] Support for functionality expressed as a sequence of pages reflecting a business process.
+    \item[Portal oriented] One site that points to many other sites.
+    \item[Collaborative] Websites which permit multiple users to share information management
+    \item[Social Web] Many sites provide a focal point for communities
+    \item[Mobile and Ubiquitous] ``Web'' applications provide access by small, mobile and non-visual devices as well as data capture by sensors.
 \end{description}
 
 \section{Architecture and Complexity}\label{sec:architecture_and_complexity}
@@ -78,10 +78,10 @@ Sometimes called a single tier architecture.
 This is not scalable since the program exists on exactly one computer per user.
 The main tasks that any application must support:
 \begin{itemize}
-	\item User interface management.
-	\item The implementation of algorithms --- the business logic.
-	\item Information manipulation
-	\item Data storage and file input/output,
+    \item User interface management.
+    \item The implementation of algorithms --- the business logic.
+    \item Information manipulation
+    \item Data storage and file input/output,
 \end{itemize}
 
 \subsection{Tiered Architectures}\label{sub:tiered_architecutures}
@@ -96,10 +96,10 @@ The tiers must interact effectively by using well defined interfaces using inter
 \subsubsection{Benefits of Tiered Applications}\label{ssub:benefits_of_tiered_applications}
 
 \begin{itemize}
-	\item Allows for the easy separating of concern.
-	\item Tiers can abstract away complexity (encapsulate).
-	\item Tiers can be on many machines which allows for flexibility and provides more security as clients don't interact with the database directly.
-	\item Tiers can be replicated across a number of machines to allow for scalability.
+    \item Allows for the easy separating of concern.
+    \item Tiers can abstract away complexity (encapsulate).
+    \item Tiers can be on many machines which allows for flexibility and provides more security as clients don't interact with the database directly.
+    \item Tiers can be replicated across a number of machines to allow for scalability.
 \end{itemize}
 
 \subsubsection{Two Tier Applications}\label{ssub:two_tier_applications}
@@ -116,23 +116,23 @@ We should separate the concerns by letting a database system handle data managem
 The standard mechanism is to have SAL statements as strings inside the client which are sent to the server.
 
 \begin{description}
-	\item[Client-Server Architecture] We should have a separate client and server
-	      \begin{description}
-		      \item[Fat Client] We can use a \emph{Fat Client} to get an application to work on top of a database where all of the application code is stored on the local client itself and just database requests are sent to the server.
-		      \item[Thin Client] All of the logic is stored on the server.
-		            One such example is a static web application where there is a static set of HTML pages which are hyperlinked together.
-		            If a user were to navigate to a different URL, a request is made to the server and a new page is delivered.
-	      \end{description}
-	\item[Layers] We can use an \emph{extended thin client} where different layers inside the client tier handle data and presentation.
-	      Initially, the HTML files contained all of the information on how to render the page.
-	      With lots of pages there is lots of overhead in creating and maintain the site.
-	      We should separate the concerns by using CSS to be able to update only styles without touching all of the HTML pages.
-	\item[Extended Thin Clients and Servers] Layers within the client tier handle the content and look/feel.
-	      The server now houses a web server and an application server.
-	      \begin{description}
-		      \item[Web Server] Handles incoming requests and routing them to and form the server.
-		      \item[Application server] Dynamically generates a response when given a request.
-	      \end{description}
+    \item[Client-Server Architecture] We should have a separate client and server
+        \begin{description}
+            \item[Fat Client] We can use a \emph{Fat Client} to get an application to work on top of a database where all of the application code is stored on the local client itself and just database requests are sent to the server.
+            \item[Thin Client] All of the logic is stored on the server.
+                One such example is a static web application where there is a static set of HTML pages which are hyperlinked together.
+                If a user were to navigate to a different URL, a request is made to the server and a new page is delivered.
+        \end{description}
+    \item[Layers] We can use an \emph{extended thin client} where different layers inside the client tier handle data and presentation.
+        Initially, the HTML files contained all of the information on how to render the page.
+        With lots of pages there is lots of overhead in creating and maintain the site.
+        We should separate the concerns by using CSS to be able to update only styles without touching all of the HTML pages.
+    \item[Extended Thin Clients and Servers] Layers within the client tier handle the content and look/feel.
+        The server now houses a web server and an application server.
+        \begin{description}
+            \item[Web Server] Handles incoming requests and routing them to and form the server.
+            \item[Application server] Dynamically generates a response when given a request.
+        \end{description}
 \end{description}
 
 \paragraph{Problems with Two Tier Architectures}\label{par:problems_with_two_tier_architectures}
@@ -143,9 +143,9 @@ Having client and server separate puts a lots of load on the client  and ties th
 
 An improvement is to separate the application into three tiers.
 \begin{description}
-	\item[Presentation] Deals with user interface only
-	\item[Application] Deals with the logic of the application like queries and calculations (there can be one or more of these layers).
-	\item[Data source] We only supply data from a database or a file here.
+    \item[Presentation] Deals with user interface only
+    \item[Application] Deals with the logic of the application like queries and calculations (there can be one or more of these layers).
+    \item[Data source] We only supply data from a database or a file here.
 \end{description}
 
 \paragraph{Middleware}\label{par:middleware}
@@ -170,18 +170,19 @@ Clicking links only provides the link information.
 A form takes input and sends data to the server using GET and POST requests.
 
 \begin{description}
-	\item[GET] Requests a URL with certain parameters.
-	      The URL is stored in the browser history so the user can go backwards and forwards through history.
-	      These should be used for login details and cannot be used for large data.
-	\item[POST] This is a different type of request that is not stored in the browser URL and should be used for large data and login details.
+    \item[GET] Requests a URL with certain parameters.
+        The URL is stored in the browser history so the user can go backwards and forwards through history.
+        These should be used for login details and cannot be used for large data.
+    \item[POST] This is a different type of request that is not stored in the browser URL and should be used for large data and login details.
 \end{description}
 
 \subsection{Load Balancing}\label{sub:load_balancing}
 
 Where you have many different servers, you should use a load balancer to decide which server should get the requests.
 \begin{description}
-	\item[Domain Name Server] Changes the URL into an IP address.
-	      You can change which IP address to send to.
-	\item[Load Balancing Server] Farms out requests stew available machines.
-	      Each machine in the system must inform the load balancing server on its availability.
+    \item[Domain Name Server] Changes the URL into an IP address.
+        You can change which IP address to send to.
+    \item[Load Balancing Server] Farms out requests stew available machines.
+        Each machine in the system must inform the load balancing server on its availability.
 \end{description}
+

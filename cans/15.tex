@@ -2,26 +2,26 @@
 
 There are two ways of working with variables in memory:
 \begin{description}
-	\item[Statement-by-statement] Each statement is compiled independently: load then arithmetic then store. This is straightforward but inefficient (because memory transfers are slow).
-	      \begin{itemize}
-		      \item Each statement is compiled separately
-		      \item Each statement loads, computes, then stores
-		      \item A variable may be in several different registers
-		      \item There may be lots of redundant loading and storing code
-		      \item \emph{Object code} will match source code, but will be very long.
-	      \end{itemize}
-	\item[Register variable style] Keep variables in registers access a group of statements. You don't need so many loads and stores, but you do need to keep track of which variables are in which registers (so you must use comments).
-	      \begin{itemize}
-		      \item The instructions corresponding to the statements are mixed together
-		      \item Some statements are executed entirely in the registers
-		      \item A variable is kept in the same register across many statements
-		      \item The use of loads and stores is minimal
-		      \item Object code is concise, but hard to read and match to source code
-	      \end{itemize}
+    \item[Statement-by-statement] Each statement is compiled independently: load then arithmetic then store. This is straightforward but inefficient (because memory transfers are slow).
+        \begin{itemize}
+            \item Each statement is compiled separately
+            \item Each statement loads, computes, then stores
+            \item A variable may be in several different registers
+            \item There may be lots of redundant loading and storing code
+            \item \emph{Object code} will match source code, but will be very long.
+        \end{itemize}
+    \item[Register variable style] Keep variables in registers access a group of statements. You don't need so many loads and stores, but you do need to keep track of which variables are in which registers (so you must use comments).
+        \begin{itemize}
+            \item The instructions corresponding to the statements are mixed together
+            \item Some statements are executed entirely in the registers
+            \item A variable is kept in the same register across many statements
+            \item The use of loads and stores is minimal
+            \item Object code is concise, but hard to read and match to source code
+        \end{itemize}
 \end{description}
 
 \begin{note}
-	It is possible to mix and match, but you are better to just use register variable style wherever possible.
+    It is possible to mix and match, but you are better to just use register variable style wherever possible.
 \end{note}
 
 \section{Arrays}\label{sec:arrays}
@@ -34,23 +34,23 @@ Addresses are unsigned numbers going from \(0\) to \(65535\) represented in bina
 \subsubsection{What are the uses}\label{ssub:what_are_the_uses}
 
 \begin{itemize}
-	\item Powerful data structures
-	      \begin{itemize}
-		      \item Arrays
-		      \item Pointers and records
-		      \item Trees
-		      \item Queues
-		      \item Stacks
-		      \item \dots
-	      \end{itemize}
-	\item Powerful control structures
-	      \begin{itemize}
-		      \item Input/output
-		      \item Procedures and functions
-		      \item Recursion
-		      \item Methods
-		      \item Case dispatch
-	      \end{itemize}
+    \item Powerful data structures
+          \begin{itemize}
+              \item Arrays
+              \item Pointers and records
+              \item Trees
+              \item Queues
+              \item Stacks
+              \item \dots
+          \end{itemize}
+    \item Powerful control structures
+          \begin{itemize}
+              \item Input/output
+              \item Procedures and functions
+              \item Recursion
+              \item Methods
+              \item Case dispatch
+          \end{itemize}
 \end{itemize}
 
 \subsection{Arrays}\label{sub:arrays}
@@ -59,18 +59,18 @@ An arrays is represented in a computer by placing the elements in consecutive me
 The array \mintinline{asm}{x} starts at \mintinline{asm}{$01a5} so the following elements are at \mintinline{asm}{$01a6}, \mintinline{asm}{$01a7}, etc.
 To find the address of an element use:
 \[
-	x[i] = x+i
+    x[i] = x+i
 \]
 An array is in memory along with other data (ie.\ must come after the \mintinline{asm}{trap}).
 
 \begin{highlight}{Storing arrays in Sigma16}
-	\begin{code}{asm}
-		trap R0,R0,R0
-		x data 13
-		data 189
-		data 870
-		data 0
-	\end{code}
+    \begin{code}{asm}
+        trap R0,R0,R0
+        x data 13
+        data 189
+        data 870
+        data 0
+    \end{code}
 \end{highlight}
 
 \subsubsection{What about big arrays?}\label{ssub:what_about_big_arrays}
@@ -85,13 +85,13 @@ We must use \emph{effective addresses}: \mintinline{asm}{result[R4]}, where the 
 With effective addresses, you can access ordinary variables, or also an array element \mintinline{asm}{load R2,x[R8]}.
 Suppose we want to execute \mintinline{python}{x[i] = x[i] + 50}, we must do:
 \begin{highlight}{Accessing array elements in Sigma16}
-	\begin{code}{asm}
-		lea R1,50[R0] ; R1=50
-		load R5,i[R0] ; R5=i
-		laod R6,x[R5] ; R6 = x[i]
-		add R6,R6,R1 ; R6 = x[i]+50
-		store R6,x[R5] ; x[i] = x[i]+50
-	\end{code}
+    \begin{code}{asm}
+        lea R1,50[R0] ; R1=50
+        load R5,i[R0] ; R5=i
+        laod R6,x[R5] ; R6 = x[i]
+        add R6,R6,R1 ; R6 = x[i]+50
+        store R6,x[R5] ; x[i] = x[i]+50
+    \end{code}
 \end{highlight}
 
 \section{Array Traversal and For Loops}\label{sec:array_traversal_and_for_loops}
@@ -106,52 +106,51 @@ When the exit condition is truthy, we jump after the loop.
 \subsection{Example Program: Array Max}\label{sub:example_program_array_max}
 
 \begin{highlight}{Example array program in low level code}
-	\begin{code}{python}
-		max = x[0]
-		i = 1
-		forloop:
-		if i >= then goto done
-		if x[o] <=  max then goto skip
-		max = x[i]
-		skip:
-		i = i+1
-		goto forloop
-		done:
-		terminate
-	\end{code}
+    \begin{code}{python}
+        max = x[0]
+        i = 1
+        forloop:
+        if i >= then goto done
+        if x[o] <=  max then goto skip
+        max = x[i]
+        skip:
+        i = i+1
+        goto forloop
+        done:
+        terminate
+    \end{code}
 \end{highlight}
 
 \begin{highlight}{Example array program in Sigma16}
-	\begin{code}{asm}
-		lea R1,1[R0] ; R1 = constant 1
-		load R2,n[R0] ; R2 = n
-		load R4,x[R0] ; max = x[0]
-		lea R3,1[R0] ; i = 1
+    \begin{code}{asm}
+        lea R1,1[R0] ; R1 = constant 1
+        load R2,n[R0] ; R2 = n
+        load R4,x[R0] ; max = x[0]
+        lea R3,1[R0] ; i = 1
 
-		forloop ; top of loop, determine whether to stay in lopp
-		; if i >= n then goto done
-		cmp R3,R2 ; compare i, n
-		jmpge done[R0] ; if i >= then goto done
+        forloop ; top of loop, determine whether to stay in lopp
+        ; if i >= n then goto done
+        cmp R3,R2 ; compare i, n
+        jmpge done[R0] ; if i >= then goto done
 
-		; if x[i] <= max then goto else
-		load R5,x[R3] ; R5=x[i]
-		cmp R5,R4 ; compare x[i],max
-		jumple skip[R0] ; if x[i] <= max then goto skip
+        ; if x[i] <= max then goto else
+        load R5,x[R3] ; R5=x[i]
+        cmp R5,R4 ; compare x[i],max
+        jumple skip[R0] ; if x[i] <= max then goto skip
 
-		add R4,R5,R0 ; max = x[i]
+        add R4,R5,R0 ; max = x[i]
 
-		skip
-		add R3,R4,R1 ; i = i + 1
-		jump forloop[R0] ; goto forloop
+        skip
+        add R3,R4,R1 ; i = i + 1
+        jump forloop[R0] ; goto forloop
 
-		done ; exit from for loop
-		store R4,max[R0]
-		trap R0,R0,R0 ; terminate
-	\end{code}
+        done ; exit from for loop
+        store R4,max[R0]
+        trap R0,R0,R0 ; terminate
+    \end{code}
 \end{highlight}
 
 \begin{note}
-	To copy one register to another register, we just do \mintinline{asm}{add R4,R5,0}.
+    To copy one register to another register, we just do \mintinline{asm}{add R4,R5,0}.
 \end{note}
-
 

@@ -9,10 +9,10 @@ Synchronous circuits have the benefit of being able to store memory/state.
 Consider the process:
 
 \begin{enumerate}
-	\item Multiply one bit by another
-	\item Shift the bit over by one
-	\item Add the bit to another bit
-	\item Repeat three times
+    \item Multiply one bit by another
+    \item Shift the bit over by one
+    \item Add the bit to another bit
+    \item Repeat three times
 \end{enumerate}
 %
 A combinational circuit cannot be used to do these \(4\) steps in a sequence, since we must store the output bit after each step, so we must use sequential logic.
@@ -30,48 +30,48 @@ The flip flop introduces a whole new design paradigm.
 \subsubsection{Understanding Feedback}\label{ssub:understanding_feedback}
 
 \begin{highlight}{A flip flop}
-	\begin{minipage}{0.50\linewidth}
-		\begin{circuitikz}
-			\draw
-			node[not port] (notone) {}
-			node[not port, right=of notone] (nottwo) {}
-			node[right=of nottwo] (q) {\(Q\)}
+    \begin{minipage}{0.50\linewidth}
+        \begin{circuitikz}
+            \draw
+            node[not port] (notone) {}
+            node[not port, right=of notone] (nottwo) {}
+            node[right=of nottwo] (q) {\(Q\)}
 
-			(notone.in) -- ([xshift=-5mm]notone.in) |- ([yshift=15mm]$(nottwo.out)!.5!(q)$) -- ($(nottwo.out)!.5!(q)$)
-			(nottwo.out) -- (q)
-			(notone.out) -- (nottwo.in);
-		\end{circuitikz}
-	\end{minipage}
-	\hfill
-	\begin{minipage}{0.40\linewidth}
-		If \(Q\) is \(1\), it will always be \(1\) and if \(Q\) is ever \(0\), it will always be \(0\).
-	\end{minipage}
+            (notone.in) -- ([xshift=-5mm]notone.in) |- ([yshift=15mm]$(nottwo.out)!.5!(q)$) -- ($(nottwo.out)!.5!(q)$)
+            (nottwo.out) -- (q)
+            (notone.out) -- (nottwo.in);
+        \end{circuitikz}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.40\linewidth}
+        If \(Q\) is \(1\), it will always be \(1\) and if \(Q\) is ever \(0\), it will always be \(0\).
+    \end{minipage}
 \end{highlight}
 There is one problem with this circuit though: it cannot be set or reset.
 We can switch it out with some NOR and AND gates to allow for these missing features.
 
 \begin{highlight}{A resettable flip flop}
-	\begin{circuitikz}
-		\draw
-		node[nor port] (norone) {}
-		node[nor port, below=of norone] (nortwo) {}
+    \begin{circuitikz}
+        \draw
+        node[nor port] (norone) {}
+        node[nor port, below=of norone] (nortwo) {}
 
-		node[left=of norone.in 1] (r) {Reset (\(R\))}
-		node[left=of nortwo.in 2] (s) {Set \(1\) (\(S\))}
+        node[left=of norone.in 1] (r) {Reset (\(R\))}
+        node[left=of nortwo.in 2] (s) {Set \(1\) (\(S\))}
 
-		node[right=of norone.out] (q) {Output \(Q\)}
-		node[right=of nortwo.out] (qbar) {Inverted output \(\overline{Q}\)}
+        node[right=of norone.out] (q) {Output \(Q\)}
+        node[right=of nortwo.out] (qbar) {Inverted output \(\overline{Q}\)}
 
-		(r) -- (norone.in 1)
-		(s) -- (nortwo.in 2)
+        (r) -- (norone.in 1)
+        (s) -- (nortwo.in 2)
 
-		(norone.out) -- (q)
-		(nortwo.out) -- (qbar)
+        (norone.out) -- (q)
+        (nortwo.out) -- (qbar)
 
-		(norone.out) node[circ] {} -- ([yshift=2mm]$(norone.out)!.5!(nortwo.out)$) -- ++(-2,0) |- (nortwo.in 1)
-		(nortwo.out) node[circ] {} -- ([yshift=-2mm]$(norone.out)!.5!(nortwo.out)$) -- ++(-1.8,0) |- (norone.in 2)
-		;
-	\end{circuitikz}
+        (norone.out) node[circ] {} -- ([yshift=2mm]$(norone.out)!.5!(nortwo.out)$) -- ++(-2,0) |- (nortwo.in 1)
+        (nortwo.out) node[circ] {} -- ([yshift=-2mm]$(norone.out)!.5!(nortwo.out)$) -- ++(-1.8,0) |- (norone.in 2)
+        ;
+    \end{circuitikz}
 \end{highlight}
 
 \subsubsection{Synchronicity with flip flops}\label{ssub:synchronicity_with_flip_flops}

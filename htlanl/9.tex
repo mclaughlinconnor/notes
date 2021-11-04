@@ -10,11 +10,11 @@ In Python, core types (like \mintinline{python}{int}s and \mintinline{python}{st
 
 \begin{highlight}{The side-effects of mutability}
     \begin{code}{python}
-		items = [[0]] * 3
-		new_items = items
-		new_items[0][0] = 1
-		print(items) -> "[[1], [1], [1]]"
-		print(new_items) -> "[[1], [1], [1]]"
+        items = [[0]] * 3
+        new_items = items
+        new_items[0][0] = 1
+        print(items) -> "[[1], [1], [1]]"
+        print(new_items) -> "[[1], [1], [1]]"
     \end{code}
 \end{highlight}
 
@@ -22,10 +22,10 @@ In Python, core types (like \mintinline{python}{int}s and \mintinline{python}{st
 
 \begin{highlight}{Copying lists}
     \begin{code}{python}
-		items = [1, 2, 3]
-		b = a[:]
-		b.append(4)
-		a == b -> False
+        items = [1, 2, 3]
+        b = a[:]
+        b.append(4)
+        a == b -> False
     \end{code}
 \end{highlight}
 
@@ -36,9 +36,9 @@ Assigning means both variables are equal:
 
 \begin{highlight}{Testing for equality}
     \begin{code}{python}
-		a = [1]
-		b = [1]
-		a == b -> True
+        a = [1]
+        b = [1]
+        a == b -> True
     \end{code}
 \end{highlight}
 
@@ -47,9 +47,9 @@ Copying creates an identical list:
 
 \begin{highlight}{Copying lists}
     \begin{code}{python}
-		a = [1]
-		b = a[:]
-		a == b -> True
+        a = [1]
+        b = a[:]
+        a == b -> True
     \end{code}
 \end{highlight}
 
@@ -58,9 +58,9 @@ Assigning just assigns a reference to the new variable, instead of making a new 
 
 \begin{highlight}{Reassigning lists}
     \begin{code}{python}
-		a = [1]
-		b = a
-		a is b -> True
+        a = [1]
+        b = a
+        a is b -> True
     \end{code}
 \end{highlight}
 
@@ -69,9 +69,9 @@ Copying a list creates a brand new list so they don't have the same \mintinline{
 
 \begin{highlight}{Creating a new list}
     \begin{code}{python}
-		a = [1]
-		b = a[:]
-		a is b -> False
+        a = [1]
+        b = a[:]
+        a is b -> False
     \end{code}
 \end{highlight}
 
@@ -80,10 +80,10 @@ Since assigning just assigns the reference, the original can be altered by chang
 
 \begin{highlight}{Altering the original list}
     \begin{code}{python}
-		a = [1]
-		b = a
-		b.append(2)
-		print(a) -> [1, 2]
+        a = [1]
+        b = a
+        b.append(2)
+        print(a) -> [1, 2]
     \end{code}
 \end{highlight}
 
@@ -96,9 +96,9 @@ It is possible to convert lists to tuples using the \mintinline{python}{tuple(it
 
 \begin{highlight}{Mutability in tuples}
     \begin{code}{python}
-		a = ("2", 3, [1, 2, 3])
-		a[2] = [4, 5, 6] -> TypeError
-		a[2][1] = 3 -> Works
+        a = ("2", 3, [1, 2, 3])
+        a[2] = [4, 5, 6] -> TypeError
+        a[2][1] = 3 -> Works
     \end{code}
 \end{highlight}
 
@@ -118,7 +118,7 @@ A bad use for dictionaries is to reduce the number of parameters on a function.
 In this case it is better to simplify the function.
 
 \begin{note}
-	Dictionaries cannot be searched and cannot have duplicate identifiers.
+    Dictionaries cannot be searched and cannot have duplicate identifiers.
 \end{note}
 
 \subsubsection{Hashing}\label{ssub:hashing}
@@ -130,7 +130,7 @@ If you were to try and assign to the same key twice, the first gets overwritten 
 \subsubsection{Deletion}\label{ssub:deletion}
 
 \begin{itemize}
-	\item Use \mintinline{python}{del items["one"]} to delete the item with key ``one''.
-	\item \mintinline{python}{item.pop()} will remove and return a random value from the dictionary.
-	\item \mintinline{python}{item.popitem()} removes a random item and return a key, value pair.
+    \item Use \mintinline{python}{del items["one"]} to delete the item with key ``one''.
+    \item \mintinline{python}{item.pop()} will remove and return a random value from the dictionary.
+    \item \mintinline{python}{item.popitem()} removes a random item and return a key, value pair.
 \end{itemize}

@@ -13,9 +13,9 @@ ECMA are not very good at writing standards so JavaScript has lots of issues (it
 \subsubsection{Design Errors}\label{ssub:design_errors}
 
 \begin{itemize}
-	\item There are very few useful error messages (also helped by there being no compiler since it is interpretted).
-	\item Semi-colons are required, but the programmer is not required to put them in since the interpreter just guesses where to put them.
-	\item Type coercion is super funky with numbers and strings being coerced to each other with the \mintinline{javascript}{+} operator, for example.
+    \item There are very few useful error messages (also helped by there being no compiler since it is interpretted).
+    \item Semi-colons are required, but the programmer is not required to put them in since the interpreter just guesses where to put them.
+    \item Type coercion is super funky with numbers and strings being coerced to each other with the \mintinline{javascript}{+} operator, for example.
 \end{itemize}
 
 \subsubsection{Object Oriented Programming}\label{ssub:object_oriented_programming}
@@ -36,12 +36,12 @@ JavaScript is very easy to write, so lots of amateur programmers can write terri
 \subsection{Core Features}\label{sub:core_features}
 
 \begin{itemize}
-	\item Interpreted so no compiler is needed.
-	\item Some typing (of the dynamic nature) with some basic primitive types.
-	\item Syntactically similar to Java or C.
-	\item Kind of object oriented.
-	\item Has first class anonymous functions.
-	\item Scripts can be used inside of HTML which is good for experimentation, but bad for separation of concerns.
+    \item Interpreted so no compiler is needed.
+    \item Some typing (of the dynamic nature) with some basic primitive types.
+    \item Syntactically similar to Java or C.
+    \item Kind of object oriented.
+    \item Has first class anonymous functions.
+    \item Scripts can be used inside of HTML which is good for experimentation, but bad for separation of concerns.
 \end{itemize}
 
 \subsection{Ways of Including JavaScript}\label{sub:ways_of_including_javascript}
@@ -70,10 +70,10 @@ RegExps can be considered a program within a program which is probably why they 
 
 In JavaScript, regular expressions are represented as RegExp objects.
 \begin{highlight}{JavaScript regular expressions}
-	\begin{code}{javascript}
-		// Matches "colour" and "color" case-insensitivly
-		let pattern = /colou?r/i;
-	\end{code}
+    \begin{code}{javascript}
+        // Matches "colour" and "color" case-insensitivly
+        let pattern = /colou?r/i;
+    \end{code}
 \end{highlight}
 The JavaScript \mintinline{javascript}{search} function can be called on a string with a RegExp as the parameter to search (returns the character index of the match).
 The JavaScript \mintinline{javascript}{exec} function can be called on a RegExp object with a string as the parameter returns the matching text, use \mintinline{javascript}{test} to return a boolean.

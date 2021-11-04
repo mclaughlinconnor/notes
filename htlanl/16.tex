@@ -11,17 +11,17 @@ An abstract class can have defined methods and abstract methods (which are just 
 \subsubsection{Abstract interface or an interface?}\label{ssub:abstract_interface_or_an_interface_}
 
 \begin{itemize}
-	\item Neither can be instantiated.
-	\item Both can have implemented methods:
-	      \begin{itemize}
-		      \item In an interface, they cannot be overwritten.
-		      \item In an abstract class they can be overwritten.
-	      \end{itemize}
-	\item Abstract classes can have non-static non-final variables (because concrete methods have to access them).
-	\item A class can only extend \(1\) (abstract) class, but a class can implement many interfaces (\emph{multiple inheritance}).
-	\item Interfaces are generally more common.
-	\item An abstract class can have a constructor (only callable from a child).
-	\item Use abstract classes if several closely related classes need to share code.
-	\item Interfaces have no state, abstract classes do.
-	\item Interfaces can be completely unrelated, abstract classes usually extend similarly.
+    \item Neither can be instantiated.
+    \item Both can have implemented methods:
+          \begin{itemize}
+              \item In an interface, they cannot be overwritten.
+              \item In an abstract class they can be overwritten.
+          \end{itemize}
+    \item Abstract classes can have non-static non-final variables (because concrete methods have to access them).
+    \item A class can only extend \(1\) (abstract) class, but a class can implement many interfaces (\emph{multiple inheritance}).
+    \item Interfaces are generally more common.
+    \item An abstract class can have a constructor (only callable from a child).
+    \item Use abstract classes if several closely related classes need to share code.
+    \item Interfaces have no state, abstract classes do.
+    \item Interfaces can be completely unrelated, abstract classes usually extend similarly.
 \end{itemize}

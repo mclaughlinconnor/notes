@@ -8,14 +8,14 @@ We should remember that not all clients are web browsers and may not even be hum
 Tim Berners Lee was working at CERN where he developed the first web server, browser, HTML and the HTTP protocol all of which ran only on the Next computer system.
 
 \begin{quote}
-	``The WorldWideWeb (WWW) project aims to allow links to be make to any information anywhere.''
+    ``The WorldWideWeb (WWW) project aims to allow links to be make to any information anywhere.''
 \end{quote}
 
 \subsection{The Document Object Model (DOM)}\label{sub:the_document_object_model_dom_}
 
 \begin{quote}
-	``The Document Object Model is a platform -- and language -- neutral interface that will allow programs and scripts to dynamically access and update the content, structure and style of documents.
-	The document can be further processed, and the results of that processing can be incorporated back into the presented page.''
+    ``The Document Object Model is a platform -- and language -- neutral interface that will allow programs and scripts to dynamically access and update the content, structure and style of documents.
+    The document can be further processed, and the results of that processing can be incorporated back into the presented page.''
 \end{quote}
 Everything in the HTML DOM is a node.
 The document itself is a document node (usually only has a \mintinline{html}{<html>} child) which contains all of the HTML element nodes with each of their HTML attributes as attribute notes.
@@ -25,51 +25,51 @@ The text inside of a HTML element is a text node and comments are in comment nod
 
 Using JavaScript we can get or set the content or attributes of an HTML element.
 \begin{description}
-	\item[\mintinline{javascript}{el.innerHTML}] Gets the text value of an element.
-	\item [\mintinline{javascript}{el.nodeName}] Gets the type of node.
-	\item[\mintinline{javascript}{el.nodeValue}] The value stored in a node, this is similar to \mintinline{javascript}{el.innerHTML} but only gets the raw text.
-	\item[\mintinline{javascript}{el.parentNode}] Gets the parent node.
-	\item[\mintinline{javascript}{el.childNodes}] Get the child nodes.
-	\item[\mintinline{javascript}{el.attributes}] Gets attribute nodes.
+    \item[\mintinline{javascript}{el.innerHTML}] Gets the text value of an element.
+    \item [\mintinline{javascript}{el.nodeName}] Gets the type of node.
+    \item[\mintinline{javascript}{el.nodeValue}] The value stored in a node, this is similar to \mintinline{javascript}{el.innerHTML} but only gets the raw text.
+    \item[\mintinline{javascript}{el.parentNode}] Gets the parent node.
+    \item[\mintinline{javascript}{el.childNodes}] Get the child nodes.
+    \item[\mintinline{javascript}{el.attributes}] Gets attribute nodes.
 \end{description}
 
 \subsubsection{Element Methods}\label{ssub:element_methods}
 
 \begin{description}
-	\item[\mintinline{javascript}{el.getElementById(id)}] Get an element by its ID, usually this is called on the entire document and not individual elements.
-	\item[\mintinline{javascript}{el.getElementsByTagName(name)}] get all elements with a specified tag name.
-	\item[\mintinline{javascript}{el.appendChild(node)}] Insert a child node.
-	\item[\mintinline{javascript}{el.removeChild(node)}] Removes a child from a node.
+    \item[\mintinline{javascript}{el.getElementById(id)}] Get an element by its ID, usually this is called on the entire document and not individual elements.
+    \item[\mintinline{javascript}{el.getElementsByTagName(name)}] get all elements with a specified tag name.
+    \item[\mintinline{javascript}{el.appendChild(node)}] Insert a child node.
+    \item[\mintinline{javascript}{el.removeChild(node)}] Removes a child from a node.
 \end{description}
 
 \subsubsection{Advantages of the DOM}\label{ssub:advantages_of_the_dom}
 
 \begin{itemize}
-	\item The XML/tree structure makes the DOM easy to navigate using attributes, etc.
-	\item XML/Structure of the tree is modifiable so the elements, values and structure can be modified, added or changed
-	\item It has been standardised by W3C.
+    \item The XML/tree structure makes the DOM easy to navigate using attributes, etc.
+    \item XML/Structure of the tree is modifiable so the elements, values and structure can be modified, added or changed
+    \item It has been standardised by W3C.
 \end{itemize}
 
 \subsubsection{Disadvantages of the DOM}\label{ssub:disadvantages_of_the_dom}
 
 \begin{itemize}
-	\item Can be resource intensive for very large documents since the whole thing needs to be in memory.
-	\item Can be slow since the speed depends on the complexity and size of the tree.
-	\item Not the best choice for all usages -- a graphic s intensive application will be not be suited to the model.
-	      You should use the canvas directly using OpenGL.
+    \item Can be resource intensive for very large documents since the whole thing needs to be in memory.
+    \item Can be slow since the speed depends on the complexity and size of the tree.
+    \item Not the best choice for all usages -- a graphic s intensive application will be not be suited to the model.
+          You should use the canvas directly using OpenGL.
 \end{itemize}
 
 \subsubsection{Working with the DOM}\label{ssub:working_with_the_dom}
 
 We can use:
 \begin{itemize}
-	\item XHTML
-	\item CSS
-	\item JavaScript
-	\item jQuery
-	\item AJAX
-	\item XML
-	\item DOM/SAX parsing
+    \item XHTML
+    \item CSS
+    \item JavaScript
+    \item jQuery
+    \item AJAX
+    \item XML
+    \item DOM/SAX parsing
 \end{itemize}
 
 \subsubsection{Monitoring User Interactions}\label{ssub:monitoring_user_interactions}

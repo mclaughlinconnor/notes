@@ -5,10 +5,10 @@
 There are many types of computer systems:
 
 \begin{itemize}
-	\item \textbf{Servers:} Perform a few large tasks for many users. Has lots of processor power and memory.
-	\item \textbf{Personal Computers:} Must balance cost and performance. Does many different tasks for just one user.
-	\item \textbf{Mobile:} Highly integrated (there are multiple chips combined together like GPS and GPUs), but must be low power. Performs one program at a time for one user.
-	\item \textbf{Embedded:} \emph{Very} task specific (sensing, media playback, etc.). Must be very low power. Runs one program.
+    \item \textbf{Servers:} Perform a few large tasks for many users. Has lots of processor power and memory.
+    \item \textbf{Personal Computers:} Must balance cost and performance. Does many different tasks for just one user.
+    \item \textbf{Mobile:} Highly integrated (there are multiple chips combined together like GPS and GPUs), but must be low power. Performs one program at a time for one user.
+    \item \textbf{Embedded:} \emph{Very} task specific (sensing, media playback, etc.). Must be very low power. Runs one program.
 \end{itemize}
 
 \subsubsection{The Goal of Computer Systems}\label{ssub:the_goal_of_computer_systems}
@@ -23,13 +23,13 @@ There is a huge difference between the individual components and the usable syst
 We use \emph{abstraction} to make these components easier for us humans to use.
 
 \begin{enumerate}
-	\item Applications like Firefox
-	\item Programming languages and compilers
-	\item Operating systems and system software
-	\item Instruction set architecture (ISA) or \emph{computer architecture}
-	\item Micro-architecture which is the implementation of the ISA in hardware or the computer's organisation
-	\item Digital circuits like AND, OR and NOT gates
-	\item Electrons
+    \item Applications like Firefox
+    \item Programming languages and compilers
+    \item Operating systems and system software
+    \item Instruction set architecture (ISA) or \emph{computer architecture}
+    \item Micro-architecture which is the implementation of the ISA in hardware or the computer's organisation
+    \item Digital circuits like AND, OR and NOT gates
+    \item Electrons
 \end{enumerate}
 
 \subsubsection{Instruction Set Architecture}\label{ssub:instruction_set_architecture}
@@ -57,20 +57,20 @@ When storing data in a analogue system is where various predefined voltages repr
 
 \medskip
 \begin{highlight}{Analogue signals benefits and disadvantages}
-	\begin{minipage}[t]{0.45\linewidth}
-		Pros:
-		\begin{itemize}
-			\item Can be very fast (you don't have to worry about different bytes); old military aircraft used analogue systems for their on-board computers.
-		\end{itemize}
-	\end{minipage}
-	\hfill
-	\begin{minipage}[t]{0.45\linewidth}
-		Cons:
-		\begin{itemize}
-			\item There is limited precision and after many calculations, errors will have accumulated
-			\item It is hard to represent data other than real numbers like integers or strings
-		\end{itemize}
-	\end{minipage}
+    \begin{minipage}[t]{0.45\linewidth}
+        Pros:
+        \begin{itemize}
+            \item Can be very fast (you don't have to worry about different bytes); old military aircraft used analogue systems for their on-board computers.
+        \end{itemize}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.45\linewidth}
+        Cons:
+        \begin{itemize}
+            \item There is limited precision and after many calculations, errors will have accumulated
+            \item It is hard to represent data other than real numbers like integers or strings
+        \end{itemize}
+    \end{minipage}
 \end{highlight}
 
 \subsubsection{Digital}\label{ssub:digital}
@@ -79,26 +79,26 @@ Digital data encoding is where one specific voltage represents one single value.
 
 \medskip
 \begin{highlight}{Digital signals benefits and disadvantages}
-	\begin{minipage}[t]{0.45\linewidth}
-		Pros:
-		\begin{itemize}
-			\item Good immunity to noise (\(4.7\)V is still considered \(5\)V)
-			\item Errors do not accumulate
-			\item All data types can be represented
-		\end{itemize}
-	\end{minipage}
-	\hfill
-	\begin{minipage}[t]{0.45\linewidth}
-		Cons:
-		\begin{itemize}
-			\item Sampling may cause a loss of data
-			\item More processing can be required
-		\end{itemize}
-	\end{minipage}
+    \begin{minipage}[t]{0.45\linewidth}
+        Pros:
+        \begin{itemize}
+            \item Good immunity to noise (\(4.7\)V is still considered \(5\)V)
+            \item Errors do not accumulate
+            \item All data types can be represented
+        \end{itemize}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.45\linewidth}
+        Cons:
+        \begin{itemize}
+            \item Sampling may cause a loss of data
+            \item More processing can be required
+        \end{itemize}
+    \end{minipage}
 \end{highlight}
 
 \begin{note}
-	To recover the analogue data from a digital signal, take note of the peaks and troughs of the digital signal and pass a sinusoidal pave through these points.
+    To recover the analogue data from a digital signal, take note of the peaks and troughs of the digital signal and pass a sinusoidal pave through these points.
 \end{note}
 
 \subsection{Bits and Bytes}\label{sub:bits_and_bytes}
@@ -117,11 +117,10 @@ A word is a collection of bits in any quantity, but usually in sizes of the powe
 There are some definitions that are usually followed (but not always):
 
 \begin{itemize}
-	\item \textbf{Short Word:} \(16 \textrm{bits} = 65536 \textrm{ values}\)
-	\item \textbf{Word:} \(32 \textrm{bits} = 4294967296 \textrm{ values}\)
-	\item \textbf{Long Word:} \(64 \textrm{bits} = 1.84 \times 10^{19} \textrm{ values}\)
+    \item \textbf{Short Word:} \(16 \textrm{bits} = 65536 \textrm{ values}\)
+    \item \textbf{Word:} \(32 \textrm{bits} = 4294967296 \textrm{ values}\)
+    \item \textbf{Long Word:} \(64 \textrm{bits} = 1.84 \times 10^{19} \textrm{ values}\)
 \end{itemize}
-
 The term ``\(64\) bit architecture'' means that the internal architecture is using (mostly) \(64\) bit words.
 Generally the larger the system's word size the more performant the system since you would need \(2\) instructions to add \(2\) \(64\) bit numbers on a \(32\) bit system.
 
@@ -131,22 +130,21 @@ Binary doesn't just represent data or control information, it can represent diff
 
 There are several different encodings for storing numbers in a binary system.
 \begin{itemize}
-	\item \textbf{Positive integers:} binary
-	\item \textbf{Negative integers:} two's complement
-	\item \textbf{Reals:} approximately stored using floating point representation
+    \item \textbf{Positive integers:} binary
+    \item \textbf{Negative integers:} two's complement
+    \item \textbf{Reals:} approximately stored using floating point representation
 \end{itemize}
 
 \begin{note}
-	The binary encoding system (ie.\ not two's complement) cannot represent negative numbers.
+    The binary encoding system (ie.\ not two's complement) cannot represent negative numbers.
 \end{note}
-
 The \emph{least significant bit} (LSB) is the right-most bit.
 The \emph{most significant bit} (MSB) is the left-most bit
 
 \subsection{Decimal to Binary Conversion}\label{sub:decimal_to_binary_conversion}
 
 \begin{enumerate}
-	\item Check if the decimal number fits in the number of bits you have allocated using \(V=2^n\).
-	\item Subtract the largest power of \(2\) you can and set that power of \(2\) to \(1\) in your binary table.
-	\item Repeat until complete.
+    \item Check if the decimal number fits in the number of bits you have allocated using \(V=2^n\).
+    \item Subtract the largest power of \(2\) you can and set that power of \(2\) to \(1\) in your binary table.
+    \item Repeat until complete.
 \end{enumerate}

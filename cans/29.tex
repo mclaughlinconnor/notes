@@ -3,19 +3,19 @@
 The transport layer aims to hide network complexities and unreliableness, and enhance the overall quality of service (QoS) of the network layer to higher layers.
 The transport layer provides:
 \begin{itemize}
-	\item An easy to understand service model
-	\item An easy to use programming API
+    \item An easy to understand service model
+    \item An easy to use programming API
 \end{itemize}
 And offers these functions:
 \begin{itemize}
-	\item Addressing and multiplexing
-	\item Reliability
-	\item Framing
-	\item Congestion control
+    \item Addressing and multiplexing
+    \item Reliability
+    \item Framing
+    \item Congestion control
 \end{itemize}
 
 \begin{note}
-	Previously, layers have been communicating between hosts, here we are communicating between processes.
+    Previously, layers have been communicating between hosts, here we are communicating between processes.
 \end{note}
 
 \subsection{Addressing and Multiplexing}\label{sub:addressing_and_multiplexing}
@@ -38,10 +38,10 @@ The transport layer controls the application sending rate to avoid overwhelming 
 The congestion and flow control must be performed over the whole network link (``end to end'') since only the end points know the characteristics of the entire network link.
 
 \begin{description}
-	\item[Elastic applications] For these, faster is better, but they don't care about the actual sending rate.
-	      eg.\ emails and file transfer.
-	\item[Inelastic applications] These have maximum and minimum sending rates and do care about the actual sending rate.
-	      eg.\ video streaming.
+    \item[Elastic applications] For these, faster is better, but they don't care about the actual sending rate.
+        eg.\ emails and file transfer.
+    \item[Inelastic applications] These have maximum and minimum sending rates and do care about the actual sending rate.
+        eg.\ video streaming.
 \end{description}
 
 \section{The End to End Principle}\label{sec:the_end_to_end_principle}
@@ -50,7 +50,7 @@ Only put functions that are necessary within the network, leave everything else 
 eg.\ reliability is handled in the transport layer, not the network.
 
 \begin{quote}
-	``The principle, called the end-to-end argument, suggests that functions placed at low levels of a system may be redundant or of little value when compared with the cost of providing that at that low level.''
+    ``The principle, called the end-to-end argument, suggests that functions placed at low levels of a system may be redundant or of little value when compared with the cost of providing that at that low level.''
 \end{quote}
 
 \section{Internet Transport Protocols}\label{sec:internet_transport_protocols}
@@ -74,8 +74,8 @@ TCP also adds a \(16\) bit port number as a service identifier.
 This is a cross platform low-level C networking API.
 There are two types of sockets:
 \begin{itemize}
-	\item Stream, which provides a virtual circuit service for TCP.
-	\item Datagram, which delivers individual packets and is used for UDP.
+    \item Stream, which provides a virtual circuit service for TCP.
+    \item Datagram, which delivers individual packets and is used for UDP.
 \end{itemize}
 
 \section{TCP Protocol}\label{sec:tcp}
@@ -83,24 +83,24 @@ There are two types of sockets:
 \subsection{How do we add reliability}\label{sub:how_do_we_add_reliability}
 
 \begin{itemize}
-	\item Sequence numbers
-	\item Acknowledgements
-	\item Multi-round processes
+    \item Sequence numbers
+    \item Acknowledgements
+    \item Multi-round processes
 \end{itemize}
 
 \subsection{Three way handshake}\label{sub:three_way_handshake}
 
 \begin{enumerate}
-	\item Send a random ID, send it back to me if you hear me (SYN bit is set)
-	\item Here's your ID back, here's another random ID for you to send back (ACK and SYN are set)
-	\item I can hear you, here's your number back (ACK and SYN)
-	\item Messages can now be exchanged.
+    \item Send a random ID, send it back to me if you hear me (SYN bit is set)
+    \item Here's your ID back, here's another random ID for you to send back (ACK and SYN are set)
+    \item I can hear you, here's your number back (ACK and SYN)
+    \item Messages can now be exchanged.
 \end{enumerate}
 Having random numbers ensures that several connections between the same hosts are robust.
 Also has the side effect of being secure.
 
 \begin{note}
-	FIN bits indicate an ending connection
+    FIN bits indicate an ending connection
 \end{note}
 
 \subsection{TCP Reliability}\label{sub:tcp_reliability}
@@ -138,7 +138,7 @@ Implementing congestion control at the transport layer is more flexible since di
 However, a misbehaving transport layer can cause network congestion instead of fixing it.
 
 \begin{note}
-	We should always remember the \emph{end to end} principle.
+    We should always remember the \emph{end to end} principle.
 \end{note}
 
 \subsubsection{Conservation of Packets}\label{ssub:conservation_of_packets}
@@ -150,37 +150,37 @@ Using congestion control, we reduce the sending rate when the capacity has been 
 
 AIMD stands for \emph{Additive Increase Multiplicative Decrease} algorithm.
 \begin{itemize}
-	\item What this means is that we start very slowly, then increase gradually to reach an equilibrium
-	\item What this means is we add extra data per second slowly (additive), but remove data far faster (muliplicative).
-	\item This allows us to respond to congestion very quickly.
+    \item What this means is that we start very slowly, then increase gradually to reach an equilibrium
+    \item What this means is we add extra data per second slowly (additive), but remove data far faster (muliplicative).
+    \item This allows us to respond to congestion very quickly.
 \end{itemize}
 
 \section{TCP Communications Using Sockets}\label{sec:tcp_communications_using_sockets}
 
 A socket is initially unbound, the procedure to create a connection is:
 \begin{enumerate}
-	\item A client creates a socket
-	\item The client socket makes a connect request to a server socket
-	\item The server creates a new socket specifically for the new client
-	\item The server tells the client to connect to the new socket
-	\item The client connects to the new socket
+    \item A client creates a socket
+    \item The client socket makes a connect request to a server socket
+    \item The server creates a new socket specifically for the new client
+    \item The server tells the client to connect to the new socket
+    \item The client connects to the new socket
 \end{enumerate}
 
 \subsection{Coding for communication of TCP}\label{sub:coding_for_communication_of_tcp}
 
 \begin{enumerate}
-	\item Create a three way handshake
-	\item Call \mintinline{c}{send()} to transmit data
-	      \begin{itemize}
-		      \item Data is enqueued for transmission and split into segments (or combined into one segment).
-		      \item The function will block until data can be written based on the congestion control algorithm, and returns the amount of data sent.
-		      \item If the network is congested, not all data might be sent.
-		            Only the amount of data sent is returned.
-	      \end{itemize}
-	\item Call \mintinline{c}{recv(x)} to read up to \(x\) bytes of data from a connection.
-	      \begin{itemize}
-		      \item The function will block until there is data available or the connection is closed.
-		      \item The function will return an object with the data received from the socket, but because segments could be combined the data received might not be in the same sequence or size as was sent.
-		            We need to write applications to handle this.
-	      \end{itemize}
+    \item Create a three way handshake
+    \item Call \mintinline{c}{send()} to transmit data
+          \begin{itemize}
+              \item Data is enqueued for transmission and split into segments (or combined into one segment).
+              \item The function will block until data can be written based on the congestion control algorithm, and returns the amount of data sent.
+              \item If the network is congested, not all data might be sent.
+                    Only the amount of data sent is returned.
+          \end{itemize}
+    \item Call \mintinline{c}{recv(x)} to read up to \(x\) bytes of data from a connection.
+          \begin{itemize}
+              \item The function will block until there is data available or the connection is closed.
+              \item The function will return an object with the data received from the socket, but because segments could be combined the data received might not be in the same sequence or size as was sent.
+                    We need to write applications to handle this.
+          \end{itemize}
 \end{enumerate}

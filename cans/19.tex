@@ -5,8 +5,8 @@ The order in a linked list is determined by a pointer in each record object
 
 A node is a record with a total of two fields:
 \begin{description}
-	\item[Value] is a word containing useful information (could be anything at all).
-	\item[Next] is a word containing a pointer to the next node in the list.
+    \item[Value] is a word containing useful information (could be anything at all).
+    \item[Next] is a word containing a pointer to the next node in the list.
 \end{description}
 %
 The last node in the list has a special \emph{nil} value in the \mintinline{python}{next} field.
@@ -16,13 +16,13 @@ Nil is represented by \(0\) since you cannot have a pointer to the memory addres
 
 There are three key basic operations and they are implemented in Sigma16:
 \begin{itemize}
-	\item Is a list empty?
-	\item What's the value of the node?
-	\item What's the next node?
+    \item Is a list empty?
+    \item What's the value of the node?
+    \item What's the next node?
 \end{itemize}
 
 \begin{note}
-	In the coming examples, we will assume that all pointer variables are in memory, but in practice these will often be kept in registers so there are less \mintinline{asm}{load}s and \mintinline{asm}{store}s.
+    In the coming examples, we will assume that all pointer variables are in memory, but in practice these will often be kept in registers so there are less \mintinline{asm}{load}s and \mintinline{asm}{store}s.
 \end{note}
 
 \subsubsection{Is a list empty?}\label{ssub:is_a_list_empty_}
@@ -31,15 +31,15 @@ Nil is represented by \(0\), so the list \(p\) is empty iff (if and only if) \(p
 It is unsafe to perform an action on a list  \(p\) unless \(p\) actually points to a node, this this test is commonly needed.
 
 \begin{highlight}{Checking if a linked list is empty with Sigma16}
-	\begin{code}{asm}
-		load R1,p[R0] ; R1 = p
-		cmp R1,R0 ; compare p with 0
-		jumpeq pIsEmptyProcedure[R0] ; jump to pIsEmptyProcedure if p == 0
-		; No, p is not empty.
+    \begin{code}{asm}
+        load R1,p[R0] ; R1 = p
+        cmp R1,R0 ; compare p with 0
+        jumpeq pIsEmptyProcedure[R0] ; jump to pIsEmptyProcedure if p == 0
+        ; No, p is not empty.
 
-		pIsEmptyProcedure
-		; Yes, p is empty
-	\end{code}
+        pIsEmptyProcedure
+        ; Yes, p is empty
+    \end{code}
 \end{highlight}
 
 \subsubsection{Get the value in a node}\label{ssub:get_the_value_in_a_node}
@@ -48,11 +48,11 @@ Suppose \(p\) is a pointer to a node.
 We want to do \mintinline{c}{x = *p.value} which is only safe to do if the list is not empty.
 
 \begin{highlight}{Getting the value of a linked list node in Sigma16}
-\begin{code}{asm}
-		load R1,p[R0] ; R1 = p
-		load R2,0[R1] ; R2 = *p.value
-		store R2,x[R0] ; x = *p.value
-	\end{code}
+    \begin{code}{asm}
+        load R1,p[R0] ; R1 = p
+        load R2,0[R1] ; R2 = *p.value
+        store R2,x[R0] ; x = *p.value
+    \end{code}
 \end{highlight}
 
 \subsubsection{Get the pointer to the next node in a list}\label{ssub:get_the_pointer_to_the_next_node_in_a_list}
@@ -62,11 +62,11 @@ Again, this is only possible to do if \(p\) is not empty.
 The \mintinline{asm}{next} field of a node is at offset \(1\) in the node record.
 
 \begin{highlight}{Getting the pointer to the next node in a linked list}
-	\begin{code}{asm}
-		load R1,p[R0] ; R1 = p
-		load R2,1[R1] ; R2 = *p.next
-		store R2,q[R0] ; q = *p.next
-	\end{code}
+    \begin{code}{asm}
+        load R1,p[R0] ; R1 = p
+        load R2,1[R1] ; R2 = *p.next
+        store R2,q[R0] ; q = *p.next
+    \end{code}
 \end{highlight}
 
 \section{Advanced Linked List Operations}\label{sec:advanced_linked_list_operations}
@@ -76,14 +76,14 @@ The \mintinline{asm}{next} field of a node is at offset \(1\) in the node record
 A while loop is the best looping construct for traversing a list (a for loop is better for arrays).
 
 \begin{highlight}{Traversing a linked list}
-	\begin{code}{python}
-		def list_sum(p):
-		sum = 0
-		while p != nil: # Have I reached the end of the list?
-		x = (*p).value # read node value
-		sum = sum + x # accumulate into sum
-		p = (*p).next # update pointer to next node
-	\end{code}
+    \begin{code}{python}
+        def list_sum(p):
+        sum = 0
+        while p != nil: # Have I reached the end of the list?
+        x = (*p).value # read node value
+        sum = sum + x # accumulate into sum
+        p = (*p).next # update pointer to next node
+    \end{code}
 \end{highlight}
 
 \subsection{Searching a list for a value}\label{sub:searching_a_list_for_a_value}
@@ -91,15 +91,15 @@ A while loop is the best looping construct for traversing a list (a for loop is 
 Again, we should use a while loop.
 
 \begin{highlight}{Searching a linked list for a value}
-	\begin{code}{python}
-		def list_search(p, x):
-		found = False
-		while p != nil and not found: # loop until end or until found
-		found = (x == (*p).value) # found = True if x matches the value
-		p = (*p).next # move on to next node
+    \begin{code}{python}
+        def list_search(p, x):
+        found = False
+        while p != nil and not found: # loop until end or until found
+        found = (x == (*p).value) # found = True if x matches the value
+        p = (*p).next # move on to next node
 
-		return found
-	\end{code}
+        return found
+    \end{code}
 \end{highlight}
 
 \subsection{Getting a New Node From The Heap}\label{sub:getting_a_new_node_from_the_heap}
@@ -107,36 +107,36 @@ Again, we should use a while loop.
 Linked lists go onto the heap.
 We have to assume:
 \begin{itemize}
-	\item We have a set list of available nodes on the heap
-	\item It is organised as a linked list themselves
-	\item With a pointer \mintinline{asm}{avail} pointing to the first node.
+    \item We have a set list of available nodes on the heap
+    \item It is organised as a linked list themselves
+    \item With a pointer \mintinline{asm}{avail} pointing to the first node.
 \end{itemize}
 
 \begin{highlight}{Getting a new linked list node from the heap}
-	\begin{code}{python}
-		if avail == nil:
-		raise Exception('Fatal error: out of heap')
-		else:
-		newnode = avail
-		avail = (*avail).next
-		return newnode
-	\end{code}
+    \begin{code}{python}
+        if avail == nil:
+        raise Exception('Fatal error: out of heap')
+        else:
+        newnode = avail
+        avail = (*avail).next
+        return newnode
+    \end{code}
 \end{highlight}
 
 \begin{note}
-	Nodes do not move around the memory, it always stays in the same place, we just have pointers pointing to it.
+    Nodes do not move around the memory, it always stays in the same place, we just have pointers pointing to it.
 \end{note}
 
 \subsection{Inserting a node after another node}\label{sub:inserting_a_node_after_another_node}
 
 To insert \(x\) after \(q\):
 \begin{highlight}{Inserting a node into a linked list after another node}
-	\begin{code}{python}
-		r = newnode() # from above
-		(*r).value = x # set value of current node to x
-		(*r).next = (*q).next # r and q both have the same next
-		(*q).next = r # q.next now points to r
-	\end{code}
+    \begin{code}{python}
+        r = newnode() # from above
+        (*r).value = x # set value of current node to x
+        (*r).next = (*q).next # r and q both have the same next
+        (*q).next = r # q.next now points to r
+    \end{code}
 \end{highlight}
 
 \subsection{Insert a node at the head}\label{sub:insert_a_node_at_the_head}
@@ -152,18 +152,18 @@ Just change the previous node to skip over the one to be deleted.
 Return the node being deleted back to \mintinline{asm}{avail}.
 
 \begin{highlight}{Deleting a particular node from a linked list}
-	\begin{code}{python}
-		def delete(q):
-		if q != nil: ; is q nil just in case
-		r = (*p).next ; get the actual node to be deleted
-		if r != nil: ; is r the last node?
-		(*q).next = (*r).next ; skip over r entirely
-		; r is still using memory
+    \begin{code}{python}
+        def delete(q):
+        if q != nil: ; is q nil just in case
+        r = (*p).next ; get the actual node to be deleted
+        if r != nil: ; is r the last node?
+        (*q).next = (*r).next ; skip over r entirely
+        ; r is still using memory
 
-		; insert r between avail and avail[i+1]
-		(*r).next = avail
-		avail = r
-	\end{code}
+        ; insert r between avail and avail[i+1]
+        (*r).next = avail
+        avail = r
+    \end{code}
 \end{highlight}
 
 \subsubsection{Space Leaks}\label{ssub:space_leaks}
@@ -180,9 +180,9 @@ With complicated data structures, this can be difficult.
 
 A common solution is \emph{garbage collection}.
 \begin{itemize}
-	\item The program doesn't explicitly return nodes to the list of available locations.
-	\item Periodically, the garbage collector traverses all data structures and marks the nodes it finds.
-	\item Then it adds all unmarked nodes to the list of available addresses.
+    \item The program doesn't explicitly return nodes to the list of available locations.
+    \item Periodically, the garbage collector traverses all data structures and marks the nodes it finds.
+    \item Then it adds all unmarked nodes to the list of available addresses.
 \end{itemize}
 
 \section{Arrays and Linked List Comparison}\label{sec:arrays_and_linked_list_comparison}
@@ -194,15 +194,15 @@ Lists and arrays are two kinds of data structure that contain a sequence of data
 \subsubsection{Direct access to an element}\label{ssub:direct_access_to_an_element}
 
 \begin{description}
-	\item[Array] Gives direct access (random access) to any element.
-	\item[List] give only direct access to an element you have a pointer to.
+    \item[Array] Gives direct access (random access) to any element.
+    \item[List] give only direct access to an element you have a pointer to.
 \end{description}
 
 \subsubsection{Traversal}\label{ssub:traversal}
 
 \begin{description}
-	\item[Array] Initialise an index to \(0\), then increment for each iteration (a for loop).
-	\item[List] Repeatedly go to the next pointer.
+    \item[Array] Initialise an index to \(0\), then increment for each iteration (a for loop).
+    \item[List] Repeatedly go to the next pointer.
 \end{description}
 
 \subsection{Memory Usage}\label{sub:memory_usage}
@@ -210,21 +210,22 @@ Lists and arrays are two kinds of data structure that contain a sequence of data
 \subsubsection{Memory Per Element}\label{ssub:memory_per_element}
 
 \begin{description}
-	\item[Array] Need just the memory for each element
-	\item[List] Need a node for each element with two values (requires \(2 \times n\) words).
+    \item[Array] Need just the memory for each element
+    \item[List] Need a node for each element with two values (requires \(2 \times n\) words).
 \end{description}
 
 \subsubsection{Flexibility}\label{ssub:flexibility}
 
 \begin{description}
-	\item[Array] An array has a fixed size and needs to be allocated fully.
-	\item[List] A list has a variable size and only needs the space of the data.
+    \item[Array] An array has a fixed size and needs to be allocated fully.
+    \item[List] A list has a variable size and only needs the space of the data.
 \end{description}
 
 \subsection{More Types of Linked List}\label{sub:more_types_of_linked_list}
 
 \begin{itemize}
-	\item Doubly linked list where nodes are linked both ways.
-	\item Circular lists where the start is linked to the end.
-	\item Trees where each node has more than one next.
+    \item Doubly linked list where nodes are linked both ways.
+    \item Circular lists where the start is linked to the end.
+    \item Trees where each node has more than one next.
 \end{itemize}
+

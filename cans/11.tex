@@ -4,9 +4,9 @@ The amount of memory and clock speed has been increasing exponentially.
 Clock speed has been increasing at a faster rate than memory capacity leading to the \emph{logic memory gap} which is one of the main processor bottlenecks.
 
 \begin{itemize}
-	\item You should increase the number of bits received at one time (make DRAM wider, not deeper because deeper is slower)
-	\item Reduce frequency or memory access (have a more compelx cache and have cache on the chip).
-	\item Increase interconnection bandwidth (use hierarchy of buses or increase bus speed, etc.).
+    \item You should increase the number of bits received at one time (make DRAM wider, not deeper because deeper is slower)
+    \item Reduce frequency or memory access (have a more compelx cache and have cache on the chip).
+    \item Increase interconnection bandwidth (use hierarchy of buses or increase bus speed, etc.).
 \end{itemize}
 
 \subsection{IO performance}\label{sub:io_performance}
@@ -17,9 +17,9 @@ Use interrupts, multi-level bus structures and allow direct memory access.
 \subsection{How to increase processor speed}\label{sub:how_to_increase_processor_speed}
 
 \begin{itemize}
-	\item Increase clock frequency by shrinking logic gates.
-	\item Increase size and speed of caches
-	\item Change processor organisation and architecture (parallelism)
+    \item Increase clock frequency by shrinking logic gates.
+    \item Increase size and speed of caches
+    \item Change processor organisation and architecture (parallelism)
 \end{itemize}
 %
 Ideally all components should be able to work at their maximum performance.
@@ -37,7 +37,7 @@ Average clock cycles per instruction of programs.
 CPI alone won't tell us the execution time for a certain program.
 We can find out number of clock ticks needed for \(n\) number of instructions, but we don't know what the duration of each clock cycle is.
 \begin{align*}
-	T = I_c \times CPI \times \tau
+    T = I_c \times CPI \times \tau
 \end{align*}
 
 \subsection{MIPS and MFLOPS}\label{sub:mips_and_mflops}
@@ -45,7 +45,7 @@ We can find out number of clock ticks needed for \(n\) number of instructions, b
 Millions of instructions per second (MIPS).
 \begin{highlight}{MIPS rate formula}
     \begin{align*}
-    	\textrm{MIPS rate} = \frac{I_c}{T \times 10^6} = \frac{f}{CPI \times 10^6}
+        \textrm{MIPS rate} = \frac{I_c}{T \times 10^6} = \frac{f}{CPI \times 10^6}
     \end{align*}
 \end{highlight}
 Millions of floating point instructions per second (MFLOPS).
@@ -60,10 +60,11 @@ Some processors are RISC (reduced insturction set) and require several instructi
 \subsection{Benchmarks}\label{sub:benchmarks}
 
 \begin{itemize}
-	\item Programs designed to test performance
-	\item Written in high level languages (compile for different architectures)
-	\item Represents style of task (systems, numerical, commercial)
-	\item Is easily measured (probably by time)
-	\item Is widely distributed and probably open source
-	\item Egg. System Performance Evaluation Corporation (SPEC)
+    \item Programs designed to test performance
+    \item Written in high level languages (compile for different architectures)
+    \item Represents style of task (systems, numerical, commercial)
+    \item Is easily measured (probably by time)
+    \item Is widely distributed and probably open source
+    \item eg. System Performance Evaluation Corporation (SPEC)
 \end{itemize}
+

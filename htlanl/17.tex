@@ -7,26 +7,26 @@ Java has a special \mintinline{python}{enum} class which is allowed to have meth
 The names of values are generally all upper case (just like regular constants).
 
 \begin{itemize}
-	\item \mintinline{python}{.values} gives an array of values
-	\item \mintinline{python}{.valueOf(str)} gives the enum constant of the string
-	\item \mintinline{python}{.equals()}, \mintinline{python}{.compareTo()}, \mintinline{python}{toString()} work too.
+    \item \mintinline{python}{.values} gives an array of values
+    \item \mintinline{python}{.valueOf(str)} gives the enum constant of the string
+    \item \mintinline{python}{.equals()}, \mintinline{python}{.compareTo()}, \mintinline{python}{toString()} work too.
 \end{itemize}
 
 \begin{highlight}{Enumerations}
-	\begin{code}{java}
-		public enum Planet {
+    \begin{code}{java}
+        public enum Planet {
             MERCURY (...),
             MARS (...);
 
             private final double mass;
             private final double radius;
 
-            Planet(double m, double r) {
+            Planet (double m, double r) {
                 this.mass = m;
                 this.radius = r;
+                }
             }
-        }
-	\end{code}
+    \end{code}
 \end{highlight}
 
 \subsection{Paths/Files}\label{sub:paths_files}

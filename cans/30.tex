@@ -2,8 +2,8 @@
 
 UDP provides an unreliable datagram service which uses \(16\) bit addresses which are separate from TCP's \(16\) bit addresses.
 \begin{itemize}
-	\item UDP is often used peer to peer using sockets
-	\item There are no direct connections in UDP so no need to make a handshake first (similar to IP layer -- just throw packets out).
+    \item UDP is often used peer to peer using sockets
+    \item There are no direct connections in UDP so no need to make a handshake first (similar to IP layer -- just throw packets out).
 \end{itemize}
 
 \subsection{Communication of UDP}\label{sub:communication_of_udp}
@@ -15,15 +15,15 @@ The \mintinline{c}{connect()} function can be called to specify a ``default'' ta
 We also have \mintinline{c}{recvfrom()} which can read a single datagram and \mintinline{c}{rev()} which does the same, but doesn't return the sender's address.
 
 \begin{note}
-	Unlike TCP, each UDP datagram is exactly one IP packet, so the programmer has to split up the data to fit.
-	This packet might still be split up in the IP layer though.
+    Unlike TCP, each UDP datagram is exactly one IP packet, so the programmer has to split up the data to fit.
+    This packet might still be split up in the IP layer though.
 \end{note}
 \noindent
 Packets can be lost, delayed, reordered, or duplicated similar to how it happens in TCP, but here the application is responsible for correcting any mistakes which generally requires the sender to include a sequence number in the packets.
 Applications also have to handle:
 \begin{itemize}
-	\item Congestion control
-	\item Sequencing
+    \item Congestion control
+    \item Sequencing
 \end{itemize}
 
 \subsection{TCP vs UDP}\label{sub:tcp_vs_udp}
@@ -31,34 +31,34 @@ Applications also have to handle:
 \subsubsection{TCP Applications}\label{ssub:tcp_applications}
 
 \begin{itemize}
-	\item Useful for applications that require reliable data delivery
-	\item Requires applications be tolerable of some timing variation
-	\item Good for:
-	      \begin{itemize}
-		      \item File transfer and web downloads
-		      \item Email
-		      \item Instant messaging
-	      \end{itemize}
-	\item Should be the default choice for most applications.
+    \item Useful for applications that require reliable data delivery
+    \item Requires applications be tolerable of some timing variation
+    \item Good for:
+          \begin{itemize}
+              \item File transfer and web downloads
+              \item Email
+              \item Instant messaging
+          \end{itemize}
+    \item Should be the default choice for most applications.
 \end{itemize}
 
 \subsubsection{UDP Applications}\label{ssub:udp_applications}
 
 \begin{itemize}
-	\item Useful for applications that need timeliness instead of reliability
-	\item Good for:
-	      \begin{itemize}
-		      \item Voice over IP
-		      \item Video streaming
-	      \end{itemize}
-	\item Applications must tolerate some data loss since going back and forth to correct one bit takes a long time.
-	\item The application layer must adapt to congestion.
+    \item Useful for applications that need timeliness instead of reliability
+    \item Good for:
+          \begin{itemize}
+              \item Voice over IP
+              \item Video streaming
+          \end{itemize}
+    \item Applications must tolerate some data loss since going back and forth to correct one bit takes a long time.
+    \item The application layer must adapt to congestion.
 \end{itemize}
 
 \section{Session and Presentation Layers (L5 and L6)}\label{sec:session_and_presentation_layers_l5_and_l6_}
 
 \begin{note}
-	These layers are sometimes considered to just be a part of the application layer.
+    These layers are sometimes considered to just be a part of the application layer.
 \end{note}
 
 \subsection{Session Layer}\label{sub:session_layer}
@@ -66,32 +66,32 @@ Applications also have to handle:
 The session layer provides a name space that can be used to tie together different transport streams that are part of one application.
 For example:
 \begin{itemize}
-	\item Open several TCP/IP connections to download a web page with HTTP.
-	\item Coordinate control, audio, and video in a video call.
-	\item Allow to drop and reconnect a TCP connection without telling the application.
+    \item Open several TCP/IP connections to download a web page with HTTP.
+    \item Coordinate control, audio, and video in a video call.
+    \item Allow to drop and reconnect a TCP connection without telling the application.
 \end{itemize}
 
 \subsubsection{Modus Operandi}\label{ssub:modus_operandi}
 
 The session layer has to set-up connections:
 \begin{itemize}
-	\item Check user credentials
-	\item Set up services from network layers below that are needed.
+    \item Check user credentials
+    \item Set up services from network layers below that are needed.
 \end{itemize}
 The session layer has to maintain sessions:
 \begin{itemize}
-	\item Transfer data and acknowledge its receipt
-	\item Re-establish a disconnected session.
+    \item Transfer data and acknowledge its receipt
+    \item Re-establish a disconnected session.
 \end{itemize}
 And finally the session layer has to tear sessions back down again:
 \begin{itemize}
-	\item Mutual agreement
-	\item Other party is disconnected (by network failure or otherwise),
+    \item Mutual agreement
+    \item Other party is disconnected (by network failure or otherwise),
 \end{itemize}
 Examples:
 \begin{description}
-	\item[H.323] Audio visual communication sessions over a packet network.
-	\item[RCP] Remote Procedure Call protocol which lets you run a procedure on another computer.
+    \item[H.323] Audio visual communication sessions over a packet network.
+    \item[RCP] Remote Procedure Call protocol which lets you run a procedure on another computer.
 \end{description}
 
 \subsection{Presentation Layer}\label{sub:presentation_layer}
@@ -101,16 +101,16 @@ The presentation layer has two functions: data formatting, and encryption.
 Below the presentation layer, data has no structure; it is simply a raw byte stream split into chunks.
 On the presentation layer, we start to talk about the format of data so that both parties understand what it represents (is it ASCII or a bitmap?).
 \begin{itemize}
-	\item How do we encode data efficiently?
-	\item Does data need to be translated from one form to another?
-	\item Can we do encryption?
-	      Encryption is sometimes done here, other times it is done in other layers.
+    \item How do we encode data efficiently?
+    \item Does data need to be translated from one form to another?
+    \item Can we do encryption?
+          Encryption is sometimes done here, other times it is done in other layers.
 \end{itemize}
 This means that the presentation layer manages the \emph{presentation}, \emph{representation}, and \emph{conversion} of data:
 \begin{itemize}
-	\item Common media types for other applications.
-	\item Common channel encoding and format conversion.
-	\item Internationalisation, languages, and character sets.
+    \item Common media types for other applications.
+    \item Common channel encoding and format conversion.
+    \item Internationalisation, languages, and character sets.
 \end{itemize}
 Many applications consider the application and presentation layers the same (the TCP/IP model has no presentation layer at all).
 
@@ -119,17 +119,17 @@ Many applications consider the application and presentation layers the same (the
 Media types identify the format of the data and are decided by the IANA.
 The types categorise media formats into \(8\) top-level types with several sub-types (each of which has several parameters).
 \begin{itemize}
-	\item \mintinline{text}{application}
-	\item \mintinline{text}{audio}
-	\item \mintinline{text}{image}
-	\item \mintinline{text}{message}
-	\item \mintinline{text}{model}
-	\item \mintinline{text}{multipart}. This is for attachments.
-	\item \mintinline{text}{text}
-	\item \mintinline{text}{video}
+    \item \mintinline{text}{application}
+    \item \mintinline{text}{audio}
+    \item \mintinline{text}{image}
+    \item \mintinline{text}{message}
+    \item \mintinline{text}{model}
+    \item \mintinline{text}{multipart} -- this is for attachments.
+    \item \mintinline{text}{text}
+    \item \mintinline{text}{video}
 \end{itemize}
 \begin{note}
-	The media types are included in the protocol headers to describe the format of the included data.
+    The media types are included in the protocol headers to describe the format of the included data.
 \end{note}
 
 \section{Application Layer (L7)}\label{sec:application_layer_l7_}
@@ -144,30 +144,30 @@ Applications themselves sit above the application layer.
 \subsubsection{Issues to consider}\label{ssub:issues_to_consider}
 
 \begin{itemize}
-	\item What types of messages are needed.
-	      This is application dependent so it is very hard to give general rules.
-	\item How do interactions occur?
-	      \begin{itemize}
-		      \item Does the server announce its presence?
-		      \item Does it wait for the client first?
-		      \item Is there a request for every response?
-		      \item Can the server send unsolicited data?
-	      \end{itemize}
-	\item How are errors reported?
-	      Many applications settled on a three digit code where the first digit indicates the error type and the other two give the specific error.
+    \item What types of messages are needed.
+          This is application dependent so it is very hard to give general rules.
+    \item How do interactions occur?
+          \begin{itemize}
+              \item Does the server announce its presence?
+              \item Does it wait for the client first?
+              \item Is there a request for every response?
+              \item Can the server send unsolicited data?
+          \end{itemize}
+    \item How are errors reported?
+          Many applications settled on a three digit code where the first digit indicates the error type and the other two give the specific error.
 \end{itemize}
 
 \subsubsection{Sample Protocols}\label{ssub:sample_protocols}
 
 \begin{itemize}
-	\item HTTP
-	\item FTP
-	\item SMTP
-	\item Telnet
-	\item DNS
+    \item HTTP
+    \item FTP
+    \item SMTP
+    \item Telnet
+    \item DNS
 \end{itemize}
 \begin{note}
-	Many of these protocols are on both presentation and session, and have a companion protocol in another layer.
+    Many of these protocols are on both presentation and session, and have a companion protocol in another layer.
 \end{note}
 
 \section{Privacy and Security}\label{sec:privacy_and_security}
@@ -175,18 +175,18 @@ Applications themselves sit above the application layer.
 The internet is a shared resource full of applications that can be compromised unless security actions are taken.
 Privacy and security aspects:
 \begin{description}
-	\item[Confidentiality] Can you confirm no one else can read your private conversations? Use encryption.
-	\item[Integrity] Can you make sure your data hasn't been altered.
-	\item[Authentication] Are you talking to who you think you're talking to?
-	\item[Availability] Can you access a resource when you need to?
+    \item[Confidentiality] Can you confirm no one else can read your private conversations? Use encryption.
+    \item[Integrity] Can you make sure your data hasn't been altered.
+    \item[Authentication] Are you talking to who you think you're talking to?
+    \item[Availability] Can you access a resource when you need to?
 \end{description}
 
 \subsection{Trust and Threats}\label{sub:trust_and_threats}
 
 Trust and threads are two sides of the same coin.
 \begin{description}
-	\item[Threat] A potential failure that has been accounted for
-	\item[Trust] Assumptions you make about behaviours of internal or external actors.
+    \item[Threat] A potential failure that has been accounted for
+    \item[Trust] Assumptions you make about behaviours of internal or external actors.
 \end{description}
 We must balance between which threats we account for and which actors you trust.
 
@@ -209,10 +209,10 @@ On problem is that it is far slower and you need a separate key to communicate b
 \subsubsection{Hybrid Encryption}\label{ssub:hybrid_encryption}
 
 \begin{enumerate}
-	\item \(A\) sends a public key to \(B\) that can be used to encrypt data.
-	\item \(B\) encrypts their symmetric encryption private key using \(A\)'s public key and sends it it \(A\).
-	\item \(A\) decrypts the message to get a shared symmetric private key
-	\item Both parties can communicate quickly and securely.
+    \item \(A\) sends a public key to \(B\) that can be used to encrypt data.
+    \item \(B\) encrypts their symmetric encryption private key using \(A\)'s public key and sends it it \(A\).
+    \item \(A\) decrypts the message to get a shared symmetric private key
+    \item Both parties can communicate quickly and securely.
 \end{enumerate}
 
 \section{Authentication}\label{sec:authentication}
@@ -222,12 +222,12 @@ We must use a combinations of a hash and public key cryptography to create a dig
 We can also prove the origin of the data.
 
 \begin{enumerate}
-	\item \(A\) sends for data to \(B\) which includes some data that is generated from the source data.
-	      It is impossible for anyone else to create a different message that has the same code.
-	\item \(A\) encrypts the authenticator using a key that only \(A\) could have.
-	\item When \(B\) receives the data, decrypt it and recalculate the authenticator.
-	      Compare.
-	\item If the authenticators match, the data is the same as \(A\) sent -- because of the authenticator -- and that it came from \(A\) -- because of the encryption.
+    \item \(A\) sends for data to \(B\) which includes some data that is generated from the source data.
+          It is impossible for anyone else to create a different message that has the same code.
+    \item \(A\) encrypts the authenticator using a key that only \(A\) could have.
+    \item When \(B\) receives the data, decrypt it and recalculate the authenticator.
+          Compare.
+    \item If the authenticators match, the data is the same as \(A\) sent -- because of the authenticator -- and that it came from \(A\) -- because of the encryption.
 \end{enumerate}
 
 \subsection{Redundant Authenticator}\label{sub:redundant_authenticator_}
@@ -237,6 +237,7 @@ It should not be possible to generate two messages with the same hash, since tha
 A hash can only be calculated one way -- we cannot get the data back from the hash.
 
 \begin{note}
-	MD5 and SHA-1 hash functions have been broken.
-	\textbf{Do not} use them, use SHA-256.
+    MD5 and SHA-1 hash functions have been broken.
+    \textbf{Do not} use them, use SHA-256.
 \end{note}
+

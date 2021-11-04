@@ -12,19 +12,19 @@ The OSI Reference Model is a way of thinking about layered protocol design.
 It is a design tool, since realistic implementations will be far more complex and more closely related to the \emph{TCP/IP (or the Internet)} model.
 
 \begin{note}
-	All nodes implement the bottom three layers (network, data link, physical) because they all need this information.
+    All nodes implement the bottom three layers (network, data link, physical) because they all need this information.
 \end{note}
 \subsection{Physical Layer}\label{sub:physical_layer}
 
 Handles the transmission of raw bits over a communication link.
 Defines attributes of the physical medium of communication:
 \begin{itemize}
-	\item Size and shape of plug
-	\item Type of wire
-	\item Radio frequency
-	\item Modulation scheme
-	\item Transmission power
-	\item Electrical voltage
+    \item Size and shape of plug
+    \item Type of wire
+    \item Radio frequency
+    \item Modulation scheme
+    \item Transmission power
+    \item Electrical voltage
 \end{itemize}
 
 \subsection{Data Link Layer}\label{sub:data_link_layer}
@@ -32,13 +32,13 @@ Defines attributes of the physical medium of communication:
 The structure and frame of the physical layer bit stream.
 This layer splits the bits in to individual \emph{frames}.
 \begin{itemize}
-	\item Detect and correct errors in messages using parity and ECC or acknowledgements.
-	\item Access Control
-	      \begin{itemize}
-		      \item Assign addresses to each host on the link (MAC or IP address)
-		      \item Allow access to link and allow hosts to send messages
-		      \item Rate limit to ensure all hosts get fair access and avoid overwhelming hosts.
-	      \end{itemize}
+    \item Detect and correct errors in messages using parity and ECC or acknowledgements.
+    \item Access Control
+          \begin{itemize}
+              \item Assign addresses to each host on the link (MAC or IP address)
+              \item Allow access to link and allow hosts to send messages
+              \item Rate limit to ensure all hosts get fair access and avoid overwhelming hosts.
+          \end{itemize}
 \end{itemize}
 
 \subsection{Network Layer}\label{sub:network_layer}
@@ -47,10 +47,10 @@ Connects several links to form a connection between a source and a destination.
 \textbf{Handles routing among nodes within a packet switched network.}
 
 \begin{note}
-	The unit of data exchanged between nodes in this layer is called a \emph{packet}.
+    The unit of data exchanged between nodes in this layer is called a \emph{packet}.
 \end{note}
 \begin{note}
-	Because these networks can be worldwide, the layer must be standardised (even more so than at any of the other layers).
+    Because these networks can be worldwide, the layer must be standardised (even more so than at any of the other layers).
 \end{note}
 
 \subsection{Transport Layer}\label{sub:transport_layer}
@@ -59,10 +59,10 @@ This layer handles the end-to-end transfer of data from the source process to th
 The unit of data here is called a \emph{message}.
 A transport layer provides:
 \begin{itemize}
-	\item Reliability
-	\item Ordering
-	\item Framing
-	\item Congestion control
+    \item Reliability
+    \item Ordering
+    \item Framing
+    \item Congestion control
 \end{itemize}
 But the availability of each of these depends on the guarantees made in the network layer.
 
@@ -81,10 +81,10 @@ Manages the presentation, representation and conversion of data (character set, 
 
 Here we are talking about user application protocols (HTTP) and not the application themselves (Firefox):
 \begin{itemize}
-	\item HTTP
-	\item FTP
-	\item SSH
-	\item \dots
+    \item HTTP
+    \item FTP
+    \item SSH
+    \item \dots
 \end{itemize}
 
 \subsection{Protocol Standards}\label{sub:protocol_standards}
@@ -94,9 +94,9 @@ Standards can be openly defined or closed source, restricted or free, collaborat
 
 Not all players in the standard process have the same goals:
 \begin{itemize}
-	\item Delaying a standard to allow a different solution to get market share
-	\item Including intellectual property, patented technologies to get royalties, etc.
-	\item Enhancing (or subverting) the security of a protocol.
+    \item Delaying a standard to allow a different solution to get market share
+    \item Including intellectual property, patented technologies to get royalties, etc.
+    \item Enhancing (or subverting) the security of a protocol.
 \end{itemize}
 Standards are required, but they may not always be the best solution.
 
@@ -107,14 +107,14 @@ The physical layer defined what will happen in the hardware.
 The data link layer still has to worry about the physical connections so that it can handle the data connection properly.
 
 \begin{note}
-	These layers usually differ from device to device.
+    These layers usually differ from device to device.
 \end{note}
 
 \subsection{Physical Layer (L1)}\label{sub:physical_layer_or_mkl1_}
 
 The physical layer is the only layer that when it speaks to its peer is actually physically connected to it.
 
-The main focuses are to transmit a sequence of bits over an analogue channel subject to noise/hardware limitations/clock skew (time sensitive events are late), and interface to \(L_2\).
+The main focuses are to transmit a sequence of bits over an analogue channel which would be subject to noise/hardware limitations/clock skew (time sensitive events are late), and interface to \(L_2\).
 
 \subsubsection{Examples}\label{ssub:examples_}
 
@@ -123,10 +123,10 @@ The main focuses are to transmit a sequence of bits over an analogue channel sub
 An electrical cable with two wires twisted together.
 Each pair is one direction of signal and ground.
 \begin{itemize}
-	\item Twists reduce interference and noise pickup
-	\item Can be hundreds of metres long and still work well
-	\item Longer cables are more noisy
-	\item Used in Ethernet and telephones.
+    \item Twists reduce interference and noise pickup
+    \item Can be hundreds of metres long and still work well
+    \item Longer cables are more noisy
+    \item Used in Ethernet and telephones.
 \end{itemize}
 
 \paragraph{Optical Fibre}\label{par:optical_fibre}
@@ -168,29 +168,29 @@ The maximum transmission rate of a digital signal depends on the channel bandwid
 
 \smallskip
 \begin{highlight}{Bandwidth formula}
-	\begin{minipage}{0.50\linewidth}
-		\centering
-		\scalebox{2}{
-			\begin{math}
-				R_{max} = 2H\log_2 V
-			\end{math}
-		}
-	\end{minipage}
-	\hfill
-	\begin{minipage}{0.45\linewidth}
-		Where:
-		\begin{itemize}
-			\item \( R_{max} \) = maximum transmission rate of channel (bits per second)
-			\item \(H\) = Bandwidth \(Hz\)
-			\item \(V\) = number of possible discrete values per symbol (the size of the alphabet used).
-		\end{itemize}
-	\end{minipage}
+    \begin{minipage}{0.50\linewidth}
+        \centering
+        \scalebox{2}{
+            \begin{math}
+                R_{max} = 2H\log_2 V
+            \end{math}
+        }
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\linewidth}
+        Where:
+        \begin{itemize}
+            \item \( R_{max} \) = maximum transmission rate of channel (bits per second)
+            \item \(H\) = Bandwidth \(Hz\)
+            \item \(V\) = number of possible discrete values per symbol (the size of the alphabet used).
+        \end{itemize}
+    \end{minipage}
 \end{highlight}
 \begin{note}
-	We assume a noise free channel here.
+    We assume a noise free channel here.
 \end{note}
 
-\subsubsection{What is \(V\)}\label{ssub:what_is_mk}
+\subsubsection[What is V?]{What is \(V\)?}\label{ssub:what_is_mk}
 
 \(V\) is the possible discrete values per symbol (size of the alphabit).
 Inside a computer system, we use binary (or \(V=2\)).
@@ -202,8 +202,3 @@ Real world channels have noise that alters the signal.
 We can measure a channel's signal power, \(S\), and noise floor, \(N\), and compute the signal to noise ration (\(SN\) or \(SNR\)).
 
 Bandwidth and \(SNR\) are fundamental limits on the throughput (bit rate) which might be able to be reached using careful engineering, but can never be surpassed (Shannon's Theorem).
-
-
-
-
-

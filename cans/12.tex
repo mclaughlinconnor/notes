@@ -3,9 +3,9 @@
 \subsection{Key ideas for programmable machines}\label{sub:key_ideas_for_programmable_machines}
 
 \begin{itemize}
-	\item   A machine that can perform a fixed sequence of simple arithmetic operations
-	\item Provide a way to change that sequence (punch cards, code)
-	\item Make it possible to compare two numbers and decide what to do next (A Babbage's Analytical Engine -- the first turing-complete machine).
+    \item   A machine that can perform a fixed sequence of simple arithmetic operations
+    \item Provide a way to change that sequence (punch cards, code)
+    \item Make it possible to compare two numbers and decide what to do next (A Babbage's Analytical Engine -- the first turing-complete machine).
 \end{itemize}
 
 \subsection{The language of machines}\label{sub:the_language_of_machines}
@@ -17,10 +17,10 @@ Each programming language is translated in to machine language by software calle
 
 Examples:
 \begin{itemize}
-	\item x86
-	\item ARM
-	\item MIPS
-	\item SPARC
+    \item x86
+    \item ARM
+    \item MIPS
+    \item SPARC
 \end{itemize}
 All are different.
 
@@ -32,9 +32,9 @@ This is done by a compiler: it reads in a program in a language, then translates
 
 There are some benefits of compilers:
 \begin{itemize}
-	\item Can run programs in many languages
-	\item computers can make programming easier.
-	\item Languages can be designed to fit well for different purposes.
+    \item Can run programs in many languages
+    \item computers can make programming easier.
+    \item Languages can be designed to fit well for different purposes.
 \end{itemize}
 
 Each high level languages construct, we translate to assembly following a standard pattern (these patterns are the learning outcome of this chapter).
@@ -52,19 +52,19 @@ Operations can be like this: ADD A,B.
 \subsection{Elements of an Instruction}\label{sub:elements_of_an_instruction}
 
 \begin{itemize}
-	\item Must have an operation code (what to do)
-	\item Source operand reference (what to do it to)
-	\item Result operand reference (where the answer goes)
-	\item Next instruction reference (what to do next, blank for next instruction)
+    \item Must have an operation code (what to do)
+    \item Source operand reference (what to do it to)
+    \item Result operand reference (where the answer goes)
+    \item Next instruction reference (what to do next, blank for next instruction)
 \end{itemize}
 
 \subsection{What are the operands}\label{sub:what_are_the_operands}
 
 \begin{itemize}
-	\item Main memory (or virtual memory)
-	\item Processor register (if there's only one, use ACCUMULATOR)
-	\item Immediate (use a constant)
-	\item IO device
+    \item Main memory (or virtual memory)
+    \item Processor register (if there's only one, use ACCUMULATOR)
+    \item Immediate (use a constant)
+    \item IO device
 \end{itemize}
 
 \subsection{Number of operands}\label{sub:number_of_operands}
@@ -75,19 +75,19 @@ Varies depending on type of instruction and computer architecture (CISC, RISC)
 
 For a \(16\) bit instruction maybe:
 \begin{itemize}
-	\item \(4\) bit opcode
-	\item \(6\) bit operand reference
-	\item \(6\) bit operand reference
+    \item \(4\) bit opcode
+    \item \(6\) bit operand reference
+    \item \(6\) bit operand reference
 \end{itemize}
 
 \subsection{Instruction Types}\label{sub:instruction_types}
 
 Whatever is written by you must be expressible in machine language:
 \begin{itemize}
-	\item Data processing
-	\item Data storage (main memory)
-	\item Data movement (IO)
-	\item Flow control
+    \item Data processing
+    \item Data storage (main memory)
+    \item Data movement (IO)
+    \item Flow control
 \end{itemize}
 
 \section{Basic Assembly Instructions}\label{sec:basic_assembly_instructions}
@@ -96,16 +96,16 @@ Whatever is written by you must be expressible in machine language:
 
 Assembly:
 \begin{itemize}
-	\item Program is text and easier to read.
-	\item Don't need to remember codes
-	\item Memory addresses are easier to handle (ie.\ not a massive address).
+    \item Program is text and easier to read.
+    \item Don't need to remember codes
+    \item Memory addresses are easier to handle (ie.\ not a massive address).
 \end{itemize}
 %
 Machine language:
 \begin{itemize}
-	\item Binary numbers represented as hex
-	\item It is possible for a digital circuit to execute
-	\item No names for instructions (everything is a number)
+    \item Binary numbers represented as hex
+    \item It is possible for a digital circuit to execute
+    \item No names for instructions (everything is a number)
 \end{itemize}
 
 \subsection{Instructions}\label{sub:instructions}
@@ -113,27 +113,27 @@ Machine language:
 A machine language provides instructions.
 Are basically statements:
 \begin{itemize}
-	\item Can be complex: \(x:=2*(a+b/c)\)
-	\item Can be simple: \(R_2:=R_1 + R_3\)
-	\item Each instruction performs one action
+    \item Can be complex: \(x:=2*(a+b/c)\)
+    \item Can be simple: \(R_2:=R_1 + R_3\)
+    \item Each instruction performs one action
 \end{itemize}
 
 \subsection{Types of operation}\label{sub:types_of_operation}
 
 \begin{itemize}
-	\item Data storage (main memory)
-	\item Data processing
-	      \begin{itemize}
-		      \item Arithmetic
-		      \item Logical
-		      \item Conversion
-	      \end{itemize}
-	\item Data movement (IO)
-	\item Program flow control
-	      \begin{itemize}
-		      \item System control
-		      \item Transfer of control
-	      \end{itemize}
+    \item Data storage (main memory)
+    \item Data processing
+          \begin{itemize}
+              \item Arithmetic
+              \item Logical
+              \item Conversion
+          \end{itemize}
+    \item Data movement (IO)
+    \item Program flow control
+          \begin{itemize}
+              \item System control
+              \item Transfer of control
+          \end{itemize}
 \end{itemize}
 
 \subsection{Data storage to main memory}\label{sub:data_storage_to_main_memory}
@@ -145,11 +145,11 @@ May be different instructions for different movements (to or from, etc.).
 \subsection{Data processing}\label{sub:data_processing}
 
 \begin{itemize}
-	\item Add, subtract, multiply, divide
-	\item Signed integer
-	\item Increment, decrement, negate
-	\item Bitwise operations
-	\item AND, OR, NOT
+    \item Add, subtract, multiply, divide
+    \item Signed integer
+    \item Increment, decrement, negate
+    \item Bitwise operations
+    \item AND, OR, NOT
 \end{itemize}
 %
 We also can do shift and rotate operations which shift along one bit either by wrapping around (rotate) or by pushing a \(0\).
@@ -163,16 +163,14 @@ Common to use memory load/store instructions specifically to move data to and fr
 
 For system control:
 \begin{itemize}
-	\item Privileged instructions
-	\item CPU needs to be in a specific state
-	\item For operating system use
+    \item Privileged instructions
+    \item CPU needs to be in a specific state
+    \item For operating system use
 \end{itemize}
 %
 Transfer of control (flow control)
 \begin{itemize}
-	\item Branches (conditional and unconditional branches)
-	\item Skipping
-	\item Subroutine call (interrupt call)
+    \item Branches (conditional and unconditional branches)
+    \item Skipping
+    \item Subroutine call (interrupt call)
 \end{itemize}
-
-

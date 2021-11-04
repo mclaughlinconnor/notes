@@ -21,48 +21,48 @@ XML aimed to provide a simple mark-up language (better than SGML), separate the 
 \subsubsection{The Role of XML}\label{ssub:the_role_of_xml}
 
 \begin{itemize}
-	\item Describe the structure of semi-structured documents.
-	\item To provide principle mechanisms for charring, transporting and storing annotated data.
-	\item Be general purpose for data description and interchange.
+    \item Describe the structure of semi-structured documents.
+    \item To provide principle mechanisms for charring, transporting and storing annotated data.
+    \item Be general purpose for data description and interchange.
 \end{itemize}
 As a result XML has:
 \begin{itemize}
-	\item Emerged as the dominant standard
-	\item Developed lots of vocabularies for different usages.
-	\item Additional tools for additional processing layers like: querying, formatting and transforming.
+    \item Emerged as the dominant standard
+    \item Developed lots of vocabularies for different usages.
+    \item Additional tools for additional processing layers like: querying, formatting and transforming.
 \end{itemize}
 
 \subsubsection{XML Extensions}\label{ssub:xml_extensions}
 
 \begin{description}
-	\item[XHTML] Web pages
-	\item[WML] Special XML for old mobile websites
-	\item[MathML] The language of mathematics
-	\item[SOAP] describes method parameters between web services (a bit like REST).
+    \item[XHTML] Web pages
+    \item[WML] Special XML for old mobile websites
+    \item[MathML] The language of mathematics
+    \item[SOAP] describes method parameters between web services (a bit like REST).
 \end{description}
 
 \subsubsection{XML vs HTML}\label{ssub:xml_vs_html}
 
 \begin{itemize}
-	\item HTML was designed to display data, as a result, HTML combines data and the presentation of the data together. XML provides only the data.
-	\item The structure of XML is tightly controlled, HTML is very must not like that.
-	      \begin{itemize}
-		      \item Tags are case sensitive
-		      \item Values must be quoted
-		      \item If there is a start tag, there must be an end tag.
-		      \item There is a strict hierarchical structure
-	      \end{itemize}
-	\item XML is flexible and new tags can be created whenever you want, you cannot with HTML.
+    \item HTML was designed to display data, as a result, HTML combines data and the presentation of the data together. XML provides only the data.
+    \item The structure of XML is tightly controlled, HTML is very must not like that.
+          \begin{itemize}
+              \item Tags are case sensitive
+              \item Values must be quoted
+              \item If there is a start tag, there must be an end tag.
+              \item There is a strict hierarchical structure
+          \end{itemize}
+    \item XML is flexible and new tags can be created whenever you want, you cannot with HTML.
 \end{itemize}
 
 \subsubsection{XML Document Structure}\label{ssub:xml_document_structure}
 
 \begin{enumerate}
-	\item An optional prologue: \mintinline{xml}{<?xml version="1.0" encoding="UTF-8"?>}.
-	      \mintinline{xml}{version} is either \(1.0\) or \(1.1\).
-	      We also have \mintinline{xml}{standalone} which if \mintinline{xml}{yes} (default)it means the document is entirely self-contained, otherwise it has an external schema.
-	\item The body which contains the actual data.
-	\item An optional epilogue containing processing instructions and other comments.
+    \item An optional prologue: \mintinline{xml}{<?xml version="1.0" encoding="UTF-8"?>}.
+          \mintinline{xml}{version} is either \(1.0\) or \(1.1\).
+          We also have \mintinline{xml}{standalone} which if \mintinline{xml}{yes} (default)it means the document is entirely self-contained, otherwise it has an external schema.
+    \item The body which contains the actual data.
+    \item An optional epilogue containing processing instructions and other comments.
 \end{enumerate}
 
 \subsubsection{XML Elements}\label{ssub:xml_elements}
@@ -79,11 +79,11 @@ Some special characters are difficult to include in a value so we use \mintinlin
 
 An XML document is ``well formed'' if:
 \begin{itemize}
-	\item Tags are case sensitive.
-	\item There must be start and end tags.
-	\item Tags are closed in the order they are opened (hierarchical).
-	\item Values are quoted.
-	\item There must be a single root element.
+    \item Tags are case sensitive.
+    \item There must be start and end tags.
+    \item Tags are closed in the order they are opened (hierarchical).
+    \item Values are quoted.
+    \item There must be a single root element.
 \end{itemize}
 
 \subsection{Valid XML}\label{sub:valid_xml}
@@ -96,23 +96,23 @@ The structures can be external or internal.
 Name spaces are used to avoid element name conflicts for elements in different contexts.
 
 \begin{note}
-	Name spaces are actually URLs since these are guaranteed to be unique.
+    Name spaces are actually URLs since these are guaranteed to be unique.
 \end{note}
 
 \subsection{DTDs vs Schemas}\label{sub:dtds_vs_schemas}
 
 Why are XML schemas better than DTDs?
 \begin{itemize}
-	\item Schemas are written in XML
-	\item XML schemas are extensible additions (because they are XML)
-	\item XML schemas support data types
-	\item XML schemas support name spaces
+    \item Schemas are written in XML
+    \item XML schemas are extensible additions (because they are XML)
+    \item XML schemas support data types
+    \item XML schemas support name spaces
 \end{itemize}
 Why use an XML schema?
 \begin{itemize}
-	\item With schemas, XML files can carry a description of its own format.
-	\item XML schemas can be used by many people to agree on a common interface.
-	\item You can verify your data.
+    \item With schemas, XML files can carry a description of its own format.
+    \item XML schemas can be used by many people to agree on a common interface.
+    \item You can verify your data.
 \end{itemize}
 
 \subsection{Formatting XML}\label{sub:formatting_xml}
@@ -121,41 +121,41 @@ We have XSL (extensible style sheet language) to style XML.
 We start with the raw XML data, create the XSL style sheet, then link the two together.
 
 \begin{note}
-	XSLT also exists which lets you transform XML documents into other formats (like HTML).
+    XSLT also exists which lets you transform XML documents into other formats (like HTML).
 \end{note}
 
 \subsection{Processing XML}\label{sub:processing_xml}
 
 There are two ways of using XML in a program:
 \begin{itemize}
-	\item The document object model (DOM) can build an in-memory hierarchical model of the XML elements which is useful if you need the whole document.
-	\item Simple API for XML (SAX) provides an event driven parser for XML which is better to just get small parts of data (doesn't load it all to memory).
+    \item The document object model (DOM) can build an in-memory hierarchical model of the XML elements which is useful if you need the whole document.
+    \item Simple API for XML (SAX) provides an event driven parser for XML which is better to just get small parts of data (doesn't load it all to memory).
 \end{itemize}
 
 \subsubsection{DOM Parsing}\label{ssub:dom_parsing}
 
 \begin{enumerate}
-	\item   Load the XML document
-	\item Find the element we want by searching or traversing the tree.
-	\item For the element, extract, modify, or remove attributes, values, or data.
-	\item Repeat until done
+    \item Load the XML document
+    \item Find the element we want by searching or traversing the tree.
+    \item For the element, extract, modify, or remove attributes, values, or data.
+    \item Repeat until done
 \end{enumerate}
 
-\begin{minipage}{0.45\linewidth}
-	Pros:
-	\begin{itemize}
-		\item Can handle the entire document at once
-		\item Easier to program
-	\end{itemize}
+\begin{minipage}[t]{0.45\linewidth}
+    Pros:
+    \begin{itemize}
+        \item Can handle the entire document at once
+        \item Easier to program
+    \end{itemize}
 \end{minipage}
 \hfill
-\begin{minipage}{0.45\linewidth}
-	Cons:
-	\begin{itemize}
-		\item Uses more memory
-		\item Usually slower
-		\item Can process large files through slow disk caching
-	\end{itemize}
+\begin{minipage}[t]{0.45\linewidth}
+    Cons:
+    \begin{itemize}
+        \item Uses more memory
+        \item Usually slower
+        \item Can process large files through slow disk caching
+    \end{itemize}
 \end{minipage}
 
 \subsubsection{SAX Parsing}\label{ssub:sax_parsing}
@@ -163,27 +163,25 @@ There are two ways of using XML in a program:
 SAX parsing has event handlers which are triggered for open and closing tags of specific types.
 
 \begin{enumerate}
-	\item Create a custom object model (like a class) to represent each element.
-	\item Create a SAX parser.
-	\item Create a DocumentHandler to turn the document into instances of the custom object model.
+    \item Create a custom object model (like a class) to represent each element.
+    \item Create a SAX parser.
+    \item Create a DocumentHandler to turn the document into instances of the custom object model.
 \end{enumerate}
 
-\begin{minipage}{0.45\linewidth}
-	Pros:
-	\begin{itemize}
-		\item Uses less memory
-		\item Usually faster
-		\item Can process files larger than memory
-	\end{itemize}
+\begin{minipage}[t]{0.45\linewidth}
+    Pros:
+    \begin{itemize}
+        \item Uses less memory
+        \item Usually faster
+        \item Can process files larger than memory
+    \end{itemize}
 \end{minipage}
 \hfill
-\begin{minipage}{0.45\linewidth}
-	Cons:
-	\begin{minipage}{0.45\linewidth}
-		\begin{itemize}
-			\item Cannot handle all parsing tasks directly (to validate entire document, several parses needed).
-			\item Requires more programmer effort
-		\end{itemize}
-	\end{minipage}
+\begin{minipage}[t]{0.45\linewidth}
+    Cons:
+    \begin{itemize}
+        \item Cannot handle all parsing tasks directly (to validate entire document, several parses needed).
+        \item Requires more programmer effort
+    \end{itemize}
 \end{minipage}
 

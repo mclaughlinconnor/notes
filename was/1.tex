@@ -12,25 +12,25 @@ We will be using Python with Django, but little actual Python will be written (w
 \subsection{Course Aims}\label{sub:course_aims}
 
 \begin{itemize}
-	\item Explore the tools and technologies used
-	\item The strengthen understanding of the context and rationale of distributed systems (like many servers and many users).
-	      We will discuss the ``separation of concerns'' extensively (MVC architecture).
-	\item To promote the disciplined design and development of distributed web applications (use things like wireframes and UML diagrams).
-	\item To understand the messaging and protocols used as communication mechanism in web applications.
-	\item To develop the ability to implement and deploy distributed web applications
-	\item \textbf{There will be a heavy focus on principled design mastery of languages and excellence in coding.}
+    \item Explore the tools and technologies used
+    \item The strengthen understanding of the context and rationale of distributed systems (like many servers and many users).
+          We will discuss the ``separation of concerns'' extensively (MVC architecture).
+    \item To promote the disciplined design and development of distributed web applications (use things like wireframes and UML diagrams).
+    \item To understand the messaging and protocols used as communication mechanism in web applications.
+    \item To develop the ability to implement and deploy distributed web applications
+    \item \textbf{There will be a heavy focus on principled design mastery of languages and excellence in coding.}
 \end{itemize}
 
 \subsection{Assessments}\label{sub:was_assessments}
 
 \begin{description}
-	\item[Practical Test] Designed to test ability to set up a simple Django web application during class.
-	\item[Presentation] Group presentation given during class to present a design specification for a web application (there will be deltas). Teams are based on the amount of prior web development experience.
-	\item[In-class quiz] A timed online Moodle-based multiple choice quiz with \(10\) questions (correct answers give you \(3\) points, incorrect points subtract \(1\) point).
-	\item[Exam] Is worth \(70\%\) of your overall course grade. Takes place on 2021-05-19 at 09:30. Will be open for \(24\) hours, but you may only work on it for probably \(3\) hours.
-	\item[Coursework] Will be the Rango web application to be developed individually (with support from teams).
-	      The application will be based on the \emph{Tango with Django 2} book.
-	      You should have a GitHub repository with commits for each chapter and the final application should be hosted on PythonAnywhere.
+    \item[Practical Test] Designed to test ability to set up a simple Django web application during class.
+    \item[Presentation] Group presentation given during class to present a design specification for a web application (there will be deltas). Teams are based on the amount of prior web development experience.
+    \item[In-class quiz] A timed online Moodle-based multiple choice quiz with \(10\) questions (correct answers give you \(3\) points, incorrect points subtract \(1\) point).
+    \item[Exam] Is worth \(70\%\) of your overall course grade. Takes place on 2021-05-19 at 09:30. Will be open for \(24\) hours, but you may only work on it for probably \(3\) hours.
+    \item[Coursework] Will be the Rango web application to be developed individually (with support from teams).
+        The application will be based on the \emph{Tango with Django 2} book.
+        You should have a GitHub repository with commits for each chapter and the final application should be hosted on PythonAnywhere.
 \end{description}
 
 \section{Web Applications}\label{sec:web_applications}
@@ -45,27 +45,27 @@ Ideally a DIM would allow users to access relevant data in a timely fashion.
 \subsection{Types of Architecture}\label{sub:types_of_architecture}
 
 \begin{description}
-	\item[System Architecture] You build the infrastructure for the system and users interact with that.
-	\item[Information Architecture (user focused)] You create an environment for users and clients to interact with the system effectively and efficiently, then tailoring the system to their needs
+    \item[System Architecture] You build the infrastructure for the system and users interact with that.
+    \item[Information Architecture (user focused)] You create an environment for users and clients to interact with the system effectively and efficiently, then tailoring the system to their needs
 \end{description}
 
 \subsubsection{Design Elements}\label{ssub:design_elements}
 
 For a information architecture system we can use:
 \begin{itemize}
-	\item User Personas
-	\item User needs matrix
-	\item Site / URL design
-	\item Wire frames and walk-throughs
-	\item Sequence diagrams to show data transfer
-	\item ER diagrams for database structures.
+    \item User Personas
+    \item User needs matrix
+    \item Site / URL design
+    \item Wire frames and walk-throughs
+    \item Sequence diagrams to show data transfer
+    \item ER diagrams for database structures.
 \end{itemize}
 For a system architecture we use a slightly different set of design elements.
 \begin{itemize}
-	\item Specifications and requirements
-	\item High level system architecture
-	\item Sequence diagrams
-	\item Entity relationship diagrams
+    \item Specifications and requirements
+    \item High level system architecture
+    \item Sequence diagrams
+    \item Entity relationship diagrams
 \end{itemize}
 
 \subsection{System Components}\label{sub:system_components}
@@ -73,16 +73,16 @@ For a system architecture we use a slightly different set of design elements.
 We use a diagram called an n-tier structure to show the different stages of a particular application.
 We will generally be working on the middleware or logic tier.
 \begin{center}
-	\begin{tikzpicture}
-		\draw
-		node (u) {User}
-		node[right=of u] (c) {Client}
-		node[right=of c] (m) {Middleware}
-		node[right=of m] (p) {Database};
-		\draw[<->] (u) -- (c);
-		\draw[<->] (c) -- (m);
-		\draw[<->] (m) -- (p);
-	\end{tikzpicture}
+    \begin{tikzpicture}
+        \draw
+        node (u) {User}
+        node[right=of u] (c) {Client}
+        node[right=of c] (m) {Middleware}
+        node[right=of m] (p) {Database};
+        \draw[<->] (u) -- (c);
+        \draw[<->] (c) -- (m);
+        \draw[<->] (m) -- (p);
+    \end{tikzpicture}
 \end{center}
 
 \subsection{User}\label{sub:user}
@@ -122,16 +122,16 @@ A backend needs to be scalable and reliable so could be a database, index or jus
 \subsection{Web Development Complexity}\label{sub:web_development_complexity}
 
 \begin{description}
-	\item[Collision of Languages] Markup, programming, database query languages.
-	\item[Shifting standards] Document object model, XML/JSON.
-	\item[HTTP is a stateless protocol] However, most applications require the persistence of state (use cookies).
+    \item[Collision of Languages] Markup, programming, database query languages.
+    \item[Shifting standards] Document object model, XML/JSON.
+    \item[HTTP is a stateless protocol] However, most applications require the persistence of state (use cookies).
 \end{description}
 
 \subsubsection{It's getting better}\label{ssub:it_s_getting_better}
 
 \begin{itemize}
-	\item Web development makes lots of money now.
-	\item We now use classical software engineering best practices like APIs, libraries, frameworks, tools and software.
+    \item Web development makes lots of money now.
+    \item We now use classical software engineering best practices like APIs, libraries, frameworks, tools and software.
 \end{itemize}
 
 \subsection{Web Development Tools}\label{sub:web_development_tools}

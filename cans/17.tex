@@ -14,10 +14,10 @@ The specific request codes allowed are defined but the operating system and not 
 
 There are a few typical requests that will be used often in any program:
 \begin{itemize}
-	\item Terminate program
-	\item Read from file
-	\item Write to file
-	\item Allocate a block of memory
+    \item Terminate program
+    \item Read from file
+    \item Write to file
+    \item Allocate a block of memory
 \end{itemize}
 
 \subsubsection{Termination}\label{ssub:termination}
@@ -34,9 +34,9 @@ If you are writing a string to output, the last character should be a new line.
 In Sigma16 we can use \mintinline{asm}{trap}.
 
 \begin{itemize}
-	\item \mintinline{asm}{R1} should have \(2\) to indicate a write request.
-	\item \mintinline{asm}{R2} has the address of the first character of the string
-	\item \mintinline{asm}{R3} contains the length of string.
+    \item \mintinline{asm}{R1} should have \(2\) to indicate a write request.
+    \item \mintinline{asm}{R2} has the address of the first character of the string
+    \item \mintinline{asm}{R3} contains the length of string.
 \end{itemize}
 
 \section{Procedures and the Call Stack}\label{sec:procedures_and_the_call_stack}
@@ -120,11 +120,11 @@ We also avoid doing as many memory writes since only data that will be overwritt
 To allow for a large number of procedures, we can't dedicate a specific register to each on for its return address.
 Therefore we:
 \begin{itemize}
-	\item Always use the same register for the return address in a \mintinline{asm}{jal} instruction.
-	\item The first thing a procedure does is to store its return address into memory such that now \mintinline{asm}{R13} can be overwritten if another nested procedure is called.
-	\item The last thing a procedure does is to load its return address and jump to it.
-	\item the return addresses are pushed onto a stack instead of being stored at a fixed address.
-	\item Other state information for each procedure can also be stored on the stack along with the return address.
+    \item Always use the same register for the return address in a \mintinline{asm}{jal} instruction.
+    \item The first thing a procedure does is to store its return address into memory such that now \mintinline{asm}{R13} can be overwritten if another nested procedure is called.
+    \item The last thing a procedure does is to load its return address and jump to it.
+    \item the return addresses are pushed onto a stack instead of being stored at a fixed address.
+    \item Other state information for each procedure can also be stored on the stack along with the return address.
 \end{itemize}
 
 \subsection{Stacks}\label{sub:stacks}
@@ -161,9 +161,9 @@ When a procedure returns, its stack frame is stacked.
 
 A stack frame contains many different things:
 \begin{itemize}
-	\item The return address
-	\item The saved registers (so a procedure can use the data without destroying information)
-	\item Local variables (the procedure can have some memory of its own to use)
-	\item A pointer to the previous stack frame (required to make the pop work).
-	      A stack frame can vary in size so we need to know the size to remove it from the stack and get back to the top of the previous frame.
+    \item The return address
+    \item The saved registers (so a procedure can use the data without destroying information)
+    \item Local variables (the procedure can have some memory of its own to use)
+    \item A pointer to the previous stack frame (required to make the pop work).
+          A stack frame can vary in size so we need to know the size to remove it from the stack and get back to the top of the previous frame.
 \end{itemize}

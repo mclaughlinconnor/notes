@@ -6,11 +6,11 @@ This layer and the \emph{Physical Layer} are both dependent on the physical medi
 
 The Data Link Layer handles the physical connection for devices directly connected via a link.
 \begin{description}
-	\item[Addressing] Identifies devices
-	\item[Frame] Structure the raw bit stream into a usable format
-	\item[Error Correction] Correct errors in the code from noise or interference
-	\item[Access Control] Also ``media access control''.
-	      Decides which devices can communicate on a channel.
+    \item[Addressing] Identifies devices
+    \item[Frame] Structure the raw bit stream into a usable format
+    \item[Error Correction] Correct errors in the code from noise or interference
+    \item[Access Control] Also ``media access control''.
+        Decides which devices can communicate on a channel.
 \end{description}
 The data link layer communicates with \(L_1\) via a raw bit stream and it provides \(L_3\) with structured communication (using addressing and packets).
 
@@ -24,7 +24,7 @@ It is sufficient for addresses to be unique among the devices which are actually
 To avoid this negotiation (and make switching networks simpler, and also avoid privacy concerns), most data link layer protocols use a globally unique address (ethernet, wifi).
 
 \begin{note}
-	The addresses here are assigned to the network interface itself and not the node system.
+    The addresses here are assigned to the network interface itself and not the node system.
 \end{note}
 
 \subsection{Framing and Synchronisation}\label{sub:framing_and_synchronisation}
@@ -39,14 +39,14 @@ For example, if there is an error, only one frame has to be resent.
 We need the transmitter and receiver to agree on where the start and end of messages are to work properly.
 We can either:
 \begin{itemize}
-	\item Leave a gap in between the frames.
-	      This is difficult because setting a uniform time gap needs agreement on clock time and delay time.
-	\item Have a length field.
-	      This doesn't work very well either because the length can become corrupted too.
-	\item A special code to signal the beginning of a frame.
-	      The unique bit pattern only happens at the start of a message.
-	      If there is an error somewhere in the message, we can just wait for the next header signal.
-	      What if this code is somewhere in the data? \emph{Bit stuffing.}
+    \item Leave a gap in between the frames.
+          This is difficult because setting a uniform time gap needs agreement on clock time and delay time.
+    \item Have a length field.
+          This doesn't work very well either because the length can become corrupted too.
+    \item A special code to signal the beginning of a frame.
+          The unique bit pattern only happens at the start of a message.
+          If there is an error somewhere in the message, we can just wait for the next header signal.
+          What if this code is somewhere in the data? \emph{Bit stuffing.}
 \end{itemize}
 
 \subsubsection{Bit Stuffing}\label{ssub:bit_stuffing}
@@ -68,14 +68,14 @@ When the packet arrives, the receiver tries to calculate the error correction co
 
 This is the simplest error detecting code.
 \begin{itemize}
-	\item If there is an odd number of \(1\)s in the data, the parity bit is a \(1\).
-	\item If there is an even number of \(1\)s in the data, the parity bit is a \(0\).
+    \item If there is an odd number of \(1\)s in the data, the parity bit is a \(1\).
+    \item If there is an even number of \(1\)s in the data, the parity bit is a \(0\).
 \end{itemize}
 Either way there will be an even number of bits total (data and parity), so if you get an odd number, there has been an error.
 The parity is the XOR of the data bits.
 
 \begin{note}
-	This method only detects when an odd number of bits are incorrect so this is only useful really for a small selections of data.
+    This method only detects when an odd number of bits are incorrect so this is only useful really for a small selections of data.
 \end{note}
 
 \subsubsection{Internet Checksum}\label{ssub:internet_checksum}
@@ -85,11 +85,11 @@ The receiver recalculates the checksum, if there is a mismatch, there has been a
 This method is more effective than parity codes because it can detect most multiple bit errors.
 
 \begin{note}
-	For one's complement, if there is a carry out at the end, we just re-add it.
+    For one's complement, if there is a carry out at the end, we just re-add it.
 \end{note}
 
 \begin{note}
-	There are even more powerful error detecting codes like \emph{Cyclic redundancy code} (CRC) which is more complex and leads to fewer undetected errors.
+    There are even more powerful error detecting codes like \emph{Cyclic redundancy code} (CRC) which is more complex and leads to fewer undetected errors.
 \end{note}
 
 \subsubsection{Correcting Errors}\label{ssub:correcting_errors}
@@ -100,16 +100,16 @@ A simple method of doing this is to just transmit the data twice, but \emph{Hamm
 Other error correcting codes exist, but there is a trade-off between complexity, the amount of data added and the ability to correct multi-bit errors.
 
 \begin{note}
-	If the data is completely unsalvagable, we can just request retransmission.
+    If the data is completely unsalvagable, we can just request retransmission.
 \end{note}
 
 \subsection{Media Access Control}\label{sub:media_access_control}
 
 Links may be point-to-point or multi-access.
 \begin{description}
-	\item[Point-to-point] There are separate physical cables for each direction.
-	      We need framing in each direction, but there is no competition (contention) for the links.
-	\item[Multi-access] There is a single bidirectional link for all hosts so nodes have to compete (contend) for access.
+    \item[Point-to-point] There are separate physical cables for each direction.
+        We need framing in each direction, but there is no competition (contention) for the links.
+    \item[Multi-access] There is a single bidirectional link for all hosts so nodes have to compete (contend) for access.
 \end{description}
 
 \subsubsection{Contention}\label{ssub:contention}
@@ -121,20 +121,20 @@ If the signals were to overlap, only garbage would be received.
 
 We need a two stage access to a channel.
 \begin{enumerate}
-	\item Detect if a collision is happening, or will happen by listening to the channel before and while sending.
-	\item Send if there is no collision, or wait and retransmit later (the delay is randomised and increasing to avoid repeated collisions. eg., two people accidentally interrupting each other).
-	      Many collisions means the network is congested and needs time to recover.
-	      This delay can be arranged to give certain hosts, users, or traffic priority.
+    \item Detect if a collision is happening, or will happen by listening to the channel before and while sending.
+    \item Send if there is no collision, or wait and retransmit later (the delay is randomised and increasing to avoid repeated collisions. eg., two people accidentally interrupting each other).
+          Many collisions means the network is congested and needs time to recover.
+          This delay can be arranged to give certain hosts, users, or traffic priority.
 \end{enumerate}
 
 \begin{note}
-	This system is entirely distributed without any central  system to decide when to transmit.
+    This system is entirely distributed without any central  system to decide when to transmit.
 \end{note}
 \noindent
 Access to the channel is:
 \begin{itemize}
-	\item Probabilistic (not deterministic)
-	\item Of variable latency
+    \item Probabilistic (not deterministic)
+    \item Of variable latency
 \end{itemize}
 
 \subsubsection{ALOHA Network}\label{ssub:aloha_network}
@@ -150,20 +150,19 @@ This is a very simple system, but has poor performance and results in low channe
 
 Here when the propagation delay is low, we listen before sending.
 \begin{itemize}
-	\item If there is another transmission active: back off as if a collision has actually occurred.
-	\item If the link is idle, send data immediately.
+    \item If there is another transmission active: back off as if a collision has actually occurred.
+    \item If the link is idle, send data immediately.
 \end{itemize}
 This system improves link utilisation by avoiding interrupting active transmissions (only the new sender backs off if the channel is active).
 
 If you have a high propagation delay, you should listen before and while you are sending data.
 If a collision occurs, stop sending data immediately, back of and retransmit.
+
 \begin{note}
-	Both packets are still corrupted, but the time the channel is blocked is far less giving better performance.
+    Both packets are still corrupted, but the time the channel is blocked is far less giving better performance.
 \end{note}
 
 \paragraph{Why does propagation delay matter?}\label{par:why_does_propagation_delay_matter_}
 
 If you are listening to a channel and there is silence, on a low delay network, you can be confident no nodes are transmitting.
 If there is a high delay, though, another node may be transmitting and the signal hasn't reached you yet and causing a collision and garbling data.
-
-

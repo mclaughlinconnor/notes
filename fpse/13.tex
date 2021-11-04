@@ -18,7 +18,7 @@ Testing reveals bugs or errors in code.
 Sometimes bugs are only revealed in a live environment; to test for this, deploy to just one server first.
 
 \begin{note}
-	Testing doesn't prove something works, it just helps to find bugs and keep track of past issues.
+    Testing doesn't prove something works, it just helps to find bugs and keep track of past issues.
 \end{note}
 
 \subsubsection{Levels of Testing}\label{ssub:levels_of_testing}
@@ -26,48 +26,48 @@ Sometimes bugs are only revealed in a live environment; to test for this, deploy
 There are \(7\) different levels of testing possible.
 
 \begin{enumerate}
-	\item \textbf{Code Reviews}
-	\item \textbf{Unit Tests:} Test one function outside of the rest of the code.
-	\item \textbf{Integration Testing:} Does everything work together?
-	\item \textbf{API Testing:} Do different API endpoints work correctly?
-	\item \textbf{GUI Testing:} Do buttons, screens, etc.\ work correctly?
-	\item \textbf{System Testing:} Does the system work as a whole?
-	\item \textbf{Acceptance Testing} Do users like the change?
+    \item \textbf{Code Reviews}
+    \item \textbf{Unit Tests:} Test one function outside of the rest of the code.
+    \item \textbf{Integration Testing:} Does everything work together?
+    \item \textbf{API Testing:} Do different API endpoints work correctly?
+    \item \textbf{GUI Testing:} Do buttons, screens, etc.\ work correctly?
+    \item \textbf{System Testing:} Does the system work as a whole?
+    \item \textbf{Acceptance Testing} Do users like the change?
 \end{enumerate}
 
 \begin{note}
-	Numbers \(4\) to \(7\) are largely performed by customers while \(5\) to \(7\) are largely manual.
+    Numbers \(4\) to \(7\) are largely performed by customers while \(5\) to \(7\) are largely manual.
 \end{note}
 
 \subsubsection{Testing Characteristics}\label{ssub:testing_characteristics}
 
 \begin{itemize}
-	\item \textbf{Functionality:} Can I submit? Can I upload?
-	\item \textbf{Usability:} Can disabled people use it? Can non-disabled people use it?
-	\item \textbf{Security:} How does it respond to attacks? Do roles exists/work? Is it secure? Is there 2FA?
-	\item \textbf{Performance/Efficiency:} Can it handle peaks in volume? How is memory management?
-	\item \textbf{Portability:} Can the code work on MacOS and Windows? Does it work on all browsers?
-	\item \textbf{Reliability:} Does it work the same on all platforms? What happens when something breaks or there's a service down?
+    \item \textbf{Functionality:} Can I submit? Can I upload?
+    \item \textbf{Usability:} Can disabled people use it? Can non-disabled people use it?
+    \item \textbf{Security:} How does it respond to attacks? Do roles exists/work? Is it secure? Is there 2FA?
+    \item \textbf{Performance/Efficiency:} Can it handle peaks in volume? How is memory management?
+    \item \textbf{Portability:} Can the code work on MacOS and Windows? Does it work on all browsers?
+    \item \textbf{Reliability:} Does it work the same on all platforms? What happens when something breaks or there's a service down?
 \end{itemize}
 
 \subsubsection{Testing Options}\label{ssub:testing_options}
 
 \begin{itemize}
-	\item \textbf{Ad-Hoc:} Users just testing it to see if it works.
-	\item \textbf{Test Suite:} A set list of test/code to test.
-	\item \textbf{Code Coverage:} How much of the code is covered by tests.
+    \item \textbf{Ad-Hoc:} Users just testing it to see if it works.
+    \item \textbf{Test Suite:} A set list of test/code to test.
+    \item \textbf{Code Coverage:} How much of the code is covered by tests.
 \end{itemize}
 
 \subsubsection{What makes a good test?}\label{ssub:what_makes_a_good_test_}
 
 \begin{itemize}
-	\item \textbf{Happy Test:} A normal, positive scenario. No errors.
-	\item \textbf{Unhappy Test:} What happens if the internet breaks? Or the user closes a window early?
-	\item \textbf{Edge Cases:} Does it handle \(1\), \(2\), \(3\)? What about \(50,000\)
-	\item \textbf{Multiple Calls:} What happens if two things call it at the same time?
-	\item \textbf{Empty/Negative:} Does it handle empty and negative values?
-	\item \textbf{Combinations:} Swap the orders? Use other calls?
-	\item \textbf{What Am I Relying On:} What happens on time-outs, a broken connection, down time? How will I recover from this?
+    \item \textbf{Happy Test:} A normal, positive scenario. No errors.
+    \item \textbf{Unhappy Test:} What happens if the internet breaks? Or the user closes a window early?
+    \item \textbf{Edge Cases:} Does it handle \(1\), \(2\), \(3\)? What about \(50,000\)
+    \item \textbf{Multiple Calls:} What happens if two things call it at the same time?
+    \item \textbf{Empty/Negative:} Does it handle empty and negative values?
+    \item \textbf{Combinations:} Swap the orders? Use other calls?
+    \item \textbf{What Am I Relying On:} What happens on time-outs, a broken connection, down time? How will I recover from this?
 \end{itemize}
 
 \paragraph{Unit Case}\label{par:unit_case}
@@ -84,10 +84,10 @@ They usually handle the set-up and tear-down to ensure the proper environment ea
 \paragraph{Why?}\label{par:why_}
 
 \begin{itemize}
-	\item Allows for faster detection of bugs.
-	\item Makes bugs quicker to find an fix if less code changes.
-	\item Being faster means the developer might still be in the office to fix any issues.
-	\item Avoids ``integration hell'' where it is hard to make sure all functionality works correctly.
+    \item Allows for faster detection of bugs.
+    \item Makes bugs quicker to find an fix if less code changes.
+    \item Being faster means the developer might still be in the office to fix any issues.
+    \item Avoids ``integration hell'' where it is hard to make sure all functionality works correctly.
 \end{itemize}
 
 \subsection{Change Management}\label{sub:change_management}
@@ -114,23 +114,23 @@ Static analysis tests and automated regression tests can help avoid broken build
 \subsubsection{Detecting broken builds}\label{ssub:detecting_broken_builds}
 
 \begin{itemize}
-	\item Code should be compiled in an environment as close to production
-	\item Should be automated regression tests
-	\item Static analysis tests (style guide checks, etc).
+    \item Code should be compiled in an environment as close to production
+    \item Should be automated regression tests
+    \item Static analysis tests (style guide checks, etc).
 \end{itemize}
 
 \subsubsection{Environments}\label{ssub:environments}
 
 \begin{itemize}
-	\item Jenkins
-	\item Gitlab
-	\item Bitbucket
+    \item Jenkins
+    \item Gitlab
+    \item Bitbucket
 \end{itemize}
 
 \subsubsection{Fast builds}\label{ssub:fast_builds}
 
 \begin{itemize}
-	\item Give early feedback
-	\item Lets you fix things faster
-	\item Possibly use partial rebuilds
+    \item Give early feedback
+    \item Lets you fix things faster
+    \item Possibly use partial rebuilds
 \end{itemize}

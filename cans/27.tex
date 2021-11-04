@@ -17,55 +17,55 @@ A common end-to-end protocol provides a single seamless service to interface wit
 A routing device will connect one network to another by implementing the common network protocol.
 A gateway or router will hide differences in the link layers between the networks:
 \begin{itemize}
-	\item Framing
-	\item Addressing
-	\item Flow control
-	\item Error detection and correction
+    \item Framing
+    \item Addressing
+    \item Flow control
+    \item Error detection and correction
 \end{itemize}
 with the least amount of effort possible.
 
 \subsection{The Internet}\label{sub:the_internet}
 
 \begin{description}
-	\item[1965] Concept of packet switching
-	\item[1969] Wide-area packet networks
-	\item[1973] First non-US ARPANET sites
-	\item[1974] Initial version of the internet protocol
-	\item[1981] Access to ARPANET broadened to non-DARPA funded sites.
-	\item[1983] Switched to IPv4
-	\item[1992] Development of IPv6 starts
+    \item[1965] Concept of packet switching
+    \item[1969] Wide-area packet networks
+    \item[1973] First non-US ARPANET sites
+    \item[1974] Initial version of the internet protocol
+    \item[1981] Access to ARPANET broadened to non-DARPA funded sites.
+    \item[1983] Switched to IPv4
+    \item[1992] Development of IPv6 starts
 \end{description}
 
 \section{The Internet Protocol}\label{sec:the_internet_protocol}
 
 The internet protocol is a common abstraction layer to interface with the transport protocols above it and the data link (and physical) layers below it.
 \begin{itemize}
-	\item Simple
-	\item Best effort
-	\item Connectionless
-	\item Packet delivery
+    \item Simple
+    \item Best effort
+    \item Connectionless
+    \item Packet delivery
 \end{itemize}
 Providing:
 \begin{itemize}
-	\item End-to-end global addressing
-	\item Routing
-	\item Fragmentation and reassembly (breaking up packets)
+    \item End-to-end global addressing
+    \item Routing
+    \item Fragmentation and reassembly (breaking up packets)
 \end{itemize}
 Key concepts:
 % TODO: make subsections
 \begin{itemize}
-	\item Global inter-network protocol
-	\item Hour glass protocol stack:
-	      \begin{itemize}
-		      \item Many transport and application layers
-		      \item A single network layer protocol:
-		            \begin{itemize}
-			            \item Packet switched, best effort service
-			            \item Uniform network and host addressing
-			            \item Uniform end-to-end connectivity
-			            \item Range of link-layer technologies
-		            \end{itemize}
-	      \end{itemize}
+    \item Global inter-network protocol
+    \item Hour glass protocol stack:
+          \begin{itemize}
+              \item Many transport and application layers
+              \item A single network layer protocol:
+                    \begin{itemize}
+                        \item Packet switched, best effort service
+                        \item Uniform network and host addressing
+                        \item Uniform end-to-end connectivity
+                        \item Range of link-layer technologies
+                    \end{itemize}
+          \end{itemize}
 \end{itemize}
 
 \subsubsection{Basic Routing and Delivery}\label{ssub:basic_routing_and_delivery}
@@ -79,9 +79,9 @@ Any packets that cannot be delivered are just discarded.
 Every network interface on every host is intended to have unique address (these are internet protocol addresses or ``logical addresses'').
 
 \begin{description}
-	\item[IPv4] These are \(32\) bit addresses (\(130.209.241.197\)) which is made up of \(4\) sets of \(8\) bit decimal numbers.
-	      There are not very many addresses.
-	\item[IPv6] These are \(128\) bit addresses which are \(4\) sets of \(4\) hexadecimal digits.
+    \item[IPv4] These are \(32\) bit addresses (\(130.209.241.197\)) which is made up of \(4\) sets of \(8\) bit decimal numbers.
+        There are not very many addresses.
+    \item[IPv6] These are \(128\) bit addresses which are \(4\) sets of \(4\) hexadecimal digits.
 \end{description}
 
 \subsection{Fragmentation}\label{sub:fragmentation}
@@ -100,7 +100,7 @@ Some packets could loop forever and just take up processing power so packets inc
 IPv4 header contains a checksum to detect and corruption introduced during transmission.
 This is quite similar to the link-layer checksum, but uses a different algorithm.
 \begin{note}
-	This exclusively protects the header -- the data should be protected in an upper layer protocol.
+    This exclusively protects the header -- the data should be protected in an upper layer protocol.
 \end{note}
 \noindent
 IPv6 does not contain a checksum and assumes the header and data will be protected on the link later.
@@ -109,10 +109,10 @@ IPv6 does not contain a checksum and assumes the header and data will be protect
 
 Network layer packets include the transport layer data as a payload:
 \begin{itemize}
-	\item TCP (\(6\))
-	\item UDP (\(17\))
-	\item DCCP (\(13\))
-	\item ICMP (\(1\))
+    \item TCP (\(6\))
+    \item UDP (\(17\))
+    \item DCCP (\(13\))
+    \item ICMP (\(1\))
 \end{itemize}
 These are managed by the IANA.
 
@@ -120,9 +120,9 @@ These are managed by the IANA.
 
 End systems can request special services from the network.
 \begin{itemize}
-	\item Emergency traffic should have priority
-	\item Gaming or telephony prefer low latency, but don't need high bandwidth
-	\item Background software might ask for low priori
+    \item Emergency traffic should have priority
+    \item Gaming or telephony prefer low latency, but don't need high bandwidth
+    \item Background software might ask for low priori
 \end{itemize}
 You can signal your preference using a \emph{differentiated service code point (DSCP)} field in the header.
 These are only a hint and can often be stripped away at network boundaries.
@@ -143,9 +143,9 @@ A DNS query will return a IPv6 address if possible.
 
 There are a few challenges:
 \begin{enumerate}
-	\item Is the address an identify or a location? Does it name the host or the location where it is?
-	\item How should addresses be allocated? Do we use a hierarchical system or just allocated them flat?
-	\item What is the address format? A number or text? Human readable? Fixed or variable length?
+    \item Is the address an identify or a location? Does it name the host or the location where it is?
+    \item How should addresses be allocated? Do we use a hierarchical system or just allocated them flat?
+    \item What is the address format? A number or text? Human readable? Fixed or variable length?
 \end{enumerate}
 
 \subsection{Identity and Location}\label{sub:identity_and_locaiton}
@@ -175,16 +175,16 @@ Fixed length binary is easier for machines to read, but variable length text is 
 
 IP addresses:
 \begin{itemize}
-	\item Specify the location of a network interface
-	\item Are allocated hierarchically
-	\item Are of a fixed size (either \(32\) bits or \(128\) bits).
+    \item Specify the location of a network interface
+    \item Are allocated hierarchically
+    \item Are of a fixed size (either \(32\) bits or \(128\) bits).
 \end{itemize}
 A host with several network interfaces will have an IP address for each interface (like for Wi-Fi and Ethernet).
 Both IPv4 and IPv6 addresses are hierarchical, and encode location by splitting addresses into a host and a network.
 \begin{description}
-	\item[Netmast] Describes the number of bits in the network part as a mask (\(1\) is a network,  \(0\) is a host).
-	\item[Network] The network itself has the address wit the host part equal to \(0\).
-	\item[Broadcast] The broadcast address has the address with the host section all \(1\)s.
+    \item[Netmast] Describes the number of bits in the network part as a mask (\(1\) is a network,  \(0\) is a host).
+    \item[Network] The network itself has the address wit the host part equal to \(0\).
+    \item[Broadcast] The broadcast address has the address with the host section all \(1\)s.
 \end{description}
 
 \subsubsection{IP Address Management}\label{ssub:ip_address_management}
@@ -204,3 +204,4 @@ There are \(2^{128}=340,282,366,920,9938,463,463,374,607,431,768,211,456\) total
 
 IPv6 requires changes to be made to every host, router, firewall and application.
 So far, most backbone routers support IPv6 and well as most operating systems, but there is still lots to go.
+

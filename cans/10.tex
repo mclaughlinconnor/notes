@@ -3,10 +3,10 @@
 Is a mechanism by which other modules can interrupt the normal sequence of processing.
 
 \begin{itemize}
-	\item Program: an overflow or division by zero
-	\item Timer (do something for a certain time): pre-emptive multitasking
-	\item Input/output: an IO controller operates on a different time scale -- it could either wait ages for something to happen, or just get interrupted later on.
-	\item Hardware failure: memory parity error
+    \item Program: an overflow or division by zero
+    \item Timer (do something for a certain time): pre-emptive multitasking
+    \item Input/output: an IO controller operates on a different time scale -- it could either wait ages for something to happen, or just get interrupted later on.
+    \item Hardware failure: memory parity error
 \end{itemize}
 
 \subsection{Transfer of Control via Interrupts}\label{sub:transfer_of_control_via_interrupts}
@@ -14,20 +14,20 @@ Is a mechanism by which other modules can interrupt the normal sequence of proce
 When a user program is interrupted, the sequence of operations jumps to an interrupt handler:
 
 \begin{highlight}{The fetch execute cycle}
-	\begin{tikzpicture}
-		\draw
-		node (s) {Start}
-		node[right=of s] (f) {Fetch}
-		node[right=of f] (e) {Execute}
-		node[above=of e] (h) {Halt}
-		node[right=of e] (i) {Check for interrupt; process};
-		\draw[->] (s) -- (f);
-		\draw[->] (f) -- (e);
-		\draw[->] (e) -- (h);
-		\draw[->] (e) -- (i) node[above,midway] {enabled};
-		\draw[->] (e) -- ++(0,-5mm) node[right] {disabled}-| (f);
-		\draw[->] (i) -- ++(0,-9mm) -| (f);
-	\end{tikzpicture}
+    \begin{tikzpicture}
+        \draw
+        node (s) {Start}
+        node[right=of s] (f) {Fetch}
+        node[right=of f] (e) {Execute}
+        node[above=of e] (h) {Halt}
+        node[right=of e] (i) {Check for interrupt; process};
+        \draw[->] (s) -- (f);
+        \draw[->] (f) -- (e);
+        \draw[->] (e) -- (h);
+        \draw[->] (e) -- (i) node[above,midway] {enabled};
+        \draw[->] (e) -- ++(0,-5mm) node[right] {disabled}-| (f);
+        \draw[->] (i) -- ++(0,-9mm) -| (f);
+    \end{tikzpicture}
 \end{highlight}
 
 \section{Pipe lining}\label{sec:pipe_lining}
@@ -38,7 +38,7 @@ Each operation can be performed independently of others so all of the processing
 
 Pipe lining introduces parallelism into the fetch execute cycle.
 \begin{note}
-	In this section four operations per instruction are used (fetch, decode, execute, store). This can be different.
+    In this section four operations per instruction are used (fetch, decode, execute, store). This can be different.
 \end{note}
 You could naively run fetch, decode, execute and store each instruction one after the other; or you could instead overlap the instructions such that after one instruction is finished fetching, another one is fetched immediately after.
 This decreases the total time significantly.
@@ -57,9 +57,9 @@ In general, an \(n\) stage pipeline will improve instruction execution throughpu
 
 We are making some assumptions here though:
 \begin{itemize}
-	\item There is no initial delay of filling the pipeline.
-	\item All pipeline stages take exactly one unit time to complete.
-	\item There are no ``hazards'' (comes up later on).
+    \item There is no initial delay of filling the pipeline.
+    \item All pipeline stages take exactly one unit time to complete.
+    \item There are no ``hazards'' (comes up later on).
 \end{itemize}
 
 \subsection{Hazards}\label{sub:hazards}
@@ -70,16 +70,16 @@ Branching means that the flow of instructions may change while the next instruct
 We have to \emph{flush} the pipeline (remove all currently incomplete instructions), which causes \emph{branch penalties} and requires another ``initial start-up time'' to get back up to full speed.
 There are three types of processor hazard:
 \begin{enumerate}
-	\item Resource hazard: two different stages need to access the same resource (memory) at the same time.
-	\item Data hazard: write after read (WAR) -- not really need just something to keep in mind.
-	\item Control hazard: branches, interrupts
+    \item Resource hazard: two different stages need to access the same resource (memory) at the same time.
+    \item Data hazard: write after read (WAR) -- not really need just something to keep in mind.
+    \item Control hazard: branches, interrupts
 \end{enumerate}
 \section{Memory}\label{sec:memory}
 
 \begin{itemize}
-	\item In board memory (on the CPU): registers, cache, main memory
-	\item Outboard storage: magnetic disk, solid state disk, flash devices, optical storage
-	\item Off-line storage: Magnetic tape, DNA(?)
+    \item In board memory (on the CPU): registers, cache, main memory
+    \item Outboard storage: magnetic disk, solid state disk, flash devices, optical storage
+    \item Off-line storage: Magnetic tape, DNA(?)
 \end{itemize}
 %
 For each of these there are trade-offs to be made: capacity, performance and cost.
@@ -100,13 +100,13 @@ This can be very tricky when you have more than one processor core accessing mai
 \subsection{Cache overview}\label{sub:cache_overview}
 
 \begin{enumerate}
-	\item CPU requests contents from memory location
-	\item Check cache for data
-	      \begin{itemize}
-		      \item If present: get from cache (``cache HIT'')
-		      \item If not, read required block to cache in a full block (not just a single address, but a few around it because you'll likely need the addresses around it too -- ``locality of reference''), named a ``cache MISS''
-	      \end{itemize}
-	\item Deliver from cache to CPU
+    \item CPU requests contents from memory location
+    \item Check cache for data
+          \begin{itemize}
+              \item If present: get from cache (``cache HIT'')
+              \item If not, read required block to cache in a full block (not just a single address, but a few around it because you'll likely need the addresses around it too -- ``locality of reference''), named a ``cache MISS''
+          \end{itemize}
+    \item Deliver from cache to CPU
 \end{enumerate}
 Cache includes tags to identify which block of main memory is in each cache slot since cache is smaller than main memory and cannot store all of it.
 

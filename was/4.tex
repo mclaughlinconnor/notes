@@ -3,11 +3,11 @@
 There are a minimum of five sets of technologies required to develop a web application:
 
 \begin{description}
-	\item[Server-side]: PHP, Ruby, Python, Java
-	\item[Data Language]: SQL
-	\item[Client-side]: JavaScript
-	\item[Content Markup]: XHTML, HTML
-	\item[Style Markup]: CSS
+    \item[Server-side]: PHP, Ruby, Python, Java
+    \item[Data Language]: SQL
+    \item[Client-side]: JavaScript
+    \item[Content Markup]: XHTML, HTML
+    \item[Style Markup]: CSS
 \end{description}
 This can be very problematic when developing since all of these layers depend on each other so maintaining code in some layers may need changes in other layers.
 
@@ -18,9 +18,9 @@ This is, once again, the separation of concerns.
 Most aspects of most elements can be controlled with CSS (like position, colour, size, font, etc)
 This can be achieved in many ways:
 \begin{itemize}
-	\item Describe page in XML, then use XSL styles to generate formatted XHTML.
-	\item By using CSS with XML
-	\item By using CSS with (X)HTML
+    \item Describe page in XML, then use XSL styles to generate formatted XHTML.
+    \item By using CSS with XML
+    \item By using CSS with (X)HTML
 \end{itemize}
 
 \subsection{Cascading Style Sheets}\label{sub:cascading_style_sheets}
@@ -30,37 +30,37 @@ They specify aspects of a component with a set of rules.
 
 \medskip
 \begin{highlight}{Basic CSS}
-	\begin{minipage}{0.45\linewidth}
-		\begin{code}{css}
-			h1 {
+    \begin{minipage}{0.45\linewidth}
+        \begin{code}{css}
+            h1 {
                 color: blue;
                 font-size: 18px;
                 font-family: Verdana;
             }
-		\end{code}
-	\end{minipage}
-	\hfill
-	\begin{minipage}{0.45\linewidth}
-		\begin{code}{css}
-			#page {
+        \end{code}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\linewidth}
+        \begin{code}{css}
+            #page {
                 color: green;
                 float: left;
                 padding: 10px, 10px, 2px, 2px;
-			}
-		\end{code}
-	\end{minipage}
+            }
+        \end{code}
+    \end{minipage}
 \end{highlight}
 
 \subsubsection{Values and Units}\label{ssub:values_and_units}
 
 Units affect the colours, distances and sizes of elements.
 \begin{description}
-	\item[Numbers] Can be real or integers
-	\item[Percentages] Use a ``\%'' mark afterward where sizes are percentages of the inherited value.
-	\item[Colours] Colours can be done with hex colours, named colours or a functional RGB function.
-	\item[Absolute Lengths] We can use absolute values like centimetres (CM), inches (in) or points (pt) among others
-	\item[Relative Lengths] We can use \mintinline{css}{em}, \mintinline{css}{pt} or \mintinline{css}{px} sizes to better scale sizes to different screens.
-	      You could generally use \mintinline{css}{px}.
+    \item[Numbers] Can be real or integers
+    \item[Percentages] Use a ``\%'' mark afterward where sizes are percentages of the inherited value.
+    \item[Colours] Colours can be done with hex colours, named colours or a functional RGB function.
+    \item[Absolute Lengths] We can use absolute values like centimetres (CM), inches (in) or points (pt) among others
+    \item[Relative Lengths] We can use \mintinline{css}{em}, \mintinline{css}{pt} or \mintinline{css}{px} sizes to better scale sizes to different screens.
+        You could generally use \mintinline{css}{px}.
 \end{description}
 
 \section{Using CSS with HTML}\label{sec:using_css_with_html}
@@ -71,9 +71,9 @@ We can apply CSS in three different ways: inline, embedded, and external styles.
 
 Style information is added directly on the HTML element with the \mintinline{html}{style} attribute
 \begin{highlight}{CSS inline styles sheets}
-	\begin{code}{html}
-		<h3 style="color: yellow; font-size: 18pt">
-	\end{code}
+    \begin{code}{html}
+        <h3 style="color: yellow; font-size: 18pt">
+    \end{code}
 \end{highlight}
 This only affects this element which is useful to override a particular style.
 
@@ -83,15 +83,15 @@ This only affects this element which is useful to override a particular style.
 Styles rules are specified in the \mintinline{html}{<head>} section of the document.
 These styles will be applied to the whole document so this is slightly better than using inline styles.
 \begin{highlight}{CSS embedded style sheets}
-	\begin{code}{html}
-		<head>
-		<style>
+    \begin{code}{html}
+        <head>
+        <style>
             h1 {
                 color: blue;
             }
-		</style>
-		</head>
-	\end{code}
+        </style>
+        </head>
+    \end{code}
 \end{highlight}
 
 \subsection{External Styles}\label{sub:external_styles}
@@ -101,9 +101,9 @@ This is good since styles only have to be changed in just one place.
 We can attach a CSS document to many pages using a \mintinline{html}{link} tag in the \mintinline{html}{head} section.
 \begin{highlight}{CSS external style sheets}
     \begin{code}{html}
-		<head>
+        <head>
             <link rel="stylesheet" href="styles.css" type="text/css">
-		</head>
+        </head>
     \end{code}
 \end{highlight}
 This is generally best practice because it improves performance, the separation of concerns and eases maintenance.
@@ -130,8 +130,8 @@ We prefix IDs with a hash symbol (\#).
 Elements that are descended from an element are styled according to the rule of the descendant selector.
 This allows us to apply styles in some contexts, but not others.
 \begin{highlight}{CSS descendant selectors}
-    \begin{code}{html}
-		p em {color: red; font-weight: bold; }
+    \begin{code}{css}
+        p em {color: red; font-weight: bold; }
     \end{code}
 \end{highlight}
 
@@ -139,13 +139,13 @@ This allows us to apply styles in some contexts, but not others.
 
 We can specify that all \mintinline{html}{h2} elements within the class \mintinline{html}{red} using:
 \begin{highlight}{CSS class container selections}
-    \begin{code}{html}
-		.red h2 {color: red;}
+    \begin{code}{css}
+        .red h2 {color: red;}
     \end{code}
 \end{highlight}
 All \mintinline{html}{h2} elements with the class \mintinline{html}{red} will be selected like:
 \begin{highlight}{CSS class element selectors}
-    \begin{code}{html}
-		h2.red {color: red;}
+    \begin{code}{css}
+        h2.red {color: red;}
     \end{code}
 \end{highlight}

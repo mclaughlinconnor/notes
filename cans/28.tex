@@ -3,9 +3,9 @@
 In a network, nodes learn only a subset of the network topology and runs an algorithm to decide where to forward packets destined for other hosts.
 
 \begin{itemize}
-	\item End hosts (consumer devices) usually only know what is and isn't on your local network and use only a simple algorithm.
-	      If a packet is for the outside network, packets are sent to the default gateway.
-	\item Gateway devices (routers) exchange information to decide on the best route based on their knowledge of the network.
+    \item End hosts (consumer devices) usually only know what is and isn't on your local network and use only a simple algorithm.
+          If a packet is for the outside network, packets are sent to the default gateway.
+    \item Gateway devices (routers) exchange information to decide on the best route based on their knowledge of the network.
 \end{itemize}
 
 \subsection{Unicast Routing}\label{sub:unicast_routing}
@@ -13,9 +13,9 @@ In a network, nodes learn only a subset of the network topology and runs an algo
 We route to deliver packets from one source to one destination.
 The choice of algorithm used can vary:
 \begin{itemize}
-	\item Intra-domain routing
-	\item Inter-domain routing
-	\item Politics and economics
+    \item Intra-domain routing
+    \item Inter-domain routing
+    \item Politics and economics
 \end{itemize}
 
 \subsubsection{Inter-domain unicast routing}\label{ssub:inter_domain_unicast_routing}
@@ -32,8 +32,8 @@ With access to the whole network, you can make the best use of the network you h
 
 There are two approaches to routing packets in an intra domain system:
 \begin{itemize}
-	\item Link state
-	\item Distance
+    \item Link state
+    \item Distance
 \end{itemize}
 
 \subsection{Inter-domain Routing}\label{sub:inter_domain_routing}
@@ -44,7 +44,7 @@ Each network is treated as a single node and routing is done ignoring the intern
 The network is made up of autonomous systems where each autonomous system is an independently administered network.
 
 \begin{note}
-	Some nodes can have several exit points (``not on the edge''), so there needs to be some logic here, or a ``routing table''.
+    Some nodes can have several exit points (``not on the edge''), so there needs to be some logic here, or a ``routing table''.
 \end{note}
 
 \subsubsection{Edge Routing}\label{ssub:edge_routing}
@@ -52,10 +52,10 @@ The network is made up of autonomous systems where each autonomous system is an 
 Where you have multiple exits to a network, you have a \emph{default free zone} where there is no default exit point.
 We must route based on policies and not the shortest route.
 \begin{itemize}
-	\item Use autonomous system \(x\) in preference to AS \(y\).
-	\item Use AS \(x\) to reach only specific addresses
-	\item Use the path that crosses the fewest ASes
-	\item Avoid ASes located in a country.
+    \item Use autonomous system \(x\) in preference to AS \(y\).
+    \item Use AS \(x\) to reach only specific addresses
+    \item Use the path that crosses the fewest ASes
+    \item Avoid ASes located in a country.
 \end{itemize}
 All of these require a complete AS-level knowledge of the network.
 
@@ -72,38 +72,38 @@ Intra-domain routing works inside of a domain (any network or internetwork opera
 Each node has a table containing the distance to each node in the network which is periodically exchanged with neighbours so eventually each node will know the distance to all other nodes (``converges'')
 
 \begin{note}
-	Nodes only update their own tables if there has been a change on another node.
+    Nodes only update their own tables if there has been a change on another node.
 \end{note}
 At each node we store the following data for each node in the network:
 \begin{itemize}
-	\item Cost which is the length of the path to \(x\).
-	\item The next hop which is the next node on the path to \(x\).
-	      A \(-\) signifies an unknown hop and a \(\cdot\) signifies that no hop is needed.
+    \item Cost which is the length of the path to \(x\).
+    \item The next hop which is the next node on the path to \(x\).
+          A \(-\) signifies an unknown hop and a \(\cdot\) signifies that no hop is needed.
 \end{itemize}
 
 \paragraph{Time Step One}\label{par:time_step_one}
 
 \begin{itemize}
-	\item Nodes are initialised and only know their immediate neighbours.
-	\item All nodes update their own local rows with their neighbours too.
+    \item Nodes are initialised and only know their immediate neighbours.
+    \item All nodes update their own local rows with their neighbours too.
 \end{itemize}
 
 \paragraph{Time Step Two}\label{par:time_step_two}
 
 \begin{itemize}
-	\item Routing data has spread by one hop so we can reach nodes two hops away (each node knows its neighbours).
-	\item Nodes report their route tables to their neighbouring nodes, which are merged together to find the shortest routes.
-	\item At the end of the second time step, we can reach nodes three stops away.
+    \item Routing data has spread by one hop so we can reach nodes two hops away (each node knows its neighbours).
+    \item Nodes report their route tables to their neighbouring nodes, which are merged together to find the shortest routes.
+    \item At the end of the second time step, we can reach nodes three stops away.
 \end{itemize}
 
 \paragraph{Time Step Three}\label{par:time_step_three}
 
 \begin{itemize}
-	\item (From the example) routing data has spread two hops and the routing tables are now complete.
+    \item (From the example) routing data has spread two hops and the routing tables are now complete.
 \end{itemize}
 
 \paragraph{Time Step Four}\label{par:time_step_four}
 
 \begin{itemize}
-	\item Nodes continue to exchange distance metrics in case the network topology changes.
+    \item Nodes continue to exchange distance metrics in case the network topology changes.
 \end{itemize}

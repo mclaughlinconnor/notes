@@ -10,7 +10,7 @@ Just like with binary counting \(V=2^n\), but you don't have to use all values.
 The \textbf{A}merican \textbf{S}tandard \textbf{C}ode for \textbf{I}nformation \textbf{I}nterchange encodes text with \(7\) bits which are made up of \(94\) printable character and \(34\) non-printable characters.
 
 \begin{note}
-	ASCII also encodes numbers, but here \(\textrm{``5''} \neq 5\).
+    ASCII also encodes numbers, but here \(\textrm{``5''} \neq 5\).
 \end{note}
 
 \subsection{Unicode}\label{sub:unicode}
@@ -35,7 +35,7 @@ There are three basic boolean logic operators: AND (\(\land\), \(\cdot\)), OR (\
 Eg.\ \(A \cdot B\) is the same as \(A\) AND \(B\)
 
 \begin{note}
-	\(1+1=2\), but also \(1+1=1\) so context is very important.
+    \(1+1=2\), but also \(1+1=1\) so context is very important.
 \end{note}
 A \emph{truth table} is used to define the relationship between all inputs and outputs.
 For \(n\) inputs, there are \(2^{n}\) outputs.
@@ -48,169 +48,169 @@ Next vacuum tubes were used.
 And now, we use transistors instead.
 
 \begin{highlight}{The AND gate}
-	An AND gate has an output whenever both inputs are on.
+    An AND gate has an output whenever both inputs are on.
 
-	\begin{minipage}{0.45\linewidth}
-		\begin{figure}[H]
-			\centering
-			\begin{circuitikz}
-				\draw
-				node[and port] (and) {}
-				(and.in 1) node[anchor=east] {A}
-				(and.in 2) node[anchor=east] {B}
-				(and.out) node[anchor=west] {Y};
-			\end{circuitikz}
-			\medskip
+    \begin{minipage}{0.45\linewidth}
+        \begin{figure}[H]
+            \centering
+            \begin{circuitikz}
+                \draw
+                node[and port] (and) {}
+                (and.in 1) node[anchor=east] {A}
+                (and.in 2) node[anchor=east] {B}
+                (and.out) node[anchor=west] {Y};
+            \end{circuitikz}
+            \medskip
 
-			The AND logic gate
-		\end{figure}
-	\end{minipage}
-	\hfill
-	\begin{minipage}{0.45\linewidth}
-		\begin{figure}[H]
-			\centering
-			\begin{circuitikz}
-				\draw (0,-1) coordinate (origin) to[battery] ++(0,2) to[nos=\(A\)] ++(2,0) to[nos=\(B\)] ++(2,0) to[lamp] ++(0,-2) -- (origin);
-			\end{circuitikz}
-			\medskip
+            The AND logic gate
+        \end{figure}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\linewidth}
+        \begin{figure}[H]
+            \centering
+            \begin{circuitikz}
+                \draw (0,-1) coordinate (origin) to[battery] ++(0,2) to[nos=\(A\)] ++(2,0) to[nos=\(B\)] ++(2,0) to[lamp] ++(0,-2) -- (origin);
+            \end{circuitikz}
+            \medskip
 
-			An example of the AND gate
-		\end{figure}
-	\end{minipage}
-	\medskip
+            An example of the AND gate
+        \end{figure}
+    \end{minipage}
+    \medskip
 \end{highlight}
 
 \begin{highlight}{The OR gate}
-	The OR gate has an output whenever one of the inputs is on.
+    The OR gate has an output whenever one of the inputs is on.
 
-	\begin{minipage}{0.45\linewidth}
-		\begin{figure}[H]
-			\centering
-			\begin{circuitikz}
-				\draw
-				node[or port] (or) {}
-				(or.in 1) node[anchor=east] {A}
-				(or.in 2) node[anchor=east] {B}
-				(or.out) node[anchor=west] {Y};
-			\end{circuitikz}
-			\medskip
+    \begin{minipage}{0.45\linewidth}
+        \begin{figure}[H]
+            \centering
+            \begin{circuitikz}
+                \draw
+                node[or port] (or) {}
+                (or.in 1) node[anchor=east] {A}
+                (or.in 2) node[anchor=east] {B}
+                (or.out) node[anchor=west] {Y};
+            \end{circuitikz}
+            \medskip
 
-			The OR logic gate
-		\end{figure}
-	\end{minipage}
-	\hfill
-	\begin{minipage}{0.45\linewidth}
-		\begin{figure}[H]
-			\centering
-			\begin{circuitikz}
-				\draw (0,-1) coordinate (origin) to[battery] ++(0,2) to[short,-*] ++(0.5,0) coordinate (forkpoint)%to[nos=\(A\)] ++(2,0) to[nos=\(B\)] ++(2,0) to[lamp] ++(0,-2) -- (origin);
-				(forkpoint) -- ++(0,-0.5) to[nos=\(B\)] ++(2,0) -| ++(0.5,0.5) coordinate (forkjoin)
-				(forkpoint) -- ++(0,0.5) to[nos=\(A\)] ++(2,0) -| (forkjoin) -- ++(0.5,0) to[lamp] ++(0,-2) -- (origin);
-			\end{circuitikz}
-			\medskip
+            The OR logic gate
+        \end{figure}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\linewidth}
+        \begin{figure}[H]
+            \centering
+            \begin{circuitikz}
+                \draw (0,-1) coordinate (origin) to[battery] ++(0,2) to[short,-*] ++(0.5,0) coordinate (forkpoint)%to[nos=\(A\)] ++(2,0) to[nos=\(B\)] ++(2,0) to[lamp] ++(0,-2) -- (origin);
+                (forkpoint) -- ++(0,-0.5) to[nos=\(B\)] ++(2,0) -| ++(0.5,0.5) coordinate (forkjoin)
+                (forkpoint) -- ++(0,0.5) to[nos=\(A\)] ++(2,0) -| (forkjoin) -- ++(0.5,0) to[lamp] ++(0,-2) -- (origin);
+            \end{circuitikz}
+            \medskip
 
-			An example of the OR gate
-		\end{figure}
-	\end{minipage}
-	\medskip
+            An example of the OR gate
+        \end{figure}
+    \end{minipage}
+    \medskip
 \end{highlight}
 
 \begin{highlight}{The NOT gate}
-	\begin{minipage}{0.45\linewidth}
-		\begin{figure}[H]
-			\centering
-			\begin{circuitikz}
-				\draw
-				node[not port] (gate) {}
-				(gate.in 1) node[anchor=east] {A}
-				(gate.out) node[anchor=west] {Y};
-			\end{circuitikz}
-		\end{figure}
-	\end{minipage}
-	\hfill
-	\begin{minipage}{0.45\linewidth}
-		The output is inverted to the output.
-	\end{minipage}
-	\medskip
+    \begin{minipage}{0.45\linewidth}
+        \begin{figure}[H]
+            \centering
+            \begin{circuitikz}
+                \draw
+                node[not port] (gate) {}
+                (gate.in 1) node[anchor=east] {A}
+                (gate.out) node[anchor=west] {Y};
+            \end{circuitikz}
+        \end{figure}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\linewidth}
+        The output is inverted to the output.
+    \end{minipage}
+    \medskip
 \end{highlight}
 
 \begin{highlight}{The BUFFER gate}
-	\begin{minipage}{0.45\linewidth}
-		\begin{figure}[H]
-			\centering
-			\begin{circuitikz}
-				\draw
-				node[buffer port] (gate) {}
-				(gate.in 1) node[anchor=east] {A}
-				(gate.out) node[anchor=west] {Y};
-			\end{circuitikz}
-		\end{figure}
-	\end{minipage}
-	\hfill
-	\begin{minipage}{0.45\linewidth}
-		The input is exactly the same as the output.
-	\end{minipage}
-	\medskip
+    \begin{minipage}{0.45\linewidth}
+        \begin{figure}[H]
+            \centering
+            \begin{circuitikz}
+                \draw
+                node[buffer port] (gate) {}
+                (gate.in 1) node[anchor=east] {A}
+                (gate.out) node[anchor=west] {Y};
+            \end{circuitikz}
+        \end{figure}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\linewidth}
+        The input is exactly the same as the output.
+    \end{minipage}
+    \medskip
 \end{highlight}
 
 \begin{highlight}{The NAND gate}
-	\begin{minipage}{0.45\linewidth}
-		\begin{figure}[H]
-			\centering
-			\begin{circuitikz}
-				\draw
-				node[nand port] (gate) {}
-				(gate.in 1) node[anchor=east] {A}
-				(gate.in 2) node[anchor=east] {B}
-				(gate.out) node[anchor=west] {Y};
-			\end{circuitikz}
-		\end{figure}
-	\end{minipage}
-	\hfill
-	\begin{minipage}{0.45\linewidth}
-		The output is on, unless both inputs are on.
-	\end{minipage}
-	\medskip
+    \begin{minipage}{0.45\linewidth}
+        \begin{figure}[H]
+            \centering
+            \begin{circuitikz}
+                \draw
+                node[nand port] (gate) {}
+                (gate.in 1) node[anchor=east] {A}
+                (gate.in 2) node[anchor=east] {B}
+                (gate.out) node[anchor=west] {Y};
+            \end{circuitikz}
+        \end{figure}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\linewidth}
+        The output is on, unless both inputs are on.
+    \end{minipage}
+    \medskip
 \end{highlight}
 
 \begin{highlight}{The NOR gate}
-	\begin{minipage}{0.45\linewidth}
-		\begin{figure}[H]
-			\centering
-			\begin{circuitikz}
-				\draw
-				node[nor port] (gate) {}
-				(gate.in 1) node[anchor=east] {A}
-				(gate.in 2) node[anchor=east] {B}
-				(gate.out) node[anchor=west] {Y};
-			\end{circuitikz}
-		\end{figure}
-	\end{minipage}
-	\hfill
-	\begin{minipage}{0.45\linewidth}
-		The output is on only if both inputs are off.
-	\end{minipage}
-	\medskip
+    \begin{minipage}{0.45\linewidth}
+        \begin{figure}[H]
+            \centering
+            \begin{circuitikz}
+                \draw
+                node[nor port] (gate) {}
+                (gate.in 1) node[anchor=east] {A}
+                (gate.in 2) node[anchor=east] {B}
+                (gate.out) node[anchor=west] {Y};
+            \end{circuitikz}
+        \end{figure}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\linewidth}
+        The output is on only if both inputs are off.
+    \end{minipage}
+    \medskip
 \end{highlight}
 
 \begin{highlight}{The XOR gate}
-	\begin{minipage}{0.45\linewidth}
-		\begin{figure}[H]
-			\centering
-			\begin{circuitikz}
-				\draw
-				node[xor port] (gate) {}
-				(gate.in 1) node[anchor=east] {A}
-				(gate.in 2) node[anchor=east] {B}
-				(gate.out) node[anchor=west] {Y};
-			\end{circuitikz}
-		\end{figure}
-	\end{minipage}
-	\hfill
-	\begin{minipage}{0.45\linewidth}
-		Sometimes called an exclusive OR. The output is on if only one of the inputs is on.
-	\end{minipage}
-	\medskip
+    \begin{minipage}{0.45\linewidth}
+        \begin{figure}[H]
+            \centering
+            \begin{circuitikz}
+                \draw
+                node[xor port] (gate) {}
+                (gate.in 1) node[anchor=east] {A}
+                (gate.in 2) node[anchor=east] {B}
+                (gate.out) node[anchor=west] {Y};
+            \end{circuitikz}
+        \end{figure}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\linewidth}
+        Sometimes called an exclusive OR. The output is on if only one of the inputs is on.
+    \end{minipage}
+    \medskip
 \end{highlight}
 
 \section{Boolean Algebra}\label{sec:boolean_algebra}
@@ -218,10 +218,10 @@ And now, we use transistors instead.
 \subsection{Operations with Constants}\label{sub:operations_with_constants}
 
 \begin{itemize}
-	\item \(\mathbf{x \cdot 0 = 0}\): ANDing any variable with \(0\) gives \(0\).
-	\item \(\mathbf{x \cdot 1 = x}\): ANDing any variable with \(1\) gives the original variable.
-	\item \(\mathbf{x + 0 = x}\): ORing \(x\) with \(0\) gives \(x\).
-	\item \(\mathbf{x + 1 = 1}\): ORing \(x\) with \(1\) gives \(1\).
+    \item \(\mathbf{x \cdot 0 = 0}\): ANDing any variable with \(0\) gives \(0\).
+    \item \(\mathbf{x \cdot 1 = x}\): ANDing any variable with \(1\) gives the original variable.
+    \item \(\mathbf{x + 0 = x}\): ORing \(x\) with \(0\) gives \(x\).
+    \item \(\mathbf{x + 1 = 1}\): ORing \(x\) with \(1\) gives \(1\).
 \end{itemize}
 
 \subsection{Idempotence}\label{sub:idempotence}
@@ -230,8 +230,8 @@ And now, we use transistors instead.
 For example:
 
 \begin{itemize}
-	\item \(x + x = x\)
-	\item \(x \cdot x = x\)
+    \item \(x + x = x\)
+    \item \(x \cdot x = x\)
 \end{itemize}
 
 \subsection{Commutativity}\label{sub:commutativity}
@@ -240,8 +240,8 @@ For example:
 For example:
 
 \begin{itemize}
-	\item \(x+y=y+x\)
-	\item \(x \cdot y = y \cdot x\)
+    \item \(x+y=y+x\)
+    \item \(x \cdot y = y \cdot x\)
 \end{itemize}
 
 \subsection{Associativity}\label{sub:associativity}
@@ -250,8 +250,8 @@ The term \emph{associativity} refers to the idea that terms can be grouped in br
 For example:
 
 \begin{itemize}
-	\item \(x + (y + z) = (x + y) + z\)
-	\item \(x \cdot (y \cdot z) = (x \cdot y) \cdot z\)
+    \item \(x + (y + z) = (x + y) + z\)
+    \item \(x \cdot (y \cdot z) = (x \cdot y) \cdot z\)
 \end{itemize}
 
 \subsection{Logical Reasoning}\label{sub:logical_reasoning}
@@ -262,34 +262,34 @@ To answer this, you can either use a truth table to brute force the answer, or y
 \subsubsection{Example}\label{ssub:example}
 
 \begin{highlight}{Simplifying a boolean expression}
-	\begin{minipage}{0.40\linewidth}
-		\begin{circuitikz}[scale=0.75]
-			\draw
-			node[and port] (and) {}
+    \begin{minipage}{0.40\linewidth}
+        \begin{circuitikz}[scale=0.75]
+            \draw
+            node[and port] (and) {}
 
-			node[or port, below right=of and] (or) {}
+            node[or port, below right=of and] (or) {}
 
-			node at ([xshift=-5mm]and.in 1) {\(0\)}
-			node at ([xshift=-5mm]and.in 2) {\(p\)}
+            node at ([xshift=-5mm]and.in 1) {\(0\)}
+            node at ([xshift=-5mm]and.in 2) {\(p\)}
 
-			(and.out) |- (or.in 1)
+            (and.out) |- (or.in 1)
 
-			node at ([xshift=-5mm]or.in 2) {\(q\)}
-			;
-		\end{circuitikz}
-	\end{minipage}
-	\hfill
-	\begin{minipage}{0.57\linewidth}
-		\centering
-		\begin{align*}
-			(0 \cdot p) + q & = (p \cdot 0) + q &  & \text{Commutative law}    \\
-			(0 \cdot p) + q & = 0 + q           &  & \text{Constant operation} \\
-			(0 \cdot p) + q & = q               &  & \text{Constant operation}
-		\end{align*}
+            node at ([xshift=-5mm]or.in 2) {\(q\)}
+            ;
+        \end{circuitikz}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.57\linewidth}
+        \centering
+        \begin{align*}
+            (0 \cdot p) + q & = (p \cdot 0) + q &  & \text{Commutative law}    \\
+            (0 \cdot p) + q & = 0 + q           &  & \text{Constant operation} \\
+            (0 \cdot p) + q & = q               &  & \text{Constant operation}
+        \end{align*}
 
-		\begin{circuitikz}
-			\draw node {\(q\)} (0.5,0) to[short] (2, 0);
+        \begin{circuitikz}
+            \draw node {\(q\)} (0.5,0) to[short] (2, 0);
 
-		\end{circuitikz}
-	\end{minipage}
+        \end{circuitikz}
+    \end{minipage}
 \end{highlight}

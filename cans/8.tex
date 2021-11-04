@@ -17,49 +17,49 @@ If we were to create a general system that uses control signals to do many diffe
 
 There were four components that separated the IAS from computers before it:
 \begin{enumerate}
-	\item Memory stored both programs and data
-	\item An ALU operated using binary data
-	\item A control unit interprets and executes instructions from memory
-	\item IO is controlled by a control unit
+    \item Memory stored both programs and data
+    \item An ALU operated using binary data
+    \item A control unit interprets and executes instructions from memory
+    \item IO is controlled by a control unit
 \end{enumerate}
 %
 Most computers have this architecture.
 The von Neuman machine is a model saying:
 \begin{itemize}
-	\item There should be four main subsystems (above)
-	\item Stored program concept: store programs in memory
-	\item Sequential execution of instructions (fetch, decode, execute)
+    \item There should be four main subsystems (above)
+    \item Stored program concept: store programs in memory
+    \item Sequential execution of instructions (fetch, decode, execute)
 \end{itemize}
 %
 The von Neuman machines have a selection of special registers to use also:
 \begin{itemize}
-	\item \(PC\): Program Counter - stores the index of the current instruction
-	\item \(IR\): Instruction Register - stores the current instruction
-	\item \(MAR\): Memory Address Register - what memory is currently being read from
-	\item \(MBR\): Memory Buffer Register - what data was just read.
-	\item \(IO AR\): Input/Output Address Register - what IO memory register is currently being read from
-	\item \(IO BR\): Input/Output Buffer Register - what data was just read from an IO register
+    \item \(PC\): Program Counter - stores the index of the current instruction
+    \item \(IR\): Instruction Register - stores the current instruction
+    \item \(MAR\): Memory Address Register - what memory is currently being read from
+    \item \(MBR\): Memory Buffer Register - what data was just read.
+    \item \(IO AR\): Input/Output Address Register - what IO memory register is currently being read from
+    \item \(IO BR\): Input/Output Buffer Register - what data was just read from an IO register
 \end{itemize}
 
 \subsection{Instruction Cycle}\label{sub:instruction_cycle}
 
 \begin{highlight}{The fetch-execute cycle}
-	\begin{tikzpicture}
-		\draw
-		node (s) {Start}
-		node[right=of s] (f) {Fetch}
-		node[right=of f] (e) {Execute}
-		node[right=of e] (h) {Halt};
-		\draw[->] (s) -- (f);
-		\draw[->] (f) -- (e);
-		\draw[->] (e) -- (h);
-		\draw[->] (e) -- ++(0,-5mm) -| (f);
-	\end{tikzpicture}
+    \begin{tikzpicture}
+        \draw
+        node (s) {Start}
+        node[right=of s] (f) {Fetch}
+        node[right=of f] (e) {Execute}
+        node[right=of e] (h) {Halt};
+        \draw[->] (s) -- (f);
+        \draw[->] (f) -- (e);
+        \draw[->] (e) -- (h);
+        \draw[->] (e) -- ++(0,-5mm) -| (f);
+    \end{tikzpicture}
 \end{highlight}
 \begin{enumerate}
-	\item The program fetches the instruction at the program counter
-	\item We increment the program counter (unless explicitly told not to when doing branches)
-	\item Load the instruction to the instruction register
+    \item The program fetches the instruction at the program counter
+    \item We increment the program counter (unless explicitly told not to when doing branches)
+    \item Load the instruction to the instruction register
 \end{enumerate}
 %
 There are four types of instruction: processor, memory; processor, IO; data processing; and control which may be combined together.

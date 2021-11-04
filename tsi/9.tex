@@ -3,37 +3,35 @@
 \subsection{Over Testing Why?}\label{sub:over_testing_why_}
 
 \begin{itemize}
-	\item Unnecessary tests can break
-	\item Confusion and lost time to determine faults are with tests
-	\item Excessive time managing test and reworking them
-	\item People can just be making tests to bump coverage.
+    \item Unnecessary tests can break
+    \item Confusion and lost time to determine faults are with tests
+    \item Excessive time managing test and reworking them
+    \item People can just be making tests to bump coverage.
 \end{itemize}
 
 \subsection{Over Testing What?}\label{sub:over_testing_what_}
 
 \begin{itemize}
-	\item Testing for position of elements in arrays is bad (unless sorted).
-	\item In JSON, look for the presence of attributes and not the position in case the old data changes.
-	\item Looking for specific data can be bad.
-	\item Testing for assumptions (eg.\ specific currency or timezone) and not requirements is bad.
-	\item The developer could guess that there should always be a middle name, but in reality not every one has a middle name.
+    \item Testing for position of elements in arrays is bad (unless sorted).
+    \item In JSON, look for the presence of attributes and not the position in case the old data changes.
+    \item Looking for specific data can be bad.
+    \item Testing for assumptions (eg.\ specific currency or timezone) and not requirements is bad.
+    \item The developer could guess that there should always be a middle name, but in reality not every one has a middle name.
 \end{itemize}
 
 \subsection{Under Testing Why?}\label{sub:under_testing_why_}
 
 \begin{itemize}
-	\item Missed tests may break once in production
-	\item Lack of regression testing, so there's a lack of confidence to maintain and improve
-	\item Technical debt to resolve missing tests (just don't do work for a few weeks while you add tests?)
+    \item Missed tests may break once in production
+    \item Lack of regression testing, so there's a lack of confidence to maintain and improve
+    \item Technical debt to resolve missing tests (just don't do work for a few weeks while you add tests?)
 \end{itemize}
 
 \subsection{Under Testing What?}\label{sub:under_testing_what_}
 
 \begin{itemize}
-	\item Are you missing edge cases?
-	\item Are you missing tests for some requirements.
-	\item You might only be testing for positive paths through the software (are you testing for failures and no responses?).
-	\item Are you testing for exceptions?
+    \item Are you missing edge cases?
+    \item Are you missing tests for some requirements.
+    \item You might only be testing for positive paths through the software (are you testing for failures and no responses?).
+    \item Are you testing for exceptions?
 \end{itemize}
-
-

@@ -3,19 +3,19 @@
 \subsection{Dictionaries cont.}\label{sub:dictionaries_cont_}
 
 \begin{itemize}
-	\item \mintinline{python}{len()} can be used to get the number of values in a dictionary.
-	\item \mintinline{python}{items.keys()} and \mintinline{python}{items.values()} can be used to get keys and values.
-	\item \mintinline{python}{"one" in items} can be used to test whether key "one" is in \mintinline{python}{items}.
-	      This is mostly used for keeping track of values that have been seen before.
-	      Time to calculate this does not vary with the length of the dictionary.
-	\item \mintinline{python}{items.update()} will merge two dictionaries overwriting the values in the first from the second.
-	\item \mintinline{python}{items.copy()} works the same as with lists where just assigning creates a reference only.
-	      \mintinline{python}{.copy()} only creates a new instance of the dictionary itself, but the values themselves are still references.
-	      \mintinline{python}{copy.deepcopy()} should be used to create new instances of the values too.
-	\item Dictionaries can be iterated over just like lists by performing a \mintinline{python}{for} loop:
-	      \mintinline{python}{for key in items} loops over the keys.
-	      \mintinline{python}{for value in items.values()} loops over the values of the dictionary.
-	      \mintinline{python}{for key, value in items.items()} loops over the keys and values at the same time.
+    \item \mintinline{python}{len()} can be used to get the number of values in a dictionary.
+    \item \mintinline{python}{items.keys()} and \mintinline{python}{items.values()} can be used to get keys and values.
+    \item \mintinline{python}{"one" in items} can be used to test whether key "one" is in \mintinline{python}{items}.
+          This is mostly used for keeping track of values that have been seen before.
+          Time to calculate this does not vary with the length of the dictionary.
+    \item \mintinline{python}{items.update()} will merge two dictionaries overwriting the values in the first from the second.
+    \item \mintinline{python}{items.copy()} works the same as with lists where just assigning creates a reference only.
+          \mintinline{python}{.copy()} only creates a new instance of the dictionary itself, but the values themselves are still references.
+          \mintinline{python}{copy.deepcopy()} should be used to create new instances of the values too.
+    \item Dictionaries can be iterated over just like lists by performing a \mintinline{python}{for} loop:
+          \mintinline{python}{for key in items} loops over the keys.
+          \mintinline{python}{for value in items.values()} loops over the values of the dictionary.
+          \mintinline{python}{for key, value in items.items()} loops over the keys and values at the same time.
 \end{itemize}
 
 \subsection{JavaScript Object Notation (JSON)}\label{sub:javascript_object_notation_json_}
