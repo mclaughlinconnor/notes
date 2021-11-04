@@ -54,13 +54,15 @@ Inheritance means that an object only has to define what makes it unique which m
 Polymorphism allows a single interface to be used as a single class of actions: ``one class, multiple methods''.
 It means you can design a generic interface to several related activities to reduce complexity and let the computer decide which action to perform.
 %
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{python}
-class Dog:
-    def look(h: Human):
-        love(h)
+\begin{highlight}{Polymorphism}
+	\begin{code}{python}
+		class Dog:
+            def look(h: Human):
+                love(h)
 
-    def look(s: Squirell):
-        hate(s)
-\end{minted}
+            def look(s: Squirell):
+                hate(s)
+	\end{code}
+\end{highlight}
 %
 Both functions have the same name, but perform different actions based on the parameter passed in.

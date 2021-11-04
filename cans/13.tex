@@ -26,18 +26,22 @@ We must use registers instead of variables since we are talking directly to the 
 \subsection{Hello World}\label{sub:hello_world}
 
 Our RTM circuit could do:
-\begin{align*}
-	R_3 & := R_2+R_1 ; \text{add two registers and load the result}     \\
-	R_3 & :=R_2-R_1 ; \text{subtract two registers and load the result} \\
-	R1  & := 8 ; \text{load a constant (immediate operand)}
-\end{align*}
+\begin{highlight}{RTM circuit}
+	\begin{align*}
+		R_3 & := R_2+R_1 ; \text{add two registers and load the result}     \\
+		R_3 & :=R_2-R_1 ; \text{subtract two registers and load the result} \\
+		R1  & := 8 ; \text{load a constant (immediate operand)}
+	\end{align*}
+\end{highlight}
 Now in Sigma16's assembly:
 
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{asm}
-add R3,R2,R1 ; means R3 := R2 + R1
-sub R3,R2,R1 ; means R3 := R2 - R1
-lea R1,8[R0] ; means R1 := 8
-\end{minted}
+\begin{highlight}{RTM circuit in Sigma16}
+	\begin{code}{asm}
+		add R3,R2,R1 ; means R3 := R2 + R1
+		sub R3,R2,R1 ; means R3 := R2 - R1
+		lea R1,8[R0] ; means R1 := 8
+	\end{code}
+\end{highlight}
 
 \subsection{The add instruction}\label{sub:the_add_instruction}
 
@@ -65,14 +69,17 @@ Why use the instruction notation instead of the maths notation? Because with the
 
 \subsection{Simple program}\label{sub:simple_program}
 
-\begin{itemize}
-	\item \textbf{Problem} given three integers in \(R_1\), \(R_2\) and \(R_3\), calculate  \(R_1+R_2+R_3\) and put it into \(R_4\).
-	\item \textbf{Solution}
-	      \begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{asm}
-add R4,R1,R2 ; R4 := R1+R2
-add R4,R4,R3 ; R4 := (R1_R2)+R3
-            \end{minted}
-\end{itemize}
+\begin{highlight}{Simple RTM program}
+	\begin{description}
+		\item[Problem] given three integers in \(R_1\), \(R_2\) and \(R_3\), calculate  \(R_1+R_2+R_3\) and put it into \(R_4\).
+		\item[Solution]
+
+			\begin{code}{asm}
+				add R4,R1,R2 ; R4 := R1+R2
+				add R4,R4,R3 ; R4 := (R1_R2)+R3
+			\end{code}
+	\end{description}
+\end{highlight}
 
 \subsection{Another example}\label{sub:another_example}
 
@@ -97,12 +104,14 @@ This tells the computer to halt, it stops the execution of the program.
 
 \subsection{Defining variables (data) in memory}\label{sub:defining_variables_data_in_memory}
 
-Do:
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{asm}
-x data 34 ; x is a variable with initial value 34
-y data 9 ; y is initially 9
-abc data $02c6 ; specify initial value as hex
-\end{minted}
+To define data variables in memory we must do:
+\begin{highlight}{Defining variables in memory}
+	\begin{code}{asm}
+		x data 34 ; x is a variable with initial value 34
+		y data 9 ; y is initially 9
+		abc data $02c6 ; specify initial value as hex
+	\end{code}
+\end{highlight}
 Data statements should come after all the instructions in the programs.
 The ``booter'' code starts execution at location \(0\).
 

@@ -29,28 +29,28 @@ The flip flop introduces a whole new design paradigm.
 
 \subsubsection{Understanding Feedback}\label{ssub:understanding_feedback}
 
-\begin{minipage}{0.50\linewidth}
-	\begin{circuitikz}
-		\draw
-		node[not port] (notone) {}
-		node[not port, right=of notone] (nottwo) {}
-		node[right=of nottwo] (q) {\(Q\)}
+\begin{highlight}{A flip flop}
+	\begin{minipage}{0.50\linewidth}
+		\begin{circuitikz}
+			\draw
+			node[not port] (notone) {}
+			node[not port, right=of notone] (nottwo) {}
+			node[right=of nottwo] (q) {\(Q\)}
 
-		(notone.in) -- ([xshift=-5mm]notone.in) |- ([yshift=15mm]$(nottwo.out)!.5!(q)$) -- ($(nottwo.out)!.5!(q)$)
-		(nottwo.out) -- (q)
-		(notone.out) -- (nottwo.in);
-	\end{circuitikz}
-\end{minipage}
-\hfill
-\begin{minipage}{0.40\linewidth}
-	If \(Q\) is \(1\), it will always be \(1\) and if \(Q\) is ever \(0\), it will always be \(0\).
-\end{minipage}
-
+			(notone.in) -- ([xshift=-5mm]notone.in) |- ([yshift=15mm]$(nottwo.out)!.5!(q)$) -- ($(nottwo.out)!.5!(q)$)
+			(nottwo.out) -- (q)
+			(notone.out) -- (nottwo.in);
+		\end{circuitikz}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.40\linewidth}
+		If \(Q\) is \(1\), it will always be \(1\) and if \(Q\) is ever \(0\), it will always be \(0\).
+	\end{minipage}
+\end{highlight}
 There is one problem with this circuit though: it cannot be set or reset.
 We can switch it out with some NOR and AND gates to allow for these missing features.
 
-\begin{figure}[H]
-	\centering
+\begin{highlight}{A resettable flip flop}
 	\begin{circuitikz}
 		\draw
 		node[nor port] (norone) {}
@@ -72,9 +72,7 @@ We can switch it out with some NOR and AND gates to allow for these missing feat
 		(nortwo.out) node[circ] {} -- ([yshift=-2mm]$(norone.out)!.5!(nortwo.out)$) -- ++(-1.8,0) |- (norone.in 2)
 		;
 	\end{circuitikz}
-	\caption{A resettable flip flop}
-	\label{fig:resettable_flip_flop}
-\end{figure}
+\end{highlight}
 
 \subsubsection{Synchronicity with flip flops}\label{ssub:synchronicity_with_flip_flops}
 

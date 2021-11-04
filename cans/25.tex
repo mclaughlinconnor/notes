@@ -167,23 +167,25 @@ The bandwidth of a channel defines the frequency range it can transport (based o
 The maximum transmission rate of a digital signal depends on the channel bandwidth:
 
 \smallskip
-\begin{minipage}{0.4\linewidth}
-	\centering
-	\scalebox{2}{
-		\begin{math}
-			R_{max} = 2H\log_2 V
-		\end{math}
-	}
-\end{minipage}
-\hfill
-\begin{minipage}{0.55\linewidth}
-	Where:
-	\begin{itemize}
-		\item \( R_{max} \) = maximum transmission rate of channel (bits per second)
-		\item \(H\) = Bandwidth \(Hz\)
-		\item \(V\) = number of possible discrete values per symbol (the size of the alphabet used).
-	\end{itemize}
-\end{minipage}
+\begin{highlight}{Bandwidth formula}
+	\begin{minipage}{0.50\linewidth}
+		\centering
+		\scalebox{2}{
+			\begin{math}
+				R_{max} = 2H\log_2 V
+			\end{math}
+		}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.45\linewidth}
+		Where:
+		\begin{itemize}
+			\item \( R_{max} \) = maximum transmission rate of channel (bits per second)
+			\item \(H\) = Bandwidth \(Hz\)
+			\item \(V\) = number of possible discrete values per symbol (the size of the alphabet used).
+		\end{itemize}
+	\end{minipage}
+\end{highlight}
 \begin{note}
 	We assume a noise free channel here.
 \end{note}

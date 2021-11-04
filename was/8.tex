@@ -34,27 +34,31 @@ There are lots of added features for images, animations and lots more.
 
 jQuery uses a patterns of selecting and acting on a particular DOM element and altering its parameters.
 Selectors can be reused.
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{javascript}
-$('p').css('color', 'blue');
-\end{minted}
+\begin{highlight}{jQuery basic syntax}
+	\begin{code}{javascript}
+		$('p').css('color', 'blue');
+	\end{code}
+\end{highlight}
 jQuery uses the pattern, making use of anonymous functions and chaining functions together.
 We can use \mintinline{javascript}{(document).ready} to make sure the document is loaded before we to anything to it.
+
 \begin{note}
 	Instead of using \mintinline{javascript}{$(document).ready()}, we can use \mintinline{javascript}{$()} as shorthand.
 \end{note}
 
 \subsection{Attaching Event Handlers}\label{sub:attaching_event_handlers}
 
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{javascript}
-$(document).ready(function() {
-  $("#button").click(function() {
-    $("#message").css("color", "blue");
-    if ($("#message").is(":visible")) {
-      $("#message").hide();
-    } else {
-      $("#message").show();   
-    }
-  })
-})
-\end{minted}
-
+\begin{highlight}{jQuery event handlers}
+    \begin{code}{javascript}
+		$(document).ready(function() {
+			$("#button").click(function() {
+				$("#message").css("color", "blue");
+				if ($("#message").is(":visible")) {
+					$("#message").hide();
+				} else {
+                    $("#message").show();
+				}
+			})
+		})
+	\end{code}
+\end{highlight}

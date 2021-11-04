@@ -4,20 +4,21 @@ A ``combinational circuit'' is one that works immediately and without any clock 
 
 \subsection{Deriving Boolean Expressions}\label{sub:deriving_boolean_expressions}
 
-\begin{figure}[H]
-	\centering
-	\begin{tabular}{ccc|c|c}
-		\toprule
-		\(A\) & \(B\) & \(C\) & \(F\) & Product term                                         \\
-		\midrule
-		\(0\) & \(0\) & \(1\) & \(1\) & \(\overline{A}\cdot \overline{B}\cdot C\)            \\
-		\(0\) & \(1\) & \(0\) & \(1\) & \(\overline{A}\cdot B\cdot \overline{C}\)            \\
-		\(1\) & \(1\) & \(1\) & \(1\) & \(A\cdot B\cdot C\)                                  \\
-		\(0\) & \(0\) & \(0\) & \(0\) & \(\overline{A}\cdot \overline{B}\cdot \overline{C}\) \\
-	\end{tabular}
-	\caption{An example truth table}
-	\label{fig:example_truth_table}
-\end{figure}
+\begin{highlight}{An example truth table}
+	\begin{figure}[H]
+		\centering
+		\begin{tabular}{ccc|c|c}
+			\toprule
+			\(A\) & \(B\) & \(C\) & \(F\) & Product term                                         \\
+			\midrule
+			\(0\) & \(0\) & \(1\) & \(1\) & \(\overline{A}\cdot \overline{B}\cdot C\)            \\
+			\(0\) & \(1\) & \(0\) & \(1\) & \(\overline{A}\cdot B\cdot \overline{C}\)            \\
+			\(1\) & \(1\) & \(1\) & \(1\) & \(A\cdot B\cdot C\)                                  \\
+			\(0\) & \(0\) & \(0\) & \(0\) & \(\overline{A}\cdot \overline{B}\cdot \overline{C}\) \\
+		\end{tabular}
+		\label{fig:example_truth_table}
+	\end{figure}
+\end{highlight}
 
 \noindent
 Collect the product terms where \(F=1\) and AND them together for \(\overline{A}\cdot \overline{B}\cdot C + \overline{A}\cdot B\cdot \overline{C} +A\cdot B\cdot C\), then simplify.
@@ -34,49 +35,56 @@ In order to add \(2\) full words together, use a ``ripple add'' circuit
 Adds \(2\) bits together.
 Since the resultant output could be \(0\), \(1\) or \(2\), we need to use \(2\) bits for the output which are named ``carry'' and ``sum''.
 
-\begin{minipage}{0.42\linewidth}
-	\begin{figure}[H]
-		\centering
-		\begin{tabular}{ccccc}
-			\toprule
-			\(x\) & \(y\) & Result & Carry & Sum   \\
-			\midrule
-			\(0\) & \(0\) & \(0\)  & \(0\) & \(0\) \\
-			\(0\) & \(1\) & \(1\)  & \(0\) & \(1\) \\
-			\(1\) & \(0\) & \(1\)  & \(0\) & \(1\) \\
-			\(1\) & \(1\) & \(2\)  & \(1\) & \(0\) \\
-			\bottomrule
-		\end{tabular}
-		\caption{The truth table of a half adder}
-		\label{fig:half_adder}
-	\end{figure}
-\end{minipage}
-\hfill
-\begin{minipage}{0.48\linewidth}
-	\begin{figure}[H]
-		\centering
-		\begin{circuitikz}
-			\draw
-			node[and port] (and) {}
-			node[xor port, below=of and] (xor) {}
+\begin{highlight}{A half adder}
+	\begin{minipage}{0.42\linewidth}
+		\begin{figure}[H]
+			\centering
+			\begin{tabular}{ccccc}
+				\toprule
+				\(x\) & \(y\) & Result & Carry & Sum   \\
+				\midrule
+				\(0\) & \(0\) & \(0\)  & \(0\) & \(0\) \\
+				\(0\) & \(1\) & \(1\)  & \(0\) & \(1\) \\
+				\(1\) & \(0\) & \(1\)  & \(0\) & \(1\) \\
+				\(1\) & \(1\) & \(2\)  & \(1\) & \(0\) \\
+				\bottomrule
+			\end{tabular}
+			\label{fig:half_adder}
 
-			node[left=of and.in 1] (x) {\(x\)}
-			node[left=of xor.in 2] (y) {\(y\)}
+			\medskip
+			The truth table of a half adder
+		\end{figure}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.48\linewidth}
+		\begin{figure}[H]
+			\centering
+			\begin{circuitikz}
+				\draw
+				node[and port] (and) {}
+				node[xor port, below=of and] (xor) {}
 
-			(x.east) -- (and.in 1)
-			(y.east) -- (xor.in 2)
+				node[left=of and.in 1] (x) {\(x\)}
+				node[left=of xor.in 2] (y) {\(y\)}
 
-			([xshift=4mm]x.east) node[circ] {} |- (xor.in 1)
-			([xshift=8mm]y.east) node[circ] {} |- (and.in 2)
+				(x.east) -- (and.in 1)
+				(y.east) -- (xor.in 2)
 
-			(and.out) node[right] {Carry \(x \cdot y\)}
-			(xor.out) node[right] {Sum \(\overline{x}\cdot y + x \cdot \overline{y}\)}
-			;
-		\end{circuitikz}
-		\caption{A half adder circuit diagram}
-		\label{fig:half_adder_circuit}
-	\end{figure}
-\end{minipage}
+				([xshift=4mm]x.east) node[circ] {} |- (xor.in 1)
+				([xshift=8mm]y.east) node[circ] {} |- (and.in 2)
+
+				(and.out) node[right] {Carry \(x \cdot y\)}
+				(xor.out) node[right] {Sum \(\overline{x}\cdot y + x \cdot \overline{y}\)}
+				;
+			\end{circuitikz}
+			\label{fig:half_adder_circuit}
+
+			\medskip
+			A half adder circuit diagram
+		\end{figure}
+	\end{minipage}
+	\medskip
+\end{highlight}
 
 \subsubsection{Full Adder}\label{ssub:full_adder}
 
@@ -89,4 +97,3 @@ To add two words together (of any size), you must use a full adder for each bit 
 \subsubsection{Subtraction}\label{ssub:subtraction}
 
 To subtract, simply negate and add \(1\) to the subtracting number, then add the two numbers together.
-

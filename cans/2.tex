@@ -56,42 +56,46 @@ The analogue storing of data was only ever used briefly.
 When storing data in a analogue system is where various predefined voltages represent different values.
 
 \medskip
-\begin{minipage}[t]{0.45\linewidth}
-	Pros:
-	\begin{itemize}
-		\item Can be very fast (you don't have to worry about different bytes); old military aircraft used analogue systems for their on-board computers.
-	\end{itemize}
-\end{minipage}
-\hfill
-\begin{minipage}[t]{0.45\linewidth}
-	Cons:
-	\begin{itemize}
-		\item There is limited precision and after many calculations, errors will have accumulated
-		\item It is hard to represent data other than real numbers like integers or strings
-	\end{itemize}
-\end{minipage}
+\begin{highlight}{Analogue signals benefits and disadvantages}
+	\begin{minipage}[t]{0.45\linewidth}
+		Pros:
+		\begin{itemize}
+			\item Can be very fast (you don't have to worry about different bytes); old military aircraft used analogue systems for their on-board computers.
+		\end{itemize}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.45\linewidth}
+		Cons:
+		\begin{itemize}
+			\item There is limited precision and after many calculations, errors will have accumulated
+			\item It is hard to represent data other than real numbers like integers or strings
+		\end{itemize}
+	\end{minipage}
+\end{highlight}
 
 \subsubsection{Digital}\label{ssub:digital}
 
 Digital data encoding is where one specific voltage represents one single value.
 
 \medskip
-\begin{minipage}[t]{0.45\linewidth}
-	Pros:
-	\begin{itemize}
-		\item Good immunity to noise (\(4.7\)V is still considered \(5\)V)
-		\item Errors do not accumulate
-		\item All data types can be represented
-	\end{itemize}
-\end{minipage}
-\hfill
-\begin{minipage}[t]{0.45\linewidth}
-	Cons:
-	\begin{itemize}
-		\item Sampling may cause a loss of data
-		\item More processing can be required
-	\end{itemize}
-\end{minipage}
+\begin{highlight}{Digital signals benefits and disadvantages}
+	\begin{minipage}[t]{0.45\linewidth}
+		Pros:
+		\begin{itemize}
+			\item Good immunity to noise (\(4.7\)V is still considered \(5\)V)
+			\item Errors do not accumulate
+			\item All data types can be represented
+		\end{itemize}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.45\linewidth}
+		Cons:
+		\begin{itemize}
+			\item Sampling may cause a loss of data
+			\item More processing can be required
+		\end{itemize}
+	\end{minipage}
+\end{highlight}
 
 \begin{note}
 	To recover the analogue data from a digital signal, take note of the peaks and troughs of the digital signal and pass a sinusoidal pave through these points.

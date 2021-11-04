@@ -55,11 +55,46 @@
 \newcommand{\cmark}{\ding{51}}%
 \newcommand{\xmark}{\ding{55}}%
 
-\newenvironment{note} {
-    \begin{tcolorbox}[title=Note]
- } {
-     \end{tcolorbox}
- }
+\newtcolorbox[blend into=figures]{highlight}[1]{
+   float=htb,
+   title={#1},
+   every float=\centering,
+   colframe=black,
+   arc=0.5mm,
+   colback=white,
+   boxrule=0mm,
+   width=0.95\linewidth,
+   valign=center,
+   left=7.5mm,
+   right=7.5mm,
+   top=0mm,
+   bottom=0mm,
+   after upper={\centering},
+   after={\noindent}
+}
+
+\newtcolorbox[auto counter,number within=section]{note}{
+   breakable,
+   center,
+   title=Note.~\thetcbcounter,
+   colframe=black,
+   arc=0.5mm,
+   left=7.5mm,
+   right=7.5mm,
+   colback=white,
+   boxrule=0mm,
+   width=0.95\linewidth,
+   valign=center,
+   after={\noindent}
+}
+
+\newenvironment{code}[1]
+{%
+  \VerbatimEnvironment%
+  \begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm,autogobble]{#1}%
+}{%
+  \end{minted}
+}
 
 \begin{document}
 

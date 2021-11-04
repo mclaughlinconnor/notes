@@ -63,13 +63,15 @@ To find the address of an element use:
 \]
 An array is in memory along with other data (ie.\ must come after the \mintinline{asm}{trap}).
 
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{asm}
-trap R0,R0,R0
-x data 13
-data 189
-data 870
-data 0
-\end{minted}
+\begin{highlight}{Storing arrays in Sigma16}
+	\begin{code}{asm}
+		trap R0,R0,R0
+		x data 13
+		data 189
+		data 870
+		data 0
+	\end{code}
+\end{highlight}
 
 \subsubsection{What about big arrays?}\label{ssub:what_about_big_arrays}
 
@@ -81,14 +83,16 @@ The user program calculates how big the arrays should be, the asks the OS for a 
 We must use \emph{effective addresses}: \mintinline{asm}{result[R4]}, where the machine adds the displacement to the index register.
 
 With effective addresses, you can access ordinary variables, or also an array element \mintinline{asm}{load R2,x[R8]}.
-Suppose we want to execute \mintinline{python}{x[i] = x[i] + 50}:
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{asm}
-lea R1,50[R0] ; R1=50
-load R5,i[R0] ; R5=i
-laod R6,x[R5] ; R6 = x[i]
-add R6,R6,R1 ; R6 = x[i]+50
-store R6,x[R5] ; x[i] = x[i]+50
-\end{minted}
+Suppose we want to execute \mintinline{python}{x[i] = x[i] + 50}, we must do:
+\begin{highlight}{Accessing array elements in Sigma16}
+	\begin{code}{asm}
+		lea R1,50[R0] ; R1=50
+		load R5,i[R0] ; R5=i
+		laod R6,x[R5] ; R6 = x[i]
+		add R6,R6,R1 ; R6 = x[i]+50
+		store R6,x[R5] ; x[i] = x[i]+50
+	\end{code}
+\end{highlight}
 
 \section{Array Traversal and For Loops}\label{sec:array_traversal_and_for_loops}
 
@@ -101,47 +105,50 @@ When the exit condition is truthy, we jump after the loop.
 
 \subsection{Example Program: Array Max}\label{sub:example_program_array_max}
 
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{python}
-    max = x[0]
-    i = 1
-forloop:
-    if i >= then goto done
-    if x[o] <=  max then goto skip
-    max = x[i]
-skip:
-    i = i+1
-    goto forloop
-done:
-    terminate
-\end{minted}
-Now we will write it in register variable style assembly.
+\begin{highlight}{Example array program in low level code}
+	\begin{code}{python}
+		max = x[0]
+		i = 1
+		forloop:
+		if i >= then goto done
+		if x[o] <=  max then goto skip
+		max = x[i]
+		skip:
+		i = i+1
+		goto forloop
+		done:
+		terminate
+	\end{code}
+\end{highlight}
 
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{asm}
-    lea R1,1[R0] ; R1 = constant 1
-    load R2,n[R0] ; R2 = n
-    load R4,x[R0] ; max = x[0]
-    lea R3,1[R0] ; i = 1
+\begin{highlight}{Example array program in Sigma16}
+	\begin{code}{asm}
+		lea R1,1[R0] ; R1 = constant 1
+		load R2,n[R0] ; R2 = n
+		load R4,x[R0] ; max = x[0]
+		lea R3,1[R0] ; i = 1
 
-forloop ; top of loop, determine whether to stay in lopp
-    ; if i >= n then goto done
-    cmp R3,R2 ; compare i, n
-    jmpge done[R0] ; if i >= then goto done
+		forloop ; top of loop, determine whether to stay in lopp
+		; if i >= n then goto done
+		cmp R3,R2 ; compare i, n
+		jmpge done[R0] ; if i >= then goto done
 
-    ; if x[i] <= max then goto else
-    load R5,x[R3] ; R5=x[i]
-    cmp R5,R4 ; compare x[i],max
-    jumple skip[R0] ; if x[i] <= max then goto skip
+		; if x[i] <= max then goto else
+		load R5,x[R3] ; R5=x[i]
+		cmp R5,R4 ; compare x[i],max
+		jumple skip[R0] ; if x[i] <= max then goto skip
 
-    add R4,R5,R0 ; max = x[i] 
+		add R4,R5,R0 ; max = x[i]
 
-skip
-    add R3,R4,R1 ; i = i + 1
-    jump forloop[R0] ; goto forloop
+		skip
+		add R3,R4,R1 ; i = i + 1
+		jump forloop[R0] ; goto forloop
 
-done ; exit from for loop
-    store R4,max[R0]
-    trap R0,R0,R0 ; terminate
-\end{minted}
+		done ; exit from for loop
+		store R4,max[R0]
+		trap R0,R0,R0 ; terminate
+	\end{code}
+\end{highlight}
 
 \begin{note}
 	To copy one register to another register, we just do \mintinline{asm}{add R4,R5,0}.

@@ -29,25 +29,27 @@ Style sheets describe the rendering of HTML elements.
 They specify aspects of a component with a set of rules.
 
 \medskip
-\begin{minipage}{0.45\linewidth}
-	\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{css}
-h1 {
-    color: blue;
-    font-size: 18px;
-    font-family: Verdana;
-}
-\end{minted}
-\end{minipage}
-\hfill
-\begin{minipage}{0.45\linewidth}
-	\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{css}
-#page {
-    color: green;
-    float: left;
-    padding: 10px, 10px, 2px, 2px;
-}
-\end{minted}
-\end{minipage}
+\begin{highlight}{Basic CSS}
+	\begin{minipage}{0.45\linewidth}
+		\begin{code}{css}
+			h1 {
+                color: blue;
+                font-size: 18px;
+                font-family: Verdana;
+            }
+		\end{code}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.45\linewidth}
+		\begin{code}{css}
+			#page {
+                color: green;
+                float: left;
+                padding: 10px, 10px, 2px, 2px;
+			}
+		\end{code}
+	\end{minipage}
+\end{highlight}
 
 \subsubsection{Values and Units}\label{ssub:values_and_units}
 
@@ -68,9 +70,11 @@ We can apply CSS in three different ways: inline, embedded, and external styles.
 \subsection{Inline Styles}\label{sub:inline_styles}
 
 Style information is added directly on the HTML element with the \mintinline{html}{style} attribute
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{html}
-<h3 style="color: yellow; font-size: 18pt">
-\end{minted}
+\begin{highlight}{CSS inline styles sheets}
+	\begin{code}{html}
+		<h3 style="color: yellow; font-size: 18pt">
+	\end{code}
+\end{highlight}
 This only affects this element which is useful to override a particular style.
 
 \subsection{Embedded Styles}\label{sub:embedded_styles}
@@ -78,26 +82,30 @@ This only affects this element which is useful to override a particular style.
 \emph{Sometimes called internal CSS}.
 Styles rules are specified in the \mintinline{html}{<head>} section of the document.
 These styles will be applied to the whole document so this is slightly better than using inline styles.
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{html}
-<head>
-    <style>
-        h1 {
-            color: blue;
-        }
-    </style>
-</head>
-\end{minted}
+\begin{highlight}{CSS embedded style sheets}
+	\begin{code}{html}
+		<head>
+		<style>
+            h1 {
+                color: blue;
+            }
+		</style>
+		</head>
+	\end{code}
+\end{highlight}
 
 \subsection{External Styles}\label{sub:external_styles}
 
 Styles are in a separate document and can be shared between many pages.
 This is good since styles only have to be changed in just one place.
 We can attach a CSS document to many pages using a \mintinline{html}{link} tag in the \mintinline{html}{head} section.
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{html}
-<head>
-    <link rel="stylesheet" href="styles.css" type="text/css">
-</head>
-\end{minted}
+\begin{highlight}{CSS external style sheets}
+    \begin{code}{html}
+		<head>
+            <link rel="stylesheet" href="styles.css" type="text/css">
+		</head>
+    \end{code}
+\end{highlight}
 This is generally best practice because it improves performance, the separation of concerns and eases maintenance.
 
 \subsection{Specialisation of Presentation}\label{sub:specialisation_of_presentation}
@@ -121,17 +129,23 @@ We prefix IDs with a hash symbol (\#).
 
 Elements that are descended from an element are styled according to the rule of the descendant selector.
 This allows us to apply styles in some contexts, but not others.
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{html}
-p em {color: red; font-weight: bold; }
-\end{minted}
+\begin{highlight}{CSS descendant selectors}
+    \begin{code}{html}
+		p em {color: red; font-weight: bold; }
+    \end{code}
+\end{highlight}
 
 \subsubsection{Restricted Class and ID Selectors}\label{ssub:restricted_class_and_id_selectors}
 
 We can specify that all \mintinline{html}{h2} elements within the class \mintinline{html}{red} using:
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{html}
-.red h2 {color: red;}
-\end{minted}
+\begin{highlight}{CSS class container selections}
+    \begin{code}{html}
+		.red h2 {color: red;}
+    \end{code}
+\end{highlight}
 All \mintinline{html}{h2} elements with the class \mintinline{html}{red} will be selected like:
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{html}
-h2.red {color: red;}
-\end{minted}
+\begin{highlight}{CSS class element selectors}
+    \begin{code}{html}
+		h2.red {color: red;}
+    \end{code}
+\end{highlight}

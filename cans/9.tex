@@ -20,44 +20,46 @@ The system bus is made up of several smaller buses:
 
 \subsection{Internal structure of a CPU}\label{sub:internal_structure_of_a_cpu}
 
-\begin{tikzpicture}
-	\draw
-	node (alu) {\textbf{ALU}}
-	node[below=5mm of alu] (status) {Status flags}
-	node[below=0mm of status] (shift) {Shifter}
-	node[below=0mm of shift] (compl) {Complementer}
-	node[below=0mm of compl] (abl) {Arithmetic and boolean logic}
-	node[draw,fit=(alu) (status) (shift) (compl) (abl)] (alubox) {};
+\begin{highlight}{The internal structure of a CPU}
+	\begin{tikzpicture}
+		\draw
+		node (alu) {\textbf{ALU}}
+		node[below=5mm of alu] (status) {Status flags}
+		node[below=0mm of status] (shift) {Shifter}
+		node[below=0mm of shift] (compl) {Complementer}
+		node[below=0mm of compl] (abl) {Arithmetic and boolean logic}
+		node[draw,fit=(alu) (status) (shift) (compl) (abl)] (alubox) {};
 
-	\draw node [draw,shape=rectangle, minimum height=5cm, minimum width=0cm, anchor=center,right=of shift, xshift=20mm] (cpubus) {\rotatebox{90}{Internal CPU bus}};
+		\draw node [draw,shape=rectangle, minimum height=5cm, minimum width=0cm, anchor=center,right=of shift, xshift=20mm] (cpubus) {\rotatebox{90}{Internal CPU bus}};
 
-	\draw[->] (status.east) -- (cpubus.west |- status);
-	\draw[->] (shift.east) -- (cpubus.west |- shift);
-	\draw[->] (compl.east) -- (cpubus.west |- compl);
-	\draw[->] (abl.east) -- (cpubus.west |- abl);
+		\draw[->] (status.east) -- (cpubus.west |- status);
+		\draw[->] (shift.east) -- (cpubus.west |- shift);
+		\draw[->] (compl.east) -- (cpubus.west |- compl);
+		\draw[->] (abl.east) -- (cpubus.west |- abl);
 
-	\draw
-	node[right=5cm of alu] (reg) {\textbf{Registers}}
-	node[below=5mm of reg] (rone) {\(r_1\)}
-	node[below=0mm of rone] (rtwo) {\(r_2\)}
-	node[below=0mm of rtwo] (rthree) {\(r_3\)}
-	node[below=0mm of rthree] (rfour) {\(r_4\)}
-	node[below=0mm of rfour] (rdots) {\(\cdots\)}
-	node[draw,fit=(reg) (rone) (rtwo) (rthree) (rfour) (rdots)] (regbox) {};
+		\draw
+		node[right=5cm of alu] (reg) {\textbf{Registers}}
+		node[below=5mm of reg] (rone) {\(r_1\)}
+		node[below=0mm of rone] (rtwo) {\(r_2\)}
+		node[below=0mm of rtwo] (rthree) {\(r_3\)}
+		node[below=0mm of rthree] (rfour) {\(r_4\)}
+		node[below=0mm of rfour] (rdots) {\(\cdots\)}
+		node[draw,fit=(reg) (rone) (rtwo) (rthree) (rfour) (rdots)] (regbox) {};
 
-	\draw[<-] (rone.west) -- (cpubus.east |- rone.west);
-	\draw[<-] (rtwo.west) -- (cpubus.east |- rtwo.west);
-	\draw[<-] (rthree.west) -- (cpubus.east |- rthree.west);
-	\draw[<-] (rfour.west) -- (cpubus.east |- rfour.west);
-	\draw[<-] (rdots.west) -- (cpubus.east |- rdots.west);
+		\draw[<-] (rone.west) -- (cpubus.east |- rone.west);
+		\draw[<-] (rtwo.west) -- (cpubus.east |- rtwo.west);
+		\draw[<-] (rthree.west) -- (cpubus.east |- rthree.west);
+		\draw[<-] (rfour.west) -- (cpubus.east |- rfour.west);
+		\draw[<-] (rdots.west) -- (cpubus.east |- rdots.west);
 
-	\draw node [draw,shape=rectangle, anchor=center,below=of regbox] (cu) {Control Unit};
-	\draw[<->] (cu) -- (regbox);
+		\draw node [draw,shape=rectangle, anchor=center,below=of regbox] (cu) {Control Unit};
+		\draw[<->] (cu) -- (regbox);
 
-	\draw[<->, thick] (cu.west) -| (alubox.south) node[midway, below right] {Control paths};
-	\draw[<->, thick] (cu.west) -| ++(-6mm, 14mm);
-	\draw[<->, thick] (cu.west) -| ++(-6mm, 7mm) -- ++(-6mm, 0);
-\end{tikzpicture}
+		\draw[<->, thick] (cu.west) -| (alubox.south) node[midway, below right] {Control paths};
+		\draw[<->, thick] (cu.west) -| ++(-6mm, 14mm);
+		\draw[<->, thick] (cu.west) -| ++(-6mm, 7mm) -- ++(-5mm, 0);
+	\end{tikzpicture}
+\end{highlight}
 
 \subsection{What does an n-bit architecture mean?}\label{sub:what_does_an_n_bit_architecture_mean_}
 

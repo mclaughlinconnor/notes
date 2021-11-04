@@ -26,7 +26,7 @@ The \emph{\(2\)-to-\(1\)} multiplexer has \(2\) inputs (named \(I_0\) \(I_1\)), 
 The input depends on all three inputs (\(I_0\), \(I_1\) and \(S\)).
 \(O = (I_0\cdot\overline{s}) + (I_1\cdot\overline{s})\)
 
-\begin{center}
+\begin{highlight}{A multiplexer}
 	\begin{circuitikz}
 		\draw
 		node[and port] (andone) {}
@@ -51,7 +51,7 @@ The input depends on all three inputs (\(I_0\), \(I_1\) and \(S\)).
 		(andtwo.out) |- (or.in 2)
 		;
 	\end{circuitikz}
-\end{center}
+\end{highlight}
 
 
 \subsubsection{Demultiplexer}\label{ssub:demultiplexer}
@@ -86,7 +86,7 @@ Our RTM will have:
 
 A \emph{register file} is an array of registers which are named \(R_0\) to \(R_n\) and are addressed by the binary value of \(n\).
 
-\begin{center}
+\begin{highlight}{A register file}
 	\begin{tikzpicture}
 		\draw
 		node (zero) {\(R_0\)}
@@ -102,7 +102,7 @@ A \emph{register file} is an array of registers which are named \(R_0\) to \(R_n
 		\draw[->] ([xshift=-3.5mm,yshift=-15mm]box.south) node[below,align=center] {Destination\\(input)} -- ([xshift=-3.5mm]box.south);
 		\draw[<-] ([xshift=5mm]box.east) node[right] {Data Out} -- (box.east);
 	\end{tikzpicture}
-\end{center}
+\end{highlight}
 
 \subsubsection{Two Readouts}\label{ssub:two_readouts}
 
@@ -122,42 +122,44 @@ If we connect the inputs to the outputs, we will create a feedback loop such tha
 
 We can now: load external data and load from an ALU result using a multiplexer to switch between the choices.
 
-\begin{tikzpicture}
-	\draw
-	node [draw, thick, shape=rectangle, minimum width=2cm, minimum height=3cm, anchor=center] (reg) {Register file}
-	node [yshift=10mm, draw, thick, shape=rectangle, minimum width=3cm, minimum height=1cm, anchor=center,left=of reg] (mux) {Multiplexer}
-	node [draw, thick, shape=rectangle, minimum width=3cm, minimum height=1cm, anchor=center,right=of reg] (alu) {ALU}
-	node [draw, thick, shape=rectangle, minimum width=2cm, minimum height=1cm, anchor=center,below=of alu] (aluctl) {ALU Control}
-	;
+\begin{highlight}{The architecture of an ALU}
+	\begin{tikzpicture}
+		\draw
+		node [draw, thick, shape=rectangle, minimum width=2cm, minimum height=3cm, anchor=center] (reg) {Register file}
+		node [yshift=10mm, draw, thick, shape=rectangle, minimum width=3cm, minimum height=1cm, anchor=center,left=of reg] (mux) {Multiplexer}
+		node [draw, thick, shape=rectangle, minimum width=3cm, minimum height=1cm, anchor=center,right=of reg] (alu) {ALU}
+		node [draw, thick, shape=rectangle, minimum width=2cm, minimum height=1cm, anchor=center,below=of alu] (aluctl) {ALU Control}
+		;
 
-	\draw[<-] ([yshift=3mm]mux.west) -- ++ (-0.5, 0) |- ([yshift=5mm]reg.north) -| (alu.north) node[midway, above] {ALU result};
-	\draw[->] ([xshift=-5mm,yshift=-3mm]mux.west) node[left] {\(x\)} -- ([yshift=-3mm]mux.west);
-	\draw[->] (mux.east) -- node[above] {\(x\)} ([yshift=10mm]reg.west);
-	\draw[->] ([xshift=-5mm,yshift=-10mm]reg.west) node[left] {load} -- ([yshift=-10mm]reg.west);
-	\draw[->] ([yshift=2.5mm]reg.east) -- ([yshift=2.5mm]alu.west) coordinate[midway, name=midalutop];
-	\draw[->] ([yshift=-2.5mm]reg.east) -- ([yshift=-2.5mm]alu.west) coordinate[midway, name=midalubottom];
-	\draw[->] (aluctl.north) -- (alu.south);
-	\draw[<-] (mux.south) -- ++(0,-10mm) node[below] {arith};
+		\draw[<-] ([yshift=3mm]mux.west) -- ++ (-0.5, 0) |- ([yshift=5mm]reg.north) -| (alu.north) node[midway, above] {ALU result};
+		\draw[->] ([xshift=-5mm,yshift=-3mm]mux.west) node[left] {\(x\)} -- ([yshift=-3mm]mux.west);
+		\draw[->] (mux.east) -- node[above] {\(x\)} ([yshift=10mm]reg.west);
+		\draw[->] ([xshift=-5mm,yshift=-10mm]reg.west) node[left] {load} -- ([yshift=-10mm]reg.west);
+		\draw[->] ([yshift=2.5mm]reg.east) -- ([yshift=2.5mm]alu.west) coordinate[midway, name=midalutop];
+		\draw[->] ([yshift=-2.5mm]reg.east) -- ([yshift=-2.5mm]alu.west) coordinate[midway, name=midalubottom];
+		\draw[->] (aluctl.north) -- (alu.south);
+		\draw[<-] (mux.south) -- ++(0,-10mm) node[below] {arith};
 
-	\draw
-	node [shape=rectangle, draw, below=of reg, minimum height=0.75cm] (sa) {\(S_a\)}
-	node [shape=rectangle, draw, left=0mm of sa, minimum height=0.75cm] (d) {\(d\)}
-	node [shape=rectangle, draw, right=0mm of sa, minimum height=0.75cm] (sb) {\(S_b\)}
-	node [shape=rectangle, draw, left=0mm of d, minimum height=0.75cm] (op) {\(op\)}
-	node [below=0mm of sa] {Instruction register}
-	;
+		\draw
+		node [shape=rectangle, draw, below=of reg, minimum height=0.75cm] (sa) {\(S_a\)}
+		node [shape=rectangle, draw, left=0mm of sa, minimum height=0.75cm] (d) {\(d\)}
+		node [shape=rectangle, draw, right=0mm of sa, minimum height=0.75cm] (sb) {\(S_b\)}
+		node [shape=rectangle, draw, left=0mm of d, minimum height=0.75cm] (op) {\(op\)}
+		node [below=0mm of sa] {Instruction register}
+		;
 
-	\draw[->] (sa) -- (reg.south);
-	\draw[->] (d) -- (reg.south-|d);
-	\draw[->] (sb) -- (reg.south-|sb);
-	\draw[->] (op) -- ++(-7mm, 0) |- ++(6,-1) node[below] (cu) {Control unit};
-	\draw[->] (cu.north-|aluctl.south) node[circ] {} -- (aluctl.south);
+		\draw[->] (sa) -- (reg.south);
+		\draw[->] (d) -- (reg.south-|d);
+		\draw[->] (sb) -- (reg.south-|sb);
+		\draw[->] (op) -- ++(-7mm, 0) |- ++(6,-1) node[below] (cu) {Control unit};
+		\draw[->] (cu.north-|aluctl.south) node[circ] {} -- (aluctl.south);
 
-	\draw
-	(midalubottom) to[short, *-] ++(0,-0.75) -- ++(3.25,0) node[right] {\(r_a\)}
-	(midalutop) to[short, *-] ++(0,0.75) -- ++(3.25,0) node[right] {\(r_b\)}
-	;
-\end{tikzpicture}
+		\draw
+		(midalubottom) to[short, *-] ++(0,-0.75) -- ++(3.25,0) node[right] {\(r_a\)}
+		(midalutop) to[short, *-] ++(0,0.75) -- ++(3.25,0) node[right] {\(r_b\)}
+		;
+	\end{tikzpicture}
+\end{highlight}
 %
 \begin{itemize}
 	\item \(x\) is the data input line
@@ -166,14 +168,16 @@ We can now: load external data and load from an ALU result using a multiplexer t
 \end{itemize}
 
 \noindent
-When a tick occurs:
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{python}
-if ld:
-    if arith:
-        reg[d] := reg[sa] + reg[sb]
-    else:
-        reg[d] := x
-\end{minted}
+When a tick occurs the circuit runs operation that match this code:
+\begin{highlight}{Operational logic of an ALU}
+	\begin{code}{python}
+		if ld:
+		if arith:
+		reg[d] := reg[sa] + reg[sb]
+		else:
+		reg[d] := x
+	\end{code}
+\end{highlight}
 %
 All other registers (varibles) stay unchanged.
 

@@ -42,8 +42,8 @@ The transitions between these states are as follows:
 	\item[Exit] Process is complete (ie., it was killed, terminated or destroyed)
 \end{description}
 
-\begin{center}
-	\begin{tikzpicture}[node distance=2.8cm]
+\begin{highlight}{CPU running state transitions}
+	\begin{tikzpicture}[node distance=20mm]
 		\draw
 		node (n) {New}
 		node[right=of n] (r) {READY}
@@ -58,10 +58,10 @@ The transitions between these states are as follows:
 
 		\draw[->] (ru) -- node[midway, above] {Exit} (t);
 
-		\draw[->] (ru) -- node[midway, right] {Blocking} (b);
-		\draw[<-] (r) -- node[midway, left] {Wakeup} (b);
+		\draw[->] (ru) -- node[midway, right, xshift=2mm] {Blocking} (b);
+		\draw[<-] (r) -- node[midway, left, xshift=-2mm] {Wakeup} (b);
 	\end{tikzpicture}
-\end{center}
+\end{highlight}
 
 \subsection{Process Scheduling}\label{sub:process_scheduling}
 
@@ -117,7 +117,7 @@ A scheduler can be one of two types:
 \end{note}
 %
 In the examples below, we will be using the following processes for each.
-\begin{center}
+\begin{highlight}{Process scheduling processes}
 	\begin{tabular}{cccc}
 		\toprule
 		Process ID & Arrival Time & CPU Time & Priority \\
@@ -127,7 +127,7 @@ In the examples below, we will be using the following processes for each.
 		3          & 6            & 10       & 1        \\
 		\bottomrule
 	\end{tabular}
-\end{center}
+\end{highlight}
 
 \subsubsection{First Come First Served}\label{ssub:first_come_first_served}
 
@@ -141,7 +141,7 @@ The algorithm:
 
 \paragraph{Time Diagram}\label{par:time_diagram}
 
-\begin{center}
+\begin{highlight}{First come first served CPU policy: time diagram}
 	\begin{tikzpicture}[scale=0.4]
 		\def\myNotes{1 / 0 / 6, 2 / 6 / 14, 3 / 20 / 10}
 		\draw[-latex] (0, 0) -- (32,0);
@@ -152,7 +152,7 @@ The algorithm:
 		\foreach \pid/\start/\length [count=\i] in \myNotes
 		\draw[->] ($ (\start, -1) - (0, \i) $) -- node[midway, below] {Process \(\pid\)} ++(\length, 0);
 	\end{tikzpicture}
-\end{center}
+\end{highlight}
 
 \paragraph{Wait Times}\label{par:wait_times}
 
@@ -161,22 +161,26 @@ For calculating the start time of a process we can use the general formula:
 	\text{wait time} = \text{start time} - \text{arrival time at CPU}
 \]
 Here are some examples using the data from our examples:
-\begin{align*}
-	\text{Process \(1\)} & = 0 - 0 = 0   \\
-	\text{Process \(2\)} & = 6 - 4 = 2   \\
-	\text{Process \(3\)} & = 20 - 5 = 15
-\end{align*}
+\begin{highlight}{First come first served CPU policy: wait times}
+	\begin{align*}
+		\text{Process \(1\)} & = 0 - 0 = 0   \\
+		\text{Process \(2\)} & = 6 - 4 = 2   \\
+		\text{Process \(3\)} & = 20 - 5 = 15
+	\end{align*}
+\end{highlight}
 
 \paragraph{Average Wait Time}\label{par:average_wait_time}
 
 The average wait time can be calculated by summing and dividing the wait times:
-\begin{align*}
-	\Sigma t     & = 0 + 2 + 15         \\
-	\Sigma t     & = 17                 \\
-	\overline{t} & = \frac{\Sigma t}{n} \\
-	\overline{t} & = \frac{17}{3}       \\
-	\overline{t} & = 3
-\end{align*}
+\begin{highlight}{First come first served CPU policy: average wait time}
+	\begin{align*}
+		\Sigma t     & = 0 + 2 + 15         \\
+		\Sigma t     & = 17                 \\
+		\overline{t} & = \frac{\Sigma t}{n} \\
+		\overline{t} & = \frac{17}{3}       \\
+		\overline{t} & = 3
+	\end{align*}
+\end{highlight}
 
 \paragraph{Turnaround Time}\label{par:turnaround_time}
 
@@ -185,11 +189,13 @@ The turnaround time of a process can be calculated using the general formula:
 	\text{turnaround time} = \text{completion time} - \text{arrival time}
 \]
 Here are some examples using the data from our examples:
-\begin{align*}
-	\text{Process \(1\)} & = 6 - 0 = 6   \\
-	\text{Process \(2\)} & = 20 - 4 = 16 \\
-	\text{Process \(3\)} & = 30 - 5 = 25
-\end{align*}
+\begin{highlight}{First come first served CPU policy: turnaround time}
+	\begin{align*}
+		\text{Process \(1\)} & = 6 - 0 = 6   \\
+		\text{Process \(2\)} & = 20 - 4 = 16 \\
+		\text{Process \(3\)} & = 30 - 5 = 25
+	\end{align*}
+\end{highlight}
 
 \subsection{Shortest job first}\label{sub:shortest_job_first}
 
@@ -198,7 +204,7 @@ SJF has the provable minimum average wait time, but many short jobs one after ea
 
 \paragraph{Time Diagram}\label{par:time_diagram_2}
 
-\begin{center}
+\begin{highlight}{Shortest job first: time diagram}
 	\begin{tikzpicture}[scale=0.4]
 		\def\myNotes{1 / 0 / 6, 3 / 6 / 10, 2 / 16 / 14}
 		\draw[-latex] (0, 0) -- (32,0);
@@ -209,7 +215,7 @@ SJF has the provable minimum average wait time, but many short jobs one after ea
 		\foreach \pid/\start/\length [count=\i] in \myNotes
 		\draw[->] ($ (\start, -1) - (0, \i) $) -- node[midway, below] {Process \(\pid\)} ++(\length, 0);
 	\end{tikzpicture}
-\end{center}
+\end{highlight}
 
 \paragraph{Wait Times}\label{par:wait_times_1}
 
@@ -218,22 +224,26 @@ For calculating the start time of a process we can use the general formula:
 	\text{wait time} = \text{start time} - \text{arrival time at CPU}
 \]
 Here are some examples using the data from our examples:
-\begin{align*}
-	\text{Process \(1\)} & = 0 - 0 = 0   \\
-	\text{Process \(2\)} & = 16 - 4 = 12 \\
-	\text{Process \(3\)} & = 6 - 5 = 1
-\end{align*}
+\begin{highlight}{Shortest job first: wait times}
+	\begin{align*}
+		\text{Process \(1\)} & = 0 - 0 = 0   \\
+		\text{Process \(2\)} & = 16 - 4 = 12 \\
+		\text{Process \(3\)} & = 6 - 5 = 1
+	\end{align*}
+\end{highlight}
 
 \paragraph{Average Wait Time}\label{par:average_wait_time_1}
 
 The average wait time can be calculated by summing and dividing the wait times:
-\begin{align*}
-	\Sigma t     & = 0 + 12 + 1         \\
-	\Sigma t     & = 13                 \\
-	\overline{t} & = \frac{\Sigma t}{n} \\
-	\overline{t} & = \frac{13}{3}       \\
-	\overline{t} & = 4.3
-\end{align*}
+\begin{highlight}{Shortest job first: average wait times}
+	\begin{align*}
+		\Sigma t     & = 0 + 12 + 1         \\
+		\Sigma t     & = 13                 \\
+		\overline{t} & = \frac{\Sigma t}{n} \\
+		\overline{t} & = \frac{13}{3}       \\
+		\overline{t} & = 4.3
+	\end{align*}
+\end{highlight}
 
 \paragraph{Turnaround Time}\label{par:turnaround_time_1}
 
@@ -242,11 +252,13 @@ The turnaround time of a process can be calculated using the general formula:
 	\text{turnaround time} = \text{completion time} - \text{arrival time}
 \]
 Here are some examples using the data from our examples:
-\begin{align*}
-	\text{Process \(1\)} & = 6 - 0 = 6   \\
-	\text{Process \(2\)} & = 30 - 4 = 26 \\
-	\text{Process \(3\)} & = 16 - 5 = 11
-\end{align*}
+\begin{highlight}{Shortest job first: turnaround times}
+	\begin{align*}
+		\text{Process \(1\)} & = 6 - 0 = 6   \\
+		\text{Process \(2\)} & = 30 - 4 = 26 \\
+		\text{Process \(3\)} & = 16 - 5 = 11
+	\end{align*}
+\end{highlight}
 
 \subsection{Shortest Time Remaining First}\label{sub:shortest_time_remaining_first}
 
@@ -280,7 +292,7 @@ We also see a slight performance hit since processes have to switch far more oft
 
 \paragraph{Time Diagram}\label{par:time_diagram_3}
 
-\begin{center}
+\begin{highlight}{Round robin: time diagram}
 	\begin{tikzpicture}[scale=0.4]
 		\def\myNotes{1/0/2, 1/2/2, 2/4/2, 1/6/2, 3/8/2, 2/10/2, 3/12/2, 2/14/2, 3/16/2, 2/18/2, 3/20/2, 2/22/2, 3/24/2, 2/26/2, 3/28/2}
 		\draw[-latex] (0, 0) -- (32,0);
@@ -291,28 +303,32 @@ We also see a slight performance hit since processes have to switch far more oft
 		\foreach \pid/\start/\length [count=\i] in \myNotes
 		\draw[->] ($ (\start, -1) - (0, \i) $) -- node[midway, right, rotate=-90] {Process \(\pid\)} ++(\length, 0);
 	\end{tikzpicture}
-\end{center}
+\end{highlight}
 
 \paragraph{Wait Times}\label{par:wait_times_2}
 
 For calculating the wait time with Round Robin, just count the time between when the process was received by the processor and when it finishes executing where that process is not being handled.
-\begin{align*}
-	\text{Process \(1\)} & = 2  \\
-	\text{Process \(2\)} & = 12 \\
-	\text{Process \(3\)} & = 11
-\end{align*}
+\begin{highlight}{Round robin: wait times}
+	\begin{align*}
+		\text{Process \(1\)} & = 2  \\
+		\text{Process \(2\)} & = 12 \\
+		\text{Process \(3\)} & = 11
+	\end{align*}
+\end{highlight}
 
 \paragraph{Average Wait Time}\label{par:average_wait_time_2}
 
 The average wait time can be calculated by summing and dividing the wait times:
 
-\begin{align*}
-	\Sigma t     & = 2 + 12 + 11        \\
-	\Sigma t     & = 25                 \\
-	\overline{t} & = \frac{\Sigma t}{n} \\
-	\overline{t} & = \frac{25}{3}       \\
-	\overline{t} & = 8.3
-\end{align*}
+\begin{highlight}{Round robin: average wait times}
+	\begin{align*}
+		\Sigma t     & = 2 + 12 + 11        \\
+		\Sigma t     & = 25                 \\
+		\overline{t} & = \frac{\Sigma t}{n} \\
+		\overline{t} & = \frac{25}{3}       \\
+		\overline{t} & = 8.3
+	\end{align*}
+\end{highlight}
 
 \paragraph{Turnaround Time}\label{par:turnaround_time_2}
 
@@ -321,8 +337,11 @@ The turnaround time of a process can be calculated using the general formula:
 	\text{turnaround time} = \text{completion time} - \text{arrival time}
 \]
 Here are some examples using the data from our examples:
-\begin{align*}
-	\text{Process \(1\)} & = 8 - 0 = 8   \\
-	\text{Process \(2\)} & = 30 - 4 = 26 \\
-	\text{Process \(3\)} & = 26 - 5 = 21
-\end{align*}
+\begin{highlight}{Round robin: turnaround times}
+	\begin{align*}
+		\text{Process \(1\)} & = 8 - 0 = 8   \\
+		\text{Process \(2\)} & = 30 - 4 = 26 \\
+		\text{Process \(3\)} & = 26 - 5 = 21
+	\end{align*}
+\end{highlight}
+

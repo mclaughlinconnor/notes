@@ -144,19 +144,24 @@ On pen and paper, it is easier to first translate to simplified high level (or s
 
 \subsection{Branching and looping}\label{sub:branching_and_looping}
 
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{c}
-if x<y
-    then {statement}
-statement;
-\end{minted}
+\begin{highlight}{If statement pseudo-code}
+	\begin{code}{c}
+		if (x<y) {
+			statement;
+		}
+		statement;
+	\end{code}
+\end{highlight}
 
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{text}
-    R:=(x<y)
-    jumpf R7,skip[R0] ; jump to skip if false
-    instructions for statement 1
-skip ; a label
-    instrucitons for statement 2
-\end{minted}
+\begin{highlight}{If statements in Sigma16}
+	\begin{code}{asm}
+		R:=(x<y)
+		jumpf R7,skip[R0] ; jump to skip if false
+		; instructions for statement 1
+		skip ; a label
+		; instructions for statement 2
+	\end{code}
+\end{highlight}
 
 \subsubsection{If-else pattern}\label{ssub:if_else_pattern}
 

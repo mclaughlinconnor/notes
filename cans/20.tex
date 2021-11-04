@@ -6,16 +6,20 @@ Because we know about pointers now, we can use addresses as variables (pointers)
 
 Create a pointer to the beginning of the array \(x\) so \mintinline{python}{R1} points to \mintinline{python}{x[0]}.
 
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{asm}
-lea R1,x[R0] ; R1 = x[0]
-\end{minted}
+\begin{highlight}{Accessing an array element using pointers: the first element}
+    \begin{code}{asm}
+		lea R1,x[R0] ; R1 = x[0]
+    \end{code}
+\end{highlight}
 
 \noindent
 To access the current element (eg.\ element at index \(0\)), follow the pointer in \mintinline{python}{R1}:
 
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{asm}
-load R1,0[R1] ; R2 = *R1
-\end{minted}
+\begin{highlight}{Accessing an array element using pointers: accessing the current element}
+    \begin{code}{asm}
+		load R1,0[R1] ; R2 = *R1
+    \end{code}
+\end{highlight}
 
 \begin{note}
 	We have to create the pointer to the label first, afterwards we just use the pointer and never have to reference the label again.
@@ -25,54 +29,51 @@ load R1,0[R1] ; R2 = *R1
 \noindent
 We can move to the next index by incrementing \mintinline{python}{R1}.
 
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{asm}
-lea R1,1[R1] ; now R1 points to x[1] and not x[0]
-\end{minted}
+\begin{highlight}{Accessing an array element using pointers: moving to the next element}
+    \begin{code}{asm}
+		lea R1,1[R1] ; now R1 points to x[1] and not x[0]
+    \end{code}
+\end{highlight}
 
 \begin{note}
 	To increment the pointer we use \mintinline{asm}{lea R1,1[R1]} instead of \mintinline{asm}{add R1,R2,R1} because that requires there to be a constant \(1\) in another register (which uses another instruction too).
 \end{note}
 
 \subsection{Sum of an array using pointers}\label{sub:sum_of_an_array_using_pointers}
-
-\subsubsection{High Level}\label{ssub:high_level}
-
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{python}
-sum = 0
-p = &x # start of array
+\begin{highlight}{Summing an array using pointers: low level code}
+\begin{code}{python}
+		sum = 0
+		p = &x # start of array
 q = &xEnd # points to a label that is at the end of the array
-
-while p < q:
-    sump = sum + *p # add the data at the current element
-    p = p + 1 # Increment current element
-\end{minted}
-
-\subsubsection{Low Level}\label{ssub:low_level}
-
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{asm}
-; R1 = p = pointer to current element
-; R2 = q = pointer t oend of array
+		while p < q:
+		sump = sum + *p # add the data at the current element
+		p = p + 1 # Increment current element
+\end{code}
+\end{highlight}
+\begin{highlight}{Summing an array using pointers: Sigma16 code}
+\begin{code}{asm}
+		; R1 = p = pointer to current element
+		; R2 = q = pointer t oend of array
 ; R3 = sum of elements
+		lea R1,x[R0] ; p = &x
+		lea R2,xEnd[R0] ; q = &xEnd
+		add R3,R0,R0 ; sum = 0, could also do a lea I think
+		sumLoop
+		cmp R1,R2
+		jumpge sumLoopEnd ; p >= q  (ie. !<) go to end
+		load R4,0[R1] ; R4 = *p, this is current value
+		add R3,R3,R4 ; R3 += R4
+		lea R1,1[R1] ; p += 1, get pointer to next element
+		jump sumLoop[R0] ; go back to start
+		sumLoopEnd
+		trap R0,R0,R0
 
-    lea R1,x[R0] ; p = &x
-    lea R2,xEnd[R0] ; q = &xEnd
-    add R3,R0,R0 ; sum = 0, could also do a lea I think
-sumLoop
-    cmp R1,R2
-    jumpge sumLoopEnd ; p >= q  (ie. !<) go to end
-    load R4,0[R1] ; R4 = *p, this is current value
-    add R3,R3,R4 ; R3 += R4
-    lea R1,1[R1] ; p += 1, get pointer to next element
-    jump sumLoop[R0] ; go back to start
-sumLoopEnd
-    trap R0,R0,R0
-
-x   data 23
-    data 42
-    data 19
-xEnd
-
-\end{minted}
+		x   data 23
+		data 42
+		data 19
+		xEnd
+\end{code}
+\end{highlight}
 
 \subsection{Comparison of Approaches}\label{sub:comparison_of_approaches}
 

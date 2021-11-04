@@ -30,18 +30,22 @@ Some languages call it a struct or dictionary.
 \subsubsection{How do you do records in Sigma16}\label{ssub:how_do_you_do_records_in_sigma16}
 
 To store data in a record do this:
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{asm}
-x ; just a label to mark the starting address of x
-x_fieldA data 3 ; offset 0 from x
-x_fieldB data 1 ; offset 1 from x
-\end{minted}
+\begin{highlight}{Sigma16 records}
+	\begin{code}{asm}
+		x ; just a label to mark the starting address of x
+		x_fieldA data 3 ; offset 0 from x
+		x_fieldB data 1 ; offset 1 from x
+	\end{code}
+\end{highlight}
 To retrieve data from a record in a bad way:
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{asm}
-load R1,x_fieldB[R0]
-load R2,x_fieldC[R0]
-add R1,R1,R2
-store R1,x_fieldA[R0]
-\end{minted}
+\begin{highlight}{Retrieving data from Sigma16 records}
+	\begin{code}{asm}
+		load R1,x_fieldB[R0]
+		load R2,x_fieldC[R0]
+		add R1,R1,R2
+		store R1,x_fieldA[R0]
+	\end{code}
+\end{highlight}
 To do it better, we will use pointers.
 
 \subsection{Pointers}\label{sub:pointers}
@@ -51,13 +55,13 @@ A pointer is an address which is available to us as a variable (an label like we
 We have a few new fancy symbols that we have to use now:
 \begin{description}
 	\item[The ampersand: \mintinline{c}{&x}] is used symbolically for the address of \mintinline{c}{x}
-	      \begin{itemize}
-		      \item You can apply to \mintinline{c}{&} operator to any variable (but not a complex expression).
-		      \item \mintinline{c}{&x} is okay.
-		            \mintinline{c}{&(3*x)} is not okay.
-	      \end{itemize}
+		\begin{itemize}
+			\item You can apply to \mintinline{c}{&} operator to any variable (but not a complex expression).
+			\item \mintinline{c}{&x} is okay.
+			      \mintinline{c}{&(3*x)} is not okay.
+		\end{itemize}
 	\item[The asterisk: \mintinline{c}{*p}] means the value that \mintinline{c}{p} points to.
-	      The \mintinline{c}{*} operator can be used on any pointer.
+		The \mintinline{c}{*} operator can be used on any pointer.
 \end{description}
 
 \subsubsection{Expressions using pointers}\label{ssub:expressions_using_pointers}
@@ -77,24 +81,24 @@ The \mintinline{c}{*} operator follow a pointer and give what ever it points to.
 
 \subsubsection{Pointers in Sigma16}\label{ssub:pointers_in_sigma16}
 
-\paragraph{Getting the address pointers}\label{par:getting_the_address_pointers}
+\begin{highlight}{Getting the address of pointers}
+	\begin{code}{asm}
+		lea R5,x[R0] ; load effective address of &x, R5=&x
+		...
+		load R6,y[R0] ; R6=&y
+		store R6,p[R0] ; p = &y, p now contains a pointer to the variable
+	\end{code}
+\end{highlight}
 
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{asm}
-lea R5,x[R0] ; load effective address of &x, R5=&x
-...
-load R6,y[R0] ; R6=&y
-store R6,p[R0] ; p = &y, p now contains a pointer to the variable for use later
-\end{minted}
-
-\paragraph{Getting data from pointers}\label{par:getting_data_from_pointers}
-
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{asm}
-load R7,p[R0] ; R7=p (load the pointer to a register)
-load R8,0[R7] ; R8=*p
-; start at displacement 0
-; offset by the amount at R7
-; ie. get the data pointed to by the address at R7
-\end{minted}
+\begin{highlight}{Getting data from pointers}
+	\begin{code}{asm}
+		load R7,p[R0] ; R7=p (load the pointer to a register)
+		load R8,0[R7] ; R8=*p
+		; start at displacement 0
+		; offset by the amount at R7
+		; ie. get the data pointed to by the address at R7
+	\end{code}
+\end{highlight}
 
 \subsection[The flexibility of LOAD and LEA]{The flexibility of \mintinline{asm}{load} and \mintinline{asm}{lea}}\label{sub:the_flexibility_of_load_and_lea}
 
@@ -116,25 +120,25 @@ load R8,0[R7] ; R8=*p
 
 \subsection{Examples of pointers}\label{sub:examples_of_pointers}
 
-\paragraph{A simple addition in a high-level language}\label{par:a_simple_addition_in_a_high_level_language}
+\begin{highlight}{A simple addition in a high-level language}
+	\begin{code}{c}
+		x = x + 5
+	\end{code}
+\end{highlight}
 
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{c}
-x = x + 5
-\end{minted}
+\begin{highlight}{Sigma16 pointer example}
+	\begin{code}{asm}
+		; Put a pointer to x into R3 which contains the address of x
+		; R3 = &x
+		lea R3,x[R0]
 
-\paragraph{The Sigma16 equivalent code}\label{par:the_sigma16_equivalent_code}
-
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{asm}
-; Put a pointer to x into R3 which contains the address of x
-; R3 = &x
-lea R3,x[R0]
-
-; Add 5 to whatever word R3 points to
-lea R1,5[R0] ; R1 = 5 (constant)
-load R4,0[R3] ; R4 = *R3
-add R4,R4,R1 ; R4 = *R3 + 5
-store R4,0[R3] ; *R3 = *R3 + 5
-\end{minted}
+		; Add 5 to whatever word R3 points to
+		lea R1,5[R0] ; R1 = 5 (constant)
+		load R4,0[R3] ; R4 = *R3
+		add R4,R4,R1 ; R4 = *R3 + 5
+		store R4,0[R3] ; *R3 = *R3 + 5
+	\end{code}
+\end{highlight}
 \begin{note}
 	This is equivalent to \mintinline{c}{*(&x)=*(&x) + 5}.
 \end{note}
@@ -150,8 +154,10 @@ This means that we can reuse this block many times.
 
 \subsection{Accessing a record using a pointer}\label{sub:accessing_a_record_using_a_pointer}
 
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{asm}
-load R1,1[R3] ; We move 1 address forward, then increase by R3
-; This is the same as increasing the offset from R3 by one.
-\end{minted}
+\begin{highlight}{Accessing a record using a pointer}
+	\begin{code}{asm}
+		load R1,1[R3] ; We move 1 address forward, then increase by R3
+		; This is the same as increasing the offset from R3 by one.
+	\end{code}
+\end{highlight}
 

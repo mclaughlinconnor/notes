@@ -12,20 +12,22 @@ The names of values are generally all upper case (just like regular constants).
 	\item \mintinline{python}{.equals()}, \mintinline{python}{.compareTo()}, \mintinline{python}{toString()} work too.
 \end{itemize}
 
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{java}
-public enum Planet {
-    MERCURY (...),
-    MARS (...);
+\begin{highlight}{Enumerations}
+	\begin{code}{java}
+		public enum Planet {
+            MERCURY (...),
+            MARS (...);
 
-    private final double mass;
-    private final double radius;
+            private final double mass;
+            private final double radius;
 
-    Planet(double m, double r) {
-        this.mass = m;
-        this.radius = r;
-    }
-}
-\end{minted}
+            Planet(double m, double r) {
+                this.mass = m;
+                this.radius = r;
+            }
+        }
+	\end{code}
+\end{highlight}
 
 \subsection{Paths/Files}\label{sub:paths_files}
 

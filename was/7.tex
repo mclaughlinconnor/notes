@@ -69,8 +69,11 @@ RegExps can be considered a program within a program which is probably why they 
 \subsubsection{RegEx in JavaScript}\label{ssub:regex_in_javascript}
 
 In JavaScript, regular expressions are represented as RegExp objects.
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{javascript}
-let pattern = /colou?r/i; // Matches "colour" and "color" case-insensitivly
-\end{minted}
+\begin{highlight}{JavaScript regular expressions}
+	\begin{code}{javascript}
+		// Matches "colour" and "color" case-insensitivly
+		let pattern = /colou?r/i;
+	\end{code}
+\end{highlight}
 The JavaScript \mintinline{javascript}{search} function can be called on a string with a RegExp as the parameter to search (returns the character index of the match).
 The JavaScript \mintinline{javascript}{exec} function can be called on a RegExp object with a string as the parameter returns the matching text, use \mintinline{javascript}{test} to return a boolean.

@@ -24,7 +24,6 @@ There were four components that separated the IAS from computers before it:
 \end{enumerate}
 %
 Most computers have this architecture.
-
 The von Neuman machine is a model saying:
 \begin{itemize}
 	\item There should be four main subsystems (above)
@@ -44,7 +43,7 @@ The von Neuman machines have a selection of special registers to use also:
 
 \subsection{Instruction Cycle}\label{sub:instruction_cycle}
 
-\begin{center}
+\begin{highlight}{The fetch-execute cycle}
 	\begin{tikzpicture}
 		\draw
 		node (s) {Start}
@@ -56,7 +55,7 @@ The von Neuman machines have a selection of special registers to use also:
 		\draw[->] (e) -- (h);
 		\draw[->] (e) -- ++(0,-5mm) -| (f);
 	\end{tikzpicture}
-\end{center}
+\end{highlight}
 \begin{enumerate}
 	\item The program fetches the instruction at the program counter
 	\item We increment the program counter (unless explicitly told not to when doing branches)

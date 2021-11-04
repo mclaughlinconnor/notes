@@ -30,26 +30,30 @@ There are three key basic operations and they are implemented in Sigma16:
 Nil is represented by \(0\), so the list \(p\) is empty iff (if and only if) \(p=0\).
 It is unsafe to perform an action on a list  \(p\) unless \(p\) actually points to a node, this this test is commonly needed.
 
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{asm}
-load R1,p[R0] ; R1 = p
-cmp R1,R0 ; compare p with 0
-jumpeq pIsEmptyProcedure[R0] ; jump to pIsEmptyProcedure if p == 0
-; No, p is not empty.
+\begin{highlight}{Checking if a linked list is empty with Sigma16}
+	\begin{code}{asm}
+		load R1,p[R0] ; R1 = p
+		cmp R1,R0 ; compare p with 0
+		jumpeq pIsEmptyProcedure[R0] ; jump to pIsEmptyProcedure if p == 0
+		; No, p is not empty.
 
-pIsEmptyProcedure
-; Yes, p is empty
-\end{minted}
+		pIsEmptyProcedure
+		; Yes, p is empty
+	\end{code}
+\end{highlight}
 
 \subsubsection{Get the value in a node}\label{ssub:get_the_value_in_a_node}
 
 Suppose \(p\) is a pointer to a node.
 We want to do \mintinline{c}{x = *p.value} which is only safe to do if the list is not empty.
 
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{asm}
-load R1,p[R0] ; R1 = p
-load R2,0[R1] ; R2 = *p.value
-store R2,x[R0] ; x = *p.value
-\end{minted}
+\begin{highlight}{Getting the value of a linked list node in Sigma16}
+\begin{code}{asm}
+		load R1,p[R0] ; R1 = p
+		load R2,0[R1] ; R2 = *p.value
+		store R2,x[R0] ; x = *p.value
+	\end{code}
+\end{highlight}
 
 \subsubsection{Get the pointer to the next node in a list}\label{ssub:get_the_pointer_to_the_next_node_in_a_list}
 
@@ -57,11 +61,13 @@ We want to do \mintinline{c}{p = *p.next}.
 Again, this is only possible to do if \(p\) is not empty.
 The \mintinline{asm}{next} field of a node is at offset \(1\) in the node record.
 
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{asm}
-load R1,p[R0] ; R1 = p
-load R2,1[R1] ; R2 = *p.next
-store R2,q[R0] ; q = *p.next
-\end{minted}
+\begin{highlight}{Getting the pointer to the next node in a linked list}
+	\begin{code}{asm}
+		load R1,p[R0] ; R1 = p
+		load R2,1[R1] ; R2 = *p.next
+		store R2,q[R0] ; q = *p.next
+	\end{code}
+\end{highlight}
 
 \section{Advanced Linked List Operations}\label{sec:advanced_linked_list_operations}
 
@@ -69,28 +75,32 @@ store R2,q[R0] ; q = *p.next
 
 A while loop is the best looping construct for traversing a list (a for loop is better for arrays).
 
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{python}
-def list_sum(p):
-    sum = 0
-    while p != nil: # Have I reached the end of the list?
-        x = (*p).value # read node value
-        sum = sum + x # accumulate into sum
-        p = (*p).next # update pointer to next node
-\end{minted}
+\begin{highlight}{Traversing a linked list}
+	\begin{code}{python}
+		def list_sum(p):
+		sum = 0
+		while p != nil: # Have I reached the end of the list?
+		x = (*p).value # read node value
+		sum = sum + x # accumulate into sum
+		p = (*p).next # update pointer to next node
+	\end{code}
+\end{highlight}
 
 \subsection{Searching a list for a value}\label{sub:searching_a_list_for_a_value}
 
 Again, we should use a while loop.
 
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{python}
-def list_search(p, x):
-    found = False
-    while p != nil and not found: # loop until end or until found
-        found = (x == (*p).value) # found = True if x matches the value
-        p = (*p).next # move on to next node
+\begin{highlight}{Searching a linked list for a value}
+	\begin{code}{python}
+		def list_search(p, x):
+		found = False
+		while p != nil and not found: # loop until end or until found
+		found = (x == (*p).value) # found = True if x matches the value
+		p = (*p).next # move on to next node
 
-    return found
-\end{minted}
+		return found
+	\end{code}
+\end{highlight}
 
 \subsection{Getting a New Node From The Heap}\label{sub:getting_a_new_node_from_the_heap}
 
@@ -102,14 +112,16 @@ We have to assume:
 	\item With a pointer \mintinline{asm}{avail} pointing to the first node.
 \end{itemize}
 
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{python}
-if avail == nil:
-    raise Exception('Fatal error: out of heap')
-else:
-    newnode = avail
-    avail = (*avail).next
-    return newnode
-\end{minted}
+\begin{highlight}{Getting a new linked list node from the heap}
+	\begin{code}{python}
+		if avail == nil:
+		raise Exception('Fatal error: out of heap')
+		else:
+		newnode = avail
+		avail = (*avail).next
+		return newnode
+	\end{code}
+\end{highlight}
 
 \begin{note}
 	Nodes do not move around the memory, it always stays in the same place, we just have pointers pointing to it.
@@ -118,12 +130,14 @@ else:
 \subsection{Inserting a node after another node}\label{sub:inserting_a_node_after_another_node}
 
 To insert \(x\) after \(q\):
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{python}
-r = newnode() ; from above
-(*r).value = x ; set value of current node to x
-(*r).next = (*q).next ; r and q both have the same next
-(*q).next = r ; q.next now points to r
-\end{minted}
+\begin{highlight}{Inserting a node into a linked list after another node}
+	\begin{code}{python}
+		r = newnode() # from above
+		(*r).value = x # set value of current node to x
+		(*r).next = (*q).next # r and q both have the same next
+		(*q).next = r # q.next now points to r
+	\end{code}
+\end{highlight}
 
 \subsection{Insert a node at the head}\label{sub:insert_a_node_at_the_head}
 
@@ -135,20 +149,22 @@ We can then just use the same procedure to insert a node after the head.
 
 We can delete a node after \(q\).
 Just change the previous node to skip over the one to be deleted.
-Return the node being deleted back to \mintinline{asm}{avial}.
+Return the node being deleted back to \mintinline{asm}{avail}.
 
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{python}
-def delete(q):
-    if q != nil: ; is q nil just in case
-        r = (*p).next ; get the actual node to be deleted
-        if r != nil: ; is r the last node?
-            (*q).next = (*r).next ; skip over r entirely
-            ; r is still using memory
-            
-            ; insert r between avail and avail[i+1]
-            (*r).next = avail
-            avail = r
-\end{minted}
+\begin{highlight}{Deleting a particular node from a linked list}
+	\begin{code}{python}
+		def delete(q):
+		if q != nil: ; is q nil just in case
+		r = (*p).next ; get the actual node to be deleted
+		if r != nil: ; is r the last node?
+		(*q).next = (*r).next ; skip over r entirely
+		; r is still using memory
+
+		; insert r between avail and avail[i+1]
+		(*r).next = avail
+		avail = r
+	\end{code}
+\end{highlight}
 
 \subsubsection{Space Leaks}\label{ssub:space_leaks}
 

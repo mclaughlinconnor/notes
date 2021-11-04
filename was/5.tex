@@ -20,35 +20,41 @@ We have relationships between the entities like ``belongs'', ``owns'', etc.
 There are many different notations.
 We will be using the \emph{Compressed Chen Notation} which uses rectangles to represent entities, diamonds to represent relationships and \(1\), \(N\) and \(M\) to notate cardinality.
 
-\begin{center}
-	\begin{tikzpicture}[auto,node distance=1.5cm]
-		\node[entity] (person) {Person};
-		\node[relationship] (has) [below right = of person] {Has} edge node {\(M\)} (person);
-		\node[entity] (house) [above right = of has] {House} edge node[midway] {\(1\)} (has);
-	\end{tikzpicture}
-\end{center}
+\begin{highlight}{Entity relationship diagram notations}
+	\begin{center}
+		\begin{tikzpicture}[auto,node distance=1.5cm]
+			\node[entity] (person) {Person};
+			\node[relationship] (has) [below right = of person] {Has} edge node {\(M\)} (person);
+			\node[entity] (house) [above right = of has] {House} edge node[midway] {\(1\)} (has);
+		\end{tikzpicture}
+	\end{center}
+\end{highlight}
 
 \subsubsection{Many to Many}\label{ssub:many_to_many}
 
 For many to many, we use \(M\) to \(N\) so that it is clear that the two numbers can be different.
-\begin{center}
-	\begin{tikzpicture}[auto,node distance=1.5cm]
-		\node[entity] (student) {Student};
-		\node[relationship] (enrolls) [right = of student] {Has} edge node {\(N\)} (student);
-		\node[entity] (course) [right = of enrolls] {Course} edge node {\(M\)} (enrolls);
-	\end{tikzpicture}
-\end{center}
+\begin{highlight}{A many to many relationship}
+	\begin{center}
+		\begin{tikzpicture}[auto,node distance=1.5cm]
+			\node[entity] (student) {Student};
+			\node[relationship] (enrolls) [right = of student] {Has} edge node {\(N\)} (student);
+			\node[entity] (course) [right = of enrolls] {Course} edge node {\(M\)} (enrolls);
+		\end{tikzpicture}
+	\end{center}
+\end{highlight}
 Because it can be hard to represent a many to many relationship in a database we can also do something like:
 
-\begin{center}
-	\begin{tikzpicture}[auto,node distance=1.5cm]
-		\node[entity] (student) {Student};
-		\node[relationship] (has) [below = of person] {Has} edge node {\(1\)} (student);
-		\node[entity] (enrollment) [right = of has] {Enrollment} edge node {\(N\)} (has);
-		\node[relationship] (in) [right = of enrollment] {In} edge node {\(N\)} (enrollment);
-		\node[entity] (course) [above = of in] {Course} edge node {\(1\)} (in);
-	\end{tikzpicture}
-\end{center}
+\begin{highlight}{A many to many alternative}
+	\begin{center}
+		\begin{tikzpicture}[auto,node distance=1.5cm]
+			\node[entity] (student) {Student};
+			\node[relationship] (has) [below = of person] {Has} edge node {\(1\)} (student);
+			\node[entity] (enrollment) [right = of has] {Enrollment} edge node {\(N\)} (has);
+			\node[relationship] (in) [right = of enrollment] {In} edge node {\(N\)} (enrollment);
+			\node[entity] (course) [above = of in] {Course} edge node {\(1\)} (in);
+		\end{tikzpicture}
+	\end{center}
+\end{highlight}
 
 \subsubsection{Keys}\label{ssub:keys}
 
@@ -67,46 +73,45 @@ The difference between Chen and Compressed Chen notation is that with regular Ch
 
 Chen with the combined entities and attributes:
 
-\begin{center}
-	\begin{tikzpicture}[auto,node distance=1.5cm]
-		\node[entity] (student) {Student}
-		[grow=up,sibling distance=3cm]
-		child {node[attribute] {Age}}
-		child {node[attribute] {Name}}
-		child {node[attribute] {Student ID}};
-		\node[relationship] (enrolls) [right = of student] {Has} edge node {\(N\)} (student);
-		\node[entity] (course) [right = of enrolls] {Course} edge node {\(M\)} (enrolls);
-	\end{tikzpicture}
-\end{center}
+\begin{highlight}{Chen notation}
+	\begin{center}
+		\begin{tikzpicture}[auto,node distance=1.5cm]
+			\node[entity] (student) {Student}
+			[grow=up,sibling distance=3cm]
+			child {node[attribute] {Age}}
+			child {node[attribute] {Name}}
+			child {node[attribute] {Student ID}};
+			\node[relationship] (enrolls) [right = of student] {Has} edge node {\(N\)} (student);
+			\node[entity] (course) [right = of enrolls] {Course} edge node {\(M\)} (enrolls);
+		\end{tikzpicture}
+	\end{center}
+\end{highlight}
 
 \paragraph{Compressed Chen}\label{par:compressed_chen}
 
-Compressed Chen with the separate table:
-
-\medskip
-\begin{minipage}{0.50\linewidth}
-	\centering
-	\begin{tikzpicture}[auto,node distance=1.5cm]
-		\node[entity] (student) {Student};
-		\node[relationship] (enrolls) [right = of student] {Has} edge node {\(N\)} (student);
-		\node[entity] (course) [right = of enrolls] {Course} edge node {\(M\)} (enrolls);
-	\end{tikzpicture}
-\end{minipage}
-\hfill
-\begin{minipage}{0.40\linewidth}
-	\centering
-	\begin{tabular}{cc}
-		\toprule
-		Field      & Type    \\
-		\midrule
-		Age        & Integer \\
-		Name       & String  \\
-		Student ID & String  \\
-		\bottomrule
-	\end{tabular}
-\end{minipage}
-
-
+\begin{highlight}{Compressed Chen with a separate table}
+	\begin{minipage}{0.57\linewidth}
+		\centering
+		\begin{tikzpicture}[auto,node distance=1.5cm]
+			\node[entity] (student) {Student};
+			\node[relationship] (enrolls) [right = of student] {Has} edge node {\(N\)} (student);
+			\node[entity] (course) [right = of enrolls] {Course} edge node {\(M\)} (enrolls);
+		\end{tikzpicture}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.40\linewidth}
+		\centering
+		\begin{tabular}{cc}
+			\toprule
+			Field      & Type    \\
+			\midrule
+			Age        & Integer \\
+			Name       & String  \\
+			Student ID & String  \\
+			\bottomrule
+		\end{tabular}
+	\end{minipage}
+\end{highlight}
 
 \subsection{Creating Tables}\label{sub:creating_tables}
 
@@ -122,14 +127,16 @@ In Django, instead of creating tables manually, we can just create a few classes
 In Django, every model is automatically assigned an id.
 To create relationships, we can just refer to the model instead of the id itself.
 
-\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{python}
-class House(models.Model):
-    ...
+\begin{highlight}{Converting tables to Django models}
+	\begin{code}{python}
+		class House(models.Model):
+		...
 
-class Person(models.Model):
-    # Every person must live in a house
-    house = models.ForeignKey(House)
-\end{minted}
+		class Person(models.Model):
+            # Every person must live in a house
+            house = models.ForeignKey(House)
+	\end{code}
+\end{highlight}
 
 \section{Presentations}\label{sec:presentations}
 

@@ -43,9 +43,11 @@ We can find out number of clock ticks needed for \(n\) number of instructions, b
 \subsection{MIPS and MFLOPS}\label{sub:mips_and_mflops}
 
 Millions of instructions per second (MIPS).
-\begin{align*}
-	\textrm{MIPS rate} = \frac{I_c}{T \times 10^6} = \frac{f}{CPI \times 10^6}
-\end{align*}
+\begin{highlight}{MIPS rate formula}
+    \begin{align*}
+    	\textrm{MIPS rate} = \frac{I_c}{T \times 10^6} = \frac{f}{CPI \times 10^6}
+    \end{align*}
+\end{highlight}
 Millions of floating point instructions per second (MFLOPS).
 Heavily dependent on instruction set, compiler design, processor implantation, cache and memory hierarchy.
 MIPS and MFLOPS are bad for measuring performance.
