@@ -114,7 +114,7 @@ The data link layer still has to worry about the physical connections so that it
 
 The physical layer is the only layer that when it speaks to its peer is actually physically connected to it.
 
-The main focuses are to transmit a sequence of bits over an analogue channel subject to noise/hardware limitations/clock skew (time sensitive events are late), and interface to \(L_2\).
+The main focuses are to transmit a sequence of bits over an analogue channel which would be subject to noise/hardware limitations/clock skew (time sensitive events are late), and interface to \(L_2\).
 
 \subsubsection{Examples}\label{ssub:examples_}
 
@@ -190,7 +190,7 @@ The maximum transmission rate of a digital signal depends on the channel bandwid
 	We assume a noise free channel here.
 \end{note}
 
-\subsubsection{What is \(V\)}\label{ssub:what_is_mk}
+\subsubsection[What is V?]{What is \(V\)?}\label{ssub:what_is_mk}
 
 \(V\) is the possible discrete values per symbol (size of the alphabit).
 Inside a computer system, we use binary (or \(V=2\)).
@@ -202,8 +202,3 @@ Real world channels have noise that alters the signal.
 We can measure a channel's signal power, \(S\), and noise floor, \(N\), and compute the signal to noise ration (\(SN\) or \(SNR\)).
 
 Bandwidth and \(SNR\) are fundamental limits on the throughput (bit rate) which might be able to be reached using careful engineering, but can never be surpassed (Shannon's Theorem).
-
-
-
-
-

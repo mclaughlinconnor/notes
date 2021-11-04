@@ -54,9 +54,9 @@ The development process:
 Types of web application:
 \begin{description}
 	\item[Static] Originally these were just hand-built HTML pages.
-	      If you wanted to update some pages, you would need to manually change many pages which would lead to inconsistencies.
+		If you wanted to update some pages, you would need to manually change many pages which would lead to inconsistencies.
 	\item[Interactive] There are forms on pages which can send data to a server to show different pages.
-	      CGI was the first technology for this, but has now been superseded by others (ASP, JASP, PHP, etc.).
+		CGI was the first technology for this, but has now been superseded by others (ASP, JASP, PHP, etc.).
 	\item[Transactional] Forms also offer the capture of data and database storage at the server although data management may be separate from the web server.
 	\item[Workflow] Support for functionality expressed as a sequence of pages reflecting a business process.
 	\item[Portal oriented] One site that points to many other sites.
@@ -117,22 +117,22 @@ The standard mechanism is to have SAL statements as strings inside the client wh
 
 \begin{description}
 	\item[Client-Server Architecture] We should have a separate client and server
-	      \begin{description}
-		      \item[Fat Client] We can use a \emph{Fat Client} to get an application to work on top of a database where all of the application code is stored on the local client itself and just database requests are sent to the server.
-		      \item[Thin Client] All of the logic is stored on the server.
-		            One such example is a static web application where there is a static set of HTML pages which are hyperlinked together.
-		            If a user were to navigate to a different URL, a request is made to the server and a new page is delivered.
-	      \end{description}
+		\begin{description}
+			\item[Fat Client] We can use a \emph{Fat Client} to get an application to work on top of a database where all of the application code is stored on the local client itself and just database requests are sent to the server.
+			\item[Thin Client] All of the logic is stored on the server.
+				One such example is a static web application where there is a static set of HTML pages which are hyperlinked together.
+				If a user were to navigate to a different URL, a request is made to the server and a new page is delivered.
+		\end{description}
 	\item[Layers] We can use an \emph{extended thin client} where different layers inside the client tier handle data and presentation.
-	      Initially, the HTML files contained all of the information on how to render the page.
-	      With lots of pages there is lots of overhead in creating and maintain the site.
-	      We should separate the concerns by using CSS to be able to update only styles without touching all of the HTML pages.
+		Initially, the HTML files contained all of the information on how to render the page.
+		With lots of pages there is lots of overhead in creating and maintain the site.
+		We should separate the concerns by using CSS to be able to update only styles without touching all of the HTML pages.
 	\item[Extended Thin Clients and Servers] Layers within the client tier handle the content and look/feel.
-	      The server now houses a web server and an application server.
-	      \begin{description}
-		      \item[Web Server] Handles incoming requests and routing them to and form the server.
-		      \item[Application server] Dynamically generates a response when given a request.
-	      \end{description}
+		The server now houses a web server and an application server.
+		\begin{description}
+			\item[Web Server] Handles incoming requests and routing them to and form the server.
+			\item[Application server] Dynamically generates a response when given a request.
+		\end{description}
 \end{description}
 
 \paragraph{Problems with Two Tier Architectures}\label{par:problems_with_two_tier_architectures}
@@ -171,8 +171,8 @@ A form takes input and sends data to the server using GET and POST requests.
 
 \begin{description}
 	\item[GET] Requests a URL with certain parameters.
-	      The URL is stored in the browser history so the user can go backwards and forwards through history.
-	      These should be used for login details and cannot be used for large data.
+		The URL is stored in the browser history so the user can go backwards and forwards through history.
+		These should be used for login details and cannot be used for large data.
 	\item[POST] This is a different type of request that is not stored in the browser URL and should be used for large data and login details.
 \end{description}
 
@@ -181,7 +181,8 @@ A form takes input and sends data to the server using GET and POST requests.
 Where you have many different servers, you should use a load balancer to decide which server should get the requests.
 \begin{description}
 	\item[Domain Name Server] Changes the URL into an IP address.
-	      You can change which IP address to send to.
+		You can change which IP address to send to.
 	\item[Load Balancing Server] Farms out requests stew available machines.
-	      Each machine in the system must inform the load balancing server on its availability.
+		Each machine in the system must inform the load balancing server on its availability.
 \end{description}
+

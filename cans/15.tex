@@ -3,21 +3,21 @@
 There are two ways of working with variables in memory:
 \begin{description}
 	\item[Statement-by-statement] Each statement is compiled independently: load then arithmetic then store. This is straightforward but inefficient (because memory transfers are slow).
-	      \begin{itemize}
-		      \item Each statement is compiled separately
-		      \item Each statement loads, computes, then stores
-		      \item A variable may be in several different registers
-		      \item There may be lots of redundant loading and storing code
-		      \item \emph{Object code} will match source code, but will be very long.
-	      \end{itemize}
+		\begin{itemize}
+			\item Each statement is compiled separately
+			\item Each statement loads, computes, then stores
+			\item A variable may be in several different registers
+			\item There may be lots of redundant loading and storing code
+			\item \emph{Object code} will match source code, but will be very long.
+		\end{itemize}
 	\item[Register variable style] Keep variables in registers access a group of statements. You don't need so many loads and stores, but you do need to keep track of which variables are in which registers (so you must use comments).
-	      \begin{itemize}
-		      \item The instructions corresponding to the statements are mixed together
-		      \item Some statements are executed entirely in the registers
-		      \item A variable is kept in the same register across many statements
-		      \item The use of loads and stores is minimal
-		      \item Object code is concise, but hard to read and match to source code
-	      \end{itemize}
+		\begin{itemize}
+			\item The instructions corresponding to the statements are mixed together
+			\item Some statements are executed entirely in the registers
+			\item A variable is kept in the same register across many statements
+			\item The use of loads and stores is minimal
+			\item Object code is concise, but hard to read and match to source code
+		\end{itemize}
 \end{description}
 
 \begin{note}
@@ -153,5 +153,4 @@ When the exit condition is truthy, we jump after the loop.
 \begin{note}
 	To copy one register to another register, we just do \mintinline{asm}{add R4,R5,0}.
 \end{note}
-
 
