@@ -57,7 +57,7 @@ Everything after a semicolon is a comment.
 \subsection{Registers can hold variables}\label{sub:registers_can_hold_variables}
 
 A variable can hold a value, so can registers.
-Instructions like \mintinline{python}{sub} , \mintinline{python}{mul} and \mintinline{python}{div} are assignment operations.
+Instructions like \mintinline{python}{sub}, \mintinline{python}{mul} and \mintinline{python}{div} are assignment operations.
 
 \begin{note}
 	They are not a mathematical equation, it is a command to do an operation, then put the result into a register.
@@ -88,8 +88,7 @@ Good comments make code easy to read.
 
 \subsection{Constants}\label{sub:constants}
 
-The ATM has an instruction that loads a constant into a register.
-
+The RTM has an instruction that loads a constant into a register.
 How to use \mintinline{python}{lea}:
 \begin{itemize}
 	\item \mintinline{python}{lea R2,57[R0]} leads \mintinline{python}{57} into \(R_2\).
@@ -119,14 +118,16 @@ The ``booter'' code starts execution at location \(0\).
 
 You should not use \(R_0\) or \(R_{15}\) to store variables.
 
-Register zero:
+\subsubsection{Register Zero}\label{ssub:register_zero}
+
 \begin{itemize}
 	\item Any time you need the number \(0\), it is in \(R_0\).
 	\item You cannot change the value of \(R_0\) -- it will always  be \(0\), even if you try to change it.
 	\item It is legal to try and overwrite it, but nothing will happen.
 \end{itemize}
-%
-Register fifteen:
+
+\subsubsection{Register Fifteen}\label{ssub:register_fifteen}
+
 \begin{itemize}
 	\item Some instructions place additional information in \(R_{15}\) (is the result negative? Was there an overflow?)
 	\item \(R_{15}\) is temporary information and is not a safe place to store data.
@@ -182,7 +183,6 @@ There are three types of instructions:
 	\item RX instructions use the memory
 	\item EXP instructions use registers and constant.
 \end{itemize}
-
 %
 Each kind of instruction is called an instruction format.
 Each instruction format has a standard representation in the memory using one or more words.
@@ -217,6 +217,7 @@ Has two operands (register and memory location).
 Here are some examples of two of the possible RX instructions:
 \mintinline{python}{lea R5,19[R0]} and \mintinline{python}{load R1,x[R0]}.
 
+In the RX instruction we have two operands.
 The first operand is called the destination register.
 The second operand specifies a memory address.
 
@@ -224,6 +225,6 @@ Each variable is kept in memory at a specific location.
 The memory operand has two parts (\mintinline{python}{x[R0]}).
 \mintinline{python}{x} is the initial location, then we add the value at \(R_0 = 0\) (called the index register) and get the data at that address (almost like an array).
 
-The instruction take \(2\) wordss.
+The instruction take \(2\) words.
 The first word contains \mintinline{python}{op} (opcode), \mintinline{python}{d} (register operand or destination), \mintinline{python}{a} (index register like \(R_0\)), \mintinline{python}{b} (a code indicating which RX instruction it is -- \(1\) means load, for example).
 The second word contains the displacement address (the address of \(x\)) for \(16\) bits.

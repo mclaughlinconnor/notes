@@ -135,13 +135,13 @@ There are two ways of using XML in a program:
 \subsubsection{DOM Parsing}\label{ssub:dom_parsing}
 
 \begin{enumerate}
-	\item   Load the XML document
+	\item Load the XML document
 	\item Find the element we want by searching or traversing the tree.
 	\item For the element, extract, modify, or remove attributes, values, or data.
 	\item Repeat until done
 \end{enumerate}
 
-\begin{minipage}{0.45\linewidth}
+\begin{minipage}[t]{0.45\linewidth}
 	Pros:
 	\begin{itemize}
 		\item Can handle the entire document at once
@@ -149,7 +149,7 @@ There are two ways of using XML in a program:
 	\end{itemize}
 \end{minipage}
 \hfill
-\begin{minipage}{0.45\linewidth}
+\begin{minipage}[t]{0.45\linewidth}
 	Cons:
 	\begin{itemize}
 		\item Uses more memory
@@ -168,7 +168,7 @@ SAX parsing has event handlers which are triggered for open and closing tags of 
 	\item Create a DocumentHandler to turn the document into instances of the custom object model.
 \end{enumerate}
 
-\begin{minipage}{0.45\linewidth}
+\begin{minipage}[t]{0.45\linewidth}
 	Pros:
 	\begin{itemize}
 		\item Uses less memory
@@ -177,13 +177,11 @@ SAX parsing has event handlers which are triggered for open and closing tags of 
 	\end{itemize}
 \end{minipage}
 \hfill
-\begin{minipage}{0.45\linewidth}
+\begin{minipage}[t]{0.45\linewidth}
 	Cons:
-	\begin{minipage}{0.45\linewidth}
-		\begin{itemize}
-			\item Cannot handle all parsing tasks directly (to validate entire document, several parses needed).
-			\item Requires more programmer effort
-		\end{itemize}
-	\end{minipage}
+	\begin{itemize}
+		\item Cannot handle all parsing tasks directly (to validate entire document, several parses needed).
+		\item Requires more programmer effort
+	\end{itemize}
 \end{minipage}
 

@@ -10,7 +10,7 @@ The Data Link Layer handles the physical connection for devices directly connect
 	\item[Frame] Structure the raw bit stream into a usable format
 	\item[Error Correction] Correct errors in the code from noise or interference
 	\item[Access Control] Also ``media access control''.
-	      Decides which devices can communicate on a channel.
+		Decides which devices can communicate on a channel.
 \end{description}
 The data link layer communicates with \(L_1\) via a raw bit stream and it provides \(L_3\) with structured communication (using addressing and packets).
 
@@ -108,7 +108,7 @@ Other error correcting codes exist, but there is a trade-off between complexity,
 Links may be point-to-point or multi-access.
 \begin{description}
 	\item[Point-to-point] There are separate physical cables for each direction.
-	      We need framing in each direction, but there is no competition (contention) for the links.
+		We need framing in each direction, but there is no competition (contention) for the links.
 	\item[Multi-access] There is a single bidirectional link for all hosts so nodes have to compete (contend) for access.
 \end{description}
 
@@ -157,6 +157,7 @@ This system improves link utilisation by avoiding interrupting active transmissi
 
 If you have a high propagation delay, you should listen before and while you are sending data.
 If a collision occurs, stop sending data immediately, back of and retransmit.
+
 \begin{note}
 	Both packets are still corrupted, but the time the channel is blocked is far less giving better performance.
 \end{note}
@@ -165,5 +166,3 @@ If a collision occurs, stop sending data immediately, back of and retransmit.
 
 If you are listening to a channel and there is silence, on a low delay network, you can be confident no nodes are transmitting.
 If there is a high delay, though, another node may be transmitting and the signal hasn't reached you yet and causing a collision and garbling data.
-
-
