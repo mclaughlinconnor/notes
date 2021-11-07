@@ -74,7 +74,7 @@ Along with these more algorithmic styles of thinking, we also need to be able to
 
 In an algorithmic program, we have access to three types of operations: \emph{sequential}, \emph{conditional}, iterative -- which are all quite self explanatory.
 
-\subsubsection{Sequential}\label{ssub:sequential}
+\subsubsection{Sequential Operations}\label{ssub:sequential}
 
 A sequential operation is one which performs a process.
 The program flow goes straight in one side and right out the other.
@@ -82,3 +82,13 @@ The program flow goes straight in one side and right out the other.
 \subsubsection{Conditional Operations}\label{ssub:conditional_operations}
 
 A conditional operation asks a question, then performs an operation based on the results.
+A conditional operation can have an infinite number of branches that can be travelled.
+
+\subsubsection{Iterative Operations}\label{ssub:iterative_operations}
+
+The real power of computers comes when we want to repeat the same task many, many times.
+Imagine how many sequential operations could be completed every second by a \(1 \mathrm{GHz}\) processor.
+Most things a computer does are done in a loop (eg. Updating the display, updating player position, etc.)
+
+There are \emph{pre-test} loops and \emph{post-test} loops which change when the conditional check is performed.
+Generally we use a pre-test loop, but occasionally we have to use a post-test loop (which are especially useful if the loop needs to run at least once).
