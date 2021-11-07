@@ -1,0 +1,120 @@
+\section{Course Introduction}\label{sec:dsr_course_introduction}
+
+Throughout the course we will mainly be focusing on structured, relational databases which we will try to practice as much as possible practically.
+During lectures, the first hour will generally be a practical session covering what was learned in the lecture section of the last lecture.
+The second hour will be a lecture covering new content.
+
+\subsection{Assessments}\label{sub:dsr_assessments}
+
+\begin{description}
+    \item[First coursework task] The first assessed task of the semester will be worth only \(5\%\) of the course grade and will be due \(2021-11-09\)
+    \item[Second coursework task] The second of two assessed tasks will be worth \(20\%\) of the course and will be due on \(2021-11-19\)
+    \item[Quizzes] Throughout the course, there will be several quizzes, these will be worth a total of \(5\%\)
+         \item[Mid-semester class test] At roughly the half-way point of the course, we will have an in-class test on \(2021-11-24\) that will be worth \(10\%\) of the final grade
+\end{description}
+
+\begin{note}
+    Everything in any lectures, coursework, or Moodle books will be examinable.
+\end{note}
+
+\subsection{Data, information, and knowledge}\label{sub:data_information_and_knowledge}
+
+\begin{description}
+    \item[Data] A structured representation of some raw data.
+        This is just raw data and has no inherent meaning.
+        Eg. \(52\) or \(14159\)
+         \item[Information] This is also raw data, but it also has a meaning attached.
+             Eg. ``The age is \(52\)'' or ``the user id is \(14159\).''
+ \item[Knowledge] Information that can be ascertained from the information.
+Eg. You could calculate the age category of the person, or you could calculate their sign up date from their user id.
+\end{description}
+
+\subsection{Problems in Data Management}\label{sub:problems_in_data_management}
+
+We process \emph{lots} of data every day, and that amount will only grow into the future.
+Databases are key to this, and are used in a variety of ways to aid and abet in the data processing pipeline.
+
+For a database to be useful, we need it to be able to:
+\begin{itemize}
+    \item Store \emph{lots} of data
+    \item Access all of our data (also query/search it)
+        \item We don't want different versions of our data everywhere, so we want to avoid \emph{redundancy} because that can cause inconsistencies between copies of the same data.
+            \item We want our database to be reliable, so that if there is one problem somewhere, the entire system doesn't break.
+\end{itemize}
+
+\subsection{Data Storage}\label{sub:data_storage}
+
+Now that we've established that a database is the absolute best way of storing data, we need a tool to operate our database.
+Any decent data storage tool must provide these features:
+\begin{description}
+    \item[Data Definition] This is the basic structure of a database
+        \item[Data entry] We must be able to add new data to our database
+            \item[Data editing] Data must be able to be edited after it has been added
+                \item[Querying] We must be able to extract either a subset of our data or all of it back out of the database again.
+                    \item[Persistence] Data must last in the database across different operations
+\end{description}
+
+To address these requirements we have a few choices:
+\begin{description}
+    \item[In memory-storage] This is the simplest, but it has no persistence, and requires that you re-enter data at the start of every runtime.
+        \item[Files on disk] This is where each program handles it own representations of the data.
+            This has the problem that it is very hard to have concurrent access to the same data (different programs will have different files), and to keep data consistent across different files.
+            \item[Database management system] Sometimes this is also called a \emph{DBMS}.
+                This is where all functions for storing data, as well as any related access functions (eg. performing calculations on the data) are in the same system.
+                Usually the terms ``DBMS'' and ``Database'' are used interchangeably.
+        \end{description}
+
+\subsection{What is a database}\label{sub:what_is_a_database}
+
+Inside of a database, data can be stored without any redundancy in a structured manner.
+Individual users can be granted access to edit, add, delete, or access data and many users can access the same (or different) data at the same time.
+
+\subsubsection{Types of database}\label{ssub:types_of_database}
+
+\begin{description}
+    \item[Hierarchical] This is almost exactly like a file system where data can only be accessed if you know the correct path to it.
+        \item[Networked] This is very similar to a hierarchical database, except data is stored on a graph instead of a tree.
+            \item[Relational] The main change here is that you can query data by field instead of by path now.
+                \item[Object oriented] This was considered to be the ``next best thing'' in databases -- they didn't take off.
+                    Data was stored on objects which could have properties or methods, instead of on tables.
+                    \item[NoSQL] These are often still pretty much relational databases and use SQL underneath, but they just don't expose it to developers.
+            \end{description}
+
+\subsubsection{Relational Databases}\label{ssub:relational_databases}
+
+A relational database stores data in a series of tables.
+Tables are made up of a schema (a list of precisely defined fields) and information and can be linked together by a unique identifier.
+
+\subsection{Database Operations}\label{sub:database_operations}
+
+\subsubsection{View}\label{ssub:dsr_view}
+
+Admins and users should be able to view different pieces of data in different formats.
+
+\subsubsection{Manipulate}\label{ssub:manipulate}
+
+Admins and users should be able to add, update, and delete different pieces of data.
+
+\subsubsection{Query Types}\label{ssub:query_types}
+
+\begin{description}
+    \item[Exact Query] A query where there is one very exact, specific answer
+        \item[Inexact Query] A query where there is no exact answer. Eg. What is the best restaurant?
+\end{description}
+
+\begin{note}
+    Relational database can only handle exact queries.
+\end{note}
+
+\subsection{How do databases avoid redundancy?}\label{sub:avoiding_redundancy}
+
+\begin{description}
+    \item[Ambiguity] Databases make sure the same data is not stored somewhere else with with a different name.
+        \item[Inconsistency] Databases make sure that any time data is changed, it is changed in all places it exists.
+            \item[Wasted Effort] Databases avoid wasted effort by sharing data as much as possible.
+\end{description}
+
+\subsection{Controlled Concurrent Access}\label{sub:controlled_concurrent_access}
+
+All users connected to a database should be able to see the same, correct data at the same time. Ie. One user update shouldn't cause incorrect data to be displayed to another user.
+To avoid this, databases lock table rows using transactions to make concurrent database operations seem independent and sequential.
