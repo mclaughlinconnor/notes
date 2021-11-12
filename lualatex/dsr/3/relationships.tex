@@ -1,0 +1,57 @@
+%! TeX program = lualatex
+
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{tikz-er2}
+\usetikzlibrary{arrows.meta, decorations.markings, decorations.pathmorphing, graphdrawing}
+\usegdlibrary{force}
+\usepackage{ulem}
+
+\begin{document}
+\tikz[
+    orient=right,
+    spring electrical layout,
+    node distance=2cm,
+    electric charge=12,
+    electric force order=3,
+    thick,
+    one/.style={
+            decoration={
+                    markings,
+                    mark = at position 0.2 with {\node[fill=black!20]{\(\mathbf{1}\)};}
+                },
+            postaction={decorate}
+        },
+    nany/.style={
+            decoration={
+                    markings,
+                    mark = at position 0.2 with {\node[fill=black!20]{\(\mathbf{n}\)};}
+                },
+            postaction={decorate}
+        },
+    many/.style={
+            decoration={
+                    markings,
+                    mark = at position 0.2 with {\node[fill=black!20]{\(\mathbf{m}\)};}
+                },
+            postaction={decorate}
+        },
+    subentity/.style={
+            decoration={
+                    markings,
+                    mark = at position 0.25 with {\pgftransformscale{3}\arrow{Arc Barb}}
+                },
+            postaction={decorate}
+        }
+] {
+    \node[entity] (eone) {Entity};
+    \node[entity] (etwo) {Entity};
+    \node[entity] (ethree) {Entity};
+
+    \node[relationship] (rel) {Belongs to};
+
+    \draw (rel) edge (eone);
+    \draw (rel) edge (etwo);
+    \draw (rel) edge (ethree);
+}
+\end{document}

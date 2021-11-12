@@ -1,0 +1,60 @@
+%! TeX program = lualatex
+
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{tikz-er2}
+\usetikzlibrary{arrows.meta, decorations.markings, decorations.pathmorphing, graphdrawing}
+\usegdlibrary{force}
+\usepackage{ulem}
+
+\begin{document}
+\tikz[
+    % orient=right,
+    spring electrical layout,
+    % component sep=2cm,
+    node distance=10mm,
+    electric charge=2,
+    % electric force order=2,
+    thick,
+    one/.style={
+            decoration={
+                    markings,
+                    mark = at position 0.2 with {\node[fill=black!20]{\(\mathbf{1}\)};}
+                },
+            postaction={decorate}
+        },
+    nany/.style={
+            decoration={
+                    markings,
+                    mark = at position 0.2 with {\node[fill=black!20]{\(\mathbf{n}\)};}
+                },
+            postaction={decorate}
+        },
+    many/.style={
+            decoration={
+                    markings,
+                    mark = at position 0.2 with {\node[fill=black!20]{\(\mathbf{m}\)};}
+                },
+            postaction={decorate}
+        },
+    subentity/.style={
+            decoration={
+                    markings,
+                    mark = at position 0.25 with {\pgftransformscale{3}\arrow{Arc Barb}}
+                },
+            postaction={decorate}
+        }
+] {
+    \node[entity] (entity) {Entity};
+    \node[attribute, anchor=north] (atrone) {Attribute One};
+    \node[attribute, anchor=south] (atrtwo) {Attribute Two};
+    \node[attribute, anchor=west] (atrthree) {Attribute Three};
+    \node[attribute, anchor=east] (atrfour) {Attribute Four};
+
+    \draw (entity) edge (atrone);
+    \draw (entity) edge (atrtwo);
+    \draw (entity) edge (atrthree);
+    \draw (entity) edge (atrfour);
+}
+\end{document}
+
