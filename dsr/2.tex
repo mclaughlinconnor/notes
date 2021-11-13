@@ -1,0 +1,135 @@
+\section{Database Management Systems}\label{sec:database_management_systems}
+
+\subsection{What is a DBMS?}\label{sub:what_is_a_dbms_}
+
+A DBMS is a suite of services to manage several databases all together.
+\begin{itemize}
+    \item Enables simple access
+    \item Allows multiple users of the same database
+    \item Allows for the manipulation of a database
+    \item Controls the security and integrity of a database
+    \item Supports various forms of database access
+\end{itemize}
+
+\subsubsection{Forms of Database Access}\label{ssub:forms_of_database_access}
+
+\paragraph{Local Database}\label{par:local_interface_database}
+
+This is where there is an interface sitting in between the end-user and a database stored on the device itself.
+Here we have the benefit of not having to complicate our program with servers of anything else complex, since the database is simply on the device.
+However, this means that it is much harder to synchronise the database across devices.
+
+\paragraph{Client-Server Database}\label{par:client_server_database}
+
+In a client-server configuration, instead of the database interface connecting to a local database, it instead connects to a remote server where the database resides.
+This server is invisible to the end user, but allows the developer to distribute the servers around the world to help with system failures and reducing connection latencies.
+Because we're connected to a single remote server, we can have many devices connected to it at the same time.
+
+\paragraph{Web-Based Database}\label{par:web_based_database}
+
+Here we have a system very similar to the client-server system, except the client isn't on the remote device, it's instead hosted on a remote server that individual browsers each connect to.
+
+\begin{note}
+    The important bit here is that several users can access a DBMS at once without the data becoming unsynchronised.
+\end{note}
+
+\begin{note}
+    It's also important to note that raw file system access is not available through a DBMS since this is abstracted away.
+\end{note}
+
+\section{Designing Database Systems}\label{sec:designing_database_system}
+
+When we are considering creating a database system, there are several things we must first consider:
+\begin{itemize}
+    \item Who will use the database?
+    \item What will they see when they use the database?
+    \item What data do we need to store in the database?
+\end{itemize}
+
+Now that we have captured everything that the database needs to do, we need to begin designing it.
+There are always three schemas for every database.
+\begin{description}
+    \item[External] This is where we consider how external users will view the database.
+    \item[Conceptual] In the conceptual stage, we decide how programmers will model and implement the database.
+    \item[Internal] The internal schema is how the DBMS stores the data internally -- we never really have to worry about this, but we do need to be aware it exists.
+\end{description}
+
+When we design a database, we take the external schema and design a corresponding conceptual schema which the DBMS then turns into an internal schema with the designer's help.
+
+\subsection{Database Design Lifecycle}\label{sub:database_design_lifecycle}
+
+\subsubsection{Gather Requirements}\label{ssub:dsr_db_gather_requirements}
+
+\begin{enumerate}
+    \item Gather requirements to find out what the end user needs from the final database system.
+    \item Create a conceptual design with high level descriptions (usually in an ER diagram).
+    \item Create a logical design which details the relational schema of the final database and is based on the ER digram created earlier.
+    \item Refine this stage again, and again, and again, until it is perfect.
+    \item Design and tune the physical design to cater to typical workloads and make further optimisations.
+\end{enumerate}
+
+\subsubsection{Some Terminology}\label{ssub:some_terminology}
+
+\begin{description}
+    \item[Data Model] Descriptions of real world objects that will be created in the database later.
+    \item[Schema] A collection of table columns with names, data types, sizes, relationships, etc.
+    \item[Database] This is an instance of the schema that has been populated with data.
+\end{description}
+
+\begin{note}
+    When we design a database, we \emph{always} create this in order.
+\end{note}
+
+\subsubsection{Creating a database}\label{ssub:creating_a_database}
+
+\begin{enumerate}
+    \item Capture requirements as in \cref{ssub:dsr_db_gather_requirements}.
+    \item Represent the data in a model.
+    \item Convert the database model to a database schema.
+    \item Implement the database in a DBMS.
+\end{enumerate}
+
+\begin{note}
+    There are lots of different tools available to complete these tasks.
+\end{note}
+
+\subsubsection{The People Involved}\label{ssub:the_people_involved}
+
+\begin{description}
+    \item[User] Each individual user can be either a casual computer user, or an expert, both need to have an effective way of accessing database data.
+    \item[Database Designer] A database designer needs to interact with the database to specify the schema and add content.
+    \item[Web Application Designer] The person who is designing .
+    \item[Database Administrators] Database administrators need to interact with the database to maintain the accuracy and speed of the system.
+\end{description}
+
+\begin{note}
+    We always have to consider all of these people when designing a database system since they will all interact with the system at some point
+\end{note}
+
+We should firstly always speak to all users to identify each user's individual requirements.
+After, we should identify their \emph{data requirements} which are the things they need stored as well as their attributes (types, sizes, etc. too) and relationships.
+
+\subsection{Data Modelling}\label{sub:data_modelling}
+
+We always need to capture all of the data represented in the database in the data model in order to:
+\begin{itemize}
+    \item Help communicate ideas with other developers
+    \item Help the design process of the database by providing a good visualisation
+    \item Help with the database implementation process by giving a good reference of the design
+\end{itemize}
+
+The type of data model depends on the database types (database types are detailed in \cref{ssub:types_of_database}), since we are mostly using relational databases, we will use ER diagrams.
+
+\begin{note}
+    Although you can use almost any diagram for a data model, they should always map easily to a conceptual schema.
+\end{note}
+
+\subsubsection{ER Diagrams}\label{ssub:er_diagrams}
+
+Creating ER diagrams is a simple process that has three distinct steps:
+\begin{enumerate}
+    \item Find your entities (things that you want to store)
+    \item Find that data you want to store about your entities
+    \item Identify the relationships between the entities
+\end{enumerate}
+
