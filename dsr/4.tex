@@ -1,0 +1,174 @@
+\section{Converting ER Diagrams to Tables}\label{sec:converting_er_diagrams_to_tables}
+
+In general, we create a table for each item of interest in a database.
+A ``relation'' is roughly the same as an entity type or some sort of relationship.
+
+\begin{highlight}{How a relation should be presented}
+    \begin{tabular}{cccc}
+        \cmidrule{2-4}
+        Relation Name & \(A_1\) & \(A_2\) & \(A_3\) \\
+        \cmidrule{2-4}
+                      & Value   & Value   & Value   \\
+        \cmidrule{2-4}
+                      & Value   & Value   & Value   \\
+        \cmidrule{2-4}
+                      & Value   & Value   & Value   \\
+        \cmidrule{2-4}
+                      & Value   & Value   & Value   \\
+        \cmidrule{2-4}
+    \end{tabular}
+\end{highlight}
+
+
+\subsection{The Heading}\label{sub:the_heading}
+
+All relations must have a heading (the heading is the schema) which contains the name of the relation and the names of the columns (attributes).
+The \emph{number of attributes} is the \emph{degree} of the relation.
+
+\subsection{Schemas}\label{sub:schemas}
+
+A \emph{relation schema} is a set of attributes written as \(Relation(A_1, A_2, A_3)\) where \(A_1\), \(A_2\), \(A_3\) are attributes and their types. Eg. \mintinline{text}{name: Text}. The types of the attributes are called \emph{domains}.
+
+\begin{note}
+    A database schema is a collection of relation schemas.
+\end{note}
+
+\subsection{Domains}\label{sub:domains}
+
+The domain determines the set of values that can be assigned to an attribute  and any operations that can be performed on that attribute (eg. Add, subtract, concatenate).
+
+For every domain, there are two aspects to consider:
+\begin{description}
+    \item[Meaning] The set of matriculation numbers
+    \item[Format] An integer in the range \(1\) to \(100\)
+\end{description}
+
+\begin{note}
+    Different DBMSs offer different domains.
+\end{note}
+
+\subsection{Strong Entity Types}\label{sub:strong_entity_types}
+
+Create a column for each strong attribute, then create a primary key from one or more of the key candidates.
+
+Where you have a composite attribute, they should be split up into separate attributes that are prefixed with the name of the parent attribute.
+
+\subsection{Primary Keys}\label{sub:primary_keys}
+
+A primary key is an attribute that uniquely identifies a particular record in a relation that allows access to all of the other data on the record.
+
+Sometimes there isn't one ideal key, so we can combine \(\geq 2\) attributes into a \emph{composite key}.
+
+\subsection{Foreign Keys}\label{sub:foreign_keys}
+
+Since primary keys uniquely identify a relation, we can include a reference to a primary key in another relation to link the two together.
+A foreign key is an attribute (or set of attributes) that exist in at least one table as a primary key to link those tables together.
+\begin{note}
+    Although foreign keys don't need to have the same name on all tables, they do need to have the same data type.
+\end{note}
+Two pieces of data can be associated when:
+\begin{itemize}
+    \item They have the same primary key (they exist on the same table row)
+    \item They are linked by a foreign key
+\end{itemize}
+
+\subsection{Weak Entities}\label{sub:weak_entities}
+
+Create a primary key from either:
+\begin{itemize}
+    \item Partial keys of weak entities
+    \item Primary keys from the identifying relationship
+\end{itemize}
+
+\subsubsection{Steps}\label{ssub:steps}
+
+\begin{enumerate}
+    \item Create the new relation schema
+    \item Add primary keys from related entities as foreign keys
+    \item Declare composite primary keys for the weak entities from the foreign keys
+    \item Add any other attributes for the entity
+\end{enumerate}
+
+\subsection{Relationships}\label{sub:relationships}
+
+\subsubsection{One to many relationship}\label{ssub:one_to_many_relationship}
+
+In a one to many relationship, the primary key of the singular side should be moved to the side of the relationship with multiple entities as a foreign key.
+
+We should also add any of the attributes from the relationship itself to the side with multiple entities.
+
+\subsubsection{One to one relationship}\label{ssub:one_to_one_relationship}
+
+Here we can add the foreign key attributes from either side to the other side.
+You should identify one side as the \emph{subject} and the other as the \emph{target}, where the target will receive key attributes, and the subject will give them away.
+
+\begin{note}
+    If one of the entities have mandatory participation in the relationship, make this the target, and mark the foreign keys as \mintinline{text}{REQUIRED} and \mintinline{text}{NOT NULL}.
+\end{note}
+
+\subsubsection{Many to many relationship}\label{ssub:many_to_many_relationship}
+
+You need to create a new relation (a table) with the primary keys of both sides as foreign keys, as well as any attributes from the many to many relationship itself.
+Use the foreign keys on the new relation to create a compound primary key for the new relation.
+
+\subsection{Subtypes and Supertypes}\label{sub:subtypes_and_supertypes}
+
+This style of inheritance isn't really a part of the relational model, and therefore, isn't supported by most standard relational DBMSs.
+However we will still sometimes want to create entities that inherit from other entities, so we have two choices:
+\begin{enumerate}
+    \item Create a single table for all subtypes with \mintinline{text}{NULLABLE} attributes (only some subtypes will need some attributes).
+    \item Create several tables where they each have a one to one relationship with the supertype.
+\end{enumerate}
+
+\begin{note}
+    We should generally prefer to create several tables as far as possible.
+\end{note}
+
+\subsection{Composite Attributes}\label{sub:composite_attributes}
+
+Where we have attributes and these attributes have their own attributes, we should flatten these into single layer attributes that have been prefixed with the parent attribute's name for readability.
+
+\subsection{Multi-Valued Attributes}\label{sub:multi_valued_attributes}
+
+It's really bad to be storing several values in one database field, so we should create a new weak entity which has a primary key from the origin table, and another field containing the array element.
+
+\subsection{Final Step Summary}\label{sub:final_step_summary}
+
+\subsubsection{Strong Entities}\label{ssub:strong_entities}
+
+
+\begin{enumerate}
+    \item Build a table with columns for each attribute
+\end{enumerate}
+\subsubsection{Weak Entities}\label{ssub:weak_entities}
+
+
+\begin{enumerate}
+    \item Build a table with columns for each attribute
+    \item Add the primary key of the owner entity as a foreign key
+\end{enumerate}
+\subsubsection{Relationships}\label{ssub:relationships}
+
+
+\begin{description}
+    \item[One to many] Add the primary key as a foreign key to the many side
+    \item[Many to many] Create a new relation with all primary keys
+    \item[One to one] Add the primary key of any side to the foreign key of the other side
+\end{description}
+\subsubsection{Subtypes}\label{ssub:subtypes}
+
+
+\begin{itemize}
+    \item Collapse to large super type relation
+    \item[] \textbf{OR}
+    \item Create as individual relations with one to one relationship back to super type.
+\end{itemize}
+
+\subsection{Tips}\label{sub:tips}
+
+\begin{itemize}
+    \item Follow the guide in \cref{sub:final_step_summary}.
+    \item Create a schema first, then afterwards, go to the DBMS to add the tables.
+    \item Add the entities own attributes first, then add foreign keys.
+    \item Be careful to select good data types so that they match when connecting primary and foreign keys.
+\end{itemize}
