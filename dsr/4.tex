@@ -53,7 +53,7 @@ Create a column for each strong attribute, then create a primary key from one or
 
 Where you have a composite attribute, they should be split up into separate attributes that are prefixed with the name of the parent attribute.
 
-\subsection{Primary Keys}\label{sub:primary_keys}
+\subsection{Primary Keys}\label{sub:primary_keys_four}
 
 A primary key is an attribute that uniquely identifies a particular record in a relation that allows access to all of the other data on the record.
 
@@ -89,7 +89,7 @@ Create a primary key from either:
     \item Add any other attributes for the entity
 \end{enumerate}
 
-\subsection{Relationships}\label{sub:relationships}
+\subsection{Relationships}\label{sub:relationships_four}
 
 \subsubsection{One to many relationship}\label{ssub:one_to_many_relationship}
 
@@ -136,19 +136,16 @@ It's really bad to be storing several values in one database field, so we should
 
 \subsubsection{Strong Entities}\label{ssub:strong_entities}
 
-
 \begin{enumerate}
     \item Build a table with columns for each attribute
 \end{enumerate}
 \subsubsection{Weak Entities}\label{ssub:weak_entities}
 
-
 \begin{enumerate}
     \item Build a table with columns for each attribute
     \item Add the primary key of the owner entity as a foreign key
 \end{enumerate}
-\subsubsection{Relationships}\label{ssub:relationships}
-
+\subsubsection{Relationships}\label{ssub:relationships_dsr_four}
 
 \begin{description}
     \item[One to many] Add the primary key as a foreign key to the many side
@@ -156,7 +153,6 @@ It's really bad to be storing several values in one database field, so we should
     \item[One to one] Add the primary key of any side to the foreign key of the other side
 \end{description}
 \subsubsection{Subtypes}\label{ssub:subtypes}
-
 
 \begin{itemize}
     \item Collapse to large super type relation
