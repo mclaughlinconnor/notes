@@ -80,11 +80,11 @@
             \operation{buy(quantity : integer) : boolean}
         \end{class}
         \begin{class}[text width=6cm]{Book}{0,-3}
-            \aggregation{Book}{}{}{ComicBook}
             \attribute{name : string}
             \attribute{author : string}
             \operation{buy(quantity : integer) : boolean}
         \end{class}
+        \aggregation{Library}{}{}{Book}
     \end{tikzpicture}
 \end{center}
 
@@ -100,11 +100,11 @@ The same as aggregation, but with a dependency.
             \operation{buy(quantity : integer) : boolean}
         \end{class}
         \begin{class}[text width=6cm]{Book}{0,-3}
-            \composition{Library}{}{}{Book}
             \attribute{name : string}
             \attribute{author : string}
             \operation{buy(quantity : integer) : boolean}
         \end{class}
+        \composition{Library}{}{}{Book}
     \end{tikzpicture}
 \end{center}
 

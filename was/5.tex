@@ -48,7 +48,7 @@ Because it can be hard to represent a many to many relationship in a database we
     \begin{center}
         \begin{tikzpicture}[auto,node distance=1.5cm]
             \node[entity] (student) {Student};
-            \node[relationship] (has) [below = of person] {Has} edge node {\(1\)} (student);
+            \node[relationship] (has) [below = of student] {Has} edge node {\(1\)} (student);
             \node[entity] (enrollment) [right = of has] {Enrollment} edge node {\(N\)} (has);
             \node[relationship] (in) [right = of enrollment] {In} edge node {\(N\)} (enrollment);
             \node[entity] (course) [above = of in] {Course} edge node {\(1\)} (in);
