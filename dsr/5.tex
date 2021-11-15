@@ -1,0 +1,102 @@
+\section{Enforcing Integrity in the Relational Data Model}\label{sec:enforcing_integrity_in_the_relational_data_model}
+
+\subsection{Relational Data Model Recap}\label{sub:relational_data_model_recap}
+
+Once the header of a table (a relation) is defined, it cannot be changed because this is actually considered creating a new database altogether.
+\begin{description}
+    \item[Degree] The number of attributes
+    \item[Cardinality] The number of rows in the relations where. Remember that the rows are unordered tuples.
+\end{description}
+\begin{note}
+    Don't confuse the cardinality here with the cardinality in an ER diagram.
+\end{note}
+
+\subsection{Characteristics of a Relational Data Model}\label{sub:characteristics_of_a_relational_data_model}
+
+A relation is a \emph{set} of tuples, eg.\ \(\{<1, 2, ``\text{Dave}''>, <2, 3, ``\text{Connor}''>, \dots\}\).
+There can be no duplicate tuples because the tuples form a set.
+This must be checked any time a record is created, modified, or when ``a new tuple is created as a restriction of an old one.''
+\begin{note}
+    That last sentence is really unclear, he said he would provide an update.
+\end{note}
+This implies that a primary key must always exist (even if it is just a primary key of all the attributes).
+
+\subsubsection{Tuples}\label{ssub:tuples}
+
+Tuples are unordered meaning that:
+\begin{itemize}
+    \item A table is only one representation of a table (you can sort the values any way you want).
+    \item We can use any order we want
+    \item We still have to store the tuple in an order on the computer itself.
+\end{itemize}
+
+\subsubsection{Attributes}\label{ssub:attributes}
+
+Attributes are also unordered meaning that:
+\begin{itemize}
+    \item We can't infer any information from how the names are sorted on a table since the ordering has no meaning.
+    \item We cannot get the \(n^\text{th}\) attribute or even the first attribute since there is no order to the attributes.
+\end{itemize}
+
+\subsubsection{Atomic Values}\label{ssub:atomic_values}
+
+All values are atomic meaning that an attribute cannot be a set (or otherwise decomposable), so we cannot have multi-valued attributes without creating several tables.
+This simplifies the relational database model lots and is called the \emph{First Normal Form Assumption}
+
+\subsubsection{Relations}\label{ssub:relations}
+
+Each relation in the database represents either:
+\begin{itemize}
+    \item An entity type attributes
+    \item A relationship
+    \item A set of values (instead of an array).
+\end{itemize}
+
+\subsubsection{Null Values}\label{ssub:null_values}
+
+Even when there are unknown values, we must represent them somehow, so we use \mintinline{text}{NULL}.
+Of course a primary key cannot be \mintinline{text}{NULL}.
+
+\subsection{Integrity}\label{sub:integrity}
+
+There are two types of integrity that can be enforced on a database:
+\begin{description}
+    \item[Inherent Integrity Constraints] These hold for all relational database and are generally enforced by the DBMS itself.
+    \item[Enterprise Constraints] These are specific to an application and are written by the developers themselves.
+\end{description}
+
+\subsubsection{Inherent Integrity Constraints}\label{ssub:integrity_constraints}
+
+These a built in to most DBMSs, some examples include:
+\begin{itemize}
+    \item Unique primary keys
+    \item Non-\mintinline{text}{NULL} primary keys
+    \item Foreign keys must exist if there's mandatory participation
+    \item Foreign keys must exist in the other table.
+\end{itemize}
+
+\subsubsection{Enterprise Constraints}\label{ssub:enterprise_constratints}
+
+New constraints can be added to a database to make sure some condition is always/never met (something like that start date never being after the end date).
+
+\subsubsection{Referential Integrity}\label{ssub:referential_integrity}
+
+Referential integrity concerns foreign keys and guarantees that the relationships between tuples are coherent (ie.\ that non-\mintinline{text}{NULL} foreign keys exist).
+
+\paragraph{Enforcing Referential Integrity}\label{par:enforcing_referential_integrity}
+
+A DBMS enforces each foreign key independently of all other foreign keys.
+If we fail to enforce or create relationships properly, we can cause \emph{many} data modelling problems.
+
+\paragraph{Strategies}\label{par:strategies}
+
+\begin{description}
+    \item[Restrict] Bans any alterations to primary keys if there are references to them already.
+    \item[Cascade] Cascades updates to affect all of the related tuples.
+    \item[Set \mintinline{text}{NULL}] Allows the update, but just wipes the foreign key for all related tuples.
+\end{description}
+
+\begin{note}
+    These only apply when a primary key is changed somehow.
+\end{note}
+
