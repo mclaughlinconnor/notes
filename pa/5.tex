@@ -26,11 +26,11 @@ There are several different ways of representing a set which are all useful on d
 
 We include all of the elements between braces.
 \[
-    S = {A, B, C, D}
+    S = \{A, B, C, D\}
 \]
 We can also use ellipses (\(\dots\)) to show a continuation, but we must make sure that the patterns is unambiguous.
 \[
-    S = {1, 2, 3, \dots, 99, 100}
+    S = \{1, 2, 3, \dots, 99, 100\}
 \]
 \begin{note}
     The order and duplicicity here is still irrelevant.
@@ -44,13 +44,13 @@ Even though this is the clearest method, there are some limitations:
 
 Here write an expression that can be expanded to a set.
 \begin{align*}
-    S & = {x \mid x \text{ is a positive integer } < 100}     \\
-    O & = {x \mid x \text{ is a positive odd integer } < 100} \\
-    P & = {x \in \Z \mid x \text{ is odd and } < 100}
+    S & = \{x \mid x \text{ is a positive integer } < 100\}     \\
+    O & = \{x \mid x \text{ is a positive odd integer } < 100\} \\
+    P & = \{x \in \Z \mid x \text{ is odd and } < 100\}
 \end{align*}
 Sometimes it is not very easy to write an expression to describe a set, so we can use a predicate function instead.
 \[
-    S={x \mid \mathrm{Prime}(x)}
+    S=\{x \mid \mathrm{Prime}(x)\}
 \]
 
 \subsection{Common Sets}\label{sub:common_sets}
@@ -58,10 +58,10 @@ Sometimes it is not very easy to write an expression to describe a set, so we ca
 As well as the sets we define ourselves, there are several sets which are always available and always defined the same.
 
 \begin{description}
-    \item[Natural/Counting] \(\N = {0, 1, 2, 3, 4, \dots}\)
-    \item[Integers] \(\Z = {\dots, -3, -2, -1, 0, 1, 2, 3, \dots}\)
-    \item[Positive Integers] \(\Z^{+} = {1, 2, 3, \dots}\)
-    \item[Rational] \(\Q={\frac{p}{q} \mid p, q \in \Z, \text{and} \neq 0}\)
+    \item[Natural/Counting] \(\N = \{0, 1, 2, 3, 4, \dots\}\)
+    \item[Integers] \(\Z = \{\dots, -3, -2, -1, 0, 1, 2, 3, \dots\}\)
+    \item[Positive Integers] \(\Z^{+} = \{1, 2, 3, \dots\}\)
+    \item[Rational] \(\Q=\{\frac{p}{q} \mid p, q \in \Z, \text{and} \neq 0\}\)
     \item[Real] There is no specific definition, these are just all numbers.
 \end{description}
 
@@ -132,14 +132,14 @@ The union of sets \(A\) and \(B\) can be written as:
 \]
 which is basically just \(A + B\), but can be written more verbosely like:
 \[
-    A \cup B = {x \mid x \in A \lor x \in B}
+    A \cup B = \{x \mid x \in A \lor x \in B\}
 \]
 
 \subsection{Intersection}\label{sub:intersection}
 
 The intersection operator selects members which are in \(A\) and \(B\) and can be written as:
 \[
-    A \cap B = {x \mid x \in A \land x \in B}
+    A \cap B = \{x \mid x \in A \land x \in B\}
 \]
 If \(A \cap B= \emptyset\), then it can be said that \(A\) and \(B\) are disjoint sets.
 
@@ -147,7 +147,7 @@ If \(A \cap B= \emptyset\), then it can be said that \(A\) and \(B\) are disjoin
 
 This is simply everything that is not included in a specific set and is written as:
 \[
-    \overline{A}={x \in \mathbb{U} \mid x \notin A}
+    \overline{A}=\{x \in \mathbb{U} \mid x \notin A\}
 \]
 This can be simplified to a much nicer:
 \[
@@ -158,7 +158,7 @@ This can be simplified to a much nicer:
 
 The difference between two sets is all of the elements in \(A\), but not in \(B\) and can be written as:
 \[
-    A-B = {x \mid x \in A \land x \notin B} = A \cap \overline{B}
+    A-B = \{x \mid x \in A \land x \notin B\} = A \cap \overline{B}
 \]
 It's worth mentioning that \(A \cap \overline{B}\) works since \(\overline{B}\) is everything that is not in \(B\), so we can get the intersection of that with \(A\) to get members in \(A\), but not in \(B\).
 
