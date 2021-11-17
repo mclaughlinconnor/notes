@@ -1,0 +1,190 @@
+\section{Sets and Set Theory}\label{sec:sets_and_set_theory}
+
+\begin{note}
+    \textbf{This lecture is mostly an extension to \cref{sec:mathematical_sets}, so I will only be including the new content here.}
+\end{note}
+Whenever we see \(\{\) and \(\}\) they \emph{always} mean a set, never anything else.
+
+Two sets are said to be equal if and only if they have the same elements.
+Again, order and repetition still doesn't matter.
+
+Most of the time, it is clear how elements are related, but not always.
+You are allowed to have a seemingly random selection of values in a set, but you have to be able to define the relationship still.
+
+\subsection{Set Builder}\label{sub:set_builderdsrsix}
+
+\[
+    O=\{x  \mid x \text{ is an odd integer less than \(10\) } \}
+\]
+\[
+    O = \{ x  \mid x \in  N \land x < 10 \land x \% 2 == 1 \}
+\]
+We can also use a predicate still, which is still a boolean function that defines what can or can't be in a set.
+
+\begin{note}
+    Sometimes we will use \(\{\}\) instead of \(\emptyset\) to denote an empty set.
+\end{note}
+
+\subsection{Graphical Representation}\label{sub:graphical_representation}
+
+We will mostly use Venn diagrams, where the \(\U\) set has a special rectangle instead of a circle.
+
+\begin{note}
+    One peculiar difference on this course versus Practical Algorithms is that, \(A \subseteq B\) signifies that \(A\) is either a subset or equal to \(B\), while \(A \subset B\) signifies that \(A\) is only a subset of \(B\).
+\end{note}
+
+\subsection{Power Sets}\label{sub:power_sets}
+
+The power set of a set is denoted as \(\mathbb{P}(S)\) where \(S\) is the target set.
+The power set of a set is a set that contains the empty set, the target set, and every other possible subset of the target set.
+
+\begin{note}
+    There will always be \(2^{n}\) elements in a power set, where \(n\) is the number of elements in the target set.
+\end{note}
+
+\subsection{Set Operations}\label{sub:set_opeationsdsrsix}
+
+We have most of the same operations as in Practical Algorithms (\cref{sec:set_operations}), with the exception that \(\overline{A}\) is the complement of \(A\), and the addition of the symmetric difference which is basically an XOR and is defined as:
+\[
+    A \oplus = (A-B) \cup (B-A)
+\]
+\begin{note}
+    Sometimes the symmetric difference is called the Disjunctive Union.
+\end{note}
+
+\subsection{How Does All of This Relate To Databases}\label{sub:how_does_all_of_this_relate_to_databases}
+
+There are two ways to define a database query.
+\begin{description}
+    \item[Procedural] A sequence of operations where the output of one step is input to the next.
+    \item[Declarative] Describes the desired results in terms of various conditions, then the database figures out the individual procedural operations.
+\end{description}
+\begin{note}
+    Remember that a relation is a set of tuples.
+\end{note}
+
+\subsubsection{\(n\)-tuples}\label{ssub:n_tuples}
+
+An \(n\)-tuple is a tuple where \(n\) is the degree of the relation.
+N-tuples are not sets, so are shown as \(\left<Connor, 2002, 85\right>\).
+This notation is very important since:
+\[
+    \{1, 2, 3\} = \{3, 2, 1\}
+\]
+but
+\[
+    \left<1, 2, 3\right> \neq \left<3, 2, 1 \right>
+\]
+
+\subsubsection{Cartesian Product}\label{ssub:cartesian_product}
+
+The Cartesian product is used in database to get all of the possible tuples for  a relation, that we can then filter down later on.
+
+\section{Relations and Relational Algebra}\label{sec:relations_and_relational_algebra}
+
+The Cartesian Product is the basic mechanism to make relations in a database where each relation is a subset of the Cartesian product of the attribute domains.
+
+Relationships between elements of sets are represented in relations
+
+\begin{quote}
+    ``A relation is a subset of the Cartesian product of the domains defining the relation.''
+\end{quote}
+
+\subsection{Relations}\label{sub:relationsdsr61}
+
+If we say that \(A\) and \(B\) are sets, then the binary relation from \(A\) to \(B\) is a subset of the Cartesian product of \(A \times B\).
+We can use \(a R b\) to denote that \(a\) and \(b\) are related in \(R\) like \(\left<a, b\right> \in R\).
+
+\subsection{Foreign Keys in Domains}\label{sub:foreign_keys_in_domains}
+
+By adding a foreign key to an attribute, we limit the domain to also only having foreign keys that exist on the primary key.
+
+\section{Relational Algebra}\label{sec:relational_algebra}
+
+Sets and relations help to understand how data is stored in a database.
+Relational algebra helps us to understand how a DBMS stores the data underneath.
+
+When a query is performed, the database gets the Cartesian product, then filters out a subset of those tuples.
+Individual data extraction ``programs'' can retrieve data as a subset of a relations or combine two relations (or subsets of relations) together.
+
+\subsection{Preliminaries}\label{sub:preliminaries}
+
+A query is a list of operations applied to relation instances returning another, different relation instance.
+We use relational algebra to create these operations where the format is either:
+\[
+    R_{output}=\text{ Operator }_{parameters} (R_{input})
+\]
+or
+\[
+    R_{output}=R_{input} \text{ Operator }_{parameters} (R_{input})
+\]
+where the parameters can be column names, conditions, etc.
+
+\subsection{Select}\label{sub:selectdsrsix}
+
+For selection in relational algebra, we use the \(\sigma\) symbol to extract specific tuples from a relation by condition.
+\[
+    R=\sigma_{\text{ city }=\text{ ``Glasgow'' }}(\text{ Employee })
+\]
+This selects the employees from Glasgow.
+
+\subsection{Project}\label{sub:subsectiproject_label_sub_sub}
+
+For projection, we use \(\Pi\) to extract specific columns from relations given their names.
+\[
+    R=\Pi_{\text{ gender }, \text{ salary }}(\text{Employee})
+\]
+This chooses only the gender and salary columns from the employees.
+
+\subsection{Combinations}\label{sub:combinationsdsrsix}
+
+\[
+    R=\Pi_{\text{ house }, \text{ street }}(\sigma_{\text{ city }=\text{ ``Glasgow'' }}(\text{ Employee }))
+\]
+\begin{note}
+    We can swap the order of the operations here and the DBMS sometimes actually does these to improve the performance of the query.
+\end{note}
+
+\subsection{Union}\label{sub:uniondsrsix}
+
+The union operator combines two relations, and removes any duplicates, but the two relations being joined must have the same number of columns with the same domains.
+\[
+    R=\sigma_{\text{ city }=\text{ ``Glasgow'' }}(\text{ Employee }) \cup \sigma_{\text{ city }=\text{ ``Stirling'' }}(\text{ Employee })
+\]
+
+\subsection{Intersection}\label{sub:intersectiondsrsix}
+
+Intersection is very similar to the union operator, except it selects only when a value is in both relations (and uses \(\\cap\)).
+
+\subsection{Difference}\label{sub:differencedsrsix}
+
+Difference basically subtracts the values from one relation that are in another, it uses the column names from the first relation.
+
+\subsection{Union Compatibility}\label{sub:union_compatibility}
+
+Some operations don't require union compatibility, these operations indicate that an operation is a joining one.
+
+\subsection{Join}\label{sub:join}
+
+We can do a join on a foreign key with the Cartesian product using the \(\bowtie\) symbol:
+\[
+    R=R_1 \bowtie_{\text{ fk }=\text{ pk }} R_2
+\]
+which can also be expressed as
+\[
+    R=\sigma_{\text{ fk }=\text{ pk }}(R_1 \times R_2)
+\]
+
+\subsubsection{Inner Join}\label{ssub:inner_join}
+
+We also have the inner join (or ``natural join'' or ``equi-join'') which is also symbolised by \(\bowtie\) which is where we skip out on the condition and the link is made between attributes of the same name:
+\[
+    R=R_1 \bowtie R_2
+\]
+
+\subsubsection{Cartesian Product}\label{ssub:cartesian_productdsrsixx}
+
+Cartesian product has already been covered in Practical Algorithms and here previously. It basically joins two relations together by generating all of the possible tuples for the two relations.
+It is signified by the \(\times\) symbol.
+There can be no conditions here.
+This is rarely actually used since it returns lots of useless and redundant data.
