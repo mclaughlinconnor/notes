@@ -1,0 +1,213 @@
+\section{SQL}\label{sec:sql}
+
+By using the \emph{Structured Query Language} we are able to create data/tables, update data/tables, delete data/tables, and query data/tables in a non-procedural way (meaning that we specify what to get, and not how to get it).
+
+SQL is an ISO standard meaning it is standardised, but as with any standard, every implementation is still slightly different.
+
+The basic steps of writing any SQL query are:
+\begin{enumerate}
+    \item Find what data you want
+    \item Find the constraints you need on that data
+    \item Find the relations you want to get the data from
+\end{enumerate}
+
+\subsection{SQL SELECT}\label{sub:sql_select}
+
+SQL \mintinline{sql}{SELECT} is the basic mechanism to to retrieve data from a database.
+It works by taking a set of relations, then describing the set of constraints that must be put on them to return a set of rows.
+\begin{code}{sql}
+    SELECT [DISTINCT] target-list -- project attributes
+    FROM relations-list -- Cartesian product of relations
+    WHERE qualification  -- Selection with boolean expression
+\end{code}
+\begin{note}
+    There are some terminology changes here: the relational algebra projection (\(\Pi\)) has become the SQL \mintinline{sql}{SELECT}, while the relational algebra selection (\(\sigma\)) has become the SQL \mintinline{sql}{WHERE}.
+\end{note}
+We can also add calculations to a \mintinline{sql}{SELECT} (we should always name them to improve readability).
+\begin{code}{sql}
+    SELECT a.age * a.age FROM a
+\end{code}
+
+\subsubsection{target-list}\label{ssub:target_list}
+
+The target-list can either select all columns or just some:
+\begin{code}{sql}
+    SELECT column, column, column
+    SELECT *
+\end{code}
+
+\subsection{UNION}\label{sub:uniondsrseven}
+
+The purpose of the SQL \mintinline{sql}{UNION} is to join two queries together and is performed with the following basic syntax:
+\begin{code}{sql}
+    (SELECT name FROM x WHERE y)
+    UNION
+    (SELECT name FROM a WHERE b)
+\end{code}
+\begin{note}
+    This isn't really that useful seeing as you can just add an extra \mintinline{sql}{OR} to the original query.
+\end{note}
+\begin{note}
+    We have to be wary of union compatibility.
+\end{note}
+
+\subsection{Cartesian Product}\label{sub:caartesianproductdsrseven}
+
+This is simply expressed as:
+\begin{code}{sql}
+    SELECT * FROM a, b
+    SELECT a.name, b.name FROM a, b
+\end{code}
+
+\subsection{Equi-Join}\label{sub:equijoindsrseven}
+
+The equi-join is useful to join the primary and foreign keys of two tables together in a query.
+\begin{code}{sql}
+    SELECT a.name
+    FROM a, b
+    WHERE a.id = b.id
+\end{code}
+\begin{note}
+    Remember that \mintinline{sql}{NULL} doesn't equate to anything.
+\end{note}
+\begin{note}
+    This results in some redundant columns from both sides of the relationships, so it can be better to use:
+    \begin{code}{sql}
+        SELECT a.name
+        FROM a
+        NATURAL JOIN b
+        \end{code}
+\end{note}
+
+\subsection{Renaming/Aliases}\label{sub:renaming_aliases}
+
+Defining aliases is a good idea to aid clarity, and is a necessity when we are trying to access attributes from linked tables where the attributes share a name (or the same table is used twice)
+\begin{code}{sql}
+    SELECT a.name AS name
+    FROM a
+\end{code}
+\begin{note}
+    The scope of the alias is throughout the whole program.
+\end{note}
+
+\subsection{Semantics of SQL Queries}\label{sub:semantics_of_sql_queries}
+
+\begin{enumerate}
+    \item Compute the Cartesian product of the \mintinline{sql}{relation-list}
+    \item Remove the tuples that fail \mintinline{sql}{qualification}
+    \item Remove the attributes that don't occur in \mintinline{sql}{target-list}
+    \item If \mintinline{sql}{DISTINCT} is set, remove all of the duplicates in the relation.
+\end{enumerate}
+
+\subsection{SQL WHERE}\label{sub:wheredsrseven}
+
+Using SQL \mintinline{sql}{WHERE}, we can set conditions for the query.
+\begin{code}{sql}
+    SELECT *
+    FROM a, b
+    WHERE a.name = 2
+        AND a.id <> 4
+        AND a.age BETWEEN 10 AND 20
+        AND b.id IS NOT NULL
+        AND b.name LIKE 'J\%'
+        AND b.name LIKE 'J__'
+\end{code}
+\begin{note}
+    SQL supports pattern matching with \mintinline{sql}{LIKE}, but instead of regular RegExps, we use \mintinline{text}{%} in place of \mintinline{text}{.*}, and \mintinline{text}{_} in place of \mintinline{text}{.}
+\end{note}
+
+\subsection{Precedence}\label{sub:precedencedsrseven}
+
+Generally the order of operations follows the standard BODMAS, but there is one exception (or addition maybe) where \mintinline{text}{AND} has a higher priority than \mintinline{text}{OR}.
+Although you can make use of the order of operations, you should generally just use brackets to make it super clear what the order should be.
+
+\subsection{Ordering}\label{sub:ordering}
+
+Attributes are always unordered, but we can order the resultant rows using \mintinline{sql}{ORDER BY}.
+\begin{code}{sql}
+    SELECT * FROM a ORDER BY a.age DESC, a.name
+\end{code}
+\begin{note}
+    When you include two attributes to sort by, they are used in order to break any ties.
+\end{note}
+
+\section{SQL Design Patterns}\label{sec:sql_design_patterns}
+
+A design pattern is generally an unfinished, but reusable code design for a common problem that can represent best practices.
+
+\subsection{Basic Design Pattern}\label{sub:basic_design_pattern}
+
+The basic design pattern is used when we are only interested in one table:
+\begin{code}{sql}
+    SELECT x FROM y WHERE z
+\end{code}
+
+\subsection{Equi-Join Design Pattern}\label{sub:equi_join_design_pattern}
+
+When there is information is several tables, and rows need filtered based on data in other tables, we should use an equi-join.
+\begin{code}{sql}
+    SELECT x,  y FROM v, w WHERE x.id = y.id
+\end{code}
+\begin{note}
+    We can also use a \mintinline{sql}{NATURAL JOIN} where the attributes have the same name.
+\end{note}
+\begin{note}
+    If there are several included relations, we should include all of them in the join condition.
+\end{note}
+
+\subsection{Self Join Design Pattern}\label{sub:self_join_design_pattern}
+
+Where you are comparing values in different rows of the same tables, you should use a self join which effectively creates a copy of the table.
+This is useful for recursive relationships.
+\begin{code}{sql}
+    SELECT x, y FROM z AS a, z AS b WHERE q
+\end{code}
+
+\section{SQL Aggregations and Groups}\label{sec:sql_aggregations_and_groups}
+
+\subsection{Aggregation}\label{sub:aggregationdsrseven}
+
+We can have functions in the \mintinline{sql}{SELECT} clause like:
+\begin{code}{sql}
+    SELECT AVG(age)
+\end{code}
+The total list we will cover is:
+\begin{itemize}
+    \item \mintinline{sql}{SUM}
+    \item \mintinline{sql}{AVG}
+    \item \mintinline{sql}{COUNT}
+    \item \mintinline{sql}{MAX}
+    \item \mintinline{sql}{MIN}
+\end{itemize}
+All of these functions operate on a whole column and return a single value.
+\begin{note}
+    \mintinline{sql}{NULL} is not included anywhere here.
+\end{note}
+
+\subsection{Grouping}\label{sub:grouping}
+
+The SQL \mintinline{sql}{GROUP BY} clause allows us to create several aggregate groupings in one query depending on how many unique field values there are.
+\begin{code}{sql}
+    SELECT x, y FROM a WHERE x GROUP BY x.type
+\end{code}
+\begin{note}
+    Aggregated or grouped columns must be projected.
+\end{note}
+\begin{note}
+    There is no relational algebra equivalent to the \mintinline{sql}{GROUP BY} clause.
+\end{note}
+The use of this clause is for when looking for a description of a group and only one value per group is needed.
+Seeing ``each'' and a statistic is usually a good clue that we need a \mintinline{sql}{GROUP BY} somewhere.
+
+\section{SQL Order of Execution}\label{sec:sql_order_of_execution}
+
+\begin{enumerate}
+    \item Calculate the Cartesian product of the tables.
+    \item Eliminate rows not included in the \mintinline{sql}{FROM} clause.
+    \item Group rows using the \mintinline{sql}{GROUP BY} clause.
+    \item Evaluate any expressions in the \mintinline{sql}{SELECT} clause.
+    \item Sort rows with the \mintinline{sql}{ORDER BY} clause.
+    \item Add column names from \mintinline{sql}{AS} cases.
+    \item Remove any duplicates if \mintinline{sql}{DISTINCT} is set.
+\end{enumerate}
+
