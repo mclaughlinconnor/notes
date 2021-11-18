@@ -1,0 +1,78 @@
+\section{Transactions}\label{sec:transactions}
+
+In any database system, we need several people to be connected at once, but we need to have some way to make sure that the views for each user is up to date.
+So we must use a transaction to make concurrent database operations appear sequential.
+
+A \emph{transaction} is a ``process involving database queries and/or modification'' which normally has some strong properties regarding concurrency that can be created from single SQL statements, or through programmer control.
+
+When we have two concurrent transactions open, the newest transaction can either use data from before, during, or after the other transactions.
+This choice is up to the programmer, but generally the effects of a transaction cannot be seen until they have been committed.
+
+\subsection{ACID Transactions}\label{sub:acid_transactions}
+
+An ACID transaction must be:
+\begin{description}
+    \item[Atomic] Either the whole transaction must be completed, or none of it must be.
+    \item[Consistent] Database constraints must be preserved at all times.
+    \item[Isolated] It must appear as though only one transaction is happening at a time.
+    \item[Durable] The affects of the transaction must survive a system crash.
+\end{description}
+\begin{note}
+    Although this is a standard transaction, there are different weaker types of transaction too.
+\end{note}
+
+\subsection{Transaction Operations}\label{sub:transaction_operations}
+
+The DBMS keeps track of when transactions start, terminate, commit, or abort using the events:
+\begin{itemize}
+    \item \mintinline{sql}{BEGIN_TRANSACTION}
+    \item \mintinline{sql}{READ} and \mintinline{sql}{WRITE}
+    \item \mintinline{sql}{END_TRANSACTION}
+    \item \mintinline{sql}{COMMIT_TRANSACTION}
+    \item \mintinline{sql}{ROLLBACK}
+\end{itemize}
+
+\subsection{COMMIT}\label{sub:committransaction}
+
+When we \mintinline{sql}{COMMIT} a transaction, the changes are now permanent in the database, and cannot be \mintinline{sql}{ROLLBACK}ed.
+
+\subsection{ROLLBACK}\label{sub:rollbacktransaction}
+
+When we call \mintinline{sql}{ROLLBACK}, the current transaction is ``aborted'' and there all changes to the database are abandoned.
+A rollback can be done automatically by the DBMS when you divide by \(0\) for example, or by the programmer manually.
+
+\subsection{Isolation Levels}\label{sub:isolation_levels}
+
+The isolation levels are choices about what interactions are allowed between transactions operating at the same time.
+\begin{itemize}
+    \item \mintinline{sql}{READ_UNCOMMITTED}
+    \item \mintinline{sql}{READ_COMMITTED}
+    \item \mintinline{sql}{REPEATABLE_READ}
+    \item \mintinline{sql}{SERIALIZABLE}
+\end{itemize}
+Only \mintinline{sql}{SERIALIZABLE} is considered an ACID transaction.
+\begin{note}
+    Each DBMS handles transactions differently, so sometimes other transaction isolation levels may be considered ACID too.
+\end{note}
+The isolation level is a programmer's own choice, but that choice only affects their own transactions and not any others.
+To set the isolation level of a transaction, the programmer must execute:
+\begin{code}{sql}
+    SET TRANSACTION ISOLATION LEVEL x -- x is the isolation level without underscores
+\end{code}
+
+\subsubsection{SERIALIZABLE}\label{ssub:serializable}
+
+For a \mintinline{sql}{SERIALIZABLE} transaction, data must come from either before or after another transaction (never during).
+
+\subsubsection{READ\_COMMITTED}\label{ssub:read_committed}
+
+For a \mintinline{sql}{READ_UNCOMMITTED} transaction, a transaction can see all of the committed data, even if the data was committed during the current transaction which may cause inconsistencies between queries.
+
+\subsubsection{REPEATABLE\_READ}\label{ssub:repeatable_read}
+
+For a \mintinline{sql}{REPEATABLE_READ} transaction, any time a query is performed, the data that was read last time is returned again, but any new data is also added to the end which, again, might cause inconsistencies between queries.
+
+\subsubsection{READ\_UNCOMMITTED}\label{ssub:read_uncommitted}
+
+Here, all data can be read, even if it has not been committed, or is later \mintinline{sql}{ROLLBACK}ed.
+
