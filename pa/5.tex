@@ -235,3 +235,51 @@ Similar to boolean algebra, we have several identities which are good to underst
     A \cap \overline{B} = A - B
 \]
 
+\section{Set Cardinality}\label{sec:set_cardinality}
+
+The cardinality of a set is simply the number of distinct elements in that particular set (specifically a finite set), which can be denoted like: \(|A|\).
+\[
+    |\{1, 2, 3\} = 3 \quad |\emptyset| = 0
+\]
+
+\section{Power Sets}\label{sec:power_sets}
+
+The power set of a set is the set of all possible subsets of that particular set:
+\[
+    P(\{a, b\}) = \{\emptyset, \{a, b\}, \{a\}, \{b\}\}
+\]
+If a set has \(n\) elements, then the cardinality of the power set is \(2^{n}\).
+We can also create a table to make calculating this slightly easier:
+
+\begin{highlight}{A table for creating power sets easily}
+    \begin{tabular}{ccc|c}
+        \toprule
+        \(a\) & \(b\) & \(c\) & Value           \\
+        \midrule
+        \(0\) & \(0\) & \(0\) & \(\{\}\)        \\
+        \(0\) & \(0\) & \(1\) & \(\{c\}\)       \\
+        \(0\) & \(1\) & \(0\) & \(\{b\}\)       \\
+        \(0\) & \(1\) & \(1\) & \(\{b, c\}\)    \\
+        \(1\) & \(0\) & \(0\) & \(\{a\}\)       \\
+        \(1\) & \(0\) & \(1\) & \(\{a, c\}\)    \\
+        \(1\) & \(1\) & \(0\) & \(\{a, b\}\)    \\
+        \(1\) & \(1\) & \(1\) & \(\{a, b, c\}\) \\
+        \bottomrule
+    \end{tabular}
+\end{highlight}
+
+\section{Cartesian Product}\label{sec:cartesian_productpafive}
+
+The Cartesian product of two sets, is the set of all possible combinations of the sets' values.
+\[
+    \{x, y, z\} \times \{1, 2, 3\} = \{(x, 1), (x, 2), (x, 3), (y, 1), (y, 2), (y, 3), (z, 1), (z, 2), (z, 3)\}
+\]
+This can be defined as
+\[
+    A \times B = \{(a, b)  \mid a \in A \land b \in B\}
+\]
+The cardinality is defined as:
+\[
+    |A\times B| = |A| \times  |B|
+\]
+
