@@ -1,0 +1,123 @@
+\section{Static vs Dynamic Data Structures}\label{sec:static_vs_dynamic_data_structures}
+
+\subsection{What is a data structure?}\label{sub:what_is_a_data_structure_}
+
+A collection of data where there is some relationship between the data pieces that we can perform operations on.
+
+\subsection{Static Data Structures}\label{sub:static_data_structures}
+
+Static data structures need to have a maximum size defined when they are first defined.
+
+\subsection{Dynamic Data Structures}\label{sub:dynamic_data_structures}
+
+Dynamic data structures can vary in size at runtime so you can grow the structure as needed.
+
+\subsection{Comparison of Dynamic and Static Data Structures}\label{sub:comparison_of_dynamic_and_static_data_structures}
+
+\begin{tabular}{p{7cm}p{7cm}}
+    \toprule
+    Dynamic                                                          & Static                                                            \\
+    \midrule
+    Only use as much memory as needed                                & Memory is fixed, so there is no risk of running out               \\
+    Easier to add/remove data                                        & No need to check data size at runtime (you already know the size) \\
+    We don't need to know the size in advance                        & Random access is easier                                           \\
+    Run the risk of ``overflowing'' if you run out of memory         & Can waste some memory if the whole structure is not used          \\
+    Harder to program (you need to keep track of the data structure) & Adding/removing items is slow (part of array needs rewritten)     \\
+    Data can be left ``orphaned'' filling up memory with garbage     & Array size must be estimated before use                           \\
+    \bottomrule
+\end{tabular}
+
+\section{Singly Linked Lists}\label{sec:singly_linked_lists}
+
+This is a sequence of nodes arranged in linear order.
+Every node has a \mintinline{text}{key} and a pointer to the next node \mintinline{text}{next}.
+For a node \mintinline{text}{x}, the next element will be \mintinline{text}{x.next}.
+Where \mintinline{text}{x.next = NIL}, then there is no next element.
+
+\subsection{Head Pointer}\label{sub:head_pointer}
+
+We need a head pointer to point to the first element of the list, so we call that \mintinline{text}{x.head}.
+If \mintinline{text}{x.head = NIL}, the list is empty.
+
+\subsection{Insertion}\label{sub:insertiontolinkedlist}
+
+\begin{enumerate}
+    \item Start while loop with the condition set to check if the \mintinline{text}{current.next = NILL} to insert at the tail, or \mintinline{text}{current.key = target} to insert after a particular node.
+    \item Update \mintinline{text}{current} to \mintinline{text}{current.next} .
+    \item Allocate a new node
+    \item Update \mintinline{text}{new.next} to point to \mintinline{text}{current.next}
+    \item Update \mintinline{text}{current.next} to point to the new node
+\end{enumerate}
+\begin{note}
+    The order here is important since we will ``lose'' the next element if we don't do them in the correct order.
+\end{note}
+\begin{note}
+    Insertion at the tail is useful to implement a first-in-first-out data structure like a queue.
+\end{note}
+\begin{note}
+    If we are already at the head of the list, then we can give a special case to insert at the head with no iteration.
+\end{note}
+
+\subsubsection{Time Complexity}\label{ssub:linkedlistinsertcomplexity}
+
+The time complexity of inserting at the head is only \(O(1)\), since we already know where the first element is.
+The time complexity of inserting at any other point is \(O(n)\), since we have to loop through the while list.
+
+\subsection{Deletion}\label{sub:linkedlistdeletion}
+
+\begin{enumerate}
+    \item Update \mintinline{text}{prev.next} to \mintinline{text}{deleted.next}
+    \item Deallocate \mintinline{text}{deleted}.
+\end{enumerate}
+\begin{note}
+    We always have to check that \mintinline{text}{prev.next} is not \mintinline{text}{NIL} so that we know the deleted element exists.
+\end{note}
+
+\subsubsection{Time Complexity}\label{ssub:linkedlistdeletecomplexity}
+
+The time complexity of deleting at the head is only \(O(1)\), since we already know where the first element is.
+
+\subsection{Search}\label{sub:linkedlistsearch}
+
+\begin{enumerate}
+    \item Starting from \mintinline{text}{current}.
+    \item Start while loop with the condition set to check if the \mintinline{text}{current.key = target} -- for example, something like \mintinline{text}{while current.key != target and current != NILL}.
+    \item Update \mintinline{text}{current} to \mintinline{text}{current.next}.
+    \item Return \mintinline{text}{current} which will either be a pointer to the correct element or \mintinline{text}{NIL} if the search result doesn't exist.
+\end{enumerate}
+
+\subsubsection{Time Complexity}\label{ssub:time_complexitysearchlinkedlist}
+
+Because we might need to search through every element of the linked list, the complexity is \(O(n)\).
+
+\subsection{Reducing the time complexity of tail operations}\label{sub:reducing_the_time_complexity_of_tail_operations}
+
+We can add another pointer to the tail end of a linked list, which will allow us to insert or delete directly at the very end of the list without having to traverse all the way through it first.
+This does have the downside of requiring inserting and deleting functions to update this new tail pointer.
+\begin{note}
+    The space complexity is slightly worse here because we're storing another variable, but we do manage to reduce the time complexity of a tail insertion or deletion to \(O(n)\)
+\end{note}
+\begin{note}
+    If the list is empty, we can just perform a regular head insertion for a \(O(1)\) time complexity still.
+\end{note}
+When we want to delete a node, we need to be able to update the previous node \mintinline{text}{prev}, which can only be done if we traverse the list in order, which we don't do if we jump straight to the end.
+This means that deletion of an element of a linked list is always \(O(n)\) unfortunately, unless we can traverse the list in the other direction.
+
+\section{Doubly Linked Lists}\label{sec:doubly_linked_lists}
+
+A doubly linked list is very similar to a regular linked list, except it has a \mintinline{text}{node.prev} pointer in addition to the existing \mintinline{text}{node.next} pointer, that points to the (you guessed it!) previous node.
+This has the downside that there is a larger memory overhead to the list, but some operations are much more efficient and simple.
+\begin{note}
+    As with \mintinline{text}{node.next}, if \mintinline{text}{node.prev} is \mintinline{text}{NIL}, then we are at the head of the linked list.
+\end{note}
+
+\subsection{Deletion}\label{sub:deletionofelementsonadoublylinkedlist}
+
+To perform a deletion, we need to update the next and previous nodes in the list.
+We don't need to worry about
+
+\begin{enumerate}
+    \item Update \mintinline{text}{prev.next} to \mintinline{text}{delete.next}, if the previous node is \mintinline{text}{NIL}, we need to update the head instead.
+    \item Update \mintinline{text}{next.prev} to \mintinline{text}{delete.prev}, if the next node is \mintinline{text}{NIL}, we don't need to do anything since \mintinline{text}{NIL} has no \mintinline{text}{prev} value.
+\end{enumerate}
+
