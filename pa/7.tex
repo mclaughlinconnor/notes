@@ -1,0 +1,75 @@
+\section{Mathematical Functions}\label{sec:mathematical_functions}
+
+It is very important to note that we are not talking about programming functions, here we are specifically talking about mathematical functions which maps one input value directly to exactly one output value (we use the work ``unambiguous'').
+However, one output can come from more than one input (\(f(x) = x^2\)) for example will have this.
+
+A function \(f\) from set \(A\) to set \(B\) is illustrated as \(f: A \iff B\), which can be said as: ``assign each element from \(A\) to exactly one element from \(B\).
+\begin{note}
+    Sometimes functions are called ``mappings'' or ``transformations'' instead.
+\end{note}
+\begin{note}
+    A function is set because it is a subset of the Cartesian product of two sets.
+\end{note}
+
+\subsection{Terminology}\label{sub:mathsetterminology}
+
+The input set (\(A\) from above) is called the ``domain'', and the output set (\(B\) from above) is named the ``codomain'', meaning that:
+\[
+    f: \text{domain} \iff \text{codomain}
+\]
+We also have names for the individual inputs and outputs. Each individual input value is named a ``pre-image'', while the outputs are called an ``image of \(a\) under \(f\)''.
+Meaning that:
+\[
+    f(\text{pre-image}) = \text{image}
+\]
+We don't always have to have a output value for every value in the possible output set (``codomain''), since we can have functions like \(f: \Z \iff \Z, f(x) = 1\), so the list of actual output values is called the ``range'', which is denoted at \(f(A)\) where \(A\) is the domain.
+
+\subsection{Function Types}\label{sub:function_types}
+
+We have injective, bijective and surjective functions, but these terms aren't very useful at all.
+
+\subsubsection{Injective (aka one-to-one)}\label{ssub:injective_aka_one_to_one_}
+
+Here every value from the domain maps to a different value on the codomain forming a one to one relationship between the input and output values.
+This means that the output set must be at least as big as the input set.
+
+\subsubsection{Surjective (aka onto)}\label{ssub:surjective_aka_onto_}
+
+Every element of the output codomain must have a pre-image so:
+\[
+    b\in B \text{ where } a \in A \text{ for } f(a)=b
+\]
+This means that the output cannot be bigger than the input.
+
+\subsubsection{Bijective (aka one-to-one correspondence)}\label{ssub:bijective_aka_one_to_one_correspondence_}
+
+This is where every output is mapped to a unique input, so this is effectively a combination of surjective and injective functions.
+This means that the input and output must be the same size.
+
+\subsection{Inverse Functions}\label{sub:inverse_functions}
+
+An inverse function turns the output back into an input again and is denoted by:
+\[
+    f^{-1}(f(a))=a
+\]
+If a function is not injective, it cannot be inverted because that would result in an input being mapped to several outputs.
+For a function to be inverted, it must also be surjective since if it isn't, an image could have no output (the pre-image will have no image).
+
+\subsection{Function Composition}\label{sub:function_composition}
+
+We can combine two functions together as follows:
+\[
+    \text{let} f: B \iff C, g: A \iff B
+\]
+In order to get \(C\), we will need to do \(f(g(a))\), where \(a \in A\), this can also be shown in a different notation:
+\[
+    f \circ g(x)
+\]
+\subsubsection{Example}\label{ssub:functioncompositionexamle}
+
+If we have two function where \(f(x)\) maps percentages to grades, and \(g(x)\) maps students to grades, in order to get grades from students, we need to do: \(f(g(x))\) or \(f \circ g(x)\).
+
+\subsection{Relations}\label{sub:relationspaseven}
+
+A relation is a subset of the Cartesian product of two sets, meaning that only some elements of \(B\) have a relationship with \(A\) (or the inverse).
+These cannot be represented by a function because there can be several outputs for one input.
