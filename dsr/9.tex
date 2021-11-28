@@ -1,0 +1,133 @@
+\section{Indexes}\label{sec:indexes}
+
+An index is a data structure used for faster access to the tuples of a relation given that we know the value of at least one attribute.
+And index can be implemented using a hash table, but in a DBMS, they are always implemented using a tree with massive nodes (called a B-tree), however there is no SQL standard.
+
+\begin{note}
+    This small section here is the extent of what we need to know about this.
+\end{note}
+
+\section{NoSQL}\label{sec:nosql}
+
+Current development trends are moving towards big data (eg. Having massive volumes of data, massive varieties of data, mostly online data, mostly online devices, fast velocities -- we are streaming much more than we are doing bulk operations).
+We are also moving towards software, platform and infrastructure as a service.
+
+All of these changes mean that the data formats that need to be stored is changing.
+\begin{itemize}
+    \item Formats can be unknown or inconsistent
+    \item Updates are rare (data is mostly just replaced)
+    \item The growth rate of data has changed from linear to exponential.
+    \item Strong consistency is not as valuable as it once was.
+    \item There are far more read than write operations
+\end{itemize}
+
+\subsection{What is NoSQL?}\label{sub:what_is_nosql_}
+
+The terms \emph{NoSQL} is inconsistent, but generally it is considered as an alternative for when traditional relational databases are a poor fit.
+
+\subsection{Advantages of NoSQL}\label{sub:advantages_of_nosql}
+
+\subsubsection{Scalability}\label{ssub:scalibility}
+
+NoSQL can ``horizontally scale out'' which makes it very easy to add or remove capacity very quickly and non-destructively with \emph{standard}, \emph{commodity} hardware.
+This eliminates the large costs and complex manual sharding (spreading the load around several machines) that is needed with a traditional relational database.
+
+\subsubsection{Performance}\label{ssub:performance}
+
+With a NoSQL database, we can add more performance simply by adding more hardware which allows organisations to get a predictive return on a hardware investment.
+
+\subsubsection{High Availability}\label{ssub:high_availability}
+
+NoSQL databases are generally designed to ensure that data is always available (some NoSQL databases even automatically distribute data across several servers to maintain a high uptime even if a server goes down) and to reduce the complexities that come from relational databases.
+
+\subsubsection{Flexible Data Model}\label{ssub:flexible_data_model}
+
+With a NoSQL database there are far more different types of data types and query options instead of being constrained by a single schema.
+This lets developers to choose the most appropriate tool for the job.
+
+\subsection{Common Types of NoSQL Database}\label{sub:common_types_of_nosql_database}
+
+There are \emph{many} different types of NoSQL database.
+
+\subsubsection{Key-Value Store}\label{ssub:key_value_store}
+
+A key-value store is basically a hash table where the key is the primary key or identifier of the data.
+The value can be a binary object and is completely unknown to the database itself.
+
+The performance here is incredible and is easily scaled, but it is no good if you want to store complex queries or data since you can only CRUD by the key itself.
+
+\subsubsection{Document Store}\label{ssub:document_store}
+
+A document store store several self-describing documents in a collection which is similar to a key-value store, except the value that is stored is a large JSON (or BSON) document instead of a binary blob, which means that the data is examinable and we can have complex query conditions.
+
+A document store is good for event logging, content management systems, and blogs since they all have a structured documents with a similar schema.
+However, a document store is no bueno when you want to perform set operations across several documents or if the document structure changes frequently.
+
+\subsubsection{Wide Column Score}\label{ssub:wide_column_score}
+
+A wide column store is very similar to a relational database, except that column names and types can change across rows (types and attributes are defined on a per row basis).
+A \emph{column family} is a collection of similar rows, where a row is a group of columns with unique keys as well as some metadata.
+The values that can be stored are either simple values, or complex data types like flat sets, lists, or maps.
+
+On a wide column store, we can perform CRUD by a unique identifier or by simple conditions which is good for event logging, content management systems, and blogs (flat data with similar schemas), but not so good if you have complex queries with aggregation (like \mintinline{sql}{SUM}, \mintinline{sql}{AVG}, \mintinline{sql}{MAX}, etc.), or joins
+
+\begin{note}
+    We also shouldn't use a wide column store if ACID is meaningful to us.
+\end{note}
+
+\subsection{Graphs}\label{sub:graphnosql}
+
+A graph database is either a directed or undirected graph that is used to store, map, and query relationships.
+We have collections of nodes (real world entities), relationships (connect nodes), where both can have properties (and are sometimes called edges and vertices).
+\begin{description}
+    \item[Non-transactional] Good for a small number of large graphs.
+    \item[Transactional] Good for a large number of small graphs.
+\end{description}
+Using graphs, we can do many graph traversal operations like:
+\begin{itemize}
+    \item Performing similarity based queries
+    \item Shortest path calculations
+    \item Sub/super graphs
+    \item General graph traversal
+\end{itemize}
+A graph database is especially good for social networks, routing, and dispatch systems, however it is not so good where you need to perform many batch operations, or if you need to store \emph{very} large graphs.
+
+\subsection{XML}\label{sub:xmknosql}
+
+An XML database is essentially just a tree of nested elements with each document being part of a collection.
+We can use XPath, XQuery, or XSLT to query an XML database.
+
+\subsection{RDF}\label{sub:rdfnosql}
+
+RDF (or Resource Description Framework) is used to describe the structure of ontologies and resources on the web (is used by Wikipedia).
+
+We can query an RDF database system using SPARQL (or SPARQL protocol and :RDF query language)
+
+\subsubsection{RDFTriples}\label{ssub:rdftriples}
+
+An RDFTriple is a set of three that denotes a subject, a predicate, and an object where each statement represents a real world entity.
+
+We can also represent triples on a graph where vertices are the subject, and edges are the individual statements.
+
+\section{BASE Properties and Horizontal Scaling}\label{sec:base_properties_and_horizontal_scaling}
+
+NoSQL databases are generally much more relaxed with ACID, but they try to generally conform to a slightly different standard:
+\begin{itemize}
+    \item \textbf{B}asically \textbf{A}vailable: there will always be a result to any query.
+    \item \textbf{S}oft state: the result might not be up to date though.
+    \item \textbf{E}ventually consistent: once inputs stop, eventually all nodes will become consistent. Most NoSQL databases give access to something like MVCC (multiversion concurrency control)for ensuring consistency.
+\end{itemize}
+
+\subsection{CAP Theorem}\label{sub:cap_theorem}
+
+\begin{itemize}
+    \item \textbf{C}onsistency: all nodes see the same data
+    \item \textbf{A}vailability: there will always be a response
+    \item \textbf{P}artition tolerance: guarantee that the system will work if parts go down, or if some messages get lost.
+\end{itemize}
+Only two out of the three CAP policies are possible for a system, generally consistency is given the top priority, but the trade-offs are complex.
+
+\subsection{Horizontal Scaling}\label{sub:horizontal_scaling}
+
+Horizontal scaling is where the data and load is shared around several computer, which allows us to use off-the-shelf hardware.
+Often a policy named ``share nothing'' is used where two database instances don't share any of the same resources.
