@@ -1,0 +1,61 @@
+\section{Big Issues in Information Retrieval}\label{sec:big_issues_in_information_retrieval}
+
+\begin{description}
+    \item[Evaluation] Information retrieval evaluation is used in many fields and builds upon the Cranfield experiments from the 1960s.
+    \item[Performance] Measuring and improving efficiency often by increasing the speed of indexes (designing and implementing good indexes is hard).
+    \item[Dynamic Data] Web pages are always updating, and crawling web pages is difficult (the total coverage and the freshness of the coverage are important), and updating indexes while processing queries can be problematic.
+\end{description}
+Everything must work quickly and accurately at a very large scale, and should be able to scale to an even larger scale if needed.
+
+\subsection{Spam}\label{sub:dsrspam}
+
+There are many types of spam:
+\begin{itemize}
+    \item Link spam: including links to your site on many unrelated sites.
+    \item Spamdexing: Adding lots of keywords to your site to capture as many queries as possible.
+\end{itemize}
+
+\section{Normalisation}\label{sec:normalisation}
+
+\subsection{What is normalisation?}\label{sub:what_is_normalisation_}
+
+\emph{Normalisation} is the practice of organising data to avoid duplication and redundancy.
+
+The general idea is that we should break up large relations by identifying functional dependencies, and moving any attributes not related to the primary key to their own relations.
+
+\subsection{Functional Dependencies}\label{sub:functional_dependancies}
+
+A functional dependency is the relationship between the primary key and the other non-keys in the relation.
+\begin{quote}
+    ``\(y\) is functionally dependant to \(x\) if, and only if, each \(x\) is associated with one \(y\)'' 
+\end{quote}
+
+\subsection{Normalisation Form Summary}\label{sub:normalisation_form_summary}
+
+There are several normalisation forms that we can use, generally we want to go for the third form though.
+
+\begin{note}
+    We must always go in sequence \(1\), \(2\), \(3\).
+\end{note}
+
+\subsubsection{First Normal Form}\label{ssub:first_normal_form}
+
+\begin{itemize}
+    \item Eliminate repeating groups in tables
+    \item Create a table for each set of related data
+    \item Identify each set of related data with a primary key
+\end{itemize}
+
+\subsubsection{Second Normal Form}\label{ssub:second_normal_form}
+
+\begin{itemize}
+    \item Create separate tables for sets of values that apply to multiple records
+    \item Add foreign keys to link them together
+\end{itemize}
+
+\subsubsection{Third Normal Form}\label{ssub:third_normal_form}
+
+\begin{itemize}
+    \item Move fields that don't depend on the key (data that isn't directly related to the other data in the record) to its own table.
+\end{itemize}
+
