@@ -1,0 +1,134 @@
+\section{Search Engines}\label{sec:search_engines}
+
+Sometimes we will need the answer to a vague question which cannot be answered by a standard SQL query: ``what is the best pub near me?''.
+A search engine can find results from a set of unstructured data that meet the requirements.
+
+Web search has killed most search engines, but they are still useful on local intranets, local search operations, or email search.
+
+Search engines generally use some sort of artificial intelligence or machine learning system to guess how useful the documents are for what the user wants.
+
+\subsection{What is a document?}\label{sub:what_is_a_document_}
+
+A document is a generally unstructured piece of data (that can sometimes have some structure in the form of metadata for authors, subjects, or titles) that can be in Microsoft Word format, PDF, HTML, or anything else really.
+
+\subsubsection{Documents in Tables}\label{ssub:documents_in_tables}
+
+Tables have a very well defined set of attributes and are therefore very easy to query on.
+
+Documents on the other hand, are very unstructured so searching and querying is difficult (you have to compare the search text to the contents of all documents).
+
+A search engine will simply find the documents that are most likely to match a particular search string.
+
+\subsubsection{How do we find documents?}\label{ssub:how_do_we_find_documents_}
+
+We use ranking algorithms that are built on a particular view of relevance (eg. A different algorithm for each context, task, style that the user is searching from).
+
+Most relevance models use statistical properties (the words) and not linguistic properties (sentences and their meanings), although some linguistic properties can be expressed statistically.
+
+\subsubsection{Types of Retrieval Models}\label{ssub:types_of_retrieval_models}
+
+\begin{description}
+    \item[Vector space] make the properties of a document into vectors, then calculate the distance between them to return the most relevant.
+    \item[Boolean model] text either does or doesn't match, return it if it does.
+    \item[Probabilistic model] make a guess of how useful a document will be
+    \item[Language model] use complex language features to return the most relevant.
+    \item[Neural model] use an artificial intelligence or neural network to make predictions.
+\end{description}
+
+\subsection{Text Matching}\label{sub:text_matching}
+
+Exact term matching is no good since different words with the same meaning can be used.
+
+\subsection{What is success?}\label{sub:what_is_success_}
+
+A successful query is one that finds documents that are relevant to the user's query.
+A relevant document is one that contain the information a user wanted when they made their query (there are many factors to consider here, like task, context, novelty, and style of the text).
+
+\subsubsection{How do we evaluate success?}\label{ssub:how_do_we_evaluate_success_}
+
+Generally our evaluations are user-centric since we want users to come back to our search engine:
+\begin{itemize}
+    \item retention
+    \item click-through
+    \item number of query reformulations before a correct answer
+    \item many, many more \ldots
+\end{itemize}
+We have two metrics which we can use to actually quantify and measure this:
+\begin{description}
+    \item[Precision] the fraction of retrieved results relevant to the user: \(\text{ precision }=\frac{\text{relevant}}{\text{total retrieved}}\).
+    \item[Recall] the fraction of relevant documents that have been retrieved: \(\text{ recall }=\frac{\text{ relevant retrieved }}{\text{ total relevant }}\).
+\end{description}
+We want to maximize both.
+
+\section{Search Engine Architecture}\label{sec:search_engine_architecture}
+
+A basic search engine will rank documents in order of their predicted relevance.
+The search engine needs to understand the contents and the subject of each document and each query, it does so by indexing both in the same way.
+The basic format is as follows:
+\begin{enumerate}
+    \item Input documents
+    \item Text processing
+    \item Indexing
+    \item Retrieval
+    \item Output top \(k\) documents
+\end{enumerate}
+
+\subsection{Text Representation}\label{sub:text_representation}
+
+Information retrieval models use the statistical properties of text, and not the linguistic properties, and generally use the ``bag of words'' approach.
+
+\subsubsection{Bag of Words}\label{ssub:bag_of_words}
+
+This approach is very simple and effective.
+It treats each word as an independent index term, then assigns a weight to each word based on the importance of that word.
+\begin{note}
+    The order, structure, and meaning of the sentence is ignored.
+\end{note}
+This assumes that the term occurrence is independent and that the document's relevance is independent (what a word is must be defined)
+
+\subsection{Lexical Analysis (aka Tokenisation)}\label{sub:lexical_analysis_aka_tokenisation_}
+
+\emph{Tokenisation} is where we convert a stream of characters into words.
+This is quite simple generally, but there are lots of special cases:
+\begin{itemize}
+    \item numbers
+    \item hyphens
+    \item other punctuation
+    \item letter cases
+\end{itemize}
+
+\subsection{Stop Word Removal}\label{sub:stop_word_removal}
+
+Words like ``the'', ``and'', ``I'', and ``is'' aren't very useful for identifying documents since they appear so often, so they can be ignored.
+\begin{note}
+    Sometimes the words are important like in: ``to be or not to be''.
+\end{note}
+It's also worth noting that some words are so rare that they also cannot be used to effectively calculate the relevance of a document (it's hard to find similar documents if that word rarely occurs).
+
+\subsection{Conflation}\label{sub:conflation}
+
+Most words have lots of variations (past, present, future tense for example) which all mean the same thing, so we use \emph{stemming} to reduce those words down to their root (``happiness'' becomes ``happy''), so some meaning is lost, but we only really care what a document is like in general terms, and not specifically.
+
+\subsection{Indexing}\label{sub:indexing}
+
+The vocabulary of keywords for each document is stored for fast lookup after we create a dictionary of tokens in a collection.
+For each token, list the documents it is in (this is called an inverted index).
+
+\subsubsection{Inverted Index}\label{ssub:inverted_index}
+
+An inverted index links a list of keywords with the documents that those keywords appear in like: \mintinline{text}{{word: [document, document, document]}}.
+The speed gained by using an inverted matrix has substantial storage and processing time costs.
+
+\subsection{Retrieval}\label{sub:dsr10retrieval}
+
+We calculate the relevance using a similarity measure, the we use term weighting to assign an importance to each value in the index.
+From here, a similarity coefficient is used to calculate the similarity of the document from the weightings.
+
+\subsubsection{Boolean Retrieval Method}\label{ssub:boolean_retrieval_method}
+
+Simply find all documents containing exactly all of the terms (all terms are considered equal).
+
+\subsubsection{Best Match Ranking}\label{ssub:best_match_ranking}
+
+Here, we rank the importance of each word based on how many times it appears in the document total.
+We can then compute the similarity of each document and the query, sort by similarity, the output the top \(k\) documents.
