@@ -1,0 +1,28 @@
+%! TeX program = lualatex
+
+\documentclass{standalone}
+\usepackage{tikz}
+\usetikzlibrary{graphs,graphdrawing}
+\usegdlibrary{trees}
+
+\begin{document}
+
+\tikz \graph [tree layout, nodes={draw,circle}]
+{
+1 -> {
+2 -> {
+3 -> {
+4, 5
+},
+6
+},
+7 -> {
+8 -> {
+9,
+},
+10
+}
+}
+
+};
+\end{document}

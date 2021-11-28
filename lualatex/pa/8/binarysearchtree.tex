@@ -1,0 +1,22 @@
+%! TeX program = lualatex
+
+\documentclass{standalone}
+\usepackage{tikz}
+\usetikzlibrary{graphs,graphdrawing}
+\usegdlibrary{trees}
+
+\begin{document}
+\tikz [tree layout, nodes={draw,circle}]
+\node {20}
+child {
+        node {10}
+        child { node {9} }
+        child { node {11} }
+    }
+child {
+        node {30}
+        child { node {29} }
+        child { node {31} }
+    };
+\end{document}
+
