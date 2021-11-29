@@ -1,0 +1,110 @@
+\section{Sequences}\label{sec:sequencespanine}
+
+A sequence is similar to a set, except there is an order, we care about the relationship from one element to the next, and duplicates are allowed.
+When we are looking at sequences, we will say that a relationship \emph{recurs} across elements (a recurring relationship between elements).
+Once we get the starting value, we can use the recurring relation to recreate the entire sequence.
+
+The idea of recurrence relations will link closely to the idea of recursive functions later on (and how to calculate their big \(O\) time).
+
+One of the most important uses of recurrence relations is to provide solutions to certain ``counting problems'' like counting the steps in an algorithm, for example.
+
+\subsection{Arithmetic Progression}\label{sub:arithmetic_progression}
+
+An arithmetic progression is where a sequence has a common difference between terms, ie:
+\[
+    x = (\text{difference} \times n) + \text{offset}
+\]
+where \(x\) is the sequence element, \(\text{difference}\) is the space between the elements, and \(\text{offset}\) is the offset from \(0\) that the first element is.
+All terms are real numbers.
+This is usually written as \(x=a+nd\).
+
+\begin{note}
+    A good way to remember this, is that it creates a straight line graph, so is basically \(y=mx+c\).
+\end{note}
+
+\subsection{Geometric Progression}\label{sub:geometric_progression}
+
+Here, there is a common ration between the terms, and not a common difference, ie:
+\[
+    x = \text{initial} \times \text{ratio}^{n}
+\]
+This can also be written as \(x=ar^{n}\).
+
+\section{Recurrence Relations}\label{sec:recurrence_relations}
+
+Sequences don't always have to have a relationship, but we don't care about these.
+We can define a sequence by defining each item in terms of previous items (a recurrence relation), or we can use a formula to give the term at any position we want.
+
+For a recurrence relation, we need to specify the relationship, as well as the first (or first few elements) of the sequence, for example we would say:
+\begin{align*}
+    a_0 = 0 \quad a_n = a_{n-1} + 2
+\end{align*}
+\begin{note}
+    This means that \(\left\{a_n\right\}=0, 2, 4, 6, \ldots\). We need to specify that it's \(a_n\) and not just \(a\) since it represents the whole sequence and not just one value.
+\end{note}
+
+\section{Solving Recurrence Relations}\label{sec:solving_recurrence_relations}
+
+If we take the recurrence relation:
+\begin{align*}
+    a_0 = 0 \quad a_n = a_{n_1}+2
+\end{align*}
+Then to find the \(50^{\text{th}}\) step, we would have to do \(50\) calculations (\(O(n)\)), but there is a better way.
+
+Finding a formula for the \(n^{\text{th}}\) term of a recurrence relation is called solving the recurrence relation.
+Such a formula is called a \emph{closed formula}.
+\begin{enumerate}
+    \item Start with the initial condition
+    \item Work upwards until you reach \(a_n\) in terms of \(a_0\) and constants only
+    \item Deduce the formula
+\end{enumerate}
+
+\section{Summations}\label{sec:summations}
+
+A summation is represented by the \(\Sigma\) symbol:
+\[
+    \sum^{n}_{i=m} a_{i} = a_m + a_{m+1} + a_{m+2} + \dots + a_{n-1} + a_{n}
+\]
+A product is represented by the \(\Pi\) symbol:
+\[
+    \prod^{n}_{i=m} a_{i} = a_m \times a_{m+1} \times a_{m+2} \times \dots \times a_{n-1} \times a_{n}
+\]
+where \(n\) is the upper limit, \(m\) is the lower limit and \(i\) is the index.
+
+\begin{note}
+    We can also specify conditions for our sums:
+    \[
+        \sum_{j\in \{2, 5, 7, 10\} } a_j = a_2 + a_5 + a_7 + a_10
+    \]
+\end{note}
+
+\section{Proof By Induction}\label{sec:proof_by_induction}
+
+To prove a condition is true for any term in a sequence, we need to show:
+\begin{enumerate}
+    \item We can reach the first term
+    \item We can reach any term
+\end{enumerate}
+To prove \(P(n)\), where \(n\in \Z^{+}\), show that \(P(1)\) is true (named the \emph{basis step}), then show that if \(P(k)\) is true, then \(P(k+1)\) is also true (named the \emph{inductive step}).
+\begin{note}
+    Here, \(P\) is a preposition or a statement that is either true or false.
+\end{note}
+The implication symbol looks like \(\to\), and the for all operator looks like \(\forall\), so we get \(P(k) \to P(k+1) \forall k\)
+To complete the inductive step, we:
+\begin{itemize}
+    \item \textbf{Assuming} the inductive hypothesis that \(P(k)\) is true for any integer \(k\)
+    \item \textbf{Show} that \(P(k+1)\) must be true by equating \(P(k) + (k+1)\) and \(P(k+1)\)
+\end{itemize}
+
+\subsection{Template}\label{sub:template}
+
+\begin{itemize}
+    \item State clearly what you want to prove, ie. \(P(n)\).
+    \item Basic step (show that \(P(1)\) is true, or, in general \(P(b)\) is true)
+    \item Inductive step
+          \begin{itemize}
+              \item State clearly \(P(k)\) -- ie. What we are assuming, also called the \emph{indicative hypothesis} -- and all values of \(k\)
+              \item State clearly \(P(k+1)\) -- ie. What we want to prove
+              \item Show that \(P(k+1)\) is true using the inductive hypothesis (\(P(k)\)). This usually means showing that \(\text{lhs} = \text{rhs}\), always start by manipulating \(\text{lhs}\), but keep an eye on \(\text{rhs}\) since this is where we want to end up.
+          \end{itemize}
+\end{itemize}
