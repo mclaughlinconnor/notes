@@ -1,0 +1,203 @@
+\section{Pointers}\label{sec:c_pointers}
+
+A memory address points to a location in memory where data can be stored.
+When you pass a parameter to a function, the parameter data is copied to the new function (basically passing by value).
+
+\begin{code}{c}
+    void increment(int *n) { // Take an int pointer
+        // The value at n's memory address is the value at n's memory address + 1
+        *n = *n + 1;
+    }
+
+    int main() {
+        int number = 6;
+        increment(&number); // Pass the memory address of number
+    }
+\end{code}
+\begin{note}
+    \begin{description}
+        \item[\&] Gets the address of a variable
+        \item[*] Gets the value at an address
+    \end{description}
+    \begin{code}{c}
+        *(&number) == number;
+    \end{code}
+\end{note}
+
+\section{Pointers to Pointers}\label{sec:pointers_to_pointers}
+
+\begin{code}{c}
+    void increment_two(int *n) { // Take an int pointer
+        // The value at n's memory address is the value at n's memory address + 1
+        *n = *n + 1;
+    }
+
+    void increment_one(int **n) { // Pointer to a pointer to an int
+        increment_two(*n); // Pointer to an int
+    }
+
+    int main() {
+        int number = 6;
+        int *pointer = &number; // Pointer to number
+        increment(&pointer); // Pass pointer to pointer (double layer pointer)
+    }
+\end{code}
+
+\section{Pointer Arithmetic}\label{sec:pointer_arithmetic}
+
+\begin{code}{c}
+    int main() {
+        int a = 5;
+        int b = 6;
+
+        int *pointer_to_a = &a;
+        *pointer_to_a = *pointer_to_a + 1; // Increments a
+
+        // Increments the memory address after a, happens to be b here
+        *(pointer_to_a + 1) = *(pointer_to_a + 1) + 1 
+    }
+\end{code}
+
+\section{Arrays}\label{sec:c_arrays}
+
+\begin{code}{c}
+    int main() {
+        // In memory, this is 5 consecutive memory locations
+        int arr[5] = {1, 2, 3, 4, 5};
+
+        // An array variable is a pointer to the start of a section of memory       
+        // These are both "syntactic sugar" for each other
+        int a = arr[2] // 3
+        int b = *(arr+2) // 3
+    }
+\end{code}
+
+\subsection{Appending To Arrays}\label{sub:c_appending_to_arrays}
+
+\begin{code}{c}
+    // An array variable is a pointer to a memory block.
+    // We can also use arr[] instead of *arr too.
+    void append(char *arr, char element, int index) {
+        arr[index] = element
+    }
+
+    int main() {
+        char arr[5] = {'a', 'b', 'c'}
+
+        append(arr, 'd', 3)
+        // Accessing data beyond the bounds of an array is undefined
+        // behaviour and may do different things on different operating
+        // systems
+    }
+\end{code}
+
+\section{Nested Arrays}\label{sec:c_nested_arrays}
+
+\begin{code}{c}
+    int main() {
+        int *a_value; // Pointer to an int
+        int **some_value; // Pointer to a pointer to an int
+
+        int arr_one[2] = {6, 5};
+        int arr_two[2] = {2, 1};
+
+        int **arrays[2] = {arr_one, arr_two};
+        // arrays points to a memory location that points to
+        // the start of arr_one
+\end{code}
+
+\section{Strings}\label{sec:c_strings}
+
+\begin{code}{c}
+    int main() {
+        // C doesn't have strings, so we use character arrays instead
+        char one_string[5] = {'a', 'b', 'c', 'd'};
+        char another_string[5] = "abcd"; // Notice the double quotes
+
+        printf("%s\n", another_string); 
+        // How does the compiler know the length is 4 and not 5?
+        // ASCII formatting has a NULL terminator that signifies the end, so:
+        "abcd" == {'a', 'b', 'c', 'd', \0}.
+        // You should almost never define a string as an array of characters.
+
+        // Remember that trying to assign past the end of the array, eg:
+        another_string = "abcde";
+        // The behaviour is undefined, so ~anything~ could happen.
+        
+        // If you have pointers to data you are not meaning to access, 
+        // you will get a segmentation fault
+    }
+\end{code}
+
+\section{Segmentation Faults}\label{sec:segmentation_faults}
+
+\begin{code}{c}
+    int main() {
+        int number = 6;
+        *number;
+        // We almost definitely can't access memory address 6, and it probably
+        // has operating system code, so the operating system will just kill it.
+        // This is a segmentation fault.
+    }
+\end{code}
+
+\section{User Input}\label{sec:c_user_input}
+
+\subsection{During Execution}\label{sub:during_execution}
+
+\begin{code}{c}
+    int main() {
+        int age;
+
+        // We want to update the variable, and not the value, so use a pointer.
+        scanf("%d", &age); 
+    }
+\end{code}
+
+\subsection{Prior To Execution}\label{sub:prior_to_execution}
+
+\begin{code}{c}
+    // argc is a conventional name that is the argument count.
+    // argv is a conventional name that is an array of the argument texts.
+    int main(int argc, char *argv[]) {
+        int i;
+        for (i = 0; i < argc; i++) {
+            printf("%s\n", argv[i])
+        }
+    }
+\end{code}
+
+\section{Structures}\label{sec:c_structures}
+
+\begin{code}{c}
+    struct Address {
+        int housenumber;
+        char postcode[8];
+    };
+
+    int main() {
+        struct Address connor = {124, "PA3 3BT"};
+    };
+\end{code}
+
+\subsection{Type Definitions}\label{sub:type_definitions}
+
+\begin{code}{c}
+    typedef struct Address {
+        int housenumber;
+        char postcode[8];
+    } address_t;
+
+    typedef int age; // Just an alias really
+
+    int main() {
+        address_t connor = {124, "PA3 3BT"};
+
+        connor.housenumber; // Value of housenumber
+        &(connor.housenumber); // Memory address of housenumber
+    }
+
+    void getAddress(address_t *addressToSet) {
+        addressToSet->housenumber; // -> follows a pointer, a . just gets the value.
+    }
+\end{code}
