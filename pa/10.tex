@@ -1,0 +1,85 @@
+\section{Recursive Algorithms}\label{sec:recursionpaten}
+
+Recursion is when a function calls itself.
+We need to keep defining the problem as simpler versions of itself (that converge to the base case) until we get to the \emph{base case}.
+It only works if:
+\begin{itemize}
+    \item There is a base case involved (aka terminating condition)
+    \item Parameters to the function change toward the base case (we reduce the size of the data set, or the number we're working on) each time the function is called.
+\end{itemize}
+
+\subsection{Factorial Calculations}\label{sub:factorial_calculations}
+
+Since
+\begin{align*}
+    5! & = 5 \times 4!                            \\
+    5! & = 5 \times 4 \times 3!                   \\
+    5! & = 5 \times 4 \times 3 \times 2!          \\
+    5! & = 5 \times 4 \times 3 \times 2 \times 1! \\
+    5! & = 5 \times 4 \times 3 \times 2 \times 1
+\end{align*}
+we can say that
+\[
+    n! = n \times (n-1)!
+\]
+Or
+\begin{code}{python}
+def factorial(n):
+    if n == 1:
+        return 1
+    else:
+        return n * factorial(n-1)
+\end{code}
+
+\subsubsection{Linear Sum Example}\label{ssub:linear_sum_example}
+
+To find the first \mintinline{text}{n} elements of an array, the sum of all elements is the first element added to the sum of the rest.
+\begin{code}{python}
+def linear_sum(items, n):
+    if n == 1:
+        return n
+    else:
+        return linear_sum(items, n-1) + items[n-1]
+\end{code}
+
+\subsection{Recursion Trace}\label{sub:recursion_trace}
+
+A graphical method to visualize an algorithms as a recursive algorithm executes.
+\begin{itemize}
+    \item Draw a box for each call
+    \item Add an arrow from caller to callee
+    \item Add an arrow from callee to caller showing the return value (we will often omit this)
+\end{itemize}
+
+\subsection{Linear and Binary Recursion}\label{sub:linear_and_binary_recursion}
+
+\subsubsection{Linear Recursion}\label{ssub:linear_recursion}
+
+A function calls itself at most once (the stopping case doesn't make a call to itself).
+The trace looks like a straight line, and therefore the memory usage grows linearly as the number of steps increases.
+
+\subsubsection{Binary Recursion}\label{ssub:binary_recursion}
+
+This is where a function calls itself at most twice to solve two halves of the same problem.
+The trace is a bit more complex because it looks like a binary tree now, instead of a straight. 
+The Fibonacci sequence is a classic example of a binary recursive function:
+\begin{highlight}{Fibonacci binary recursion}
+    \begin{code}{python}
+        def Fibonacci(n):
+            if n <= 1:  # Base case
+            # 0 and 1 are the two values n could be, these are base cases
+                return n
+            else:  # Binary recursion
+                return Fibonacci(n-1) + Fibonacci(n-2)
+    \end{code}
+\end{highlight}
+
+\subsection{Tail Recursion}\label{sub:tail_recursion}
+
+Recursion has a cost since we need to keep track of the different function calls.
+To overcome this, we can use iterations (ie. Loops), however we can also use tail recursion instead to reduce the memory usage of a function (which are also quite easy to convert to loops later, but the recursive one is usually easier to read).
+
+\emph{Tail recursion} is where we make the recursive call be the last call of the function, so that when the child function is finished, the parent function is also finished, then this repeats all the way to the top of the recursive stack.
+\begin{note}
+    The speed benefit comes from us not having to load all (or even store) of the local variables back into memory again
+\end{note}
