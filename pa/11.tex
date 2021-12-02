@@ -1,0 +1,149 @@
+\section{Searching}\label{sec:searching}
+
+\begin{note}
+    We are only doing membership testing here, because once we've found the index, we can just return the item.
+    There is no difference in algorithm here.
+\end{note}
+
+\subsection{The Python Way}\label{sub:the_python_way}
+
+Most algorithms will already be implemented in whatever language or libraries you are using, but doing that would make this course useless.
+
+\begin{code}{python}
+10 in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+\end{code}
+
+\subsection{Sequential Search}\label{sub:sequential_search}
+
+The sequential search is an example of the \emph{incremental approach} to algorithm design, and is most useful when there is no order to the data.
+The algorithm is simply moving from one side of an array to the other, and checking each element as you go.
+\begin{code}{python}
+    def search(elements, value):
+        for element in elements:
+            if element == value:
+                return True
+            
+        return False
+\end{code}
+
+\subsubsection{Analysis}\label{ssub:sequntial_search_analysis}
+
+If the item is present:
+\begin{itemize}
+    \item The base case is \(\Omega(1)\)
+    \item The worst case is \(O(n)\)
+\end{itemize}
+If the item is not present:
+\begin{itemize}
+    \item The base case is \(\Omega(n)\)
+    \item The worst case is \(O(n)\)
+\end{itemize}
+
+\subsection{Early Terminating Sequential Search}\label{sub:early_terminating_sequential_search}
+
+If we know that the array is already sorted, we can assume that if the value of the current element is less than the target element, then we have gone past where the target element should be, and it therefore isn't in the array.
+\begin{code}{python}
+    deaf search(elements, value):
+        for element in elements:
+            if element == value:
+                return True
+            if element > value:
+                return False
+            
+        return False
+\end{code}
+
+\subsubsection{Analysis}\label{ssub:analysis_early_terminating_search}
+
+If the item is present:
+\begin{itemize}
+    \item The base case is \(\Omega(1)\)
+    \item The worst case is \(O(n)\)
+\end{itemize}
+If the item is not present:
+\begin{itemize}
+    \item The base case is \(\Omega(n)\)
+    \item The worst case is \(O(n)\)
+\end{itemize}
+\begin{note}
+    This is exactly the same as before, since we have not changed the algorithm itself, we have only made the implementation slightly faster.
+\end{note}
+
+\subsection{Binary Search}\label{sub:binary_search_paeleven}
+
+Binary search is only really useful if the array is sorted.
+It works by splitting the array in two, then checking which half the target element should be in, then repeating until the element has been found.
+\begin{enumerate}
+    \item Look at the middle value
+    \item If the target item is greater, discard the left half and the middle value, go to \(1\).
+    \item If the target item is less, discard the right half and the middle value, go to \(1\).
+    \item If the middle value is the search value, or if there are no values left, exit
+\end{enumerate}
+
+\begin{code}{python}
+    def binary_search(elements, value):
+        size = len(elements)
+        mid = size // 2
+
+        if size == 0:
+            return False
+
+        if elements[mid] == value:
+            return True
+        elif elements[mid] < value:
+            binary_search(elements[mid+1:size], value)             
+        else:
+            binary_search(elements[0:mid], value)             
+\end{code}
+
+\subsubsection{Divide and Conquer}\label{ssub:divide_and_conquer}
+
+Divide and conquer is where you split the problem into many smaller pieces, then solve those smaller pieces, and optionally (if the problem requires it), combine the pieces back together again.
+A divide and conquer algorithm can usually be performed recursively.
+
+\subsubsection{Analysis}\label{ssub:analysis_binary_search}
+
+Since the problem size is halved each time, the time complexity is \(O(\log n)\).
+
+\section{Sorting}\label{sec:sorting_pa_eleven}
+
+\begin{note}
+    Typically when we talk about sorting, we are talking about sorting in ascending order.
+\end{note}
+
+\subsection{Bubble Sort}\label{sub:bubble_sort_pa_eleven}
+
+We covered this before already in \cref{sec:bubble_sort}, it's where we make multiple passes through the list comparing adjacent terms then moving the elements such that the larger ones bubble to the top.
+The time complexity of a bubble sort is \(O(n^2)\).
+
+\begin{code}{python}
+    def bubble_sort(elements):
+        n = len(elements)
+        for outer in range(n-1, 0, -1):
+            for i in range(outer):
+                if (elements[i] > elements[i + 1]):
+                    temp = elements[i]
+                    elements[i] = elements[i + 1]
+                    elements[i + 1] = temp
+\end{code}
+
+\subsection{Insertion Sort}\label{sub:insertion_sort}
+
+We have to loop through the entire list (for each item), giving us \(n\) operations.
+Then for each item of the list, we also have to place it in the correct position, which is also \(n\) operations in the worst case.
+Therefore, insertion sort is also \(O(n^2)\) time complexity.
+
+\begin{code}{python}
+    def insertion_sort(elements):
+        n = len(elements)
+        for outer in range(1, n):  # all elements except first
+            key = elements[outer]  # current element we're sorting
+            inner = outer - 1  # sorted sub list ends at outer-1
+
+            # Move key down through the sorted sub list, until it is placed correctly.
+            while key < element[inner] and inner > 0:
+                elements[inner] = elements[inner - 1]
+                inner -= 1
+
+            element[inner] = key
+\end{code}
