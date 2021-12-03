@@ -1,0 +1,79 @@
+\section{Merge}\label{sec:merge}
+
+Both insertion sort, and bubble sort are of time complexity \(O(n^2)\), which isn't great.
+We always have to loop through all of the items (\(O(n)\)), but we can place the elements in the correct place more efficiently.
+We can use the ``divide and conquer'' algorithm merge sort to make it faster.
+
+The basic idea is that we split the array in two, then sort the two new arrays with merge sort too.
+\begin{enumerate}
+    \item Divide by splitting the array into two halves.
+    \item Conquer the two sub arrays by recursively using merge sort.
+    \item Combine the two arrays to produce the sorted answer.
+\end{enumerate}
+The merging step is the most important, what we do is: find the minimum number from both arrays (this will be the first element in the arrays), then adding that to the final array, repeat until all of the elements have been removed from both arrays (this algorithm itself is named \emph{merge}, we will focus on this to begin with).
+\begin{code}{python}
+def merge(elements, start, mid, end):
+    # split array into two
+    left = elements[start:mid]
+    right = elements[mid + 1:end]
+
+    # From subsubsection Merge Has A Problem
+    left.append(sys.maxsize)
+    right.append(sys.maxsize)
+
+    # Start may not be 0
+    top_index = start
+    # Sub arrays already consider a non-zero start above
+    left_index = right_index = 0
+
+    for top_index in range(start, end + 1):
+        # Add left to final array if smaller
+        if elements[left_index] < elements[right_index]:
+            elements[top_index] = left[left_index]
+            # "Remove" first element
+            left_index += 1
+        # Add right to final array if smaller
+        else:
+            elements[top_index] = right[right_index]
+            # "Remove" first element
+            right_index += 1
+
+        top_index += 1
+\end{code}
+
+\subsection{Merge Has A Problem}\label{sub:merge_has_a_problem}
+
+We need to cap \mintinline{python}{left_index} and \mintinline{python}{right_index} so that we don't try to access from beyond the end of the array.
+After either the \mintinline{python}{left} or \mintinline{python}{right} array has been consumed, we put \(\infty\) at the end of the array so that the comparison will never succeed for that array.
+\begin{note}
+    We will never be comparing \(\infty\) to \(\infty\) since by the time that would happen, the final array would be filled.
+\end{note}
+We cannot use infinity in programming language, so we have to use the largest possible integer that we can.
+In Python, this is: \mintinline{python}{sys.maxsize}. 
+
+\subsection{Properties of Merge}\label{sub:properties_of_merge}
+
+The running time is \(O(n)\), and the space complexity is also \(O(n)\) since we need to reallocate size for the sub arrays.
+
+\subsection{Merge Sort}\label{sub:merge_sort}
+
+\begin{code}{python}
+def merge_sort(elements, start, end):
+    if start < end:
+        mid = (start + end) / 2
+        # Does the split
+        merge_sort(elements, start, mid)
+        merge_sort(elements, mid + 1, end)
+        # Merges back together again
+        merge(elements, start, mid, end)
+\end{code}
+
+\subsubsection{Properties of Merge Sort}\label{ssub:properties_of_merge_sort}
+
+\begin{itemize}
+    \item The algorithm is stable (ie. If two elements have the same value, they are kept in their original order)
+    \item The algorithm is not in-place, so we need \(O(n)\) for the merge
+    \item The running time is \(O(n \log n)\) in the best and worst cases.
+\end{itemize}
+
+
