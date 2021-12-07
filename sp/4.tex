@@ -1,0 +1,82 @@
+\section{Reallocation and Contiguous Allocation}\label{sec:realloc_and_calloc}
+
+\subsection{Allocation and Reallocation}\label{sub:allocation_and_reallocation}
+
+\begin{code}{c}
+    int main() {
+        int * number = malloc(sizeof(int)); // Pointer to the heap
+        // Allocates array of length 5, hard to read, mistakes are easy
+        int * number = malloc(sizeof(int) * 5); 
+        // Allocates contiguous length of 5 integers, nice to read
+        int * number = calloc(sizeof(int), 5); 
+        int * number = malloc(sizeof(int));
+
+        // To reuse a variable, we can free it, but we might not get the same
+        // space, and it looks a bit nasty
+        free(number);
+        char * string[2] = calloc(sizeof(char), 2);
+
+        // Or we can reallocate that memory instead, which is faster because 
+        // it doesn't always need to free and allocate the whole memory space,
+        // is very fast and is the recommender way of doing this.
+        char * string[2] = realloc(number, sizeof(char) * 2);
+    }
+\end{code}
+
+\subsection{Dangling Pointers}\label{sub:dangling_pointers}
+
+\begin{code}{c}
+    int main() {
+        int * number = malloc(sizeof(int));
+        free(number);
+
+        // We still have the pointer address, but we don't own that memory
+        // This is undefined behaviour, maybe causes a SegmentationFault.
+        *number = *number + 6
+        // There is no way around this, C is just doing what it's told.
+    }
+\end{code}
+
+\subsection{Use After Free and Memory Leaks}\label{sub:use_after_free}
+
+\begin{code}{c}
+    #include <string.h>
+
+    typedef struct address {
+        int housenumber;
+        char postcode[9];
+    } address_t;
+
+    address_t * createAddress(int housenumber, char * postcode) {
+        // Allocate new space
+        address_t * newAddress = malloc(sizeof(address_t));
+        newAddress->housenumber = housenumber;
+        // Not covered yet, we'll look at strings tomorrow
+        strcpy(newaddress->postcode, postcode);
+        newaddress->postcode = postcode;
+
+        return newAddress
+    }
+
+    int main() {
+        address_t * connorHouse = createAddress(123, "G11AA");
+        connorHouse = createAddress(124, "G11AA"); // Value of connorHouse changes
+
+        // We can no longer access the original connorHouse because we have lost
+        // the address of it. We cannot call free() because we don't know what to free. 
+        // When the program finishes, the operating system will free that memory. This
+        // is a memory leak.
+
+        // Free connorHouse
+        free(connorHouse);
+
+        // We can no longer access that memory, so the operating system kills the program
+        // (undefined behaviour)
+        printf("Connor: %d %s", connorHouse->housenumber, connorHouse->postcode);
+
+        // This is a "double free" program, the operating system kills the program
+        // (undefined behaviour)
+        free(connorHouse);
+    }
+\end{code}
+
