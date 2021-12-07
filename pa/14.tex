@@ -1,0 +1,64 @@
+\section{Counting (Combinatorics)}\label{sec:counting_combinatorics_}
+
+\subsection{Product Rule}\label{sub:product_rule}
+
+\begin{quote}
+    A problem can be broken down into a sequence of two tasks, if there are \(n_1\) steps to do the first task, and \(n_2\) ways to do the second one, then there are \(n_1 \times n_2\) ways to do the procedure.
+\end{quote}
+Suppose a password has \(4\) characters, there are two problems:
+\begin{enumerate}
+    \item Each character must be a digit
+    \item Each character must be a digit or a lower case letter
+\end{enumerate}
+How many total passwords can there be for each point?
+
+\begin{itemize}
+    \item For each position, there are \(4\) tasks with \(10\) possible characters each, so we have \(10\times 10\times 10\times 10 = 10000\) possible different values.
+    \item For the second problem, there are \(10+26\) possible different values for each character, so there are \(36^4=1679616\) possible different values.
+\end{itemize}
+\begin{note}
+    This is why the size of the Cartesian product of \(A\) and \(B\) is \(|A|\times |B|\)
+\end{note}
+
+\subsection{Sum Rule}\label{sub:sum_rule}
+
+\begin{quote}
+    If a task can be done in either \(n_1\) ways, in one of \(n_2\) ways, where none of \(n_1\) overlap with none of \(n_2\), then there are \(n_1+n_2\) ways to do the task.
+\end{quote}
+Suppose characters in a \(4\) character statement can be either a single letter or or a single digit, then find the number of possible values.
+We take \(26^{4}\) letters, and \(10^{4}\) add to give \(466976\).
+
+\subsubsection{Sum Rule in Terms of Sets}\label{ssub:sum_rule_in_terms_of_sets}
+
+We want to calculate the union of the two sets: \(n_1 \cup n_2\) because there is no overlap (they are disjoint sets), or more formally \(|A \cup B|=|A|+|B|\)
+
+\subsubsection{Inclusion-Exclusion Rule}\label{ssub:inclusion_exclusion_rule}
+
+If there is overlap between the two sets, we calculate the size of both sets, add them together, the subtract the intersection (where both of the two conditions are met).
+Or more formally, \(|A \cup B = |A| + |B| - |A \cap B|\).
+
+\subsection{Combining The Product and Sum Rules}\label{sub:combining_the_product_and_sum_rules}
+
+Suppose a statement can be either a single letter, or a letter followed by a digit, there are \(26 + (26\times 10)\) possible values.
+
+\subsubsection{Passwords Example}\label{ssub:passwords_example}
+
+How many passwords are there, where each password must have \(6\) alphanumeric characters, and the first character must be a capital letter, there are \(26 + (10 + 26 + 26)^5\) passwords.
+
+\begin{note}
+    If we wanted to find the passwords which contain at least one letter and at least one digit, then we subtract the number of character only passwords and the number of numerical only passwords (do this for each size).
+\end{note}
+
+\section{Pigeon-hole Principle}\label{sec:pigeon_hole_principle}
+
+If a flock of \(13\) pigeons roosts in a set of \(12\) pigeon-holes, one of the holes must have more than one pigeon.
+\begin{quote}
+    If \(k\) is a positive integer and \(k+1\) objects are placed into \(k\) boxes, then at least one box contains two or more objects.
+\end{quote}
+We divide, then take the ceiling:
+\[
+    \text{maximum per hole}= \left\lceil \frac{\text{pigeons}}{\text{pigeon holes}} \right\rceil
+\]
+\begin{quote}
+    If \(n\) objects are placed in container \(k\), then at least one container has at least \(\left\lceil \frac{n}{k} \right\rceil \) objects.
+\end{quote}
