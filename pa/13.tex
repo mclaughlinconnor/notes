@@ -1,0 +1,202 @@
+\section{Quick Sort}\label{sec:quick_sort}
+
+Quick sort is an in place, divide-and-conquer sorting algorithm, so ends up being faster than the merge sort and uses less memory.
+But, sometimes the ``divide'' step of the algorithm can result in different sized halves, in the worst case, this can result in \(O(n^2)\) time complexity.
+
+\begin{enumerate}
+    \item Divide by picking a pivot index, the partition the array into two sections: \mintinline{python}{A[start:pivot-1]} and \mintinline{python}{A[pivot+1:end]} such that all elements in the first partition are less than or equal to the pivot.
+    \item Sort the subarrays recursively using quick sort.
+    \item No need to combine again, since the partitions are already combined.
+\end{enumerate}
+\begin{note}
+    The key operation in quick sort is the partitioning of the array.
+\end{note}
+\begin{note}
+    Generally, we pick the start or the end element as the pivot.
+\end{note}
+There are several pointers we need to keep track of for this implementation:
+\begin{description}
+    \item[\mintinline{python}{lrbi}] Left-right boundary index (the boundary between elements above and below the pivot -- the last element \mintinline{python}{<=x})
+    \item[\mintinline{python}{it}] The counter keeping track of the current element being compared/swapped with the \mintinline{python}{lrbi}.
+\end{description}
+This means that the overview of the algorithm looks like:
+\begin{enumerate}
+    \item \mintinline{python}{ti} iterates over the array
+    \item If there's an element less than the pivot, increment \mintinline{python}{lrbi}, swap \mintinline{python}{lrbi} and \mintinline{python}{ti} elements, increment \mintinline{python}{ti}.
+    \item Otherwise, increment \mintinline{python}{ti}
+\end{enumerate}
+Which can be converted to an implementation like for the partitioning:
+\begin{code}{python}
+    def partition(elements, start, end):
+        pivot = end
+        x = elements[pivot]
+        lrbi = start - 1
+
+        for ti in range(start, end):  # Remember the upper bound is exclusive for Python
+            if elements[lrbi] <= x:
+                lrbi += 1
+                swap(elements[ti], elements[lrbi])           
+
+        swap(elements[lrbi + 1], elements[pivot])
+
+        return lrbi + 1
+\end{code}
+And then combined with some recursion to sort the array:
+\begin{code}{python}
+    def quick_sort(elements, start, end):
+        if start < end:
+            pivot = partition(elements, start, end)
+            quick_sort(elements, start, pivot - 1)
+            quick_sort(elements, pivot + 1, end)
+\end{code}
+
+\subsection{Some alternative partitioning schemes}\label{sub:some_alternative_partitioning_schemes}
+
+Ideally the pivot should be a median value so that partitions are exactly the same size, which would speed up the algorithm (so one of the two recursive calls don't have to do nothing).
+However, this is a very expensive operation, so we can either:
+\begin{itemize}
+    \item Select the leftmost or rightmost element
+    \item Select the middle element
+    \item Select a random elements
+\end{itemize}
+The ``correct'' choice of the two depends on the data being provided.
+
+\subsection{Analysis}\label{sub:analysis_quick_sort}
+
+The best and average cases for quick sort are \(O(n \log n)\), just like merge sort, but the worst case is worse at \(O(n^2)\).
+The space complexity is another benefit of quick sort since it is only \(O(\log n)\).
+Quick sort, however, can shuffle around the elements that are considered equal.
+\begin{note}
+    Although the time complexity of quick sort is worse than merge sort, it is actually faster when implemented since there are less assignments happening (no need for extra arrays).
+\end{note}
+
+\section{Graphs}\label{sec:pa_graphs}
+
+\subsection{Undirected Graphs}\label{sub:undirected_graphs}
+
+A graphs is defined as a pair (tuple) of sets:
+\[
+    G = (V, E)
+\]
+where \(V\) is a finite, non-empty set of vertices (the \emph{vertex set}), and \(E\) which is the set of edges (or the \emph{edge set}).
+Each edge has either one or two vertices \emph{connected} to it, called its endpoints.
+\begin{note}
+    The appearance of a graph is not important, only how the nodes are connected is relevant.
+\end{note}
+We can define a graph by saying:
+\begin{align*}
+    V & = \left\{ a, b, c, d \right\}                                                                                                       \\
+    E & = \left\{\left\{ a, b \right\}, \left\{ a, c \right\}, \left\{ b, c \right\}, \left\{ b, d \right\}, \left\{ c, d \right\} \right\} \\
+    G & = \left(V, E\right)
+\end{align*}
+\begin{note}
+    Each edge is a subset of \(V\) of size \(2\).
+\end{note}
+\begin{note}
+    Remember that the order of sets is irrelevant.
+\end{note}
+Because we are talking about sets, there cannot be loops on a graph since \(\left\{ a, a \right\} = \left\{ a \right\} \), and is therefore only a single element set.
+For this same reason, we cannot have two edges between the same vertices.
+
+\subsubsection{Terminology}\label{ssub:graph_terminology}
+
+Using the graph above:
+\begin{itemize}
+    \item \(c\) and \(d\) are adjacent because \(\left\{ c, d \right\}\) is an element of \(E\).
+    \item \(a\) and \(d\) are not adjacent.
+    \item Vertex \(a\) is incident to edge \(\left\{ a, c \right\} \).
+    \item The degree of a vertex is the number of edges it is incident to.
+\end{itemize}
+
+\subsection{Directed Graphs}\label{sub:directed_graphs}
+
+For a directed graph (aka. Digraph), \(V\) and \(E\) still have the same meaning, but are instead represented by tuples (ordered pairs) of vertices that are part of  \(V \times V\).
+\begin{note}
+    When drawn pictorially, these edges are drawn as directed lines or arrows.
+\end{note}
+If we were to redefine the undirected graph above as a digraph, it would look like:
+\begin{align*}
+    V & = \left\{ a, b, c, d \right\}                                                                                              \\
+    E & = \left\{ \left( a, b \right), \left( a, c \right), \left( b, c \right), \left( b, d \right), \left( c, d \right),\right\} \\
+    G & = \left(V, E\right)
+\end{align*}
+\begin{note}
+    A directed graph vertex can point to itself.
+\end{note}
+
+\subsubsection{Terminology}\label{ssub:directed_graph_terminology}
+
+\begin{itemize}
+    \item \(u\) is the source and \(v\) is the target in \(e = (u, v)\)
+    \item \(u\) is adjacent to \(v\) and \(v\) is adjacent to \(u\).
+    \item The degree of a vertex is the number of edges that has that vertex as its target.
+\end{itemize}
+
+\section{Representing Graphs}\label{sec:representing_graphs}
+
+\subsection{Adjacency List}\label{sub:adjacency_list}
+
+We can use an adjacency list to represent a graph where there are no multiple edges by specifying which vertices are adjacent to each vertex on the graph.
+\begin{center}
+    \begin{tabular}{cc}
+        \toprule
+        Vertices & Adjacent Vertices \\
+        \midrule
+        \(a\)    & \(b, c, e\)       \\
+        \(b\)    & \(a\)             \\
+        \(c\)    & \(a, e, d\)       \\
+        \(d\)    & \(e, c\)          \\
+        \(e\)    & \(a, c, d\)       \\
+        \bottomrule
+    \end{tabular}
+\end{center}
+\begin{note}
+    We can do the same for a directed graph, except we talk about the initial values, and the target values.
+\end{note}
+
+\subsection{Adjacency Matrix}\label{sub:adjacency_matrix}
+
+For an graph with \(n\) vertices, we can use a \(n \times n\) matrix with only zeroes and ones, where a \(1\) represents an edge between the \(x\) and \(y\) values (actually \(i\) and \(j\) technically).
+
+\[
+    \begin{blockarray}{ccccc}
+        a & b & c & d & \\
+        \begin{block}{\{cccc\}c}
+            0 & 1 & 1 & 1 & a \\
+            1 & 0 & 1 & 0 & b \\
+            1 & 1 & 0 & 0 & c \\
+            1 & 0 & 0 & 0 & d \\
+        \end{block}
+    \end{blockarray}
+\]
+\begin{note}
+    Notice the diagonal symmetry and the blank diagonal (vertices cannot connect to themselves).
+\end{note}
+
+\section{Isomorphism and Connectivity}\label{sec:isomorphism_and_connectivity}
+
+\subsection{Isomorphism}\label{sub:isomorphism}
+
+Two graphs are isomorphic if it is possible for us to renamed the nodes to make the graphs the same.
+Ie. they are the same shape.
+Two undirected graphs are isomorphic if:
+\begin{itemize}
+    \item There's a bijective function from \(V_1\) to \(V_2\) (bijective means that there is a one to one correspondence for every value).
+    \item \(\left\{ v, w \right\} \in E_1\) if and only if \(\left\{ f(v), f(w) \right\} \in E_2\).
+          Ie. \(v\) and \(w\) are adjacent if and only if \(f(v)\) and \(f(w)\) are adjacent.
+\end{itemize}
+So far, the best algorithm for checking two graphs are isomorphic is exponential in the worst case.
+\begin{note}
+    There can be multiple bijections, to find the correct one, we need to make sure that the degree of the vertices is preserved.
+\end{note}
+
+\subsection{Connectivity}\label{sub:pa13_connectivity}
+
+\begin{itemize}
+    \item An undirected graph is called connected if there is a path between every pair of vertices, a non-connected graph has two or more separate connected components
+    \item We can also say a graph is a tree if it is connected and has no cycles (acyclic, or it has no circuits).
+    \item We can also say a graph is a forest if it is disconnected, and its components are all trees.
+\end{itemize}
+
+
+
