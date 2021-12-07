@@ -1,0 +1,44 @@
+\section{Strings}\label{sec:strings_advanced}
+
+\begin{code}{c}
+    #include <string.h>
+
+    typedef struct Person {
+        char name[20];
+        int age;
+    } person_t;
+
+    int main() {
+        // This is problematic since we could accidentally overwrite the null terminator
+        // which would make the string endless.
+        char * text = "tom";
+        text = "connor"
+
+        person_t connor;
+
+        char firstname[10] = "Connor";
+        char surname[10] = "McLaughlin";
+
+        // Basically equivalent to connor.name = firstname
+        strcpy(&(connor.name), firstname);
+        // Basically equivalent to connor.name += " " + surname
+        strcat(&(connor.name), " ");
+        strcat(&(connor.name), surname);
+
+        int length = strlen(connor.name);
+    }
+\end{code}
+
+\section{Nested Struct Instances}\label{sec:nested_struct_instances}
+
+\begin{code}{c}
+    #include <string.h>
+
+    typedef struct Person {
+        char name[20];
+        int age;
+        // person_t manager; // Endlessly recursive, we can't know the final size!!!
+        person_t * manager; // We know exactly the size needed.
+    } person_t;
+\end{code}
+
