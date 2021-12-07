@@ -1,0 +1,82 @@
+\section{Memory Allocation}\label{sec:memory_allocation}
+
+\subsection{Stack Memory Allocation}\label{sub:stack_memory_allocation}
+
+\begin{code}{c}
+    #include <stdio.h>
+
+    typedef struct Address {
+        int housenumber;
+        char postcode[8];
+    } address_t;
+
+    typedef int age;
+
+    int main() {
+        // This doesn't work since all getAddress()s will return the same
+        // memory pointer since the stack frame will be created at the same place
+        // (nothing else is allocated in between).
+        // We end up with garbage data in *addrOne, *addrTwo, *addrThree
+        address_t *addrOne = getAddress();
+        address_t *addrTwo = getAddress();
+        address_t *addrThree = getAddress();
+
+        printf("You live at %d, %s\n", addrOne->housenumber, addrOne->postcode);
+        printf("You live at %d, %s\n", addrTwo->housenumber, addrTwo->postcode);
+        printf("You live at %d, %s\n", addrThree->housenumber, addrThree->postcode);
+        // The solution is to have a completely separate space in memory that
+        // the programmer is completely in control of, named heap memory
+    }
+
+    address_t *getAddress() {
+        address_t addressToSet;
+
+        scanf("%s", &addressToSet.housenumber);
+        scanf("%s", &addressToSet.postcode);
+
+        // Returning all of the data is potentially very slow
+        // return addressToSet; 
+        return &addressToSet; // Return pointer instead
+    }
+\end{code}
+
+\subsection{Heap Memory Allocation}\label{sub:heap_memory_allocation}
+
+\begin{code}{c}
+    #include <stdlib.h>
+
+    typedef struct Address {
+        int housenumber;
+        char postcode[8];
+    } address_t;
+
+    typedef int age;
+
+    int main() {
+        address_t *addrOne = getAddress();
+        address_t *addrTwo = getAddress();
+        address_t *addrThree = getAddress();
+
+        printf("You live at %d, %s\n", addrOne->housenumber, addrOne->postcode);
+        printf("You live at %d, %s\n", addrTwo->housenumber, addrTwo->postcode);
+        printf("You live at %d, %s\n", addrThree->housenumber, addrThree->postcode);
+
+        // The memory gotten by malloc will never be given back to the 
+        // operating system unless we tell it to (memory leak).
+        free(addrOne);
+        free(addrTwo);
+        free(addrThree);
+    }
+
+    address_t *getAddress() {
+        // Get a pointer to heap allocated memory for the size of Address
+        address_t * addressToSet = malloc(sizeof(address_t));
+        // malloc can return a null pointer, so we should ideally
+        // add some error handling (memory can be full, etc.).
+
+        scanf("%s", &(addressToSet->housenumber));
+        scanf("%s", &(addressToSet->postcode));
+
+        return addressToSet;
+    }
+\end{code}
