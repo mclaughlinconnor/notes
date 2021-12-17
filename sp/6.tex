@@ -1,0 +1,94 @@
+\section{Parallelism}\label{sec:parallelism}
+
+\subsection{Threads}\label{sub:threads_parallelism}
+
+Threads are to be used when you want to run a piece of code many times
+
+A thread shares a heap with all other threads, meaning they can access the memory space of each other, but they do have their own heap.
+Because the threads all share the same heap, the operating system knows that the thread are linked and can kill them together.
+
+Threads are quite lightweight since there is no new address space, and it is very cheap (and easy) to communicate between threads (basically managed by programmer).
+
+\begin{code}{c}
+#include <stdio.h>
+#include <stdlib.h>
+#include <pthread.h>
+
+// We always need this same signature
+// void * is a pointer to something whose type we don't know
+void * entry(void *arg) {
+    // arg is a void *, we need to cast to use it properly.
+    int *threadNumber = (int *)arg;
+
+    printf("My thread number is %d\n", *threadNumber);
+    return NULL;
+}
+
+int main() {
+    pthread_t threads[5];
+    int arguments[5] = {1, 2, 3, 4, 5};
+
+    int i;
+    for (i = 0; i < 5; i++) {
+        // thread pointer, thread arguments (not covered here),
+        // function, function arguments (we can pass in structs
+        // to get many values in.
+        // pthread_create will update the thread with thread info.
+        pthread_create(&threads[i], NULL, entry, &arguments[i])
+    }
+
+    for (i = 0; i < 5; i++) {
+        // Wait for first result, then second, third, until all finished
+        // Second argument is where to put result, 
+        // we don't care about ours
+        // We are not updating the thread, so we don't need a pointer.
+        pthread_join(threads[i], NULL);
+    }
+}
+\end{code}
+\begin{note}
+    Processes won't always print in order, if you want the answer from a thread in order, get the result from \mintinline{c}{pthread_join}, then print it.
+\end{note}
+
+\subsubsection{Accessing a stack value form another thread}\label{ssub:accessing_a_stack_value_form_another_thread}
+
+\begin{code}{c}
+#include <stdio.h>
+#include <pthread.h>
+
+void * increment(void * arg) {
+    int *number = (int *)arg;
+    *number = *number + 1;
+    return NULL;
+}
+
+int main() {
+    int x = 5;
+    pthread_t thread;
+
+    // Modify a value in main's stack
+    pthread_create(&thread, NULL, increament, &x);
+
+    // Without this, we might get 5 or 6
+    pthread_join(thread, NULL);
+    
+    return 0;
+}
+\end{code}
+
+\subsection{Process}\label{sub:process_parallelism}
+
+A process is similar to a thread, except it is essentially its own program, and therefore has its own heap and stack.
+Because they are basically separate programs, we can have processes that continue after the ending of its own program.
+
+A process is quite heavy since the operating system has to do lots of processing to manage it (manage state, memory, etc), and communicate between them (IPC is slow).
+\begin{note}
+    A process is just a program, so can have its own threads too.
+\end{note}
+
+\subsection{Concurrency vs Parallelism}\label{sub:concurrency_vs_parallelism}
+
+When we talk about parallelism, we are usually talking about threads and code running at the exact same time.
+This can cause problems if the two pieces of code want to update the same memory address at the same time?
+
+Concurrency is where two pieces of code are running at the same time, but individual operatations are interleaved with each other (like JavaScript promises), so we won't have to worry about accessing the same memory address.
