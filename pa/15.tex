@@ -1,0 +1,212 @@
+\section{Formal Reasoning}\label{sec:formal_reasoning}
+
+\subsection{Propositional Logic}\label{sub:propositional_logic}
+
+\emph{Propositional logic} is the logic of compound statements build from simpler statements using boolean connectives.
+
+\subsubsection{Logic}\label{ssub:logic_propositional}
+
+Logic specifies the meaning of mathematical statements and is the basis of all mathematical reasoning, and all automated reasoning (this is why we're studying it).
+
+The rules of logic five precise meaning to statements, and provides the methodology for reasoning about the truth or falsity of such statements (foundation of expressing proofs in all mathematics).
+
+\subsubsection{Proofs}\label{ssub:proofs_propositional}
+
+Proofs are correct mathematical arguments, which is important in mathematics and in computer science because it can be used to prove that programs always produce the correct result, and establish the security of a computer system.
+
+\subsubsection{Propositions}\label{ssub:propositions}
+
+Propositions are the basic building blocks of logic and declare a sentence that is either true or false (but not both).
+
+\subsubsection{Notations}\label{ssub:notations_propositions}
+
+When we are talking about the truth value of a proposition, we use:
+\begin{description}
+    \item[\mintinline{c}{true}] or \(1\) or \(T\) to signify a truthy statement
+    \item[\mintinline{c}{false}] or \(0\) or \(F\) to signify a falsey statement
+\end{description}
+And we use lower-case letters to represent the propositions themselves (this is an abstraction):
+\begin{itemize}
+    \item Let \(p\) be the proposition ``today is Friday''
+    \item Let \(q\) be the proposition ``it is raining''
+\end{itemize}
+Upper-case letters represent combinations of propositions (or formulae).
+
+\subsection{Connectives}\label{sub:connectives_formal_reasoning}
+
+Connectives allow us to generate new mathematical statements (named \emph{compound propositions} or \emph{formulae}) by combining several propositions.
+We typically use upper-case letters to denote such statements.
+We will use truth tables to show the relationship between the value of a formula and the propositions within it.
+
+\subsubsection{Negation}\label{ssub:negation_connective}
+
+\begin{itemize}[label={}]
+    \item let \(p\) be the proposition ``today is Friday''
+    \item then \(\neg p\) is the proposition ``it is not the case that today is Friday''
+\end{itemize}
+
+\begin{highlight}{Negation truth table}[wrap]
+    \begin{tabular}{cc}
+        \toprule
+        \(p\) & \(\neg p\) \\
+        \midrule
+        \(0\) & \(1\)      \\
+        \(1\) & \(0\)      \\
+        \bottomrule
+    \end{tabular}
+\end{highlight}
+
+\subsubsection{Conjunction}\label{ssub:conjunction}
+
+\begin{itemize}[label={}]
+    \item let \(p\) be the proposition ``today is Friday''
+    \item let \(q\) be the proposition ``it is raining''
+    \item then \(p \land q\) is ``today is Friday and it is raining''
+\end{itemize}
+
+\begin{highlight}{Conjunction truth table}[wrap]
+    \begin{tabular}{ccc}
+        \toprule
+        \(p\) & \(q\) & \(p \land q\) \\
+        \midrule
+        \(0\) & \(0\) & \(0\)         \\
+        \(0\) & \(1\) & \(0\)         \\
+        \(1\) & \(0\) & \(0\)         \\
+        \(1\) & \(1\) & \(1\)         \\
+        \bottomrule
+    \end{tabular}
+\end{highlight}
+
+\subsubsection{Disjunction}\label{ssub:disjunction}
+
+\begin{itemize}[label={}]
+    \item let \(p\) be the proposition ``I have cash''
+    \item let \(q\) be the proposition ``I have a credit card''
+    \item then \(p \lor q\) is ``I have cash, or a credit card (or both)''
+\end{itemize}
+
+\begin{highlight}{Disjunction truth table}[wrap]
+    \begin{tabular}{ccc}
+        \toprule
+        \(p\) & \(q\) & \(p \lor q\) \\
+        \midrule
+        \(0\) & \(0\) & \(0\)        \\
+        \(0\) & \(1\) & \(1\)        \\
+        \(1\) & \(0\) & \(1\)        \\
+        \(1\) & \(1\) & \(1\)        \\
+        \bottomrule
+    \end{tabular}
+\end{highlight}
+
+\subsubsection{Exclusive Or}\label{ssub:exclusive_or}
+
+\begin{itemize}[label={}]
+    \item let \(p\) be the proposition ``today is Friday''
+    \item let \(q\) be the proposition ``it is raining''
+    \item then \(p \oplus q\) is ``either today is Friday, or it is raining, but not both''
+\end{itemize}
+
+\begin{highlight}{Exclusive Or truth table}[wrap]
+    \begin{tabular}{ccc}
+        \toprule
+        \(p\) & \(q\) & \(p \oplus q\) \\
+        \midrule
+        \(0\) & \(0\) & \(0\)          \\
+        \(0\) & \(1\) & \(1\)          \\
+        \(1\) & \(0\) & \(1\)          \\
+        \(1\) & \(1\) & \(0\)          \\
+        \bottomrule
+    \end{tabular}
+\end{highlight}
+
+\subsubsection{Implications}\label{ssub:implications_connectives}
+
+\begin{itemize}[label={}]
+    \item let \(p\) be the proposition ``today is Friday''
+    \item let \(q\) be the proposition ``it is raining''
+    \item then \(p \implies q\) is ``if today is Friday, then it is raining''
+\end{itemize}
+
+\begin{highlight}{Implication truth table}[wrap]
+    \begin{tabular}{ccc}
+        \toprule
+        \(p\) & \(q\) & \(p \implies q\) \\
+        \midrule
+        \(0\) & \(0\) & \(1\)            \\
+        \(0\) & \(1\) & \(1\)            \\
+        \(1\) & \(0\) & \(0\)            \\
+        \(1\) & \(1\) & \(1\)            \\
+        \bottomrule
+    \end{tabular}
+\end{highlight}
+The statement is all about if \(p\) is \mintinline{c}{true}, so if \(p\) is \mintinline{c}{false}, then \(p \implies q\) is \emph{vacuously true}.
+Therefore the implication is only \mintinline{c}{false} if \(p\) is \mintinline{c}{true} and \(q\) is \mintinline{c}{false}.
+Vacuous means ``not expressing or showing intelligent thought or purpose''.
+
+Implications are not set in stone; we are able to modify implications in a variety of ways:
+\begin{description}
+    \item[converse] \(q\implies p\)
+    \item[contrapositive] \(\neg q \implies \neg p\)
+    \item[inverse] \(\neg p \implies \neg q\), this is basically the contrapositive of the converse.
+\end{description}
+
+\begin{highlight}{Implication modifications}[wrap]
+    \centering
+    \begin{tabular}{cccccc}
+        \toprule
+        \(p\) & \(q\) & \(p \implies q\) & \(q \implies p\) & \(\neg q \implies \neg p\) & \(\neg p \implies \neg q\) \\
+        \midrule
+        \(0\) & \(0\) & \(1\)            & \(1\)            & \(1\)                      & \(1\)                      \\
+        \(0\) & \(1\) & \(1\)            & \(0\)            & \(1\)                      & \(0\)                      \\
+        \(1\) & \(0\) & \(0\)            & \(1\)            & \(0\)                      & \(1\)                      \\
+        \(1\) & \(1\) & \(1\)            & \(1\)            & \(1\)                      & \(1\)                      \\
+        \bottomrule
+    \end{tabular}
+\end{highlight}
+
+\subsubsection{Biconditional}\label{ssub:biconditional}
+
+For the statement ``you pass if and only if you got more than \(40\%\) marks'', we can write this as
+\[
+    \text{you pass} \iff \text{you got more than \(40\%\) marks}
+\]
+
+\begin{highlight}{Biconditional truth table}[wrap]
+    \begin{tabular}{ccc}
+        \toprule
+        \(p\) & \(q\) & \(p \iff q\) \\
+        \midrule
+        \(0\) & \(0\) & \(1\)        \\
+        \(0\) & \(1\) & \(0\)        \\
+        \(1\) & \(0\) & \(0\)        \\
+        \(1\) & \(1\) & \(1\)        \\
+        \bottomrule
+    \end{tabular}
+\end{highlight}
+
+\subsubsection{Precedence of Connectives}\label{ssub:precedence_of_connectives}
+
+Because we are able to construct compound prepositions, we must establish some hierarchy of operations.
+We will simply use parenthesis, it is important that we include these since the order can change the truth value of statements.
+\begin{note}
+    To reduce the number of parenthesis, negations actually have the highest precedence.
+    We also have \(\land\), followed by \(\lor\), followed by \(\implies\), followed by \(\iff\), but that can cause confusion and we should ignore it generally.
+\end{note}
+
+\subsection{Tautologies and Contradictions}\label{sub:tautologies_and_contradictions}
+
+A \emph{tautology} is a statement that is always \mintinline{c}{true}.
+\[
+    p \implies p \qquad p \lor \neg p
+\]
+A \emph{contradiction} is a statement that is always \mintinline{c}{false}.
+\[
+    p \implies \neg p \qquad p \land \neg p
+\]
+If a statement is neither a tautology or a contradiction, then it is a contingency (the result is contingent on the inputs).
+\[
+    p \implies q \qquad p \land q \qquad p \lor q
+\]
+A statement that is \emph{satisfiable} is one which can be true some/all of the time.
+Tautologies and contingencies are satisfiable, contradictions are not.
+

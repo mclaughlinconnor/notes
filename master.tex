@@ -101,6 +101,9 @@
 \pagecolor{gray!10}
 \color{black!90}
 
+\usepackage{xstring}
+\usepackage{xkeyval}
+
 \setminted{bgcolor=white, framesep=2mm}
 \renewcommand{\theFancyVerbLine}{\large \oldstylenums{\arabic{FancyVerbLine}}}
 
@@ -113,23 +116,46 @@
 \setsubsecheadstyle{\large\scshape\boldmath\bfseries\raggedright} % large bold small caps
 \setsubsubsecheadstyle{\itshape\bfseries} % bold italic
 
-\newtcolorbox[blend into=figures]{highlight}[1]{
-   float=htb,
-   title={#1},
-   every float=\centering,
-   colframe=black,
-   arc=0.5mm,
-   colback=white,
-   boxrule=0mm,
-   width=0.95\linewidth,
-   valign=center,
-   left=7.5mm,
-   right=7.5mm,
-   top=0mm,
-   bottom=0mm,
-   after upper={\centering},
-   after={\noindent}
-}
+\makeatletter
+
+\define@cmdkey{highlight}[highlight@]{style}[\relax]{}
+\define@cmdkey{highlight}[highlight@]{wrap}[\relax]{\setkeys{highlight}{style=wrap}}
+
+\NewDocumentEnvironment{highlight}{mo}{
+    \refstepcounter{figure}
+
+    \setkeys{highlight}{style}% Set default keys
+    \IfNoValueF{#2}{\setkeys{highlight}{#2}}% Set user-supplied keys
+    \IfStrEq{\highlight@style}
+        {wrap}
+        {\def\styleargs{
+            width=0.6\linewidth,
+            top=2.5mm,
+            bottom=2.5mm,
+            hbox,
+            tcbox width=minimum center}}
+        {\def\styleargs{width=0.95\linewidth,top=0mm, bottom=0mm,}}
+
+    \tcolorbox[
+       float=htb,
+       title={Figure~\thefigure: #1},
+       every float=\centering,
+       colframe=black,
+       arc=0.5mm,
+       colback=white,
+       boxrule=0mm,
+       tcbox width=minimum center,
+       valign=center,
+       left=7.5mm,
+       right=7.5mm,
+       after upper={\centering},
+       after={\noindent},
+       code={\pgfkeysalsofrom\styleargs}
+    ]
+}{\endtcolorbox}
+
+\makeatother
+
 
 \newtcolorbox[auto counter,number within=section]{note}{
    breakable,
