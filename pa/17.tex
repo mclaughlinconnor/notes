@@ -1,0 +1,384 @@
+\section{Arguments and Rules for Inference}\label{sec:methods_for_proof}
+
+If we say that ``all men are mortal'', and that ``cats are mortal'', then saying that ``cats are men'' is incorrect.
+Even if we switch cats for Socrates, it will be correct, but the process is still wrong.
+
+\subsection{Valid Arguments}\label{sub:valid_arguments}
+
+An \emph{argument}, or a \emph{premise-conclusion argument} is a two part system composed of premises and a conclusion.
+An argument is valid if and only if its conclusion is a consequence of its premises.
+\logicarg{\(p \implies q\)\\p}{\(\therefore q\)}
+where the rows above the line are the premises, and the row below is the conclusion.
+
+\subsection{Arguments in Propositional Logic}\label{sub:arguments_in_propositional_logic}
+
+An argument in propositional logic is a sequence of propositions, where all but the final proposition are called \emph{premises}, and the last statement is called a \emph{conclusion}.
+An argument is valid only if the premises imply the conclusion.
+
+An \emph{argument form} is an argument that is valid no matter what propositions are substituted into its propositional variables (these are cats and Socrates from before).
+Given an argument for is valid, then if the premises are \(p_1, p_2, p_3, ..., p_n\), and the conclusion is \(q\), then \(\left( p_1 \land p_2 \land p_3 \land ... p_n \right) \implies p\) is a tautology (if all premises are true, then the conclusion will always be true).
+
+\emph{Inference rules} are all simple argument forms that will be used to construct more complex argument forms.
+
+\subsection{Rules for Inference}\label{sub:rules_for_inference}
+
+\subsubsection{Modus Ponens}\label{ssub:modus_ponens}
+
+\begin{minipage}{0.45\linewidth}
+    \logicarg{\(p \implies q\) \\\(p\)}{\(\therefore q\)}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    \[
+        (p \land (p \implies q)) \implies q
+    \]
+\end{minipage}
+
+\subsubsection{Modus Tollens}\label{ssub:modus_tollens}
+
+\begin{minipage}{0.45\linewidth}
+    \logicarg{\(p \implies q\) \\\(\neg q\)}{\(\therefore \neg p\)}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    \[
+        (\neg q \land (p \implies q)) \implies \neg p
+    \]
+\end{minipage}
+
+\begin{note}
+    Remember that \(p \implies q \equiv \neg q \implies \neg p\).
+\end{note}
+
+\subsubsection{Hypothetical Syllogism}\label{ssub:hypothetical_syllogism}
+
+\begin{minipage}{0.45\linewidth}
+    \logicarg{\(p \implies q\) \\\(q \implies r\)}{\(\therefore p \implies r\)}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    \[
+        \left( (p \implies q) \land (q \implies r) \right) \implies (p \implies r)
+    \]
+\end{minipage}
+
+\begin{note}
+    This is basically a chain, and can be visualised as such.
+\end{note}
+
+\subsubsection{Disjunction Syllogism}\label{ssub:disjunction_syllogism}
+
+\begin{minipage}{0.45\linewidth}
+    \logicarg{\(p \lor q\) \\\(\neg p\)}{\(\therefore q\)}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    \[
+        \left( \neg p \land (p \lor q) \right) \implies (q)
+    \]
+\end{minipage}
+
+\subsubsection{Addition}\label{ssub:proplogic_addition}
+
+\begin{minipage}{0.45\linewidth}
+    \logicarg{\(p\)}{\(\therefore p \lor q\)}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    \[
+        p \implies (p \lor q)
+    \]
+\end{minipage}
+
+\begin{note}
+    Here, we would define \(q\), but there are no conditions set for it.
+\end{note}
+
+\subsubsection{Simplification}\label{ssub:proplogic_simplification}
+
+\begin{minipage}{0.45\linewidth}
+    \logicarg{\(p \land q\)}{\(\therefore p\) and also separately \(\therefore q\)}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    \[
+        (p \land q) \implies p \qquad (p \land q) \implies q
+    \]
+\end{minipage}
+
+\subsubsection{Conjunction}\label{ssub:proplogic_conjunction}
+
+\begin{minipage}{0.45\linewidth}
+    \logicarg{\(p\)\\\(q\)}{\(\therefore p\) and also separately \(\therefore q\)}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    \[
+        ((p) \land (q)) \implies (p \land q)
+    \]
+\end{minipage}
+
+\subsubsection{Resolution}\label{ssub:resolution}
+
+\begin{minipage}{0.45\linewidth}
+    \logicarg{\(\neg p \lor r\)\\\(p \lor q\)}{\(\therefore p \lor r\)}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    \[
+        \left( (\neg p \lor r) \land (p \lor q) \right) \implies(q \lor r)
+    \]
+\end{minipage}
+
+\begin{note}
+    One of \(q\) and \(r\) must be true, \(p\) can be whatever because it has no effect on the final answer (I either will or won't have \(p\) isn't useful).
+\end{note}
+
+\subsection{Using the Rules of Inference to Build Arguments}\label{sub:using_the_rules_of_inference_to_build_arguments}
+
+A valid argument is a sequence of statements where each statement is either a premise, or follows from previous statements by rules of inference.
+\logicarg{it is not sunny this afternoon and it is colder than yesterday\\if we go swimming then it is sunny\\if we do not go swimming, then we will go canoeing\\if we go canoeing, then we will be home by sunset}{we will be home by sunset}
+If we go to convert this to propositional logic statements, we have to define our propositions first.
+\begin{description}
+    \item[p] it is sunny this afternoon
+    \item[q] it is colder than yesterday
+    \item[r] we go swimming
+    \item[t] we will be home by sunset
+\end{description}
+making the logical argument
+\logicarg{\(\neg p \land q\) becomes \(\neg p\) with \emph{simplification} \\\(r \implies p\) with \emph{modus tollens} this is \(\neg r\) since we have \(\neg p\)\\\(\neg r \implies s\) this is \(s\) since we know \(\neg r\)\\\(s \implies t\) simply becomes \(t\)}{\(\therefore t\)}
+We were given some statement and we wanted to see if it was a valid statements and that it was true.
+We translate the statement into argument form using propositional variables (and make sure we have the premises right, and know that the conclusion should be).
+Finally we want to get from the premises to the conclusion using the rules of inference.
+
+\begin{note}
+    Sometimes the word \emph{invariant} will be used, this means that this proposition is always true.
+\end{note}
+
+\subsection{Rules for Inference for Quantified Statements (Predicate Logic)}\label{sub:rules_for_inference_for_quantified_statements_predicate_logic_}
+
+We are trying to build quantified statements from a sequence of statements where each statement is either a premise or follows from a previous statement by rules of inference (for propositional logic, or for quantified statements).
+
+\begin{note}
+    Generalisations go from a statement that applies to \(1\) element, to a statement that applies to all.
+    Instantiations go from a statement that applies to all elements, to a statement that applies to only one.
+\end{note}
+
+\subsubsection{Universal Instantiation (UI)}\label{ssub:universal_instantiation_ui_}
+
+If \(P\) is true for all \(x\), then it is also true for some random value \(c\).
+\logicarg{\(\forall x . P(x)\)}{\(\therefore P(x)\)}
+
+\subsubsection{Universal Generalisation (UG)}\label{ssub:universal_generalisation_ug_}
+
+If \(P\) is true for any random value of \(c\), then it must be true for all \(x\).
+\logicarg{\(P(c)\) for an arbitrary \(c\)}{\(\therefore \forall x . P(x)\)}
+
+\subsubsection{Existential Instantiation (EI)}\label{ssub:existential_instantiation_ei_}
+
+If \(P\) is true for at least on \(x\), then \(P(c)\) must be true for some element \(c\). Eg, there is someone who got an \(A\) in the course, let's call her \(a\), and say that \(a\) got an \(A\).
+\logicarg{\(\exists x . P(x)\)}{\(\therefore P(c)\) for some element \(c\)}
+
+\subsubsection{Existential Generalisation (EG)}\label{ssub:existential_generalisation_eg_}
+
+If \(P\) is true for some element \(c\), then there is at least one value of \(x\) that it must be true for.
+\logicarg{\(P(c)\) for some element \(c\)}{\(\therefore \exists x . P(x)\)}
+
+\section{Methods of Proofs}\label{sec:methods_of_proofs}
+
+A \emph{proof} is a valid argument that establishes the truth of a statement.
+Usually, we have informal proofs which are much shorter than what we've been doing (we skip steps, use more than one rule at once, don't give proper names of rules), and these are easier to understand/explain to people, but it can be easier to introduce errors accidentally.
+
+\subsection{Theorem And Conjecture}\label{sub:theorem_and_conjecture}
+
+\paragraph{Theorem}\label{par:theorem}
+
+A \emph{theorem} is a statement that has been proven to be true using other theorems, axioms (propositions which are given as true), and rules of inference.
+This is similar to a true proposition, but a theorem is usually a larger, more interesting, full piece of work.
+
+\paragraph{Conjecture}\label{par:conjecture}
+
+A \emph{conjecture} is a statement that is being proposed to be true, once a proof of a conjecture is found, it becomes a theorem (it may also be false).
+
+\subsection{Proving Theorems}\label{sub:proving_theorems}
+
+Most theorems have the form:
+\[
+    \forall x (P(x) \implies Q(x))
+\]
+To prove them, we show that where \(c\) is an arbitrary element of the domain,
+\[
+    P(c) \implies Q(c)
+\]
+By universal generalisation (see \cref{ssub:universal_generalisation_ug_}), the truth of the original formula follows
+\logicarg{\(P(c)\) for an arbitrary \(c\)}{\(\therefore \forall x . P(x)\)}
+So we are generally trying to prove something of the form
+\[
+    p \implies q
+\]
+
+\subsubsection{Given Proofs}\label{ssub:given_proofs}
+
+\begin{description}
+    \item[\(\mathbf{even(n)}\)] \(\exists k \in \Z . (n=2.k)\) or \(\neg odd(n)\)
+    \item[\(\mathbf{odd(n)}\)] \(\exists k \in \Z . (n=2.k + 1)\) or \(\neg even(n)\)
+\end{description}
+
+\subsection{Direct Proofs}\label{sub:direct_proofs}
+
+A direct proof is based on the implication that \(P \implies Q\).
+\begin{enumerate}
+    \item We go on the assumption that \(P\) is true
+    \item They we show that \(Q\) is also true using:
+          \begin{itemize}
+              \item Rules of inference
+              \item Theorems already proved
+          \end{itemize}
+\end{enumerate}
+
+\subsubsection{Direct Proof Example}\label{ssub:direct_proof_example}
+
+Prove that the square of an even number is even:
+\[
+    \forall n \in \Z . (even(n) \implies even(n^2))
+\]
+\begin{enumerate}
+    \item We will consider an arbitrary \(n \in \Z\) and assume (\(even(n)\)).
+    \item Therefore \(n = 2 \times k\) for some \(k \in \Z\).
+    \item Hence \(n^2 = (2 \times k)^2 = 4 \times k^2 = 2 \times (2 \times k^2)\).
+    \item This is therefore even. QED \(\square\)
+\end{enumerate}
+
+\subsection{Indirect Proofs}\label{sub:indirect_proofs}
+
+An indirect proof is based on the contrapositive of a statement: \(P\implies Q \equiv \neg Q \implies \neg P\)
+\begin{enumerate}
+    \item Assume that \(Q\) is false (\(\neg Q\) is true)
+    \item Show that \(P\) is false (\(\neg P\) is true) using:
+          \begin{itemize}
+              \item Rules of inference
+              \item Theorems already proved
+          \end{itemize}
+\end{enumerate}
+
+\subsubsection{Indirect Proof Example}\label{ssub:indirect_proof_example}
+
+If \(n^2\) is even, then \(n\) is even.
+\[
+    \forall n \in \Z . (even(n^2) \implies even(n))
+\]
+then we find the contrapositive
+\[
+    \forall n \in \Z . (\neg even(n) \implies \neg even(n^2)) \equiv \forall n \in \Z . (odd(n) \implies odd(n^2))
+\]
+\begin{enumerate}
+    \item Consider an arbitrary \(n\in \Z\), then assume \(odd(n)\).
+    \item There must exist \(k\in \Z\) such that \(n = 2k + 1\).
+    \item Therefore \(n^2 = (2k+1)^2 = 4k^2+4k+1 = 2(2k^2 + 2k) + 1\) which is the form \(2k + 1\), so is odd.
+\end{enumerate}
+
+\subsubsection{Why Even Use Indirect Proofs}\label{ssub:why_even_use_indirect_proofs}
+
+Could we have just use a direct proof?
+Sure, but we would have to say that \(n^2 = 2k\), then we would say that \(n=\sqrt{2k}\), then what do we do?
+
+\subsection{Proof By Contradiction}\label{sub:proof_by_contradiction}
+
+We assume the opposite of what we want to do, then we show that it is not possible, and leads to a contradiction (cannot hold).
+If we wanted to prove that \(P \implies Q\), we would:
+\begin{enumerate}
+    \item Assume that \(P \land \neg Q\) is true since that's the only false entry in the truth table
+    \item Derive a contradiction
+    \item Conclude that the assumption is false
+\end{enumerate}
+
+\subsubsection{Proof By Contradiction Example}\label{ssub:proof_by_contradiction_example}
+
+We want to prove that if \(3n + 2\) is odd, then \(n\) is odd.
+\begin{itemize}
+    \item To prove \(P(n) \implies Q(n)\) we presume that it's false \(P(n) \land \neg Q(n)\)
+    \item Then we show there's a contradiction where \(P(n)\) will denote \(odd(3n+2)\) and \(Q(n)\) will denote \(odd(n)\).
+    \item Or we can show that \(odd(3n+2) \land even(n)\) leads to a contradiction.
+\end{itemize}
+To prove that we:
+\begin{enumerate}
+    \item Since \(even(n)\) there is \(k\in \Z\) such that \(n=2k\)
+    \item Hence \(3n+2 = 3(2k)+2 = 6k + 2 = 2(3k+1)\) which is even
+    \item From the assumption we have \(odd(3n+2)\) which is a contradiction
+    \item Therefore the theorem holds
+\end{enumerate}
+
+\subsection{Proof By Cases}\label{sub:proof_by_cases}
+
+To prove that \(P\implies Q\), prove that \(Q\) is true for all cases of \(P\).
+\begin{itemize}
+    \item Find a set of premises \(P_1, P_2, P_3, ..., P_n\)
+    \item Such that \(P \implies (P_1 \lor P_2 \lor P_3 \lor ... \lor P_n)\)
+\end{itemize}
+Then we prove that \(Q\) is true for all premises in that set.
+\begin{itemize}
+    \item \(P_1 \implies Q\)
+    \item \(P_2 \implies Q\)
+    \item \(P_3 \implies Q\)
+    \item ...
+    \item \(P_n \implies Q\)
+\end{itemize}
+This proof uses the fact that
+\[
+    P \implies P_1 \lor P_2 \lor P_3 \lor ... P_n \implies Q
+\]
+which is a hypothetical syllogism.
+
+\subsubsection{Proof By Cases Example}\label{ssub:proof_by_cases_example}
+
+For ever non-zero integer \(x\), \(x^2\) is greater than \(0\).
+We split the statement into two cases: \(x<0\) and \(x>0\).
+\begin{itemize}
+    \item If \(x>0\), then \(x^2\) is greater than 0
+    \item If \(x<0\), then since the product of two negatives is positive, it follows that \(x^2\) is greater than \(0\).
+\end{itemize}
+Since these are all the possible cases, we have proved the theorem.
+
+\subsection{Trivial and Vacuous Proofs}\label{sub:trivial_and_vacuous_proofs}
+
+\paragraph{Trivial Proof}\label{par:trivial_proof}
+
+A trivial proof is one we know is true.
+Eg, if we know \(q\) is true, then \(p \implies q\) is true too.
+Or, eg, if it is raining then \(1=1\).
+
+\paragraph{Vacuous Proof}\label{par:vacuous_proof}
+
+A vacuous proof can never be true.
+If we know \(p\) is false then \(p \implies q\) is true as well, or if I am from Mars, then \(2+2=5\).
+
+\subsection{Existence Proof}\label{sub:existence_proof}
+
+We can prove, or disprove, something by presenting an instance (aka a witness), this can be done by:
+\begin{itemize}
+    \item Producing an actual instance
+    \item Showing how to produce an instance
+    \item Showing it would be absurd if an instance did not exist
+\end{itemize}
+
+\subsubsection{Existence Proof}\label{ssub:existence_proof}
+
+To disprove the assertion that all odd numbers are prime, we just have to say that the number \(9\) exists and divides by 3.
+
+\subsection{Proving If and Only If}\label{sub:proving_if_and_only_if}
+
+To prove that \(P \iff Q\), we just have to prove that \(P \implies Q\) and \(Q \implies P\).
+All done.
+
+\subsection{Fallacies}\label{sub:fallacies}
+
+A fallacy is an inference or other proof that is not logically valid, meaning it can yield a false conclusion.
+
+\paragraph{Affirming the Conclusion}\label{par:affirming_the_conclusion}
+
+Just because \(p \implies q\), it does not mean that \(q \implies q\).
+
+\paragraph{Denying the Hypotheses}\label{par:denying_the_hypotheses}
+
+Just because \(p \implies q\), we can't say that \(\neg p \implies \neg q\)
+
