@@ -1,0 +1,43 @@
+\section{Garbage Collection}\label{sec:garbage_collection}
+
+This is where the computer automatically checks for data that doesn't have any references to it any more, then deallocates it.
+Specifically, we have a separate thread whose job is specifically watching for and fixing memory leaks.
+
+There's a slowdown here.
+This new thread cannot work reliably if the memory it's looking at keeps changing, so there are lots of locks and stop-starting of the original programmer-created thread.
+
+This isn't really a problem in reality since garbage collectors are really good now, however, now we don't have to worry about memory management (which can --- read \emph{will} --- reduce bugs)
+
+\subsection{Concurrency}\label{sub:concurrency}
+
+There are many real world examples where this slow-down is a real problem.
+Python is famous for being ``effectively single-threaded'', even with multiple threads (why?).
+
+This is because references to objects are counted by the interpreter for garbage collection, then in two threads we decrement that counter by one at the same time, then the counter may have only decreased by one.
+That memory can no longer be reclaimed since there will always be \(1\) on the counter still, we have a memory leak.
+
+Python has a mutex named the \emph{global interpreter lock} that stops operations on the interpreter itself.
+If we are bound by IO, this is great since we would otherwise just be waiting around for data, if we are processor bound, then lots of threads will all be fighting for time on the interpreter.
+
+\section{Amdahl's Law}\label{sec:amdahl_s_law}
+
+There are other reasons why concurrency doesn't give us the speed-up we want.
+\begin{itemize}
+    \item It takes time to create and kill threads
+    \item Not all code can be parallelised (only hard processing can be parallelised well, setup code cannot)
+\end{itemize}
+If we're parallelising \(n+p\) seconds of work, where \(n\) can't be parallelised, but \(p\) can, by using \(s\) threads, how long does the parallelised version take?
+It is
+\[
+    n + \frac{p}{s}
+\]
+because we can split \(p\) into \(s\) sections.
+The percentage speed-up can be written as:
+\[
+    S_{\text{latency}}(s) = \frac{1}{\left( 1-p \right) + \frac{p}{s}}
+\]
+\begin{note}
+    We're talking about percentages here so \(\left( 1-p) \right) + \frac{p}{s} = n + \frac{p}{s}\).
+    Also note that, \(1\) is the old time, or \(100\%\).
+\end{note}
+This is the absolute fastest that your code can run, assuming there are no other slowdowns.
