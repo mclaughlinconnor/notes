@@ -1,0 +1,183 @@
+\section{Logical Equivalence}\label{sec:logical_equivelance}
+
+Two syntactically (textually) different compound propositions (formulae) may have the same meaning (semantic meaning), they may be considered \emph{logically equivalent} if this is the case.
+To prove equivalence,  we need to show that for all possible combinations of inputs are equal (we can use a truth table, certain laws covered later, or some other type of reasoning).
+We use the syntax:
+\[
+    P \equiv Q
+\]
+We can also say that two formulae are not logically equivalent, to prove this, we only need to show in one case that the two formulae are not equal:
+\[
+    P \not\equiv Q
+\]
+
+\subsection{Logical Equivalence Laws}\label{sub:logical_equivalence_laws}
+
+Most basic laws can be carried forwards from mathematics (commutative, etc.), but we swap the equals symbol, \(=\), for the logical equivalence symbol, \(\equiv\).
+We treat the laws the same as in mathematics too, where we can replace something with its law.
+
+\subsubsection{Identity Law}\label{ssub:leequiv_identity}
+
+Anything ANDed with \mintinline{c}{true} is itself, and anything ORed with \mintinline{c}{false} is itself too:
+\[
+    P \land 1 \equiv P \qquad P \lor 0 \equiv P
+\]
+
+\subsubsection{Domination Law}\label{ssub:domination_lequiv}
+
+If you OR something with \mintinline{c}{true}, you get \mintinline{c}{true}, or if you AND something with \mintinline{c}{false}, you get \mintinline{c}{false}.
+\[
+    P \lor 1 \equiv 1 \qquad P \land 0 \equiv 0
+\]
+
+\subsubsection{Idempotent and Double Negation Laws}\label{ssub:idempotent_and_double_negation_laws}
+
+These laws are ones which have no effect on the input.
+\[
+    P \land P \equiv P \qquad P \lor P \equiv P \qquad \neg(\neg P) \equiv P
+\]
+
+\subsubsection{Commutative and Associative Laws}\label{ssub:commutative_and_associative_laws}
+
+These laws say that the order of operations don't matter.
+\[
+    P \land Q \equiv Q \land P \qquad P \lor Q \equiv Q \lor P \quad (P \land Q) \land R \equiv P \land (Q \land R)
+\]
+
+\subsubsection{Distributive Law}\label{ssub:distribuive_lequiv}
+
+This is similar to mathematics where \(3(x+2)=3\times x + 3\times 2\).
+\[
+    P \lor (Q \land R) \equiv (P \lor Q) \land (P \lor R)
+\]
+
+\subsubsection{De Morgan Laws}\label{ssub:de_morgan_laws_lequiv}
+
+This law is unique to logic, and doesn't have a mathematical equivalent.
+\[
+    \neg(P \land Q) \equiv \neg P \lor \neg Q \qquad \neg (P \lor Q) \equiv \neg P \land \neg Q
+\]
+
+\subsubsection{Contradiction, Implication and Tautology Laws}\label{ssub:contradiction_implication_and_tautology_laws}
+
+Contradiction laws can never be \mintinline{c}{true}.
+\[
+    P \land \neg P \equiv 0
+\]
+Tautology laws are always \mintinline{c}{true}.
+\[
+    P \lor \neg P \equiv 1
+\]
+Implication laws are covered in more detail in \cref{ssub:implications_connectives}, but can also be expressed as:
+\[
+    P \implies Q \equiv \neg P \lor Q
+\]
+
+\section{Predicates and Quantifiers}\label{sec:predicates_and_quantifiers}
+
+Propositional logic has its limits, since we cannot set limits on the inputs, or make values \mintinline{c}{true} or \mintinline{c}{false} based on the value of variables.
+For example we cannot say:
+\begin{quote}
+    ``\(X\) must study Practical Algorithms'' is a \mintinline{c}{true} proposition only for certain values of \(X\).
+\end{quote}
+
+In mathematics, we can say \(x>3\) or \(x=y+3\), none of these statements can be called either \mintinline{c}{true} or \mintinline{c}{false}.
+Predicates allow us to construct propositions which include these statements.
+For the predicate \(x<3\):
+\begin{itemize}
+    \item We say that \(x\) is larger than \(3\)
+    \item \(x\) is the subject of the statements
+    \item \(x>3\) refers to a property that the subject can have.
+    \item This can be expressed by \(P(x)\) where \(P\) is the predicate ``greater than \(3\)''
+\end{itemize}
+
+\subsection{Predicates}\label{sub:predicates_pandq}
+
+A predicate is a propositional (or boolean) function, or a mapping from one domain (or universe) to truth values (\mintinline{c}{true} or \mintinline{c}{false}).
+They are written as:
+\[
+    P : U \implies {\mintinline{c}{true}, \mintinline{c}{false}}
+\]
+meaning that for any element \(x\) of \(U\), we have \(P(x)\) being either \mintinline{c}{true} or \mintinline{c}{false}.
+
+\subsection{Free and Bound Variables}\label{sub:free_and_bound_variables}
+
+Variables are assigned values, or they are bound with value from its universe domain through quantifiers, here's an example of this:
+\begin{itemize}
+    \item \(U\) is the universe of all students at Glasgow University
+    \item \(x\) belongs to the set of graduate apprentices
+    \item The predicate \(P(x)\) (student \(x\) must study practical algorithms) becomes a true proposition.
+\end{itemize}
+If not assigned or bound in some way, then, in the predicate \(P(y)\), the variable \(y\) is free or unbounded (the value of \(y\) is not yet specified, so \(P(y)\) can be either \mintinline{c}{true}, or \mintinline{c}{false}).
+
+
+\subsection{Quantifiers}\label{sub:quantifiers}
+
+\subsubsection{Motivation for Quantifiers}\label{ssub:motivation_for_quantifiers}
+
+We want to bind free variables to a certain set of values from the universe (all values, all from a subset, at least one value, at least one value from a subset).
+A variable \(x\) is bound to quantifier \(\forall x\) or \(\exists x\) if it appears free within the scope of the quantifier.
+If we say:
+\[
+    \forall x . \left( P(y) \land Q(x) \right)
+\]
+then we can also say that \(x\) is bound to \(\forall x\).
+\begin{note}
+    If there's a quantifier for a variable that doesn't exist, we say that it's an unbound variable.
+\end{note}
+If we have:
+\[
+    \forall x . \exists x . P(x)
+\]
+then, because the \(x\) in the \(\exists\) quantifier is not free, we can just ignore the \(\forall\) quantifier that made it non-free before.
+\begin{note}
+    We can use brackets to establish the scope of a quantifier to say:
+    \[
+        \left( \forall x . P(x) \right) \land Q(x)
+    \]
+    to set a quantifier only for \(P(x)\).
+\end{note}
+
+\subsubsection{Universal Quantifier}\label{ssub:universal_quantifier}
+
+The universal quantifier asserts that a property holds for all values in a given ``domain of discourse''.
+In order to say that \(x\) is \mintinline{c}{true} for a predicate, we can say:
+\[
+    \forall x . P(x)
+\]
+If we want to say that \(x\) is also part of a specific set, we can say:
+\[
+    \forall x \in \{1, 2, 3\} . P(x)
+\]
+
+\subsubsection{Existential Quantifier}\label{ssub:existential_quantifier}
+
+The existential quantifier asserts that a property hold for some values in a domain, or that there is at least one value for which a property holds.
+\[
+    \exists x . P(x) \equiv \exists x \in U . P(x)
+\]
+
+\subsection{Logical Equivalences}\label{sub:logical_equivalences}
+
+We cannot swap the order of quantifiers (\(\forall x . \exists y \not\equiv \exists x . \forall y\)), however, we can swap the order when they are of the same form.
+\[
+    \forall x . \forall y . Q(x, y) \equiv \forall y . \forall x . Q(x, y) \qquad \exists x . \exists y . Q(x, y) \equiv \exists y . \exists x . Q(x, y)
+\]
+
+\subsubsection{Quantifier Negation Laws}\label{ssub:quantifier_negation_laws}
+
+\[
+    \neg \left( \exists x . \neg P(x) \right) \equiv \forall x . P(x)
+\]
+means that there does not exist an \(x\) such that \(P(x)\) does not hold, therefore, \(P(x)\) holds for all.
+\begin{note}
+    This can go the other way too.
+\end{note}
+
+\subsubsection{Conjunction and Disjunction}\label{ssub:conjunction_and_disjunction}
+
+This is basically just breaking brackets:
+\[
+    \forall x . \left( P(x) \land Q(x) \right) \equiv (\forall x . P(x)) \land (\forall x . Q(x))
+\]
+which means that for all \(x\) we have both \(P(x)\) and \(Q(x)\), and becomes that for all \(x\) we have \(P(x)\) and also for all \(x\) we have \(Q(x)\).
