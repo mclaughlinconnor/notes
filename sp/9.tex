@@ -1,0 +1,64 @@
+\section{Concurrency In Golang}\label{sec:concurrency_in_golang}
+
+Golang lets you create several threads (named Go Routines) with an input and an output ``channel'' (\mintinline{go}{chan}s) like:
+\begin{code}{go}
+    func worker(input chan string, output chan bool) {
+        // The infinite loop here means that each worker can do several
+        // things one after the other
+        for true {
+            var data string
+
+            data <- input // Wait until we get new data
+
+            // We need to "return" something so that the main thread
+            // Properly waits on this thread
+            output <- true
+        }
+    }
+
+    func main() {
+        input := make(chan string)
+        output := make(chan bool)
+
+        // Create 6 threads
+        // If we were to create only 2 threads, we would get hung up
+        // trying to add "of" to the input channel. This is because
+        // Golang will only try to put data on a channel if there's
+        // something waiting to pick it up, there isn't (workers
+        // are trying to put data on the output channel which isn't
+        // being waited on. Golang will kill the program when it
+        // encounters a deadlock.
+        // This can cause something similar to a memory leak, but
+        // with threads instead.
+        for i = 0; i < 6; i++ {
+            // Creates go routines, these are not threads. Creating
+            // operating system threads is slow and expensive and
+            // takes the control away from us. Golang asks the
+            // OS for many, many threads, then handles concurrency
+            // in its own runtime using the threads it got from
+            // the operating system.
+            go worker(input, output)
+        }
+
+        // Add a string to channel which gets given to each thread
+        input <- "The"
+        input <- "path"
+        input <- "of"
+        input <- "the"
+        input <- "righteous"
+        input <- "man"
+
+        // Get data back out, but do nothing with it
+        // If we do not do this, the main thread will end before
+        // the workers do
+        for i = 0; i < 6; i++ {
+            <- signal
+        }
+
+        other_function(data);
+
+        // Original worker threads are still running, we have
+        // a ``thread leak''.
+    }
+\end{code}
+This process of handling threads in a program runtime, is called Green Threading.
