@@ -1,0 +1,97 @@
+\section{Threading}\label{sec:threading}
+
+\begin{code}{c}
+#include <stdlib.h>
+#include <stdio.h>
+#include <pthread.h>
+#include <unistd.h>
+
+typedef struct account {
+    int amount;
+    pthread_mutex_t mut;
+} acc_t;
+
+typedef struct instruction {
+    acc_t * source;
+    acc_t * destination;
+    int toTransfer;
+} ins_t;
+ 
+void * transfer(void * args) {
+    ins_t * t = (ins_t *)arg;
+
+    // Start a lock on the resources
+    // This will make other threads wait until it is unlocked again.
+    // This can cause a deadlock if the source is reserved as a destination
+    // on another thread, because now source has been reserved on this
+    // thread, so the other thread cannot continue.
+
+    // Note it is still possible to update t->source, you just can't
+    // lock the mutex again.
+
+    // Note it is also possible to just unlock here instead of on
+    // another thread.
+    // pthread_mutex_lock(t->source->mut);
+    // pthread_mutex_lock(t->destination->mut);
+
+    int waittime = 1;
+
+    pthread_mutex_lock(t->source->mut);
+    // Returns non-zero if we can't lock
+    while (pthread_mutex_trylock(t->destination->mut) != 0) {
+        pthread_mutex_unlock(&t->source->mut);
+
+        // We can just use 1 since there is already some randomness
+        // from the operating system's scheduler, but we can do this
+        // if we really care...
+        sleep(waittime); // From unistd.h, or windows.h
+
+        waittime = waittime * 2
+
+        pthread_mutex_lock(&t->source->mutex);
+    }
+
+    int src_amt = t->source->amount;
+    int dest_amt = t->destination->amount;
+
+    printf(
+        "Transferring %d from source (%d) to destination (%d).\n",
+        t->toTransfer,
+        src_amt,
+        dest_amt
+    );
+
+    t->source->amount = src_amt - t->toTransfer;
+    t->destination->amount = dest_amt + t->toTransfer;
+
+    // Release the lock again
+    pthread_mutex_unlock(&t->source->mut);
+    pthread_mutex_unlock(&t->destination->mut);
+
+    pthread_exit(NULL);
+}
+
+int main() {
+    acc_t connor = {50};
+    acc_t tom = {200};
+
+    pthread_mutex_init(&connor.mut, NULL);
+    pthread_mutex_init(&tom.mut, NULL);
+
+    ins_t firstTransfer = {&connor, &tom, 20};
+    ins_t secondTransfer = {&connor, &tom, 15};
+    ins_t thirdTransfer = {&connor, &tom, 25};
+    ins_t fourthTransfer = {&tom, &connor, 80};
+    ins_t fifthTransfer = {&tom, &connor, 10};
+
+    pthread_t transfer1, transfer2, transfer3, transfer4, transfer5;
+
+    pthread_create(&transfer1, NULL, transfer, &firstTransfer);
+    pthread_create(&transfer2, NULL, transfer, &secondTransfer);
+    pthread_create(&transfer3, NULL, transfer, &thirdTransfer);
+    pthread_create(&transfer4, NULL, transfer, &fourthTransfer);
+    pthread_create(&transfer5, NULL, transfer, &fifthTransfer);
+}
+
+\end{code}
+
