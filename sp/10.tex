@@ -1,0 +1,37 @@
+\section{Resource Acquisition is Initialisation (RAII)}\label{sec:resource_acquisition_is_initialisation}
+
+This concept is basically that if you're going to take a resource, take them, but take them as the constructor for a class, but when we can get rid of the class, run a \emph{destructor} to release any resources (the destructor gets run when there are no references to the new object any more).
+
+This is nice because we've worked with heap memory, but we haven't had to do any manual memory management (outside of the class), and we have separated our concerns into data management (class) and data operations (outside of stack).
+\begin{note}
+    In C++, we have smart pointers which allow for pointers having owners, and so these pointers only get destructed when that function ends.
+\end{note}
+
+\section{Virtual Memory}\label{sec:virtual_memory}
+
+\emph{Virtual Memory} is an operating system method for managing memory, it is good because there can be seemingly infinite amounts of RAM, but that can also cause seemingly infinite slow downs.
+
+If we want to allocate \(\SI{4}{\giga\byte}\), but we only have two banks of \(\SI{2}{\giga\byte}\), so we have enough space, just not together.
+What we do is convert between the program's memory space (\(\SI{4}{\giga\byte}\) solid) and the physical memory space \(2 \times \SI{2}{\giga\byte}\).
+
+\subsection{Paging}\label{sub:virtual_memory_paging}
+
+Since we're not having a contiguous space of memory for the program, how does the operating system handle that?
+We can't allocate on a gigabyte by gigabyte basis, and we can't allocate on a byte by byte basis, so we go somewhere between.
+
+This size of these chunks that the operating system allocates depends on the operating system (generally about \(\SI{4}{\kilo\byte}\)), these chunks are called \emph{pages}.
+These pages do not need to be allocated all together.
+
+In a memory address like \(0x54A2\), the first \(54\) will point to the page, then \(A2\) will be the offset to the actual byte.
+The \emph{logical address} describes how to get to the physical address.
+
+\subsection{Benefits of Virtual Memory}\label{sub:benefits_of_virtual_memory}
+
+Paging has the benefit of allowing us to fill up all of our system memory in smaller chunks than the entire programs required sizes.
+
+Because we associate a specific page with a specific program, the operating system can check if the program accessing a page is the same process that owns that page.
+
+Because the operating system is mapping between logical and physical addresses, the physical address can be located on a hard drive, in RAM, or some other cache, which lets us use much more memory than we actually have in RAM.
+The operating system usually places a hierarchy on different storage mediums, and should usually find memory that it needs in RAM, but can end up on the slow hard drive instead.
+The process of swapping pages to and from system memory is called \emph{swapping}.
+
