@@ -1,0 +1,190 @@
+\section{Overview}\label{sec:a_overview}
+
+Overall the course will have:
+
+\begin{description}
+    \item[\(5\%\)] in class quizzes at the end of each week
+    \item[\(15\%\)] for a class test on string and test algorithms
+    \item[\(20\%\)] for an assessed exercise
+    \item[\(60\%\)] for an exam
+\end{description}
+
+Throughout the course we will mostly be using Java, and we will need these things from Practical Algorithms last semester:
+\begin{itemize}
+    \item Graphs
+    \item Sets
+    \item Proofs
+    \item Abstract data types
+    \item Data structures
+    \item Big \(O\) notation
+    \item Searching
+    \item Sorting
+\end{itemize}
+
+\section{Big O notation recap}\label{sec:big_o_recap}
+
+The time complexity of a function is a function of the input size, where to worst case is called ``big \(O\)'' and lets us easily determine an algorithm's performance.
+We only really care about asymptotic behaviour (increasing to infinity, like an asymptote).
+
+Occasionally, we care about space efficiency too.
+
+\subsection{Big O}\label{sub:big_o}
+
+\(f(n)\) is \(O(g(n))\), where \(f\) is of order \(g\).
+Informally, \(f\) grows no faster than \(g\), but formally we can say that:
+\[
+    | f(n) | \leq | \text{real constant} \times g(n) | \text{for all \(n \geq \text{integer constant}\)}
+\]
+usually, \(f\) is a complex function which is not known precisely, but \(g\) is is known to be \(O(n)\), \(O(n^2)\) or similar.
+
+We will always use the ``tightest'' \(g\) that we can, eg., for a selection sort, we will use \(O(n^2)\) and not \(O(n)\) (that's too small) or \(O(n^{3})\) (that's too big).
+
+\section{Logs Recap}\label{sec:logs_recap}
+
+The three most important log roles are:
+\begin{align*}
+    \log n \times m  & = \log m + \log n \\
+    \log \frac{n}{m} & = \log m - \log n \\
+    \log n^{m}       & =m \log n
+\end{align*}
+\begin{note}
+    Another thing to note is that, since a log of a constant evaluates to a constant, we can consider them constants.
+\end{note}
+
+\section{Sorting Recap}\label{sec:sorting_recap}
+
+\begin{itemize}
+    \item Selection sort, insertion sort, and bubble sort are naive and slow, with time complexity \(O(n^2)\).
+    \item Merge and heap sorts are slightly better with a worst/average case of \(O(n\log n)\).
+    \item Quick sort is the fastest with \(O(n \log n)\) on average, but no better than \(O(n^2)\) in the worst case.
+\end{itemize}
+
+No pair-wise comparison algorithm can be better than \(O(n \log n)\) because we effectively make a decision tree out of the array, meaning there are \(h\) operations in the worst case, which is less than or equal to \(2^{h+1}-1\), we can combine these to get:
+\[
+    n! \leq 2^{n+1}-1 \leq 2^{n+1}
+\]
+When we take the log of both sides of \(2^{h+1} \geq n!\), we get:
+\begin{align*}
+    h+1 & \geq \log_2(n!)                             \\
+    h+1 & > \log_2 (\frac{n}{2})^{\frac{n}{2}}        \\
+    h+1 & = \frac{n}{2}\log_2(\frac{n}{2})            \\
+    h+1 & = \frac{n}{2}\log_2 n - \frac{n}{2}\log_2 2 \\
+    h+1 & = \frac{n}{2}\log_2 n - \frac{n}{2}
+\end{align*}
+So the time complexity is at least \(O (n log n)\).
+
+\section{Sorting}\label{sec:sorting_a}
+
+To be fast, we can't use pair-wise comparisons, Radix sort uses the binary structure to be \(O(n)\).
+We have to assume that the items can be bit strings of length \(m\).
+We will let \(b\) be a chosen factor of \(m\) so that \(b\) and \(m\) are constant.
+\begin{itemize}
+    \item \(b=1\) leads to \(m\) iterations and \(2\) buckets
+    \item \(b=m\) leads to \(1\) iteration and \(2^{m}\) buckets.
+\end{itemize}
+
+We will label each bit position in a binary number from \(0\) to \(m-1\) starting from the least significant digit (on the right).
+We will label our buckets from \(0\) to \(2^{b-1}\).
+
+Using a \(b=4\) and a current iteration (i=2), we will use bits \((b \times i)-1...b \times (i-1)\), so \(7, 6, 5, 4\).
+We evaluate the number we get  \(0101 = 5\), so we put the whole value in bucket \(5\).
+
+At the end of each iteration, we concatenate the buckets, then repeat from the start.
+
+\subsection{Correctness}\label{sub:correctness}
+
+For \(x\) and \(y\) where \(x<y\), the relevant bits of \(x\) will be smaller than those in \(y\) and \(x\) will go into an earlier bucket than \(y\).
+In all later iterations the order of \(x\) and \(y\) is preserved, so they will be sorted.
+
+\subsection{Complexity}\label{sub:complexity}
+
+The number of iterations is \(\frac{m}{b}\)and the number of buckets is \(2^{b}\).
+\begin{itemize}
+    \item Allocating each bucket takes \(O(n)\)
+    \item Concatenating takes \(O(2^{b})\)
+    \item Complexity is \(O(\frac{m}{b} \times (n + 2^{b}))\) or \(O(n)\).
+\end{itemize}
+
+\begin{note}
+    The larger \(b\) is , the smaller \(\frac{m}{b}\) is making the sort faster, however an internal array of size \(2^{b}\) is needed.
+\end{note}
+
+\section{Tries}\label{sec:tries}
+
+A binary search tree is comparison based, a trie uses a similar system to how radix sort works.
+
+Each items is a sequence of bits and each node in the tree has a multi-way branch where each branch has a symbol and no \(2\) siblings have the same symbol.
+The branch taken at a level \(i\) is the \(i^{\text{th}}\) bit of the original value.
+Tracing a path to a node spells out the value.
+
+We can implement a trie as a linked list or an array:
+\begin{description}
+    \item[array] The array is full of pointers to the node's children.
+    \item[list] The linked list is basically the same as how a tree is represented with a linked list.
+\end{description}
+
+\section{String Compression}\label{sec:string_compression}
+
+We are trying to make string smaller.
+Text compression is a special case of data compression, where we must ensure lossless encoding (a pixel can change, but a letter cannot).
+
+There are two approaches: statistical and dictionary.
+
+\subsection{Definitions}\label{sub:definitions}
+
+The compression ratio is \(\frac{\text{compressed size}}{\text{original size}}\), the percentage saved is \(1-\text{compression ratio} \times 100\%\).
+The usual savings for a compressions are \(40\%\) to \(60\%\).
+
+\subsection{Huffman Encoding}\label{sub:huffman_encoding}
+
+Huffman encoding is generally less effective than modern dictionary compression (this is a statistical approach).
+In Huffman, a fixed ASCII code is replaced by a variable length code for each character, where each code is not a prefix of any other to give us unambiguous decompression.
+
+Huffman encoding is represented on a tree where each leaf node is a character, and the route to that character is the code.
+The unique prefixes rule follows from this.
+
+The most common letters have the shortest codes because they are placed at the top of the tree.
+
+\begin{note}
+    At each tree fork, going left gives \(0\), going right gives \(1\).
+\end{note}
+
+\subsubsection{Optimality}\label{ssub:optimality}
+
+The weighted path length (WPL) of a tree, \(T\), is:
+\[
+    \Sigma (\text{weight}) \times (\text{distance from root})
+\]
+A Huffman tree always has the minimum WPL of any binary tree given the same leaf weights.
+It should be noted, though, that Huffman trees are not unique, but that Huffman trees minimise the WPL (the number of bits in the compressed file), so a Huffman tree is optimal.
+
+\subsubsection{Complexity}\label{ssub:complexity_ht}
+
+If \(m\) is the number of distinct characters, and \(n\) is the length of the text, then
+\begin{itemize}
+    \item The complexity to calculate the frequencies is \(O(n)\).
+    \item To build the tree, we have to:
+          \begin{itemize}
+              \item Create nodes \(O(n)\).
+              \item Insert a node \(O(\log m)\)
+              \item \(m-1\) total iterations to insert all
+          \end{itemize}
+\end{itemize}
+So the complexity is \(O(n \times \log m)\), but since \(m\) is constant, we say \(O(n)\).
+
+\subsubsection{Compression}\label{ssub:compression}
+
+Compression uses a table of codes indexed by character, so we need \(O(m \log m)\) to build the table as there are \(m\) characters, so \(m\) paths of length \(\leq \log m\).
+Then we need \(O(n)\) to actually compress, for \(O(n \log m) + O(n)\) overall.
+
+\subsubsection{Decompression}\label{ssub:decompression}
+
+We are basically just tracing paths in the tree, so the complexity is \(O(n \log m)\) since there are \(n\) characters, so \(n\) paths of length \(\leq \log m\).
+
+\subsubsection{Algorithmic Requirements}\label{ssub:algorithmic_requirements}
+
+We must store some representation of the tree in the compressed file so that we can decompress later.
+
+Alternatively, we can use the same set of frequencies, but this would reduce the efficacy of the algorithm.
+
+Alternatively alternatively, we could build the same tree, but adapt it in the compressor and the decompresser as characters are encoded or decoded, but this will slow down the algorithm.
