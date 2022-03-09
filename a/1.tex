@@ -188,3 +188,23 @@ We must store some representation of the tree in the compressed file so that we 
 Alternatively, we can use the same set of frequencies, but this would reduce the efficacy of the algorithm.
 
 Alternatively alternatively, we could build the same tree, but adapt it in the compressor and the decompresser as characters are encoded or decoded, but this will slow down the algorithm.
+
+\subsection{LZW Compression}\label{sub:lzw_compression}
+
+LZW is dictionary based, where the dictionary stores a collection of strings.
+
+Each dictionary value has a fixed length (or a length that increases as the algorithm continues depending on the algorithm) codeword which is a bit pattern that can be interpreted as a number if needed.
+The bit pattern is written to file.
+
+The dictionary is built up as the algorithm progresses, all that is known at the start is the codewords to represent every single character (both the compressor and decompresser have the same starting dictionary).
+Throughout the execution, the dictionary is ``closed under prefixes'' meaning that, if we have a string \(s\), we will have every prefix of \(s\).
+
+A trie is an ideal representation where each node is a codeword the dictionary.
+
+\subsubsection{Variable Length Codewords}\label{ssub:variable_length_codewords}
+
+At any time during compression and decompression, there is a current codeword length, \(k\).
+There are \(2^{k}\) codewords possible with a length of \(k\).
+
+In order to have more than \(2^{k}\) codewords, we can increase \(k\) to double the total number.
+The initial value for \(k\) should be large enough to capture all single character strings.
